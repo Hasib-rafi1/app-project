@@ -1,5 +1,10 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import model.Map;
+
 import views.MapView;
 
 /**
@@ -15,7 +20,7 @@ public class GameController {
 	public static void generateMap() {		
 		MapView showMapView = new MapView();   // calling the view
 		showMapView.createJFrame();
-		
+	
 	}
 
 
