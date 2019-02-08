@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import controller.GameController;
 import helper.Colors;
+import model.Map;
 
 /**
  * This is a main class to run the game
@@ -17,10 +18,15 @@ public class Main {
 	 * @param 
 	 */
 
-	public static void main(String[] args) {	
+	public static void main(String[] args) {
+		Map map = new Map();
+		map.readMapFile();
+
+
 		//Colors c1 = Colors.RED; 
 	   //  System.out.println(c1); 
 		GameController gameController = new GameController();
+		gameController.listofMapsinDirectory();
 		int selectOption = 0;
 		do {
 			selectOption = displayMainMenu();
