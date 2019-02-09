@@ -7,6 +7,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+/**
+ * @author Zakiya Jafrin
+ * @version 1.0.0
+ * This class is for all map related works i.e. reading, editing, creating
+ */
 public class Map {
 
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
@@ -23,8 +28,6 @@ public class Map {
 	}
 
 	/**
-	 * @author Zakiya Jafrin
-	 * @version 1.0.0
 	 * This method reads the existing map file from the directory or the user created map file
 	 * The extension of the file is .map
 	 */
