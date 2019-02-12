@@ -13,8 +13,6 @@ public class MapModel {
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
 	
-	private String mapName;
-	private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
 
 	/**
 	 * This method reads the existing map file from the directory 
@@ -37,26 +35,26 @@ public class MapModel {
 
 
 		// TODO Auto-generated method stub
-		
-			MapModel map = null;
-			ArrayList<String> mapFileText = new ArrayList<String>();
 
-
-			// read file
-			try {
-				BufferedReader reader = new BufferedReader(new FileReader(mapPath));
-				String readLine = "";
-				while ((readLine = reader.readLine()) != null) {
-					mapFileText.add(readLine);
-				}
-				reader.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			ArrayList<String> contentOfMapFile = mapFileText; // put text in an arraylist
-
-			return;
+//			MapModel map = null;
+//			ArrayList<String> mapFileText = new ArrayList<String>();
+//
+//
+//			// read file
+//			try {
+//				BufferedReader reader = new BufferedReader(new FileReader(mapPath));
+//				String readLine = "";
+//				while ((readLine = reader.readLine()) != null) {
+//					mapFileText.add(readLine);
+//				}
+//				reader.close();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//
+//			ArrayList<String> contentOfMapFile = mapFileText; // put text in an arraylist
+//
+//			return;
 		}
 	
 

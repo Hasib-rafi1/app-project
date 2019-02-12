@@ -18,6 +18,7 @@ public class MapController {
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
 	MapModel mapModel = new MapModel();
+
 	
 	/**
 	 *  @author Gargi Sharma
@@ -37,10 +38,11 @@ public class MapController {
 			case 1: 
 				listofMapsinDirectory();
 				print.consoleOut("\n Enter map name you want to import?  ");
-				//TODO
-				String mapPath = print.userStrInput();
-				print.consoleOut(mapPath);
-				mapModel.importMapFile(mapPath);
+				Scanner scanner = new Scanner(System.in);
+				String mapName = scanner.nextLine().trim();
+				String mapPath = mapName+".map";
+//
+				mapModel.importMapFile(print.getMapDir() + mapPath);
 				
 				break;
 			
@@ -69,7 +71,7 @@ public class MapController {
 	 */
 	public ArrayList<String> listofMapsinDirectory(){
 		ArrayList<String> mapFileList = new ArrayList<String>();
-		File folder = new File("SOEN_6441_RiskGame/src/mapFiles/");
+		File folder = new File(print.getMapDir());
 		File[] listOfFiles = folder.listFiles();
 		int i = 0, j = 1;
 		for(File file : listOfFiles){		    

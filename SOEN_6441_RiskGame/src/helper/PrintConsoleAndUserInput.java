@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class PrintConsoleAndUserInput {
     static Scanner input = new Scanner(System.in);
+    private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
+
 
     public void consoleOut(String s){
         System.out.println(s);
@@ -18,4 +20,7 @@ public class PrintConsoleAndUserInput {
         return input.nextInt();
     }
 
+    public String getMapDir() {
+        return mapDir;
+    }
 }
