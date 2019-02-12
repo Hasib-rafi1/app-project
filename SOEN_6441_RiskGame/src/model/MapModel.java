@@ -9,55 +9,39 @@ import java.util.ArrayList;
 
 
 public class MapModel {
+
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
-	public MapView MapView;
+	MapView mapView = new MapView();
 	
-	public MapModel() {
-		this.MapView = new MapView();		
-	}
-	
-	
-	private String mapName = "World.map";
+	private String mapName;
 	private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
 
-
-
 	/**
-	 * @author Zakiya Jafrin
-	 * @version 1.0.0
-	 * This method reads the existing map file from the directory or the user created map file
-	 * The extension of the file is .map
-	 */
-	public void readMapFile(){
-		 		
-		try {
-			File file = new File(mapDir + mapName);
-			BufferedReader readFileFromDir = new BufferedReader(new FileReader(file));
-			String lineStream;
-
-			while((lineStream = readFileFromDir.readLine()) != null){
-				print.consoleOut(lineStream);
-			}
-			}
-		catch (Exception e){
-			System.out.print(e);
-		}
-	}
-	
-	/**
-	 * @author Gargi Sharma
-	 * @version 1.0.0
 	 * This method reads the existing map file from the directory 
 	 *
 	 */
 
 	public void importMapFile(String mapPath) {
+		try {
+			File file = new File(mapPath);
+			BufferedReader readFileFromDir = new BufferedReader(new FileReader(mapPath));
+			String lineStream;
+
+			while((lineStream = readFileFromDir.readLine()) != null){
+				print.consoleOut(lineStream);
+			}
+		}
+		catch (Exception e){
+			System.out.print(e);
+		}
+
+
 		// TODO Auto-generated method stub
 		
 			MapModel map = null;
 			ArrayList<String> mapFileText = new ArrayList<String>();
 
-			
+
 			// read file
 			try {
 				BufferedReader reader = new BufferedReader(new FileReader(mapPath));
@@ -69,9 +53,9 @@ public class MapModel {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			ArrayList<String> contentOfMapFile = mapFileText; // put text in an arraylist		
-		
+
+			ArrayList<String> contentOfMapFile = mapFileText; // put text in an arraylist
+
 			return;
 		}
 	

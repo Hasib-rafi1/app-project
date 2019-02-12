@@ -15,18 +15,9 @@ import views.MapView;
  */
 public class MapController {
 	
-	
-	public MapView MapView;
-	public MapModel MapModel;
-	
-	
-	public MapController() {
-		this.MapView = new MapView();
-		this.MapModel = new MapModel();
-		
-	}
-	
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	MapView mapView = new MapView();
+	MapModel mapModel = new MapModel();
 	
 	/**
 	 *  @author Gargi Sharma
@@ -39,18 +30,17 @@ public class MapController {
 		MapModel map = null;
 		
 		while (selectMapMenuOption != 3){		
-			selectMapMenuOption = this.MapView.displayMapMenu();			
+			selectMapMenuOption = mapView.displayMapMenu();
 			switch (selectMapMenuOption) {	
 			
 			// import map with the user input map name
 			case 1: 
 				listofMapsinDirectory();
-				System.out.println("\n Enter map name you want to import?  ");
-				Scanner scanner = new Scanner(System.in);
-				String mapName = scanner.nextLine().trim();				
-				String mapPath = ".\\src\\mapFiles\\"+mapName+".map";
-				
-				MapModel.importMapFile(mapPath);
+				print.consoleOut("\n Enter map name you want to import?  ");
+				//TODO
+				String mapPath = print.userStrInput();
+				print.consoleOut(mapPath);
+				mapModel.importMapFile(mapPath);
 				
 				break;
 			
@@ -70,8 +60,6 @@ public class MapController {
 		return false; 
 		
 	}
-	
-	
 
 	/**
 	 *  @author Zakiya Jafrin
@@ -79,9 +67,9 @@ public class MapController {
 	 * This method is used to list the .map files from the directory as an Arraylist
 	 *
 	 */
-	public ArrayList<String> listofMapsinDirectory(){	
+	public ArrayList<String> listofMapsinDirectory(){
 		ArrayList<String> mapFileList = new ArrayList<String>();
-		File folder = new File(".\\src\\mapFiles\\");	
+		File folder = new File("SOEN_6441_RiskGame/src/mapFiles/");
 		File[] listOfFiles = folder.listFiles();
 		int i = 0, j = 1;
 		for(File file : listOfFiles){		    
@@ -100,13 +88,5 @@ public class MapController {
 		}
 		return mapFileList;
 
-
-//		for (int i = 0; i < listOfFiles.length; i++) {
-//			if (listOfFiles[i].isFile()) {
-//				if (listOfFiles[i].getName().toLowerCase().contains(".map"))
-//					mapFileList.add(listOfFiles[i].getName());
-//			}
-//		}
-// 		print.consoleOut(Arrays.toString(mapFileList.toArray()));
 }
 }

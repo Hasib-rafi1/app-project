@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.Scanner;
-import controller.GameController;
 import controller.MainMenu;
 import controller.MapController;
 import helper.Colors;
@@ -20,14 +19,7 @@ public class Main {
 	 * @param 
 	 */
 	
-	public static void main(String[] args) {		
-		// zakiya code starts here
-		/*Map map = new Map();
-		map.readMapFile();		
-		GameController gameController = new GameController();
-		gameController.listofMapsinDirectory();*/
-		// zakiya code ends here
-	
+	public static void main(String[] args) {
 		
 		MainMenu mainMenu = new MainMenu();  		
 		MapController mapController = new MapController(); // map controller(will include map functionality)
@@ -40,21 +32,22 @@ public class Main {
 			switch (selectMainMenuOption) {	
 			case 1:			
 				mapController.startMap();
-				
 				break;
-			case 2:
-				GameController.editMap();
-				break;
-			case 3:
-				GameController.startGame();
 
-				break;
-			case 4:
-				GameController.loadGame();
 
-				break;
-			case 5:
-				System.exit(0);
+//			case 2:
+//				GameController.editMap();
+//				break;
+//			case 3:
+//				GameController.startGame();
+//
+//				break;
+//			case 4:
+//				GameController.loadGame();
+//
+//				break;
+//			case 5:
+//				System.exit(0);
 			default :
 				System.err.println("\n\t Error! Please select valid option from the above Options(1 to 5):");				
 				break;

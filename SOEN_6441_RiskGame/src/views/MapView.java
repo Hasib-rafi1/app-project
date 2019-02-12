@@ -1,5 +1,7 @@
 package views;
 
+import helper.PrintConsoleAndUserInput;
+
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,7 +16,7 @@ import javax.swing.*;
 
 public class MapView {
 	
-	Scanner scanner;
+	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 
 	/**
 	 * Create JFrame
@@ -37,22 +39,21 @@ public class MapView {
 	 * @param 
 	 */
 	public int displayMapMenu() {
-		scanner = new Scanner(System.in);
-		System.out.println("=================================");
-		System.out.println("\t Map Generator menu\t");
-	
-		System.out.println("\n 1. Import Map From File");
+		print.consoleOut("=================================");
+		print.consoleOut("\t Map Generator menu\t");
+		print.consoleOut("\n 1. Import Map From File");
+
 	/*	System.out.println("\n 2. Design a New Map");
 		System.out.println("\n 3. Edit The Map");
 		System.out.println("\n 4. Save The Map");
 		System.out.println("\n 5. Display The Map");
 		System.out.println("\n 6. Back to The Main Menu");
 		System.out.println("\n\n Please Enter Your Choice(1-6): ");*/
-		
-		
-		System.out.println("=================================");
+
+
+		print.consoleOut("=================================");
 	
-		return scanner.nextInt();
+		return print.userIntInput();
 	}
 
 	
