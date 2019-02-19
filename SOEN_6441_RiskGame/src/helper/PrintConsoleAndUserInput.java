@@ -5,8 +5,8 @@ public class PrintConsoleAndUserInput {
     static Scanner input = new Scanner(System.in);
     
     // Try with these directory path if code is not running
-    //private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
-    private String mapDir = ".\\src\\mapFiles\\";
+    private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
+//    private String mapDir = ".\\src\\mapFiles\\";
 
     /**
      *  This method is used to print in console.

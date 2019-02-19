@@ -13,7 +13,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-
+/**
+ * This Class is to read and Validate the created or existing Map file according to the requirement
+ * @author Zakiya Jafrn
+ * @version 1.0.0
+ */
 public class MapModel {
 
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
@@ -22,9 +26,9 @@ public class MapModel {
 	
 
 	/**
-	 * This method is used to import the existing file from the directory.
+	 * This method is used to import the existing file from the directory. It reads the map file and stores the
+	 * corresponding values for countries and continents.
 	 * @param mapPath
-	 * @return map
 	 */
 	public void importMapFile(String mapPath) {
 		try {
@@ -58,6 +62,12 @@ public class MapModel {
 					Continent continent = new Continent (continentID++, continentElements[0],
 							Integer.parseInt(continentElements[1]));
 					continentsList.add(continent);
+
+					//print the continent List to check if it is working
+					for (Continent nameOfContinent : getContinentsList()) {
+					print.consoleOut("Continent List ->" +
+							"" + nameOfContinent.getContinentName());
+					}
 				}
 
 				if (getTerritories){
@@ -78,43 +88,28 @@ public class MapModel {
 							break;
 						}
 					}
+
 				}
 
-
-
-
-				print.consoleOut(lineStream);
+				Country neighbours = null;
+				for (HashMap.Entry<Country, String[]> countryNeighbourPair : neighboursOfCountry.entrySet()) {
+					Country countryOfPair = countryNeighbourPair.getKey();
+					String[] neighbourOfPair = countryNeighbourPair.getValue();
+					for (int i = 0; i < neighbourOfPair.length; i++) {
+						neighbours = territoriesOfContinent.get(neighbourOfPair[i]);
+						countryOfPair.addNeighboursToTheCountries(neighbours);
+					}
+				}
 			}
+			readFileFromDir.close();
 		}
 		catch (Exception e){
-			System.out.print(e);
+			print.printException(e);
 		}
 
+	}
 
-		// TODO Auto-generated method stub
 
-//			MapModel map = null;
-//			ArrayList<String> mapFileText = new ArrayList<String>();
-//
-//
-//			// read file
-//			try {
-//				BufferedReader reader = new BufferedReader(new FileReader(mapPath));
-//				String readLine = "";
-//				while ((readLine = reader.readLine()) != null) {
-//					mapFileText.add(readLine);
-//				}
-//				reader.close();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//
-//			ArrayList<String> contentOfMapFile = mapFileText; // put text in an arraylist
-//
-//			return;
-		}
-	
-	
 	/**
 	 * 
 	 * @return
@@ -162,10 +157,12 @@ public class MapModel {
 			}
 		}	
 	}
-	
 
-	
-	
-	
-
+	/**
+	 * Gets The ContinentList form the map file
+	 * @return the list of all map file
+	 */
+	public ArrayList<Continent> getContinentsList() {
+		return continentsList;
+	}
 }
