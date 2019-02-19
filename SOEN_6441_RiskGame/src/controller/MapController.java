@@ -21,10 +21,7 @@ public class MapController {
 
 	
 	/**
-	 *  @author Gargi Sharma
-	 *  @version 1.0.0
 	 * This method is used to select the map options(like import, design a new map, save a map).
-	 *
 	 */
 	public boolean startMap() {
 		int selectMapMenuOption = 0;
