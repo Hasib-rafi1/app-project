@@ -3,8 +3,11 @@ import helper.PrintConsoleAndUserInput;
 import views.MapView;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,10 +22,10 @@ public class MapModel {
 	
 
 	/**
-	 * This method reads the existing map file from the directory 
-	 *
+	 * This method is used to import the existing file from the directory.
+	 * @param mapPath
+	 * @return map
 	 */
-
 	public void importMapFile(String mapPath) {
 		try {
 			boolean getContinents = false;
@@ -110,6 +113,55 @@ public class MapModel {
 //
 //			return;
 		}
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean checkMapIsValid()  {
+		return false;
+		// TODO Auto-generated method stub
+
+	}
+
+	
+	public boolean createAndValidateMap(StringBuffer mapContent, String mapName) {	
+		if (this.checkMapIsValid()) {				
+			this.saveUserMapIntoDirectory(mapContent, mapName);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+	public boolean saveUserMapIntoDirectory(StringBuffer mapContent, String mapName) {
+		BufferedWriter bw = null;
+		try {
+			
+			File filePath = new File(print.getMapDir() + mapName + ".map");
+			if (!filePath.exists()) {
+				filePath.createNewFile();
+			}
+			FileWriter fileWriter = new FileWriter(filePath);
+			bw = new BufferedWriter(fileWriter);
+			bw.write(System.getProperty( "line.separator" ));
+			bw.write(new String(mapContent));
+			return true;
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			return false;
+		}
+		finally{ 
+			try{
+				if(bw!=null)
+					bw.close();
+			}catch(Exception ex){
+				print.consoleErr("Error in closing the BufferedWriter"+ex);
+			}
+		}	
+	}
 	
 
 	
