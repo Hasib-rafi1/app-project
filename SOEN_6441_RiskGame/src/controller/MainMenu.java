@@ -21,7 +21,7 @@ public class MainMenu {
 	public int displaymainMenu() {
 		print.consoleOut("=================================");
 		print.consoleOut("\t Risk Game\t");
-		System.out.println("\n1.Map Generator");
+		System.out.println("1.Map Generator");
 		System.out.println("2.Start Game");
 		System.out.println("=================================");	
 		System.out.println(" Please Enter Your Choice: ");

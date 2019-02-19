@@ -3,6 +3,8 @@ package controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import helper.PrintConsoleAndUserInput;
 import model.MapModel;
@@ -14,7 +16,7 @@ import views.MapView;
  * @version 1.0.0
  */
 public class MapController {
-	
+	Scanner scanner = new Scanner(System.in);
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
 	MapModel mapModel = new MapModel();
@@ -34,19 +36,17 @@ public class MapController {
 			// import map with the user input map name
 			case 1: 
 				listofMapsinDirectory();
-				print.consoleOut("\n Enter map name you want to import?  ");
-				Scanner scanner = new Scanner(System.in);
-				String mapName = scanner.nextLine().trim();
-				String mapPath = mapName+".map";
+				print.consoleOut("Enter map name you want to import? ");				
+				String mapNameByUserInput = scanner.nextLine().trim();
+				String mapPath = mapNameByUserInput+".map";
+			
 //
 				mapModel.importMapFile(print.getMapDir() + mapPath);
 				
 				break;
 			
 			case 2:// Display map				
-				if (map != null) {							
-					MapView.createWindow();
-					}
+				createUserMap();
 				break;
 			case 3:
 				break;
@@ -58,6 +58,36 @@ public class MapController {
 		}
 		return false; 
 		
+	}
+	
+	private void createUserMap() {
+		// TODO Auto-generated method stub
+		mapView.createJframe();
+		mapView.saveButton.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub				
+				StringBuffer mapContent = new StringBuffer(mapView.returnMapContent());				
+				String mapName = mapView.returnMapName();	
+				boolean checkMapIsCreated;
+				checkMapIsCreated = mapModel.saveUserMapIntoDirectory(mapContent, mapName);
+				
+			/*	if(mapName != null && !mapName.isEmpty()) {
+					// write file into folder
+					
+				}else {
+					print.consoleErr("Map is not created successfully!.Please save the name with filename");
+				}*/
+
+
+				/*if (checkMapIsCreated) {
+					print.consoleOut("Map Created successfully!");
+				} else {
+					print.consoleErr("Map is not created successfully!");					
+				}*/
+				mapView.closeFrameWindow();
+			}
+		});
 	}
 
 	/**
