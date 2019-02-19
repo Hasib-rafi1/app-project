@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * This is a main class to read and store different elements of the continent
  * @author Zakiya Jafrin
@@ -10,6 +12,7 @@ public class Continent {
     private int continentID;
     private String continentName;
     private int controlValue;
+    private ArrayList<Country> countriesOfTheContinent= new ArrayList<>();
 
     Continent(int continentID, String continentName, int controlValue){
 
@@ -28,5 +31,9 @@ public class Continent {
 
     public int getControlValue() {
         return controlValue;
+    }
+
+    public void addCountriesToTheContinentList(Country country) {
+        this.countriesOfTheContinent.add(country);
     }
 }

@@ -14,6 +14,8 @@ public class Country {
     private int xCoordinate;
     private int yCoordinate;
 
+    private int continentID;
+
     Country (int countryId, String countryName, int xCoordinate, int yCoordinate)
     {
         this.countryId = countryId;
@@ -42,5 +44,11 @@ public class Country {
         return yCoordinate;
     }
 
+    public int getContinentID() {
+        return continentID;
+    }
 
+    public void setContinentID(int continentID) {
+        this.continentID = continentID;
+    }
 }

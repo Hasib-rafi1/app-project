@@ -15,6 +15,7 @@ public class MapModel {
 
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
+	private ArrayList<Continent> continentsList = new ArrayList<>();
 	
 
 	/**
@@ -53,6 +54,7 @@ public class MapModel {
 					String[] continentElements= lineStream.split("=");
 					Continent continent = new Continent (continentID++, continentElements[0],
 							Integer.parseInt(continentElements[1]));
+					continentsList.add(continent);
 				}
 
 				if (getTerritories){
@@ -66,7 +68,16 @@ public class MapModel {
 					String[] neighboursFromArray = Arrays.copyOfRange(territoryElements, 4, territoryElements.length);
 					neighboursOfCountry.put(country, neighboursFromArray);
 
+					for (int i = 0; i < continentsList.size(); i++) {
+						if (continentsList.get(i).getContinentName().equals(belongsToContinent)) {
+							continentsList.get(i).addCountriesToTheContinentList(country);
+							country.setContinentID(continentsList.get(i).getContinentID());
+							break;
+						}
+					}
 				}
+
+
 
 
 				print.consoleOut(lineStream);
