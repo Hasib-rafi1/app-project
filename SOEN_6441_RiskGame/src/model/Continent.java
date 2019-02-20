@@ -27,7 +27,7 @@ public class Continent {
     }
 
     /**
-     * Gets an integer value of the continent which is set as Continent ID
+     * This method is used to get an integer value of the continent which is set as Continent ID
      * @return
      */
     public int getContinentID() {
@@ -35,7 +35,7 @@ public class Continent {
     }
 
     /**
-     * Gets the name of the Continent as a String
+     * This method is used to get the name of the Continent as a String
      * @return name of the continent String
      */
     public String getContinentName() {
@@ -51,7 +51,7 @@ public class Continent {
     }
 
     /**
-     * Takes all the countries as a parameter and list them in an array list under the Continent Name
+     * This method is used to takes all the countries as a parameter and list them in an array list under the Continent Name
      * @param country
      */
     public void addCountriesToTheContinentList(Country country) {

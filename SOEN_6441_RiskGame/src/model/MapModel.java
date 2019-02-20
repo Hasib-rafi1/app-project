@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Scanner;
 
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
@@ -19,11 +20,11 @@ import java.util.Hashtable;
  * @version 1.0.0
  */
 public class MapModel {
-
+	Scanner scanner = new Scanner(System.in);
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
-	private ArrayList<Continent> continentsList = new ArrayList<>();
-	
+
+	ArrayList<Continent> continentsList = new ArrayList<>();
 
 	/**
 	 * This method is used to import the existing file from the directory. It reads the map file and stores the
@@ -110,6 +111,7 @@ public class MapModel {
 	}
 
 
+
 	/**
 	 * 
 	 * @return
@@ -120,7 +122,12 @@ public class MapModel {
 
 	}
 
-	
+	/**
+	 * @author Gargi sharma
+	 * @param mapContent
+	 * @param mapName
+	 * @return
+	 */
 	public boolean createAndValidateMap(StringBuffer mapContent, String mapName) {	
 		if (this.checkMapIsValid()) {				
 			this.saveUserMapIntoDirectory(mapContent, mapName);
@@ -130,7 +137,13 @@ public class MapModel {
 		}
 	}
 
-
+	/**
+	 *  @author Gargi sharma
+	 * This method is used to save the user map into mapFiles folder.
+	 * @param mapContent, content of the map file
+	 * @param mapName, name of the map
+	 * @return true if file is created 
+	 */
 	public boolean saveUserMapIntoDirectory(StringBuffer mapContent, String mapName) {
 		BufferedWriter bw = null;
 		try {
@@ -157,7 +170,26 @@ public class MapModel {
 			}
 		}	
 	}
-
+	/**
+	 * @author Gargi Sharma
+	 * This method is used to take the user input of map file
+	 * @return mapPath
+	 */
+	public String getMapNameWithPath() {
+		// TODO Auto-generated method stub						
+		String mapNameByUserInput = scanner.nextLine().trim();
+		String mapPath = mapNameByUserInput+".map";	
+		return mapPath;
+		
+	}
+	
+	public String getMapNameFromUser() {
+		// TODO Auto-generated method stub						
+			String mapNameByUserInput = scanner.nextLine().trim();
+		
+		return mapNameByUserInput;
+		
+	}
 	/**
 	 * Gets The ContinentList form the map file
 	 * @return the list of all map file

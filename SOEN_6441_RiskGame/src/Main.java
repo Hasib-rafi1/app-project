@@ -16,13 +16,12 @@ public class Main {
 	 * This function is used to enter the user input and call the functions to create or edit the map, start, load the game
 	 * and user can exit if he wants to exit the game.
 	 * This function also displays the error message to select valid user input.
-	 * @param
+	 * @param args, arguments passed in the main method of class
+	 *            
 	 */
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {		
 		MainMenu mainMenu = new MainMenu();  		
-		MapController mapController = new MapController(); // map controller(will include map functionality)
-		
+		MapController mapController = new MapController();	
 		
 		int selectMainMenuOption = 0;		
 		boolean checkMapStatus = false;
@@ -32,8 +31,6 @@ public class Main {
 			case 1:			
 				mapController.startMap();
 				break;
-
-
 //			case 2:
 //				GameController.editMap();
 //				break;
@@ -55,16 +52,4 @@ public class Main {
 		} while (selectMainMenuOption != 5);
 		System.exit(0);
 	}
-
-	
-	
-
-	
-
-
-
-
-
-
-
 }

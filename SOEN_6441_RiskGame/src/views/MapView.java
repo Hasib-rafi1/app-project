@@ -1,21 +1,18 @@
 package views;
-
-import helper.PrintConsoleAndUserInput;
-
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
-
 import javax.swing.*; 
+
+import helper.PrintConsoleAndUserInput;
 /**
  * This class is used to create a map. Also, this creates the window to show the map by using JFrame.
  * @author Gargi Sharma
  * @version 1.0.0
  */
-
 public class MapView {	
 	
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
@@ -24,14 +21,12 @@ public class MapView {
 	String textFieldName = "Enter file name you want to save?";
 	JTextField mapName = new JTextField(textFieldName);
 	public JButton saveButton = new JButton("SAVE MAP");
-	JTextArea textParameters = new JTextArea("[Map]\n\n\n[Continents]\n\n\n[Territories]");
-
-	
+	JTextArea textParameters = new JTextArea("[Map]\n\n\n[Continents]\n\n\n[Territories]");	
 	
 	/**
 	 * @author Gargi sharma
 	 * @version 1.0.0
-	 * This method displays menu for map generator
+	 * This method displays menu for map generator.
 	 * @param 
 	 */
 	public int displayMapMenu() {
@@ -39,7 +34,7 @@ public class MapView {
 		print.consoleOut("\t Map Generator menu\t");
 		print.consoleOut("1. Import Map From File");
 		print.consoleOut("2. Design a New Map");
-		print.consoleOut("3. Display The Map");
+		print.consoleOut("3. Edit The Map");
 	/*	System.out.println("\n 2. Design a New Map");
 		System.out.println("\n 3. Edit The Map");
 		System.out.println("\n 4. Save The Map");
@@ -87,8 +82,7 @@ public class MapView {
 		panelWindow.setBackground(Color.lightGray);
 		panelWindow.add(saveButton);
 		panelWindow.add(mapName);
-		panelWindow.add(Box.createHorizontalGlue());	
-			
+		panelWindow.add(Box.createHorizontalGlue());				
 		
 		// mapname text parameters
 		mapName.setPreferredSize(new Dimension(200, 30));
@@ -118,10 +112,4 @@ public class MapView {
 		frameWindow.setVisible(true);
 		frameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 	}
-
-	
-
-	
-	
-
 }

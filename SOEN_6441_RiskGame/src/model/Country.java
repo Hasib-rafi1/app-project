@@ -12,7 +12,6 @@ public class Country {
     private String countryName;
     private int xCoordinate;
     private int yCoordinate;
-
     private int continentID;
     private ArrayList<Country> neighboursOfCountry= new ArrayList<>();
 
