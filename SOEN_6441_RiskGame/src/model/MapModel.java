@@ -21,7 +21,7 @@ import java.util.Stack;
 
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
- * @author Zakiya Jafrn
+ *  @author Zakiya Jafrin
  * @version 1.0.0
  */
 public class MapModel {
@@ -33,7 +33,7 @@ public class MapModel {
 	/**
 	 * This method is used to import the existing file from the directory. It reads the map file and stores the
 	 * corresponding values for countries and continents.
-	 * @param mapPath
+	 * @param mapPath, map directory path
 	 */
 	public void importMapFile(String mapPath) {
 		try {
@@ -114,9 +114,9 @@ public class MapModel {
 
 	/**
 	 * @author Gargi sharma
-	 * @param mapContent
-	 * @param mapName
-	 * @return
+	 * @param mapContent, content of map file
+	 * @param mapName, map name
+	 * @return true if the map is valid and false if it is not valid
 	 */
 	public boolean createAndValidateMap(StringBuffer mapContent, String mapName) {	
 		checkMapIsValid();

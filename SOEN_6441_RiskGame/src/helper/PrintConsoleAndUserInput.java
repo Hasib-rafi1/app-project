@@ -3,7 +3,11 @@ import java.util.Scanner;
 
 
 
-
+/**
+ * This class is used to take the input from from the console.
+ * @author Zakiya Jafrin
+ * @version 1.0.0
+ */
 public class PrintConsoleAndUserInput {
 	
     static Scanner input = new Scanner(System.in);
@@ -14,7 +18,7 @@ public class PrintConsoleAndUserInput {
 
     /**
      *  This method is used to print in console.
-     * @param s
+     * @param s , to print in console
      */
     public void consoleOut(String s){
         System.out.println(s);
@@ -22,10 +26,10 @@ public class PrintConsoleAndUserInput {
     
     /**
      *  This method is used to show the error in console.
-     * @param s
+     * @param error, prints the error in console
      */
-    public void consoleErr(String s){
-        System.err.println(s);
+    public void consoleErr(String error){
+        System.err.println(error);
     }
 
     /**

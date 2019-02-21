@@ -30,7 +30,7 @@ public class Continent {
 
     /**
      * This method is used to get an integer value of the continent which is set as Continent ID
-     * @return
+     * @return ID of the continent
      */
     public int getContinentID() {
         return continentID;
@@ -54,7 +54,7 @@ public class Continent {
 
     /**
      * This method is used to takes all the countries as a parameter and list them in an array list under the Continent Name
-     * @param country
+     * @param country, countries of the Continent
      */
     public void addCountriesToTheContinentList(Country country) {
         this.countriesOfTheContinent.add(country);

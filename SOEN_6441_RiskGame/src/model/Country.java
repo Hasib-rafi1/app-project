@@ -77,9 +77,10 @@ public class Country {
 
     /**
      * Sets an integer value of the continent which is set as Country ID
+     * @param continentID, ID of the continent
      */
     public void setContinentID(int continentID) {
-        this.continentID = continentID;
+    	this.continentID = continentID;
     }
 
     /**
@@ -103,7 +104,7 @@ public class Country {
 
     /**
      * From the country-neighbour HashMap adds the neighbours to the country individually
-     * @param neighbour
+     * @param neighbour, add Neighbours to Countries
      */
     public void addNeighboursToTheCountries(Country neighbour){
         neighboursOfCountry.add(neighbour);

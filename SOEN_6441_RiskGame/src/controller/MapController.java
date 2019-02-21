@@ -139,7 +139,7 @@ public class MapController {
 	 *  @author Zakiya Jafrin
 	 *  @version 1.0.0
 	 * This method is used to list the .map files from the directory as an Arraylist
-	 *
+	 * @return mapFileList
 	 */
 	public ArrayList<String> listofMapsinDirectory(){
 		ArrayList<String> mapFileList = new ArrayList<String>();

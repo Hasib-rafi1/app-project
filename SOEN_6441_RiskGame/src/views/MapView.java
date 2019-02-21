@@ -31,7 +31,7 @@ public class MapView {
 	 * @author Gargi sharma
 	 * @version 1.0.0
 	 * This method displays menu for map generator.
-	 * @param 
+	 * @return  user input for map menu
 	 */
 	public int displayMapMenu() {
 		print.consoleOut("=================================");
