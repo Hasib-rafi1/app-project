@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,6 +25,8 @@ public class MapController {
 	MainMenu mainMenu = new MainMenu();
 
 
+	ArrayList<Continent> continentsList = new ArrayList<>();
+
 
 	/**
 	 * 
@@ -33,7 +36,7 @@ public class MapController {
 	 */
 	public boolean startMap() {
 		int selectMapMenuOption = 0;
-		MapModel map = null;
+
 
 		while (selectMapMenuOption != 3){		
 			selectMapMenuOption = mapView.displayMapMenu();
@@ -43,8 +46,14 @@ public class MapController {
 			case 1: 
 				listofMapsinDirectory();			
 				String mapPath = mapModel.getMapNameByUserInput();
-				mapModel.importMapFile(mapPath);				
-				break;
+				mapModel = mapModel.readMapFile(mapPath);	
+
+				/*	if (mapModel == null )
+					print.consoleErr("Map is not valid based on the game rules.");
+				else
+					print.consoleOut("Map is imported successfully.");
+				break;*/
+
 			case 2:	
 				createAndSaveUserMap();
 				break;
@@ -56,7 +65,7 @@ public class MapController {
 				break;
 			case 5:
 
-				mainMenu.displaymainMenu();
+				//mainMenu.displaymainMenu();
 				break;
 			}	
 
@@ -69,12 +78,14 @@ public class MapController {
 
 	}
 
-
+	/**
+	 * @author Gargi Sharma
+	 * @version 1.0.0
+	 * This method is used to display the map
+	 */
 	public  void displayMap() {		
 		mapView.displayMapWindow();	
 	}
-
-
 
 	/**
 	 * This method is used to create the user map and save it in directory.
@@ -104,40 +115,92 @@ public class MapController {
 
 
 	/**
+	 * @author Gargi Sharma
+	 * @version 1.0.0
 	 * This method is used to edit the map.
 	 */
-	public void editMap() {
+	public void editMap() {	
 		// TODO Auto-generated method stub	
-		System.out.println("--------------------");
-		ArrayList<String> mapList = listofMapsinDirectory();
-		int i = 1;
-		for (String nameOfMap : mapList) {			
-			print.consoleOut(i + "." +nameOfMap);		
-			i++;
-		}
-		print.consoleOut("Enter map name that you want to edit from above list:");
 
-		mapModel.getMapNameFromUser();
+		listofMapsinDirectory();
+		print.consoleOut("Please enter map name you want to edit from the list?");	
+		String mapPath = mapModel.getMapNameByUserInput();	
+		mapModel.readMapFile(mapPath);
 
-		/*//print the continent List to check if it is working
-
-		print.consoleOut("start--------------------------");
-		for (Continent nameOfContinent : mapModel.getContinentList()) {
-		print.consoleOut("Continent List ->" +"" + nameOfContinent.getContinentName());
+		mapModel.checkMapIsValid();
+		if (!mapModel.checkMapIsValid()) {
+			print.consoleOut("Map is Invalid !");
+		}else {
+			print.consoleOut("valid");
 		}
 
-		print.consoleOut("end--------------------------");
-		 */
 
+		int input = -1;
+		while (input != 1) {
+			print.consoleOut("=================================");
+			print.consoleOut("\t Edit Map Menu\t");
+			print.consoleOut("1. Delete Continent from the map?");
+			print.consoleOut("2. Delete Country from the map?");
+			print.consoleOut("3. Add Continent to the map?");
+			print.consoleOut("4. Add Country to the map?");
+			print.consoleOut("5. Save the map?");
+			print.consoleOut("6. Back to menu?");	
+			print.consoleOut("=================================");	
+			print.consoleOut(" Select number from above editing menu:");
+			input = print.userIntInput();
+			switch (input) {
+			case 1:
+				// printing list of continents 
+				print.consoleOut("=====================================================");
+				print.consoleOut("Below is the list of Continents in selected map file:");
+				ArrayList<Continent> continentList = mapModel.getContinentList();
+				for (Continent nameOfContinent : continentList) {
+					print.consoleOut(nameOfContinent.getContinentName());
+				}			
 
+				// Asking from the user to delete continent
+				print.consoleOut("=====================================================");
+				print.consoleOut("Enter name of the Continent you want to delete:");
+				String deleteContinentEnteredByUser = scanner.nextLine();
+				mapModel.deleteContinentFromMap(deleteContinentEnteredByUser);
+				print.consoleOut("=====================================================");
+				print.consoleOut("Continent '" + deleteContinentEnteredByUser + "' has been deleted !!!!!!");
 
+				break;
+			case 2:
+				print.consoleOut("case2----------");
+				break;
+			case 3:
+				print.consoleOut("case2----------");
+				break;
+			case 4:
+				print.consoleOut("case2----------");
+				break;
+			case 5:
+				print.consoleOut("case2----------");
+				break;
+			case 6:
+				print.consoleOut("case6----------");
+				break;
+			default:
+				print.consoleOut("Option not Available. Select Again!");
+				break;
+			}
+		}
 
-
+	}
+	
+	/**
+	 * Gets The ContinentList form the map file
+	 * @return the list of all map file
+	 */
+	public ArrayList<Continent> getContinentList() {
+		return continentsList;
 	}
 
 	/**
-	 *  @author Zakiya Jafrin
-	 *  @version 1.0.0
+	 * @author Zakiya Jafrin
+	 * @version 1.0.0
 	 * This method is used to list the .map files from the directory as an Arraylist
 	 * @return mapFileList
 	 */

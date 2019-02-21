@@ -56,8 +56,6 @@ public class PrintConsoleAndUserInput {
         return mapDir;
     }
     
- 
-    
     /**
 	 * This method is used to print and handle Exceptions.
 	 * 
@@ -71,10 +69,7 @@ public class PrintConsoleAndUserInput {
 	}
 
 	
-	public static int getNextInteger() {
-		int s = input.nextInt();
-		return s;
-	}
+
 
 }
 

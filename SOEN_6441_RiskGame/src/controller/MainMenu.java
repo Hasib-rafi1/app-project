@@ -21,10 +21,12 @@ public class MainMenu {
 	public int displaymainMenu() {
 		print.consoleOut("=================================");
 		print.consoleOut("\t Risk Game\t");
-		System.out.println("1.Map Generator");
-		System.out.println("2.Start Game");
-		System.out.println("=================================");	
-		System.out.println(" Please Enter Your Choice: ");
+		print.consoleOut("1.Map Generator");
+		print.consoleOut("2.Start Game");
+		print.consoleOut("5.Exit Game");
+		
+		print.consoleOut("=================================");	
+		print.consoleOut(" Please Enter Your Choice: ");
 		return print.userIntInput();
 	}
 

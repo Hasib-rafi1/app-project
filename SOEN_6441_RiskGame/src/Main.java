@@ -3,6 +3,7 @@ import java.util.Scanner;
 import controller.MainMenu;
 import controller.MapController;
 import helper.Colors;
+import helper.PrintConsoleAndUserInput;
 import model.Continent;
 import model.MapModel;
 
@@ -24,7 +25,7 @@ public class Main {
 	
 		MainMenu mainMenu = new MainMenu();  		
 		MapController mapController = new MapController();	
-		
+		PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 		int selectMainMenuOption = 0;		
 		boolean checkMapStatus = false;
 		do {
@@ -44,8 +45,9 @@ public class Main {
 //				GameController.loadGame();
 //
 //				break;
-//			case 5:
-//				System.exit(0);
+			case 5:
+				print.consoleErr("Thanks for playing this Game.");
+				System.exit(0);
 			default :
 				System.err.println("\n\t Error! Please select valid option from the above Options(1 to 5):");				
 				break;

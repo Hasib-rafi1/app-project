@@ -8,6 +8,7 @@ import java.util.Scanner;
 import javax.swing.*; 
 
 import helper.PrintConsoleAndUserInput;
+
 /**
  * This class is used to create a map. Also, this creates the window to show the map by using JFrame.
  * @author Gargi Sharma
@@ -23,10 +24,6 @@ public class MapView {
 	public JButton saveButton = new JButton("SAVE MAP");
 	JTextArea textParameters = new JTextArea("[Map]\n\n\n[Continents]\n\n\n[Territories]");	
 	
-	
-	Dimension screenSize;
-	private int top_margin;
-	private int side_margin;
 	/**
 	 * @author Gargi sharma
 	 * @version 1.0.0
@@ -41,13 +38,6 @@ public class MapView {
 		print.consoleOut("3. Edit The Map");
 		print.consoleOut("4. Display The Map");
 		print.consoleOut("5. Back to The Main Menu");
-	/*	System.out.println("1. Import Map From File");
-	 	System.out.println("\n 2. Design a New Map");
-		System.out.println("\n 3. Edit The Map");
-		System.out.println("\n 4. Save The Map");
-		System.out.println("\n 5. Display The Map");
-		System.out.println("\n 6. Back to The Main Menu");
-		System.out.println("\n\n Please Enter Your Choice(1-6): ");*/
 		print.consoleOut("=================================");	
 		return print.userIntInput();
 	}
