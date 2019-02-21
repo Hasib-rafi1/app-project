@@ -10,9 +10,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Stack;
+
+
 
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
@@ -23,9 +28,8 @@ public class MapModel {
 	Scanner scanner = new Scanner(System.in);
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
-
 	ArrayList<Continent> continentsList = new ArrayList<>();
-
+	
 	/**
 	 * This method is used to import the existing file from the directory. It reads the map file and stores the
 	 * corresponding values for countries and continents.
@@ -41,11 +45,8 @@ public class MapModel {
 			HashMap<String, Country> territoriesOfContinent= new HashMap<>();
 			HashMap<Country, String[]> neighboursOfCountry = new HashMap<>();
 
-//			File file = new File(mapPath);
 			BufferedReader readFileFromDir = new BufferedReader(new FileReader(mapPath));
 			String lineStream;
-
-
 			while((lineStream = readFileFromDir.readLine()) != null){
 				if (lineStream.trim().length() == 0)
 					continue;
@@ -65,9 +66,9 @@ public class MapModel {
 					continentsList.add(continent);
 
 					//print the continent List to check if it is working
-					for (Continent nameOfContinent : getContinentsList()) {
-					print.consoleOut("Continent List ->" +
-							"" + nameOfContinent.getContinentName());
+					for (Continent nameOfContinent : getContinentList()) {
+						print.consoleOut("Continent List ->" +
+								"" + nameOfContinent.getContinentName());
 					}
 				}
 
@@ -111,17 +112,6 @@ public class MapModel {
 	}
 
 
-
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean checkMapIsValid()  {
-		return false;
-		// TODO Auto-generated method stub
-
-	}
-
 	/**
 	 * @author Gargi sharma
 	 * @param mapContent
@@ -129,13 +119,26 @@ public class MapModel {
 	 * @return
 	 */
 	public boolean createAndValidateMap(StringBuffer mapContent, String mapName) {	
-		if (this.checkMapIsValid()) {				
-			this.saveUserMapIntoDirectory(mapContent, mapName);
+		checkMapIsValid();
+		if (checkMapIsValid()) {
+			System.out.println("in if condition of checkMapIsValid functin------");
+			//this.saveUserMapIntoDirectory(mapContent, mapName);
 			return true;
 		} else {
+			System.out.println("in else condition of checkMapIsValid functin------");
 			return false;
 		}
+
+
 	}
+
+
+
+	private boolean checkMapIsValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 	/**
 	 *  @author Gargi sharma
@@ -147,7 +150,7 @@ public class MapModel {
 	public boolean saveUserMapIntoDirectory(StringBuffer mapContent, String mapName) {
 		BufferedWriter bw = null;
 		try {
-			
+
 			File filePath = new File(print.getMapDir() + mapName + ".map");
 			if (!filePath.exists()) {
 				filePath.createNewFile();
@@ -175,26 +178,26 @@ public class MapModel {
 	 * This method is used to take the user input of map file
 	 * @return mapPath
 	 */
-	public String getMapNameWithPath() {
-		// TODO Auto-generated method stub						
+	public String getMapNameByUserInput() {		
+		String mapDirectory = print.getMapDir();					
 		String mapNameByUserInput = scanner.nextLine().trim();
-		String mapPath = mapNameByUserInput+".map";	
+		String mapPathWithMapName = mapDirectory + mapNameByUserInput;
+		String mapPath = mapPathWithMapName+".map";	
 		return mapPath;
-		
+
 	}
-	
+
 	public String getMapNameFromUser() {
 		// TODO Auto-generated method stub						
-			String mapNameByUserInput = scanner.nextLine().trim();
-		
+		String mapNameByUserInput = scanner.nextLine().trim();
 		return mapNameByUserInput;
-		
+
 	}
 	/**
 	 * Gets The ContinentList form the map file
 	 * @return the list of all map file
 	 */
-	public ArrayList<Continent> getContinentsList() {
+	public ArrayList<Continent> getContinentList() {
 		return continentsList;
 	}
 }

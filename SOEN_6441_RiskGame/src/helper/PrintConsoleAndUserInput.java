@@ -1,7 +1,11 @@
 package helper;
 import java.util.Scanner;
 
+
+
+
 public class PrintConsoleAndUserInput {
+	
     static Scanner input = new Scanner(System.in);
     
     // Try with these directory path if code is not running
@@ -61,6 +65,13 @@ public class PrintConsoleAndUserInput {
 		System.out.println(exception.getCause());
 		exception.printStackTrace();
 	}
+
+	
+	public static int getNextInteger() {
+		int s = input.nextInt();
+		return s;
+	}
+
 }
 
 	

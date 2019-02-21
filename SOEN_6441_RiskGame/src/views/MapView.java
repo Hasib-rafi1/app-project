@@ -23,6 +23,10 @@ public class MapView {
 	public JButton saveButton = new JButton("SAVE MAP");
 	JTextArea textParameters = new JTextArea("[Map]\n\n\n[Continents]\n\n\n[Territories]");	
 	
+	
+	Dimension screenSize;
+	private int top_margin;
+	private int side_margin;
 	/**
 	 * @author Gargi sharma
 	 * @version 1.0.0
@@ -33,9 +37,12 @@ public class MapView {
 		print.consoleOut("=================================");
 		print.consoleOut("\t Map Generator menu\t");
 		print.consoleOut("1. Import Map From File");
-		print.consoleOut("2. Design a New Map");
+		print.consoleOut("2. Create a New Map from scratch");
 		print.consoleOut("3. Edit The Map");
-	/*	System.out.println("\n 2. Design a New Map");
+		print.consoleOut("4. Display The Map");
+		print.consoleOut("5. Back to The Main Menu");
+	/*	System.out.println("1. Import Map From File");
+	 	System.out.println("\n 2. Design a New Map");
 		System.out.println("\n 3. Edit The Map");
 		System.out.println("\n 4. Save The Map");
 		System.out.println("\n 5. Display The Map");
@@ -112,4 +119,24 @@ public class MapView {
 		frameWindow.setVisible(true);
 		frameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 	}
+	
+	
+	public void displayMapWindow() {
+
+		
+	
+		frameWindow.setTitle("Display map window");
+		frameWindow.setPreferredSize(new Dimension(1200, 800));
+		
+
+		frameWindow.pack();
+		frameWindow.setVisible(true);
+		frameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+	}
+	
+	public void close() {
+		frameWindow.setVisible(false);
+	}
+	
+	
 }

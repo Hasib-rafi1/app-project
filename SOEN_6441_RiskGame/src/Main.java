@@ -3,6 +3,7 @@ import java.util.Scanner;
 import controller.MainMenu;
 import controller.MapController;
 import helper.Colors;
+import model.Continent;
 import model.MapModel;
 
 /**
@@ -19,7 +20,8 @@ public class Main {
 	 * @param args, arguments passed in the main method of class
 	 *            
 	 */
-	public static void main(String[] args) {		
+	public static void main(String[] args) {	
+	
 		MainMenu mainMenu = new MainMenu();  		
 		MapController mapController = new MapController();	
 		

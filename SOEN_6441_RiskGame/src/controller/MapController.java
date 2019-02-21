@@ -21,7 +21,9 @@ public class MapController {
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
 	MapModel mapModel = new MapModel();
-	
+	MainMenu mainMenu = new MainMenu();
+
+
 
 	/**
 	 * 
@@ -39,28 +41,39 @@ public class MapController {
 
 			// import map with the user input map name
 			case 1: 
-				listofMapsinDirectory();	
-				String mapDirectory = print.getMapDir();
-				print.consoleOut("Enter map name you want to import? ");
-				String mapPath = mapModel.getMapNameWithPath();					
-				mapModel.importMapFile(mapDirectory + mapPath);				
+				listofMapsinDirectory();			
+				String mapPath = mapModel.getMapNameByUserInput();
+				mapModel.importMapFile(mapPath);				
 				break;
-
-
 			case 2:	
 				createAndSaveUserMap();
 				break;
 			case 3:
 				editMap();
 				break;
-			}				
+			case 4:
+				displayMap();
+				break;
+			case 5:
+
+				mainMenu.displaymainMenu();
+				break;
+			}	
+
 			while (selectMapMenuOption < 1 || selectMapMenuOption > 6) {			
 				System.err.println("Error: Enter a valid choice (1-6).");			
 				//selectMapMenuOption = this.MapView.displayMapMenu();
 			}
 		}
 		return false; 
+
 	}
+
+
+	public  void displayMap() {		
+		mapView.displayMapWindow();	
+	}
+
 
 
 	/**
@@ -80,7 +93,7 @@ public class MapController {
 				checkMapIsCreated = mapModel.saveUserMapIntoDirectory(mapContent, mapName);
 
 				if (checkMapIsCreated) {
-					print.consoleOut("Map Created successfully!");
+					print.consoleOut("Map Created successfully in directory!");
 				} else {
 					print.consoleErr("Map is not created successfully!");					
 				}
@@ -92,50 +105,35 @@ public class MapController {
 
 	/**
 	 * This method is used to edit the map.
-	 * @author Gargi Sharma
-	 * @version 1.0.0
 	 */
 	public void editMap() {
-		// TODO Auto-generated method stub
-		listofMapsinDirectory();	
-		print.consoleOut("Enter map name you want to edit? ");
-		String getMapNameInput = mapModel.getMapNameFromUser();
-		
-		int input = -1;
-		while (input != 6) {		
-			print.consoleOut("Edit Map Menu");
-			print.consoleOut(" 1. Delete Continent");		
-			print.consoleOut(" Enter option:");
-			input = print.userIntInput();
-			switch (input) {
-			case 1:				
-				
-				
-				ArrayList<Continent> continentList = mapModel.getContinentsList();
-				print.consoleOut("case1--------------"+mapModel.getContinentsList());
-				for (Continent nameOfContinent : continentList) {
-					System.out.println(nameOfContinent+"---=====");
-					//print.consoleOut("Continent List ->" +
-						//	"" + nameOfContinent.getContinentName());
-				}
-			
-				/*
-				IOHelper.print("Enter name of the Continent you want to delete:");
-				String continentToDelete = IOHelper.getNextString();
-				map.deleteContinent(continentToDelete);
-				IOHelper.print("Continent '" + continentToDelete + "' is deleted successfuly!");
-				break;*/
-
-			case 6:
-				break;
-			default:
-				print.consoleErr("Option not Available. Select Again!");
-				break;
-			}
+		// TODO Auto-generated method stub	
+		System.out.println("--------------------");
+		ArrayList<String> mapList = listofMapsinDirectory();
+		int i = 1;
+		for (String nameOfMap : mapList) {			
+			print.consoleOut(i + "." +nameOfMap);		
+			i++;
 		}
+		print.consoleOut("Enter map name that you want to edit from above list:");
+
+		mapModel.getMapNameFromUser();
+
+		/*//print the continent List to check if it is working
+
+		print.consoleOut("start--------------------------");
+		for (Continent nameOfContinent : mapModel.getContinentList()) {
+		print.consoleOut("Continent List ->" +"" + nameOfContinent.getContinentName());
+		}
+
+		print.consoleOut("end--------------------------");
+		 */
+
+
+
+
+
 	}
-	
-	
 
 	/**
 	 *  @author Zakiya Jafrin
@@ -159,10 +157,12 @@ public class MapController {
 		}
 		print.consoleOut("\n"+ "The List of Maps is Given Below:-"+ "\n");
 		for (String s : mapFileList) {
-			print.consoleOut(j + ") "+s);
+			print.consoleOut(j + "."+s);
 			j++;
 		}
 		return mapFileList;
-
 	}
 }
+
+
+

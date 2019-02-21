@@ -14,7 +14,7 @@ public class Country {
     private int yCoordinate;
     private int continentID;
     private ArrayList<Country> neighboursOfCountry= new ArrayList<>();
-
+    private ArrayList<String> neighboursString = new ArrayList<>();
 
     /**
      * The Constructor is created to set the all parameters of the country Element
@@ -86,9 +86,20 @@ public class Country {
      * Gets all the neighbours that a country has as an Array list
      * @return arrayList of the neighbouring country
      */
-    public ArrayList<Country> getNeighboursOfCountry() {
+   // public ArrayList<Country> getNeighboursOfCountry() {
+    public ArrayList<Country> getNeighbourCountries() {
         return neighboursOfCountry;
     }
+    
+    /**
+	 * Gets list of neighbours stings
+	 * 
+	 * @return neighboursString
+	 */
+	public ArrayList<String> getNeighboursString() {
+		return neighboursString;
+	}
+    
 
     /**
      * From the country-neighbour HashMap adds the neighbours to the country individually
