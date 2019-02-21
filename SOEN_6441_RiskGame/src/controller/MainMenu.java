@@ -16,7 +16,7 @@ public class MainMenu {
 	 * This is the method for Displaying main menu for game. 
 	 * This function is used to show the user input to create or edit the map, start, load the game
 	 * and user can exit if he wants to exit the game.
-	 * @return 
+	 * @return userIntInput
 	 */
 	public int displaymainMenu() {
 		print.consoleOut("=================================");
