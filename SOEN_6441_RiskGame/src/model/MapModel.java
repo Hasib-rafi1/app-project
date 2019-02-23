@@ -22,11 +22,9 @@ import java.util.Stack;
 
 
 
-
-
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
- *  @author Zakiya Jafrin
+ * @author Zakiya Jafrin
  * @version 1.0.0
  */
 public class MapModel {
@@ -133,8 +131,7 @@ public class MapModel {
 	public boolean createAndValidateMap(StringBuffer mapContent, String mapName) {	
 		checkMapIsValid();
 		if (checkMapIsValid()) {
-			System.out.println("in if condition of checkMapIsValid functin------");
-			//this.saveUserMapIntoDirectory(mapContent, mapName);
+			saveUserMapIntoDirectory(mapContent, mapName);
 			return true;
 		} else {
 			System.out.println("in else condition of checkMapIsValid functin------");
@@ -143,36 +140,31 @@ public class MapModel {
 
 	}
 
-
-	/** This method is used to check whether the ap is valid or not.
+	/**
+	 * This method is used to check whether the map is valid or not.
 	 * @author Gargi Sharma
 	 * @version 1.0.0	
 	 * @return false
 	 */
 	public boolean checkMapIsValid() {	
-		// TODO Auto-generated method stub
-		String oneCountryInTwoContinentsCountryName = null;
-		String atLeastOneCountryInAllContinentsContinentName = null;
-		try {
-			boolean oneCountryInTwoContinents = false;
-			boolean atLeastOneCountryInAllContinents = true;
-			ArrayList<String> listOfAllCountries = new ArrayList<String>();
-			ArrayList<String> listOfMainCountries = new ArrayList<String>();
-			for (Continent singleContinent : continentsList) {
-
-				if (singleContinent.getCountryList().isEmpty()) {
-					System.out.println(singleContinent.getContinentName()+"---------check if country list is empty");
-					atLeastOneCountryInAllContinents = false;
-					atLeastOneCountryInAllContinentsContinentName = singleContinent.getContinentName();
-				}
-
-			}
-			return false;
-		} catch (Exception e) {
-			return false;
-		}
+		// TODO Auto-generated method stub		
+		return false;		
 	}
 
+
+	/**
+	 * @author Gargi Sharma
+	 * @version 1.0.0
+	 * This function is used to return the list of countries
+	 * @return countriesList , list of countries
+	 */
+	public ArrayList<Country> getCountryList() {
+		ArrayList<Country> countriesList = new ArrayList<>();
+		for (Iterator<Continent> continents = continentsList.iterator(); continents.hasNext();) {
+			countriesList.addAll(continents.next().getCountryList());
+		}
+		return countriesList;
+	}
 
 
 	/**
@@ -255,28 +247,45 @@ public class MapModel {
 	 * @return true
 	 */
 	public boolean deleteContinentFromMap(String deleteContinentEnteredByUser) {
+		return false;
 		// TODO Auto-generated method stub
 
-		ArrayList<Country> countriesListOfCurrentContinent = new ArrayList<>();
-		Continent currentContinent = continentsList.stream().filter(x -> x.getContinentName().equalsIgnoreCase(deleteContinentEnteredByUser)).findAny().orElse(null);
-		if (currentContinent == null) {
-			print.consoleOut("Invalid Continent name.");
-			return false;
-		}
-		countriesListOfCurrentContinent = currentContinent.getCountryList();
-		for (Continent continent : continentsList) {
-			for (Country country : continent.getCountryList()) {
-				for (int i = 0; i < country.getNeighboursString().size(); i++) {
-					String coutryNameToDelete = country.getNeighboursString().get(i);
-					Country abc = countriesListOfCurrentContinent.stream().filter(x -> x.getCountryName().equalsIgnoreCase(coutryNameToDelete)).findAny().orElse(null);
-					if (abc != null) {
-						country.getNeighboursString().remove(i);
-					}
-				}
-			}
-		}
-		continentsList.remove(currentContinent);
-
-		return true;
 	}
+
+	/**
+	 * This method is used to add the continent to the continent list.
+	 * @param continent,  object of the continent
+	 *           
+	 */
+	public void addContinent(Continent continent) {
+		continentsList.add(continent);
+	}
+
+	/**
+	 * This method is used to allow user to to edit map and add new continent into the map.
+	 */
+	public void addContinentNameToMapFile() {
+		print.consoleOut("Enter the number of continents you want to add?");
+		int numberOfContinentsToAdd = print.userIntInput();
+		for (int k = 0; k < numberOfContinentsToAdd; k++) {
+			int incrementOfContinentNumber = k+1;
+			print.consoleOut("Enter CONTINENT NAME for  number " +incrementOfContinentNumber+ "continent and enter the control value in next line.");
+			String continentNameByUser = scanner.nextLine();
+			int controlValueByUser = scanner.nextInt();
+
+			// add to the continent list
+			Continent addedcontinent = new Continent(k, continentNameByUser, controlValueByUser);
+			addContinent(addedcontinent);
+			print.consoleOut("Continent has been added successfully!");
+		}
+	}
+
+	/**
+	 * This method is used to add country name to the list.
+	 */
+	public void addCountryNameToMapFile() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

@@ -37,7 +37,6 @@ public class MapController {
 	public boolean startMap() {
 		int selectMapMenuOption = 0;
 
-
 		while (selectMapMenuOption != 3){		
 			selectMapMenuOption = mapView.displayMapMenu();
 			switch (selectMapMenuOption) {	
@@ -128,21 +127,21 @@ public class MapController {
 		mapModel.readMapFile(mapPath);
 
 		mapModel.checkMapIsValid();
-		if (!mapModel.checkMapIsValid()) {
+		/*if (!mapModel.checkMapIsValid()) {
 			print.consoleOut("Map is Invalid !");
 		}else {
 			print.consoleOut("valid");
-		}
+		}*/
 
 
 		int input = -1;
 		while (input != 1) {
 			print.consoleOut("=================================");
-			print.consoleOut("\t Edit Map Menu\t");
-			print.consoleOut("1. Delete Continent from the map?");
-			print.consoleOut("2. Delete Country from the map?");
-			print.consoleOut("3. Add Continent to the map?");
-			print.consoleOut("4. Add Country to the map?");
+			print.consoleOut("\t Edit Map Menu\t");		
+			print.consoleOut("1. Add Continent to the map?");
+			print.consoleOut("2. Add Country to the map?");
+			print.consoleOut("3. Delete Continent from the map?");
+			print.consoleOut("4. Delete Country from the map?");
 			print.consoleOut("5. Save the map?");
 			print.consoleOut("6. Back to menu?");	
 			print.consoleOut("=================================");	
@@ -150,6 +149,14 @@ public class MapController {
 			input = print.userIntInput();
 			switch (input) {
 			case 1:
+				mapModel.addContinentNameToMapFile();
+				
+				break;
+			case 2:
+				mapModel.addCountryNameToMapFile();
+				print.consoleOut("case2----------");
+				break;
+			case 3:
 				// printing list of continents 
 				print.consoleOut("=====================================================");
 				print.consoleOut("Below is the list of Continents in selected map file:");
@@ -163,15 +170,10 @@ public class MapController {
 				print.consoleOut("Enter name of the Continent you want to delete:");
 				String deleteContinentEnteredByUser = scanner.nextLine();
 				mapModel.deleteContinentFromMap(deleteContinentEnteredByUser);
-				print.consoleOut("=====================================================");
-				print.consoleOut("Continent '" + deleteContinentEnteredByUser + "' has been deleted !!!!!!");
+				//print.consoleOut("=====================================================");
+				//print.consoleOut("Continent '" + deleteContinentEnteredByUser + "' has been deleted !!!!!!");
 
-				break;
-			case 2:
-				print.consoleOut("case2----------");
-				break;
-			case 3:
-				print.consoleOut("case2----------");
+			
 				break;
 			case 4:
 				print.consoleOut("case2----------");
@@ -225,6 +227,9 @@ public class MapController {
 		}
 		return mapFileList;
 	}
+	
+	
+	
 }
 
 

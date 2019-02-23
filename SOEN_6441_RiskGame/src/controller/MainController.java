@@ -1,3 +1,4 @@
+package controller;
 import java.io.IOException;
 import java.util.Scanner;
 import controller.MainMenu;
@@ -12,7 +13,7 @@ import model.MapModel;
  * @author Gargi Sharma
  * @version 1.0.0
  */
-public class Main {
+public class MainController {
 	/**
 	 * This is a main method to run the game.
 	 * This function is used to enter the user input and call the functions to create or edit the map, start, load the game
@@ -34,7 +35,7 @@ public class Main {
 			case 1:			
 				mapController.startMap();
 				break;
-//			case 2:
+	//		case 2:
 //				GameController.editMap();
 //				break;
 //			case 3:
