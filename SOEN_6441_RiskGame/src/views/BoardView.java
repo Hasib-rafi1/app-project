@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 
+
 import model.CountryViewModel;
 
 /**
@@ -52,6 +53,13 @@ public class BoardView implements Observer {
 	private static JComboBox<String> noOfArmyToMoveJcomboBox;
 	private static JButton fortificationMoveButton = new JButton("Move Army");
 
+	/*String activePlayerName = null;
+    int activePlayerId;
+    EnumColor activePlayerColor = null;
+	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;   
+    String mapPath;
+    ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
+    PhaseEnum phase;*/
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
@@ -60,38 +68,46 @@ public class BoardView implements Observer {
 
 	
 
-    ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
+    
 
-	/**
-	 * Method for fortification implementation
-	 */
-public void fortification() {
-	
-}
-	/**
-	 * Method for reinforcement implementation
-	 */
-public void reinforcements() {
-	
-}
+
+
 /**
  * Method that loads up the GUI window
  */
 public void gameWindowLoad() {
 	
-	view_initialisation();
-	reinforcements();
-	fortification();
-	gamePhase();
+	//view_initialisation();
+	//reinforcements();
+	//fortification();
+	//gamePhase();
+	actionPlan();
 	var_gameWindow.setSize(1250, 700);
 	var_gameWindow.setVisible(true);
 	var_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+}
+public void actionPlan() {
+	var_gameWindow= new JFrame("Risk Game");
+	var_gameAction=new JPanel(null);
 	
 }
 /**
  * Method for initialisation of game view
  */
 public void view_initialisation() {
+
+}
+/**
+ * Method for reinforcement implementation
+ */
+public void reinforcements() {
+
+}
+/**
+ * Method for fortification implementation
+ */
+public void fortification() {
 
 }
 /**

@@ -44,7 +44,10 @@ public class GameController {
 			System.out.println(game.getAllPlayers());
 		}
 		game.addObserver(boardView);
+		boardView.gameWindowLoad();
+		
 	}
+	
 	
 	public ArrayList<String> listofMapsinDirectory()
 	{
