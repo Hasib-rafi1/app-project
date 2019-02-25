@@ -25,7 +25,7 @@ public class Game extends Observable {
 	
 	public void addPlayer(Player player) 
 	{
-		this.playerList.add(player.getPlayerId(), player);
+		this.playerList.add(player);
 	}
 	
 	public ArrayList<Player> getAllPlayers() 
