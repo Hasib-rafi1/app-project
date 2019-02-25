@@ -58,7 +58,11 @@ public class MapModel {
 
 			HashMap<String, Country> territoriesOfContinent= new HashMap<>();
 			HashMap<Country, String[]> neighboursOfCountry = new HashMap<>();
-
+// ---- please check this one and handle the wrong file name error
+//			File f = new File(mapPath);
+//			if(f.exists() && !f.isDirectory()) { 
+//			    // do something
+//			}
 			BufferedReader readFileFromDir = new BufferedReader(new FileReader(mapPath));
 			String lineStream;
 			while((lineStream = readFileFromDir.readLine()) != null){
