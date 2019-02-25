@@ -16,6 +16,7 @@ public class PrintConsoleAndUserInput {
    private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
    //private String mapDir = ".\\src\\mapFiles\\";
 
+
     /**
      *  This method is used to print in console.
      * @param s , to print in console
@@ -70,10 +71,7 @@ public class PrintConsoleAndUserInput {
 		System.out.println(exception.getCause());
 		exception.printStackTrace();
 	}
-
 	
-
-
 }
 
 	
