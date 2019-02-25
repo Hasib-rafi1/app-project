@@ -79,7 +79,16 @@ public class MapModel {
 					Continent continent = new Continent (continentID++, continentElements[0],
 							Integer.parseInt(continentElements[1]));
 					continentsList.add(continent);
+
+					//print the continent List to check if it is working
+					//for the final project we do not need it here, this is just a showcase
+					//also for iteration it prints the continents multiple times
+					for (Continent nameOfContinent : getContinentsList()) {
+						print.consoleOut("Continent List ->" +
+								"" + nameOfContinent.getContinentName());
+					}
 				}
+
 
 				// Get Territories 
 				if (getTerritories){
@@ -287,5 +296,8 @@ public class MapModel {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+	public ArrayList<Continent> getContinentsList() {
+		return continentsList;
+	}
 }
