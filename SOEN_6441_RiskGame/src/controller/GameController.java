@@ -10,44 +10,26 @@ import helper.PrintConsoleAndUserInput;
 
 public class GameController {
 
-	Game game;
-	MapModel map;
-	//GameView gameView;
-	
+	Game game;	
+	MapModel map = new MapModel();
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	
 
 	
 	public void initializeMap() 
 	{
 		int i = 1;
 		print.consoleOut("List of Maps:");
-		ArrayList<String> maps = getListOfMaps();
-		
-		for (String file : maps) 
-		{
-			print.consoleOut( i + ")" + file);
-			i++;
-		}
-		
+		listofMapsinDirectory();
 		print.consoleOut("\nEnter Map number to load Map file:\n");
-		int mapNumber = print.userIntInput();
-		String selectedMapName = maps.get(mapNumber - 1);
-		//map.setMapName(selectedMapName);
-		//map.readMap();
-
-		/*if(!map.isMapValid())
-		{
-			print.consoleOut("\nInvalid Map. Select Again!");
-		    initializeMap();
-		}*/
+		String mapPath = map.getMapNameByUserInput();
+		map.readMapFile(mapPath);
 	}
 	
 	public void initializeGame()
 	{
 		game = new Game(map);
-		//gameView=new GameView();
-		//game.addObserver(gameView);
-		
+
 		print.consoleOut("\nEnter the number of Players:");
 		
 		int playerCount = print.userIntInput();
@@ -60,29 +42,27 @@ public class GameController {
 			game.addPlayer(player);
 		}
 		
-		//game.startUpPhase();
-		//gameView.gameInitializer();
-		//activateListenersOnView();
 	}
 	
-	private ArrayList<String> getListOfMaps() 
-	{
-		ArrayList<String> fileNames = new ArrayList<String>();
-		File folder = new File("src/mapFiles");
+	public ArrayList<String> listofMapsinDirectory(){
+		ArrayList<String> mapFileList = new ArrayList<String>();
+		File folder = new File(print.getMapDir());
 		File[] listOfFiles = folder.listFiles();
-
-		for (int i = 0; i < listOfFiles.length; i++) 
-		{
-			if (listOfFiles[i].isFile()) 
-			{
-				if(listOfFiles[i].getName().toLowerCase().contains(".map"))
-					fileNames.add(listOfFiles[i].getName());
-			} 
-			else if (listOfFiles[i].isDirectory()) 
-			{
+		int i = 0, j = 1;
+		for(File file : listOfFiles){		    
+			if(file.isFile()){
+				//System.out.println(file.getName());
+				if (file.getName().toLowerCase().contains(".map")){
+					mapFileList.add(listOfFiles[i].getName());
+				}
 			}
+			i++;
 		}
-		return fileNames;
+		print.consoleOut("\n"+ "The List of Maps is Given Below:-"+ "\n");
+		for (String s : mapFileList) {
+			print.consoleOut(j + "."+s);
+			j++;
+		}
+		return mapFileList;
 	}
-	
 }
