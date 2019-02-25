@@ -22,6 +22,12 @@ import java.util.Stack;
 
 
 
+
+
+
+
+
+
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
  * @author Zakiya Jafrin
@@ -292,19 +298,75 @@ public class MapModel {
 	 * This method is used to allow user to to edit map and add new continent into the map.
 	 */
 	public void addContinentNameToMapFile() {
-		print.consoleOut("Enter the number of continents you want to add?");
+		
+		// Asks the number of CONTINENTS a user wants to add.
+		print.consoleOut("How many continents you want to add in a Map?");
 		int numberOfContinentsToAdd = print.userIntInput();
+		
+	
+		// It increments the number of continents a user wants to add. 
+		// Plus it asks to enter the continent names for each number a user has selected.
 		for (int k = 0; k < numberOfContinentsToAdd; k++) {
 			int incrementOfContinentNumber = k+1;
-			print.consoleOut("Enter CONTINENT NAME for  number " +incrementOfContinentNumber+ "continent and enter the control value in next line.");
+			print.consoleOut("Enter CONTINENT NAME for number " +incrementOfContinentNumber+ "continent and enter the control value in next line.");
 			String continentNameByUser = scanner.nextLine();
-			int controlValueByUser = scanner.nextInt();
-
+			int controlValueByUser = print.userIntInput();
 			// add to the continent list
-			Continent addedcontinent = new Continent(k, continentNameByUser, controlValueByUser);
+			Continent addedcontinent = new Continent(k, continentNameByUser, controlValueByUser);		
+			
+			
+			// Asks the number of COUNTRIES a user wants to add in a given continent. And eneter the x and y coordinates
+			print.consoleOut("How many countries you want to create in"+continentNameByUser+" continent:\n");
+			int numberOfCountriesByUser = print.userIntInput();
+			for (int i = 0; i < numberOfCountriesByUser; i++) {
+				
+				// Enter country name
+				print.consoleOut("Enter country name for country number " + (i + 1));
+				String countryNameByUser = scanner.nextLine();
+				
+				// Enter x coordinates of country name
+				print.consoleOut("Enter x coordinates for");
+				int xCoordinateOfCountry = print.userIntInput();				
+				
+				// Enter y coordinates of country name
+				print.consoleOut("Enter y coordinates for");
+				int yCoordinateOfCountry = print.userIntInput();					
+				
+				// put in a continent and set continent id
+				Country country = new Country(i, countryNameByUser, yCoordinateOfCountry, yCoordinateOfCountry);
+				country.setContinentID(k);
+				
+				// Enter the number of neighbor countries
+				print.consoleOut("\nEnter the number of neighbor countries you want to add:\n");
+	                int numberOfNeighbourCountriesByUser = print.userIntInput();
+	                
+	                for (int k1 = 0; k1 < numberOfNeighbourCountriesByUser; k1++) {
+	                	// Enter the names of neighbor countries
+	                	print.consoleOut("Enter country name for neighbor country number " + (k1 + 1) + "\n");
+	                    String neighborCountryName = scanner.nextLine();
+	                    
+	                    // put the neighbor countries into the country
+	                    country.addNeighborString(neighborCountryName);
+	                    
+	                    // get the country list as new list by comparing the camel case letter. 
+	                    // Then add the neighbor countries
+	                    for (Country newList: getCountryList()) {
+	                        if (newList.getCountryName().equalsIgnoreCase(neighborCountryName)){
+	                        	newList.addNeighborString(continentNameByUser);
+	                        }
+	                    }
+	                }
+	               
+	                // It add a COUNTRY to the continent
+	                addedcontinent.addCountriesToTheContinentList(country);
+	              
+			}
+			
+			//It adds the continent which is entered by user
 			addContinent(addedcontinent);
-			print.consoleOut("Continent has been added successfully!");
+			
 		}
+			    
 	}
 
 	/**

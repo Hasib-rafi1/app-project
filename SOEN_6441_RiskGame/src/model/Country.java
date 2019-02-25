@@ -111,7 +111,7 @@ public class Country {
 	 * @param newNeighbour, String
 	 *           
 	 */
-	public void addNeighboursString(String newNeighbour) {
+	public void addNeighborString(String newNeighbour) {
 		if (!this.neighboursString.contains(newNeighbour)) {
 			this.neighboursString.add(newNeighbour);
 		}

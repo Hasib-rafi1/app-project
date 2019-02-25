@@ -42,6 +42,20 @@ public class MapView {
 		return print.userIntInput();
 	}
 	
+	
+	public int editMapMenu() {
+		print.consoleOut("=================================");
+		print.consoleOut("\t Edit Map Menu\t");		
+		print.consoleOut("1. Add Continent to the map?");
+		print.consoleOut("2. Add Country to the map?");
+		print.consoleOut("3. Delete Continent from the map?");
+		print.consoleOut("4. Delete Country from the map?");
+		print.consoleOut("5. Save the map?");
+		print.consoleOut("6. Back to menu?");	
+		print.consoleOut("=================================");	
+		print.consoleOut(" Select number from above editing menu:");
+		return print.userIntInput();
+	}
 	/**
 	 * This method is used to return content of file(like continents, territories etc)
 	 * 

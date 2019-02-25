@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,7 +25,7 @@ public class MapController {
 	MapModel mapModel = new MapModel();
 	MainMenu mainMenu = new MainMenu();
 
-
+	// It stores all the continents of map File in this list
 	ArrayList<Continent> continentsList = new ArrayList<>();
 
 
@@ -127,41 +128,41 @@ public class MapController {
 		// TODO Auto-generated method stub	
 
 		listofMapsinDirectory();
-		print.consoleOut("Please enter map name you want to edit from the list?");	
+		print.consoleOut("Please enter the map name you want to edit from the list?");	
 		String mapPath = mapModel.getMapNameByUserInput();	
 		mapModel.readMapFile(mapPath);
 
-		mapModel.checkMapIsValid();
-		/*if (!mapModel.checkMapIsValid()) {
-			print.consoleOut("Map is Invalid !");
-		}else {
-			print.consoleOut("valid");
-		}*/
+		//mapModel.checkMapIsValid();
+		
 
 
-		int input = -1;
-		while (input != 1) {
-			print.consoleOut("=================================");
-			print.consoleOut("\t Edit Map Menu\t");		
-			print.consoleOut("1. Add Continent to the map?");
-			print.consoleOut("2. Add Country to the map?");
-			print.consoleOut("3. Delete Continent from the map?");
-			print.consoleOut("4. Delete Country from the map?");
-			print.consoleOut("5. Save the map?");
-			print.consoleOut("6. Back to menu?");	
-			print.consoleOut("=================================");	
-			print.consoleOut(" Select number from above editing menu:");
-			input = print.userIntInput();
-			switch (input) {
+		int inputForEditMap = -1;
+		while (inputForEditMap != 1) {
+		
+			inputForEditMap = mapView.editMapMenu();
+			switch (inputForEditMap) {
 			case 1:
+				// 1. Add Continent to the map?
 				mapModel.addContinentNameToMapFile();
+				 /*  map.addContinentToMap();
+                if(map.isMapValid()){
+                      map.saveMap();
+                      IOHelper.print("Continent added successfully!");
+                  }else{
+                      IOHelper.print("Map is invalid!");
+                  }
+                  break;*/
 				
 				break;
 			case 2:
+				// 2. Add Country to the map?
 				mapModel.addCountryNameToMapFile();
 				print.consoleOut("case2----------");
 				break;
 			case 3:
+				//3. Delete Continent from the map?
+				
+				
 				// printing list of continents 
 				print.consoleOut("=====================================================");
 				print.consoleOut("Below is the list of Continents in selected map file:");
