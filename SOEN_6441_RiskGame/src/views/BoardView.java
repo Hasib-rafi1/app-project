@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -9,6 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+
+import model.CountryViewModel;
 
 /**
  * Risk game view designed in java swing
@@ -46,6 +50,9 @@ public class BoardView {
 	private static JComboBox<String> var_destinationCountry;
 	private static JComboBox<String> var_armiesToMove;
 	private static JButton var_fortificationMove = new JButton("Move Army");
+	
+
+    ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
 
 	/**
 	 * Method for fortification implementation
@@ -59,11 +66,30 @@ public void fortification() {
 public void reinforcements() {
 	
 }
-	/**
-	 * Method for initialisation 
-	 */
-public void initialisation() {
+/**
+ * Method that loads up the GUI window
+ */
+public void gameWindowLoad() {
 	
+	view_initialisation();
+	reinforcements();
+	fortification();
+	gamePhase();
+	var_gameWindow.setSize(1250, 700);
+	var_gameWindow.setVisible(true);
+	var_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+}
+/**
+ * Method for initialisation of game view
+ */
+public void view_initialisation() {
+
+}
+/**
+ * Method that updates the phase of the game
+ */
+public void gamePhase() {
 	
 }
 }
