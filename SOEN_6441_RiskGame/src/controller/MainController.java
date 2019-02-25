@@ -35,7 +35,7 @@ public class MainController {
 			case 1:			
 				mapController.startMap();
 				break;
-	//		case 2:
+//		    case 2:
 //				GameController.editMap();
 //				break;
 //			case 3:
