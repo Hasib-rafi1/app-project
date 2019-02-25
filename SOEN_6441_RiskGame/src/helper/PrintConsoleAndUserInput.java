@@ -11,10 +11,11 @@ import java.util.Scanner;
 public class PrintConsoleAndUserInput {
 	
     static Scanner input = new Scanner(System.in);
-    
     // Try with these directory path if code is not running
-    //private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
-    private String mapDir = ".\\src\\mapFiles\\";
+    private static String OS = System.getProperty("os.name").toLowerCase();
+   private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
+   //private String mapDir = ".\\src\\mapFiles\\";
+
 
     /**
      *  This method is used to print in console.
@@ -53,6 +54,9 @@ public class PrintConsoleAndUserInput {
      * @return String mapDir
      */
     public String getMapDir() {
+    	if(OS.indexOf("win") >= 0) {
+    		mapDir = ".\\src\\mapFiles\\";
+    	}
         return mapDir;
     }
     
@@ -67,10 +71,7 @@ public class PrintConsoleAndUserInput {
 		System.out.println(exception.getCause());
 		exception.printStackTrace();
 	}
-
 	
-
-
 }
 
 	
