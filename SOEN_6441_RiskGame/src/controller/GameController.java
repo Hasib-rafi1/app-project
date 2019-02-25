@@ -2,46 +2,45 @@ package controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import model.Game;
-import model.MapModel;
 import model.Player;
+import model.MapModel;
 import helper.PrintConsoleAndUserInput;
 
 public class GameController {
 
 	Game game;	
-	MapModel map = new MapModel();
+	MapModel mapModel = new MapModel();
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
-	
-
+	Scanner userinput = new Scanner(System.in);
 	
 	public void initializeMap() 
 	{
 		int i = 1;
 		print.consoleOut("List of Maps:");
 		listofMapsinDirectory();
-		print.consoleOut("\nEnter Map number to load Map file:\n");
-		String mapPath = map.getMapNameByUserInput();
-		map.readMapFile(mapPath);
+		print.consoleOut("\nEnter Map Name to load Map file:\n");
+		String mapPath = mapModel.getMapNameByUserInput();
+		mapModel.readMapFile(mapPath);
 	}
 	
 	public void initializeGame()
 	{
-		game = new Game(map);
+		game = new Game(mapModel);
 
 		print.consoleOut("\nEnter the number of Players:");
-		
-		int playerCount = print.userIntInput();
+		int playerCount = PrintConsoleAndUserInput.userIntInput();
 
-		for (int i = 0; i < playerCount; i++) 
+		for (int i = 0; i < playerCount ; i++) 
 		{
-			print.consoleOut("\nEnter the name of Player " + (i+1));
-			String playerName = print.userStrInput();
-			Player player = new Player(i, playerName);
+			print.consoleOut("\nEnter the name of Player " + (i));
+			String name = userinput.nextLine();
+			Player player = new Player(i,name);
 			game.addPlayer(player);
+			System.out.println(game.getAllPlayers());
 		}
-		
 	}
 	
 	public ArrayList<String> listofMapsinDirectory(){
