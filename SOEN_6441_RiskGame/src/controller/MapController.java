@@ -45,13 +45,18 @@ public class MapController {
 			case 1: 
 				listofMapsinDirectory();			
 				String mapPath = mapModel.getMapNameByUserInput();
-				mapModel = mapModel.readMapFile(mapPath);	
-
-				/*	if (mapModel == null )
-					print.consoleErr("Map is not valid based on the game rules.");
-				else
-					print.consoleOut("Map is imported successfully.");
-				break;*/
+				mapModel.readMapFile(mapPath);	
+				
+				// check if the entered map file name is exists in directory or not
+				File tempFile = new File(mapPath);				
+				boolean exists = tempFile.exists();
+				if (exists) {
+					mapModel.readMapFile(mapPath);	
+				} else {
+					print.consoleErr("File not found!!!. Please enter the coreect name of map.");
+				}
+		
+				break;
 
 			case 2:	
 				createAndSaveUserMap();

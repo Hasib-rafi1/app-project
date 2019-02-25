@@ -46,10 +46,11 @@ public class MapModel {
 	 * @return map
 	 */
 	public MapModel readMapFile(String mapPath) {
-		MapModel mapModel = null;
+		
+		MapModel map = null;
 		if (mapPath.isEmpty())
-			return mapModel;
-		mapModel = new MapModel();
+			return map;
+		map = new MapModel();
 		try {
 			boolean getContinents = false;
 			boolean getTerritories = false;
@@ -79,14 +80,14 @@ public class MapModel {
 					Continent continent = new Continent (continentID++, continentElements[0],
 							Integer.parseInt(continentElements[1]));
 					continentsList.add(continent);
-
+					// printed it after while loop, we dont need it just to print
 					//print the continent List to check if it is working
 					//for the final project we do not need it here, this is just a showcase
 					//also for iteration it prints the continents multiple times
-					for (Continent nameOfContinent : getContinentsList()) {
+				/*	for (Continent nameOfContinent : getContinentsList()) {
 						print.consoleOut("Continent List ->" +
 								"" + nameOfContinent.getContinentName());
-					}
+					}*/
 				}
 
 
@@ -109,6 +110,7 @@ public class MapModel {
 							break;
 						}
 					}
+				
 				}
 
 				Country neighbours = null;
@@ -121,12 +123,23 @@ public class MapModel {
 					}
 				}
 			}
+			
+			for (Continent nameOfContinent : getContinentsList()) {
+				print.consoleOut("Continent List ->" +
+						"" + nameOfContinent.getContinentName());
+			}
+			print.consoleOut("=============================");
+			for (Country nameOfCountry : getCountryList()) {
+				print.consoleOut("Country List ->" +
+						"" + nameOfCountry.getCountryName());
+			}
+			print.consoleOut("=============================");
 			readFileFromDir.close();
 		}
 		catch (Exception e){
-			print.printException(e);
+			//print.printException(e);
 		}
-		return mapModel;
+		return map;
 
 	}
 
