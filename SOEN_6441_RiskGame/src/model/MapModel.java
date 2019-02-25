@@ -74,7 +74,7 @@ public class MapModel {
 					continue;
 				}
 
-				// Get continents 
+				// Get continents and store them in continentList
 				if (getContinents){
 					String[] continentElements= lineStream.split("=");
 					Continent continent = new Continent (continentID++, continentElements[0],
@@ -91,7 +91,7 @@ public class MapModel {
 				}
 
 
-				// Get Territories 
+				// Get Territories form the stream of sentences and store them country object with all of three values
 				if (getTerritories){
 					String[] territoryElements = lineStream.split(",");
 					int xCoordinate = Integer.parseInt(territoryElements[1]);
@@ -101,8 +101,10 @@ public class MapModel {
 					Country country = new Country(territoryID++, territoryElements[0], xCoordinate, yCoordinate);
 					territoriesOfContinent.put(belongsToContinent, country);
 					String[] neighboursFromArray = Arrays.copyOfRange(territoryElements, 4, territoryElements.length);
-					neighboursOfCountry.put(country, neighboursFromArray);
+					neighboursOfCountry.put(country, neighboursFromArray); // all the neighbours are put as an array they are not interconnected.
 
+					//to list the countries depending on their continentName
+					//ex: NorthAmerica: Alaska, Canada etc
 					for (int i = 0; i < continentsList.size(); i++) {
 						if (continentsList.get(i).getContinentName().equals(belongsToContinent)) {
 							continentsList.get(i).addCountriesToTheContinentList(country);
@@ -113,6 +115,9 @@ public class MapModel {
 				
 				}
 
+				//in the array the neighbour and the country is NOT interconnected
+				//here, we are getting the country name as Country object as key, and each of the neighbours
+				// INdividually as string array. thus the country object is paired with neighbouring countries array
 				Country neighbours = null;
 				for (HashMap.Entry<Country, String[]> countryNeighbourPair : neighboursOfCountry.entrySet()) {
 					Country countryOfPair = countryNeighbourPair.getKey();
