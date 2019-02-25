@@ -54,7 +54,7 @@ public class MapController {
 				if (exists) {
 					mapModel.readMapFile(mapPath);	
 				} else {
-					print.consoleErr("File not found!!!. Please enter the coreect name of map.");
+					print.consoleErr("File not found!!!. Please enter the correct name of map.");
 				}
 		
 				break;
