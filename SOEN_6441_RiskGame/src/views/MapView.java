@@ -127,8 +127,6 @@ public class MapView {
 	
 	public void displayMapWindow() {
 
-		
-	
 		frameWindow.setTitle("Display map window");
 		frameWindow.setPreferredSize(new Dimension(1200, 800));
 		
@@ -141,6 +139,4 @@ public class MapView {
 	public void close() {
 		frameWindow.setVisible(false);
 	}
-	
-	
 }

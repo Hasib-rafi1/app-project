@@ -56,7 +56,6 @@ public class MapController {
 				} else {
 					print.consoleErr("File not found!!!. Please enter the coreect name of map.");
 				}
-		
 				break;
 
 			case 2:	
@@ -233,8 +232,6 @@ public class MapController {
 		}
 		return mapFileList;
 	}
-	
-	
 	
 }
 
