@@ -27,13 +27,13 @@ public class MapController {
 
 	ArrayList<Continent> continentsList = new ArrayList<>();
 
-
 	/**
 	 * 
 	 * This method is used to select the map options(like import, design a new map, save a map).
 	 *
 	 * @return userinput
 	 */
+	
 	public boolean startMap() {
 		int selectMapMenuOption = 0;
 
@@ -78,9 +78,10 @@ public class MapController {
 	}
 
 	/**
+	 * This method is used to display the map
 	 * @author Gargi Sharma
 	 * @version 1.0.0
-	 * This method is used to display the map
+	 * 
 	 */
 	public  void displayMap() {		
 		mapView.displayMapWindow();	
