@@ -3,6 +3,8 @@ package views;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,8 +22,7 @@ import model.CountryViewModel;
  * @author naren
  *
  */
-
-public class BoardView {
+public class BoardView implements Observer {
 	private static JFrame var_gameWindow = null;
 	private static JPanel var_gameAction;
 
@@ -47,9 +48,16 @@ public class BoardView {
 	private static JLabel var_fortification;
 	private static JComboBox<String> var_sourceCountry;
 
-	private static JComboBox<String> var_destinationCountry;
-	private static JComboBox<String> var_armiesToMove;
-	private static JButton var_fortificationMove = new JButton("Move Army");
+	private static JComboBox<String> destinationCountry;
+	private static JComboBox<String> noOfArmyToMoveJcomboBox;
+	private static JButton fortificationMoveButton = new JButton("Move Army");
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
     ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
