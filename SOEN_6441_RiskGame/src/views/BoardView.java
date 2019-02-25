@@ -18,35 +18,52 @@ import javax.swing.JScrollPane;
  */
 
 public class BoardView {
-	private static JFrame gameJframe = null;
-	private static JPanel gameActionl;
+	private static JFrame var_gameWindow = null;
+	private static JPanel var_gameAction;
 
-	// Map Label
-	private static JLabel mapJlabel;
-	private static JScrollPane mapScrollPane = null;
-	private static HashMap<String, Component> mapLabels = new HashMap<>();
+	// Map variables
+	private static JLabel var_map;
+	private static JScrollPane var_mapScrollPane = null;
+	private static HashMap<String, Component> var_hashMap = new HashMap<>();
 
-	// Phase label
-	private static JLabel gamePhaseJLabel;
-	private static JLabel gamePhaseNameJLabel;
+	// Phase variables
+	private static JLabel var_gamePhase;
+	private static JLabel var_nameofPhase;
 
-	// Initialization Label
-	private static JLabel initializationJlabel;
-	private static JLabel playersTurnJlabel;
-	private static JLabel armyLeftJlabel;
+	// Initialization variables
+	private static JLabel var_initialisation;
+	private static JLabel var_playersTurn;
+	private static JLabel var_armiesLeft;
 
-	// Reinforcement Label
-	private static JLabel reinforcementsJlabel;
-	private static JLabel reinforcementUnassignedUnit;
+	// Reinforcement variables
+	private static JLabel var_reinforcement;
+	private static JLabel var_unassignedReinforcement;
 
-	// Fortification Label
-	private static JLabel fortificationJlabel;
-	private static JComboBox<String> sourceCountry;
+	// Fortification variables
+	private static JLabel var_fortification;
+	private static JComboBox<String> var_sourceCountry;
 
-	private static JComboBox<String> destinationCountry;
-	private static JComboBox<String> noOfArmyToMoveJcomboBox;
-	private static JButton fortificationMoveButton = new JButton("Move Army");
+	private static JComboBox<String> var_destinationCountry;
+	private static JComboBox<String> var_armiesToMove;
+	private static JButton var_fortificationMove = new JButton("Move Army");
 
+	/**
+	 * Method for fortification implementation
+	 */
+public void fortification() {
 	
-
+}
+	/**
+	 * Method for reinforcement implementation
+	 */
+public void reinforcements() {
+	
+}
+	/**
+	 * Method for initialisation 
+	 */
+public void initialisation() {
+	
+	
+}
 }
