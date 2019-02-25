@@ -3,15 +3,16 @@ package controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import model.Game;
 import model.Player;
+import views.BoardView;
 import model.MapModel;
 import helper.PrintConsoleAndUserInput;
 
 public class GameController {
 
 	Game game;	
+	BoardView boardView;
 	MapModel mapModel = new MapModel();
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	Scanner userinput = new Scanner(System.in);
@@ -29,7 +30,8 @@ public class GameController {
 	public void initializeGame()
 	{
 		game = new Game(mapModel);
-
+		boardView=new BoardView();
+		
 		print.consoleOut("\nEnter the number of Players:");
 		int playerCount = PrintConsoleAndUserInput.userIntInput();
 
@@ -41,6 +43,7 @@ public class GameController {
 			game.addPlayer(player);
 			System.out.println(game.getAllPlayers());
 		}
+		game.addObserver(boardView);
 	}
 	
 	public ArrayList<String> listofMapsinDirectory()

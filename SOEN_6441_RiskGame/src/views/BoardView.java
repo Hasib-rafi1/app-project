@@ -2,6 +2,8 @@ package views;
 
 import java.awt.Component;
 import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,7 +19,7 @@ import javax.swing.JScrollPane;
  *
  */
 
-public class BoardView {
+public class BoardView implements Observer {
 	private static JFrame gameJframe = null;
 	private static JPanel gameActionl;
 
@@ -46,6 +48,11 @@ public class BoardView {
 	private static JComboBox<String> destinationCountry;
 	private static JComboBox<String> noOfArmyToMoveJcomboBox;
 	private static JButton fortificationMoveButton = new JButton("Move Army");
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 
