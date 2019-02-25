@@ -27,6 +27,7 @@ public class MainController {
 		MainMenu mainMenu = new MainMenu();  		
 		MapController mapController = new MapController();	
 		PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+//		GameController gameController = new GameController();
 		int selectMainMenuOption = 0;		
 		boolean checkMapStatus = false;
 		do {
@@ -35,17 +36,9 @@ public class MainController {
 			case 1:			
 				mapController.startMap();
 				break;
-	//		case 2:
-//				GameController.editMap();
-//				break;
-//			case 3:
-//				GameController.startGame();
-//
-//				break;
-//			case 4:
-//				GameController.loadGame();
-//
-//				break;
+			case 2:
+//				gameController.startGame();
+				break;
 			case 5:
 				print.consoleErr("Thanks for playing this Game.");
 				System.exit(0);
