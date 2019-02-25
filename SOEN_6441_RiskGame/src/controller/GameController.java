@@ -43,22 +43,26 @@ public class GameController {
 		}
 	}
 	
-	public ArrayList<String> listofMapsinDirectory(){
+	public ArrayList<String> listofMapsinDirectory()
+	{
 		ArrayList<String> mapFileList = new ArrayList<String>();
 		File folder = new File(print.getMapDir());
 		File[] listOfFiles = folder.listFiles();
 		int i = 0, j = 1;
-		for(File file : listOfFiles){		    
-			if(file.isFile()){
-				//System.out.println(file.getName());
-				if (file.getName().toLowerCase().contains(".map")){
+		for(File file : listOfFiles)
+		{		    
+			if(file.isFile())
+			{
+				if (file.getName().toLowerCase().contains(".map"))
+				{
 					mapFileList.add(listOfFiles[i].getName());
 				}
 			}
 			i++;
 		}
 		print.consoleOut("\n"+ "The List of Maps is Given Below:-"+ "\n");
-		for (String s : mapFileList) {
+		for (String s : mapFileList) 
+		{
 			print.consoleOut(j + "."+s);
 			j++;
 		}
