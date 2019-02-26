@@ -17,6 +17,14 @@ public class Country {
     private ArrayList<String> neighboursString = new ArrayList<>();
     private ArrayList<Country> neighboursOfCountry= new ArrayList<>();
 
+
+    
+    
+    public Country(int countryId, String countryName) {
+		this.countryId = countryId;
+		this.countryName = countryName;
+	}
+
     /**
      * The Constructor is created to set the all parameters of the country Element
      * @param countryId
@@ -24,13 +32,6 @@ public class Country {
      * @param xCoordinate
      * @param yCoordinate
      */
-    
-    
-    public Country(int countryId, String countryName) {
-		this.countryId = countryId;
-		this.countryName = countryName;
-	}
-    
     public Country (int countryId, String countryName, int xCoordinate, int yCoordinate){
         this.countryId = countryId;
         this.countryName = countryName;
@@ -120,6 +121,10 @@ public class Country {
     public ArrayList<Country> getNeighboursOfCountry() {
         return neighboursOfCountry;
     }
+
+//    public void addNeighboursAsString(String neighbourString){
+//
+//    }
     
     /**
      * From the country-neighbour HashMap adds the neighbours to the country individually
@@ -128,7 +133,7 @@ public class Country {
     public void addNeighboursToTheCountries(Country neighbour){
         neighboursOfCountry.add(neighbour);
     }
-       
+
     
     /**
 	 * This method is used to get the list of neighbour Strings
