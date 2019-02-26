@@ -156,7 +156,7 @@ public class BoardView implements Observer {
 		lab_gamePhase = new JLabel();
 		lab_gamePhase.setBorder(
 				BorderFactory.createTitledBorder(null, "Phase Information", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.lightGray));
 		lab_gamePhase.setBounds(pane_mapScrollPane.getX()+930, pane_mapScrollPane.getY(), 490, 100);
 
 		lab_nameofPhase = new JLabel("Initialization");
@@ -177,7 +177,7 @@ public class BoardView implements Observer {
 
 		lab_initialisation.setBorder(
 				BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.lightGray));
 		lab_initialisation.setBounds(lab_gamePhase.getX(), lab_gamePhase.getY()+ lab_gamePhase.getHeight()+10, 490, 100);
 
 		// Recreate every components in Label
@@ -207,7 +207,7 @@ public class BoardView implements Observer {
 		lab_reinforcement = new JLabel();
 		lab_reinforcement.setBorder(
 				BorderFactory.createTitledBorder(null, "Reinforcement Phase", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.lightGray));
 		lab_reinforcement.setBounds(lab_initialisation.getX(),
 				lab_initialisation.getY() + 10 + lab_initialisation.getHeight(), lab_initialisation.getWidth(),
 				80);
@@ -226,7 +226,7 @@ public class BoardView implements Observer {
 		lab_fortification = new JLabel();
 		lab_fortification.setBorder(
 				BorderFactory.createTitledBorder(null, "Fortification Phase", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.lightGray));
 		lab_fortification.setBounds(lab_reinforcement.getX(),
 				lab_reinforcement.getY() + 10 + lab_reinforcement.getHeight(), lab_reinforcement.getWidth(),
 				140);
