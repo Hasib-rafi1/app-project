@@ -87,7 +87,11 @@ public class BoardView implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		Game game = ((Game)arg0);
+<<<<<<< HEAD
 		//MapModel map=game.getMap();
+=======
+		game.getMap().getContinentList();
+>>>>>>> branch 'master' of https://naren_csp@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
 		mapPath = game.getMap().getMapDir()+ "World.bmp";
 	     phase = game.getGamePhase(); 
 	    // mapPath = map.getMapPath() + map.getMapName() + ".bmp";

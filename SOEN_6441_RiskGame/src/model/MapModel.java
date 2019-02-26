@@ -17,9 +17,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-
-
-
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
  * @author Zakiya Jafrin
@@ -34,7 +31,7 @@ public class MapModel {
 	MapView mapView = new MapView();
 
 	// Arraylist of countries, continents
-	ArrayList<Continent> continentsList = new ArrayList<>();	
+	ArrayList<Continent> continentsList = new ArrayList<>();
 
 
 	/**
@@ -54,8 +51,8 @@ public class MapModel {
 			int continentID= 0;
 			int territoryID = 0;
 
-			HashMap<String, Country> territoriesOfContinent= new HashMap<>();
-			HashMap<Country, String[]> neighboursOfCountry = new HashMap<>();
+			HashMap<String, Country> countryNameMapCountryObj= new HashMap<String, Country>();
+			HashMap<Country, String[]> neighboursOfCountry = new HashMap<Country, String[]>();
 
 			BufferedReader readFileFromDir = new BufferedReader(new FileReader(mapPath));
 			String lineStream;
@@ -89,16 +86,26 @@ public class MapModel {
 
 
 				// Get Territories form the stream of sentences and store them country object with all of three values
-				if (getTerritories){
+				else if (getTerritories){
 					String[] territoryElements = lineStream.split(",");
+					String countryName = territoryElements[0];
 					int xCoordinate = Integer.parseInt(territoryElements[1]);
 					int yCoordinate = Integer.parseInt(territoryElements[2]);
 					String belongsToContinent = territoryElements[3];
 
-					Country country = new Country(territoryID++, territoryElements[0], xCoordinate, yCoordinate);
-					territoriesOfContinent.put(belongsToContinent, country);
+					Country country = new Country(territoryID++, countryName, xCoordinate, yCoordinate);
+					countryNameMapCountryObj.put(countryName, country);
+
 					String[] neighboursFromArray = Arrays.copyOfRange(territoryElements, 4, territoryElements.length);
-					neighboursOfCountry.put(country, neighboursFromArray); // all the neighbours are put as an array they are not interconnected.
+					neighboursOfCountry.put(country, neighboursFromArray); // all the neighbours are put as an array
+
+//					add the neighbouring Countries ony by one as String values in the country Object
+					int k = 0;
+					// k is initialized to get neighboring countries
+					for (String neighbourCountry : neighboursFromArray) {
+						country.addNeighborString(neighbourCountry);
+						k++;
+					}
 
 					//to list the countries depending on their continentName
 					//ex: NorthAmerica: Alaska, Canada etc
@@ -109,23 +116,24 @@ public class MapModel {
 							break;
 						}
 					}
+					print.consoleOut(lineStream);
 
-				}
-
-				//in the array the neighbour and the country is NOT interconnected
-				//here, we are getting the country name as Country object as key, and each of the neighbours
-				// INdividually as string array. thus the country object is paired with neighbouring countries array
-				Country neighbours = null;
-				for (HashMap.Entry<Country, String[]> countryNeighbourPair : neighboursOfCountry.entrySet()) {
-					Country countryOfPair = countryNeighbourPair.getKey();
-					String[] neighbourOfPair = countryNeighbourPair.getValue();
-					for (int i = 0; i < neighbourOfPair.length; i++) {
-						neighbours = territoriesOfContinent.get(neighbourOfPair[i]);
-						countryOfPair.addNeighboursToTheCountries(neighbours);
-					}
 				}
 			}
 
+
+			//in the array the neighbour and the country is NOT interconnected
+			//here, we are getting the country name as Country object as key, and each of the neighbours
+			//INdividually as string array. thus the country object is paired with neighbouring countries array
+			Country neighbours;
+			for (HashMap.Entry<Country, String[]> countryNeighbourPair : neighboursOfCountry.entrySet()) {
+				Country countryOfPair = countryNeighbourPair.getKey();
+				String[] neighbourOfPair = countryNeighbourPair.getValue();
+				for (int i = 0; i < neighbourOfPair.length; i++) {
+					neighbours = countryNameMapCountryObj.get(neighbourOfPair[i]);
+					countryOfPair.addNeighboursToTheCountries(neighbours);
+				}
+			}
 			/*	for (Continent nameOfContinent : getContinentsList()) {
 				print.consoleOut("Continent List ->" +
 						"" + nameOfContinent.getContinentName());
@@ -158,18 +166,26 @@ public class MapModel {
 			saveUserMapIntoDirectory(mapContent, mapName);
 			return true;
 		} else {
-			System.out.println("in else condition of checkMapIsValid functin------");
+			System.out.println("in else condition of checkMapIsValid function------");
 			return false;
 		}
 	}
 
 	/**
-	 * @version 1.0.0	
+	 * Check if the map is valid or not
+	 * checks connectivity, the coordinates, one country does not belong to two Continents, there is at least one
+	 * country in each Continent
 	 * @return false
 	 */
-	public boolean checkMapIsValid() {	
-		// TODO Auto-generated method stub		
-		return false;		
+	public boolean checkMapIsValid() {
+		boolean oneCountryNotInDiffContinent = true ;
+		boolean atLeastOneCountryInOneContinent = true;
+
+
+
+
+
+		return true;
 	}
 
 
@@ -426,52 +442,34 @@ public class MapModel {
 	 * @param deleteContinentEnteredByUser, name of the continent
 	 * @return true
 	 */
-	public boolean deleteContinentFromMap(String deleteContinentEnteredByUser) {
-
-		ArrayList<Country> countriesListOfCurrentContinent = new ArrayList<>();
-
-		/*	for (Continent checkExistingContinents : continentsList) {
-			System.out.println(checkExistingContinents.getContinentName()+"----");
-			System.out.println(deleteContinentEnteredByUser+"******");
-			if (checkExistingContinents.getContinentName().equals(deleteContinentEnteredByUser) ) {				
-			} else {
-				print.consoleErr("Error!!!"+deleteContinentEnteredByUser+" does not exists in selected map.");
-				return false;
-			}	
-
-			countriesListOfCurrentContinent = checkExistingContinents.getCountryList();
-		}*/
-		Continent currentContinent = continentsList.stream()
+	public boolean deleteContinentFromMap(String deleteContinentEnteredByUser) {		
+		Continent elementInCurrentContinents = continentsList.stream()
 				.filter(x-> x.getContinentName().equalsIgnoreCase(deleteContinentEnteredByUser))
 				.findAny()
-				.orElse(null);
-
-
-
-		if(currentContinent==null){
-			print.consoleOut("Continent name is invalid");
+				.orElse(null);	
+		
+		if(elementInCurrentContinents==null){
+			print.consoleErr("Error!!!Continent name does not exist");
 			return false;
 		}
-		//countriesListOfCurrentContinent = currentContinent.getCountryList();
-		for ( Continent continent: continentsList){
-			for (Country country : continent.getCountryList()) {
-				for (int i = 0; i < country.getNeighboursString().size() ; i++) {
-					String coutryNameToDelete = country.getNeighboursString().get(i);
-					Country c = countriesListOfCurrentContinent.stream()
-							.filter(x -> x.getCountryName().equalsIgnoreCase(coutryNameToDelete))
-							.findAny().orElse(null);
-					if (c!=null){
-						country.getNeighboursString().remove(i);
-					}
-					else{
-					}
-				}
-			}
-		}
-		continentsList.remove(currentContinent);
 
-		return true;
-
+		ArrayList<Country> countriesListOfCurrentContinent = elementInCurrentContinents.getCountryList();	      
+	        for ( Continent currentContinentList: continentsList){
+	            for (Country countryListToRemoveContinent : currentContinentList.getCountryList()) {
+	                for (int i = 0; i < countryListToRemoveContinent.getNeighboursString().size() ; i++) {
+	                	String countryNameToDelete = countryListToRemoveContinent.getNeighboursString().get(i);
+	                	
+	                	Country deleteElement = countriesListOfCurrentContinent.stream()
+	                				.filter(x -> x.getCountryName().equalsIgnoreCase(countryNameToDelete))
+	                				.findAny().orElse(null);
+	                    if (deleteElement!=null){
+	                    	countryListToRemoveContinent.getNeighboursString().remove(i);
+	                    }	                    
+	                }
+	            }
+	        }
+	        continentsList.remove(elementInCurrentContinents);
+	        return true;
 	}
 
 	public void saveEditedMap() {
@@ -529,7 +527,7 @@ public class MapModel {
 			}catch(Exception ex){
 				print.consoleErr("Error in closing the BufferedWriter"+ex);
 			}
-		}*/	
+		}*/
 		System.out.println(textContentInFile);
 	}
 
@@ -561,14 +559,37 @@ public class MapModel {
 				String countryName = countriesInformation.getCountryName();
 				int xCoordinates = countriesInformation.getxCoordinate();
 				int yCoordinates = countriesInformation.getyCoordinate();
-				String continentName = countriesInformation.getCountryName();
+				String continentName = continentInformation.getContinentName();
 
 				// Append territories parameters
 				print.consoleOut(countryName + "," + xCoordinates+ "," + yCoordinates + "," + continentName);
 			}
 		} 
 	}
+
+
+	/**
+	 *
+	 * This method prints the Neighboring country names when user puts the name of the country
+	 */
+	public void printNeighboursGivenContry() {
+		print.consoleOut("\n Write down the Country Name for the Neighbour: ");
+		String countryNameForNeighbours = scanner.nextLine().trim();
+//		for (Continent continentInformation : continentsList) {
+			for (Country countriesInformation : getCountryList()) {
+				String countryName = countriesInformation.getCountryName().toLowerCase();
+				if (countryNameForNeighbours.equals(countryName)) {
+					print.consoleOut("List of the Neighbours for the Country: '" + countryName + "' is given below");
+					for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
+						print.consoleOut("Neighbours List ->" +
+								countriesInformation.getNeighboursString().get(i));
+					}
+				}
+			}
+//		}
+	}
 	
+
 	public String getMapDir() {
 		return print.getMapDir();
 	}

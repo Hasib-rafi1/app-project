@@ -96,9 +96,9 @@ public class GameController {
 
 			public void mouseClicked(MouseEvent e) {
 				JLabel jLabel=	(JLabel) e.getSource();
-				String string=jLabel.getToolTipText();
+				String country=jLabel.getToolTipText();
 				if (game.getGamePhase()==GamePhase.Startup || game.getGamePhase() == GamePhase.Reinforcement){
-					//jai do whatever you want to do.
+					game.addingCountryArmy(country);
 				}
 			}
 		});
@@ -113,11 +113,11 @@ public class GameController {
 			public void actionPerformed(ActionEvent  e) {
 				String countryName = boardView.getSourceCountry();
 				if(countryName!=null) {
-					// Jai come up with the neighboring country arraylist from the specific country name
-					// Jai find the army number that is available in this country
-					//call the bellow function and pass the veriable
-					//boardView.populateDestinationCountryComboBox(neighborCountries);
-					//boardView.populateNoOfArmyToMoveJcomboBox(armyCount);
+					int armyCount = game.getArmiesAssignedToCountry(countryName);
+					// We have to change the neigbouring country function
+					ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
+					boardView.populateDestinationCountryComboBox(neighborCountries);
+					boardView.populateNoOfArmyToMoveJcomboBox(armyCount);
 
 				}
 			}
