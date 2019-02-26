@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -258,5 +260,98 @@ public class BoardView implements Observer {
 		// Adding Label to Panel
 		panel_gameAction.add(lab_fortification);
 	}
-
+	
+	/**
+	 * This method is going to use for the mouse event for the map labels
+	 * @param listener MouseListener
+	 */
+	public void addMapLabelsListener(MouseListener listener) {
+		int n = lab_map.getComponentCount();
+		for (int i = 0; i < n; i++) {
+			JLabel jLabel = (JLabel) lab_map.getComponent(i);
+			jLabel.addMouseListener(listener);
+		}
+	}
+	
+	/**
+	 * This method is going to add a listener in the combobox of the source country
+	 * @param listener ActionListener
+	 */
+	public void addActionListenToSourceCountryList(ActionListener listener) {
+		combo_countrySource.addActionListener(listener);
+	}
+	
+	
+	/**
+	 * Static method to get selected source country
+	 * @return selectedCountry
+	 */
+	public static String getSourceCountry() {
+		
+		return (String)combo_countrySource.getSelectedItem();
+		
+	}
+	
+	/**
+	 * Method is populating value in the destination phase combobox 
+	 * @param destinationCountries ArrayList
+	 */	
+	public void populateDestinationCountryComboBox(ArrayList<String> destinationCountries)
+	{   combo_countryDestination.removeAllItems();
+		for(String countryName : destinationCountries)
+		   combo_countryDestination.addItem(countryName);
+			
+	}
+	
+	/**
+	 * Method to add the possible number of the army the player can move
+	 * @param NoOfArmies int
+	 * 
+	 */
+	public void populateNoOfArmyToMoveJcomboBox(int NoOfArmies)
+	{   combo_armyToMove.removeAllItems();
+		for(Integer i=0;i<NoOfArmies;i++)
+			combo_armyToMove.addItem(i.toString());		
+	}
+	
+	
+	/**
+	 * Method for performing action listener on move army button
+	 * @param listener ActionListener
+	 */
+	public void moveArmyButtonListener(ActionListener listener) {
+		button_moveFortification.addActionListener(listener);
+	}
+	
+	/**
+	 * get the selected item from destination combo
+	 * @return selectedCountry
+	 */
+	public static String getDestinationCountry() {
+		
+		Object selectedItem = combo_countryDestination.getSelectedItem();
+		if(selectedItem != null)
+		{
+			String selectedCountry = (String) selectedItem;
+			return selectedCountry;
+		}
+		else {
+			return "";
+		}
+	}
+	
+	
+	/**
+	 * Static method to get number of army the player wants to move
+	 * @return NoOfArmies
+	 */
+	public static Integer getNoOfArmyToMoveJcomboBox() {
+		Object selectedItem = combo_armyToMove.getSelectedItem();
+		if(selectedItem != null)
+		{
+			Integer NoOfArmies = (Integer.parseInt((String) selectedItem));
+			return NoOfArmies;
+		}
+		return 0;
+	}
 }

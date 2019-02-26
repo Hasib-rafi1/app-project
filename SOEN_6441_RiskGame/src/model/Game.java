@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.Observable;
 import java.util.Random;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
 import helper.InitialPlayerArmy;
 
 import helper.GamePhase;
