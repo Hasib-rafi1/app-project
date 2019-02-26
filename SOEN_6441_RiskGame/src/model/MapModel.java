@@ -568,5 +568,9 @@ public class MapModel {
 			}
 		} 
 	}
+	
+	public String getMapDir() {
+		return print.getMapDir();
+	}
 }
 

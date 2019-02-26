@@ -41,8 +41,10 @@ public class MainController {
 				mapController.generateMap();
 				break;
 			case 2:
-				// This case is for starting the game.
-				//gameController.startGame();
+
+				gameController.initializeMap(); 
+				gameController.initializeGame();
+
 				break;
 			case 5:
 				print.consoleErr("Thanks for playing this Game.");
@@ -54,8 +56,5 @@ public class MainController {
 
 		} while (selectMainMenuOption != 5);
 		System.exit(0);
-		
-		
-		
-	}
+		}
 }

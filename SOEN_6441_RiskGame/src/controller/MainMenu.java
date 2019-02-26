@@ -23,7 +23,7 @@ public class MainMenu {
 		print.consoleOut("\t Risk Game\t");
 		print.consoleOut("1.Map Generator");
 		print.consoleOut("2.Start Game");
-		print.consoleOut("5.Exit Game");
+		print.consoleOut("3.Exit Game");
 		
 		print.consoleOut("=================================");	
 		print.consoleOut(" Please Enter Your Choice: ");

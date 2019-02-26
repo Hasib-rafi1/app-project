@@ -1,5 +1,7 @@
 package helper;
+import java.awt.Color;
 import java.util.Scanner;
+
 
 
 
@@ -11,10 +13,11 @@ import java.util.Scanner;
 public class PrintConsoleAndUserInput {
 	
     static Scanner input = new Scanner(System.in);
-    
     // Try with these directory path if code is not running
-    //private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
-    private String mapDir = ".\\src\\mapFiles\\";
+    private static String OS = System.getProperty("os.name").toLowerCase();
+   private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
+   //private String mapDir = ".\\src\\mapFiles\\";
+
 
     /**
      *  This method is used to print in console.
@@ -53,6 +56,9 @@ public class PrintConsoleAndUserInput {
      * @return String mapDir
      */
     public String getMapDir() {
+    	if(OS.indexOf("win") >= 0) {
+    		mapDir = ".\\src\\mapFiles\\";
+    	}
         return mapDir;
     }
     
@@ -67,10 +73,39 @@ public class PrintConsoleAndUserInput {
 		System.out.println(exception.getCause());
 		exception.printStackTrace();
 	}
-
 	
+	
+	/**
+	 * Method to convert the enum color into color object of swings
+	 * @param selectedColor,selected color from color enum
+	 * @return Color based on the objects
+	 */
+	public static Color getColor(Colors selectedColor) {
+		if (selectedColor.equals(Colors.BLACK)) {
+			return Color.BLACK;
+		}
+		if (selectedColor.equals(Colors.RED)) {
+			return Color.RED;
+		}
+		if (selectedColor.equals(Colors.GREEN)) {
+			return Color.GREEN;
+		}
+		if (selectedColor.equals(Colors.BLUE)) {
+			return Color.BLUE;
+		}
+		if (selectedColor.equals(Colors.MAGENTA)) {
+			return Color.MAGENTA;
+		}
 
+		if (selectedColor.equals(Colors.DARK_GRAY)) {
+			return Color.DARK_GRAY;
+		}
+		if (selectedColor.equals(Colors.ORANGE)) {
+			return Color.ORANGE;
+		}
+		return null;
 
+	}
 }
 
 	
