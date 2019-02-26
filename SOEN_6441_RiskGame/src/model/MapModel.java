@@ -17,9 +17,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-
-
-
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
  * @author Zakiya Jafrin
@@ -426,52 +423,34 @@ public class MapModel {
 	 * @param deleteContinentEnteredByUser, name of the continent
 	 * @return true
 	 */
-	public boolean deleteContinentFromMap(String deleteContinentEnteredByUser) {
-
-		ArrayList<Country> countriesListOfCurrentContinent = new ArrayList<>();
-
-		/*	for (Continent checkExistingContinents : continentsList) {
-			System.out.println(checkExistingContinents.getContinentName()+"----");
-			System.out.println(deleteContinentEnteredByUser+"******");
-			if (checkExistingContinents.getContinentName().equals(deleteContinentEnteredByUser) ) {				
-			} else {
-				print.consoleErr("Error!!!"+deleteContinentEnteredByUser+" does not exists in selected map.");
-				return false;
-			}	
-
-			countriesListOfCurrentContinent = checkExistingContinents.getCountryList();
-		}*/
-		Continent currentContinent = continentsList.stream()
+	public boolean deleteContinentFromMap(String deleteContinentEnteredByUser) {		
+		Continent elementInCurrentContinents = continentsList.stream()
 				.filter(x-> x.getContinentName().equalsIgnoreCase(deleteContinentEnteredByUser))
 				.findAny()
-				.orElse(null);
-
-
-
-		if(currentContinent==null){
-			print.consoleOut("Continent name is invalid");
+				.orElse(null);	
+		
+		if(elementInCurrentContinents==null){
+			print.consoleErr("Error!!!Continent name does not exist");
 			return false;
 		}
-		//countriesListOfCurrentContinent = currentContinent.getCountryList();
-		for ( Continent continent: continentsList){
-			for (Country country : continent.getCountryList()) {
-				for (int i = 0; i < country.getNeighboursString().size() ; i++) {
-					String coutryNameToDelete = country.getNeighboursString().get(i);
-					Country c = countriesListOfCurrentContinent.stream()
-							.filter(x -> x.getCountryName().equalsIgnoreCase(coutryNameToDelete))
-							.findAny().orElse(null);
-					if (c!=null){
-						country.getNeighboursString().remove(i);
-					}
-					else{
-					}
-				}
-			}
-		}
-		continentsList.remove(currentContinent);
 
-		return true;
-
+		ArrayList<Country> countriesListOfCurrentContinent = elementInCurrentContinents.getCountryList();	      
+	        for ( Continent currentContinentList: continentsList){
+	            for (Country countryListToRemoveContinent : currentContinentList.getCountryList()) {
+	                for (int i = 0; i < countryListToRemoveContinent.getNeighboursString().size() ; i++) {
+	                	String countryNameToDelete = countryListToRemoveContinent.getNeighboursString().get(i);
+	                	
+	                	Country deleteElement = countriesListOfCurrentContinent.stream()
+	                				.filter(x -> x.getCountryName().equalsIgnoreCase(countryNameToDelete))
+	                				.findAny().orElse(null);
+	                    if (deleteElement!=null){
+	                    	countryListToRemoveContinent.getNeighboursString().remove(i);
+	                    }	                    
+	                }
+	            }
+	        }
+	        continentsList.remove(elementInCurrentContinents);
+	        return true;
 	}
 
 	public void saveEditedMap() {
@@ -568,7 +547,7 @@ public class MapModel {
 			}
 		} 
 	}
-	
+
 	public String getMapDir() {
 		return print.getMapDir();
 	}
