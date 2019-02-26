@@ -1,5 +1,7 @@
 package helper;
+import java.awt.Color;
 import java.util.Scanner;
+
 
 
 
@@ -72,6 +74,38 @@ public class PrintConsoleAndUserInput {
 		exception.printStackTrace();
 	}
 	
+	
+	/**
+	 * Method to convert the enum color into color object of swings
+	 * @param selectedColor,selected color from color enum
+	 * @return Color based on the objects
+	 */
+	public static Color getColor(Colors selectedColor) {
+		if (selectedColor.equals(Colors.BLACK)) {
+			return Color.BLACK;
+		}
+		if (selectedColor.equals(Colors.RED)) {
+			return Color.RED;
+		}
+		if (selectedColor.equals(Colors.GREEN)) {
+			return Color.GREEN;
+		}
+		if (selectedColor.equals(Colors.BLUE)) {
+			return Color.BLUE;
+		}
+		if (selectedColor.equals(Colors.MAGENTA)) {
+			return Color.MAGENTA;
+		}
+
+		if (selectedColor.equals(Colors.DARK_GRAY)) {
+			return Color.DARK_GRAY;
+		}
+		if (selectedColor.equals(Colors.ORANGE)) {
+			return Color.ORANGE;
+		}
+		return null;
+
+	}
 }
 
 	

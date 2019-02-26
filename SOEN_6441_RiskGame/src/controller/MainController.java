@@ -1,6 +1,8 @@
 package controller;
 import java.io.IOException;
 import java.util.Scanner;
+
+
 import controller.MainMenu;
 import controller.MapController;
 import helper.Colors;
@@ -28,27 +30,31 @@ public class MainController {
 		MapController mapController = new MapController();	
 		PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 		GameController gameController = new GameController();
+
 		int selectMainMenuOption = 0;		
 		boolean checkMapStatus = false;
 		do {
 			selectMainMenuOption = mainMenu.displaymainMenu();
 			switch (selectMainMenuOption) {	
-			case 1:			
-				mapController.startMap();
+			case 1:		
+				// This case has all the functionality of Map.
+				mapController.generateMap();
 				break;
 			case 2:
+
 				gameController.initializeMap(); 
 				gameController.initializeGame();
+
 				break;
 			case 5:
 				print.consoleErr("Thanks for playing this Game.");
 				System.exit(0);
 			default :
-				System.err.println("\n\t Error! Please select valid option from the above Options(1 to 5):");				
+				System.err.println("\n\t Error! Select option from the menu list (1 to 5):");				
 				break;
 			}
 
 		} while (selectMainMenuOption != 5);
 		System.exit(0);
-	}
+		}
 }

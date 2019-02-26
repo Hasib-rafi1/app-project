@@ -24,13 +24,23 @@ public class Country {
      * @param xCoordinate
      * @param yCoordinate
      */
-    Country (int countryId, String countryName, int xCoordinate, int yCoordinate){
+    
+    
+    public Country(int countryId, String countryName) {
+		this.countryId = countryId;
+		this.countryName = countryName;
+	}
+    
+    public Country (int countryId, String countryName, int xCoordinate, int yCoordinate){
         this.countryId = countryId;
         this.countryName = countryName;
         this.xCoordinate =xCoordinate;
         this.yCoordinate = yCoordinate;
     }
 
+    
+   
+    
     /**
      * This method is used to get an integer value of the country which is set as Country ID
      * @return the country ID Integer
@@ -38,6 +48,10 @@ public class Country {
     public int getCountryId(){
         return countryId;
     }
+    
+    public void setCountryId(int countryId) {
+		this.countryId = countryId;
+	}
 
     /**
      * This method is used to get the name of the Country.
@@ -46,6 +60,10 @@ public class Country {
     public String getCountryName(){
         return countryName;
     }
+    
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
+	}
 
     /**
      * This method is used to get the X-coordinate of the corresponding Country
@@ -55,6 +73,11 @@ public class Country {
         return xCoordinate;
     }
 
+	
+	public void setxCoordinate(int xCoordinate) {
+		this.xCoordinate = xCoordinate;
+	}
+
     /**
      * This method is used to get the Y-coordinate of the corresponding Country
      * @return the integer value of y coordinate
@@ -62,6 +85,14 @@ public class Country {
     public int getyCoordinate() {
         return yCoordinate;
     }
+    
+    
+	public void setyCoordinate(int yCoordinate) {
+		this.yCoordinate = yCoordinate;
+	}
+	
+    
+    
 
     /**
      * This method is used to get an integer value of the continent which is set as Country ID
@@ -70,6 +101,9 @@ public class Country {
     public int getContinentID() {
         return continentID;
     }
+    
+   
+    
 
     /**
      * This method is used to sets an integer value of the continent which is set as Country ID
@@ -115,6 +149,8 @@ public class Country {
 		if (!this.neighboursString.contains(newNeighbour)) {
 			this.neighboursString.add(newNeighbour);
 		}
+		
+		
 	}  
     
 }
