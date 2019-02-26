@@ -35,16 +35,14 @@ public class MainController {
 		boolean checkMapStatus = false;
 		do {
 			selectMainMenuOption = mainMenu.displaymainMenu();
-			switch (selectMainMenuOption) {	
+			switch (selectMainMenuOption) 
+			{	
 			case 1:		
-				// This case has all the functionality of Map.
 				mapController.generateMap();
 				break;
 			case 2:
-
 				gameController.initializeMap(); 
 				gameController.initializeGame();
-
 				break;
 			case 5:
 				print.consoleErr("Thanks for playing this Game.");
@@ -54,7 +52,8 @@ public class MainController {
 				break;
 			}
 
-		} while (selectMainMenuOption != 5);
+		} 
+		while (selectMainMenuOption != 5);
 		System.exit(0);
 		}
 }
