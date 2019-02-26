@@ -9,13 +9,15 @@ public class InitialPlayerArmy
 		case 1:
 			return Colors.BLACK;
 		case 2:
-			return Colors.BLUE;
+			return Colors.RED;
 		case 3:
 			return Colors.GREEN;
 		case 4:
-			return Colors.RED;
+			return Colors.BLUE;
 		case 5:
-			return Colors.ORANGE;
+			return Colors.MAGENTA;
+		case 6:
+			return Colors.DARK_GRAY;
 		default:
 			return Colors.ORANGE;
 		}

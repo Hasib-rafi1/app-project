@@ -76,7 +76,7 @@ public class BoardView implements Observer {
 	String activePlayerName = null;
 	int activePlayerId;
 	Colors activePlayerColor = null;
-	String activePlayerUnassignedArmiesCount = "5", reinforcementUnassignedArmiesCount;  
+	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;  
 	PrintConsoleAndUserInput obj_print=new PrintConsoleAndUserInput();
 	
 
@@ -126,14 +126,14 @@ public class BoardView implements Observer {
 			lab_unassignedReinforcement.setText(reinforcementUnassignedArmiesCount);
 			
 			if (game.getGamePhase() == GamePhase.Startup) {
-					lab_gamePhase.setText("Initialization");
+					lab_nameofPhase.setText("Initialization");
 				} else if (game.getGamePhase() == GamePhase.Reinforcement) {
-					lab_gamePhase.setText("Reinforcement");
+					lab_nameofPhase.setText("Reinforcement");
 				} else if (game.getGamePhase() == GamePhase.Attack) {
-					lab_gamePhase.setText("Attack - not implemented");
+					lab_nameofPhase.setText("Attack - not implemented");
 					
 				} else if (game.getGamePhase() == GamePhase.Fortification) {
-					lab_gamePhase.setText("Fortification");
+					lab_nameofPhase.setText("Fortification");
 					comboSourceCountry();
 				}
 	     }

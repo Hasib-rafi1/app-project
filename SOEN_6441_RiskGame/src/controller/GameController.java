@@ -44,7 +44,7 @@ public class GameController {
 		print.consoleOut("\nEnter the number of Players:");
 		int playerCount = PrintConsoleAndUserInput.userIntInput();
 
-		for (int i = 0; i < playerCount ; i++) 
+		for (int i = 1; i <= playerCount ; i++) 
 		{
 			print.consoleOut("\nEnter the name of Player " + i);
 			String name = userinput.nextLine();
