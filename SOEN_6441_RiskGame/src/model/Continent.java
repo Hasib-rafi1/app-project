@@ -40,7 +40,7 @@ public class Continent {
 	/**
 	 * This function sets the continent ID of the continent.
 	 * 
-	 * @param contId ,Id of the continent
+	 * @param continentID ,Id of the continent
 	 */
 	public void setContinentId(int continentID) {
 		this.continentID = continentID;
@@ -64,7 +64,7 @@ public class Continent {
 	/**
 	 * This function sets the continent name.
 	 * 
-	 * @param contName , Name of the continent
+	 * @param continentName , Name of the continent
 	 */
 	public void setContinentName(String continentName) {
 		this.continentName = continentName;
