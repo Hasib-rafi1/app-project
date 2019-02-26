@@ -1,5 +1,5 @@
 package model;
-
+import helper.Colors;
 import java.util.ArrayList;
 
 /**
@@ -10,10 +10,30 @@ import java.util.ArrayList;
 public class Country {
     private int countryId;
     private String countryName;
+    private int continentID;
     private int xCoordinate;
     private int yCoordinate;
-    private int continentID;
-   
+    private int playerId;
+    private int armyNumbers;
+    private Colors countryColor;
+
+    
+	public int getPlayerId() {
+		return playerId;
+	}
+
+	public void setPlayerId(int playerId) {
+		this.playerId = playerId;
+	}
+	
+	public Colors getCountryColor() {
+		return countryColor;
+	}
+
+	public void setCountryColor(Colors countryColor) {
+		this.countryColor = countryColor;
+	}
+    
     private ArrayList<String> neighboursString = new ArrayList<>();
     private ArrayList<Country> neighboursOfCountry= new ArrayList<>();
 
@@ -129,7 +149,6 @@ public class Country {
         neighboursOfCountry.add(neighbour);
     }
        
-    
     /**
 	 * This method is used to get the list of neighbour Strings
 	 * 
@@ -149,8 +168,26 @@ public class Country {
 		if (!this.neighboursString.contains(newNeighbour)) {
 			this.neighboursString.add(newNeighbour);
 		}
-		
-		
 	}  
+	
+	public int getnoOfArmies() {
+		return armyNumbers;
+	}
+
+	public void increaseArmyCount() {
+		armyNumbers++;
+	}
+
+	public void increaseArmyCount(int count) {
+		armyNumbers += count;
+	}
+
+	public void decreseArmyCount() {
+		armyNumbers--;
+	}
+
+	public void decreaseArmyCount(int count) {
+		armyNumbers -= count;
+	}
     
 }

@@ -18,6 +18,7 @@ import views.MapView;
 /**
  * This class is used to handle the operations to generate, edit the map.
  * @author Gargi Sharma
+ * @author Zakiya Jafrin
  * @version 1.0.0
  */
 public class MapController {
@@ -55,8 +56,10 @@ public class MapController {
 					// Read map file by selecting the map name
 					mapModel.readMapFile(mapPath);	
 					// printing map values
+
 					mapModel.printingContinents();   // this method print continents
 					mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
+					mapModel.printNeighboursGivenContry(); //prints the neighbours of a country given a country name
 				} else {
 					print.consoleErr("File not found!!!. Please enter the coreect name of map.");
 				}						
@@ -258,8 +261,6 @@ public class MapController {
 	}
 
 	/**
-	 * @author Zakiya Jafrin
-	 * @version 1.0.0
 	 * This method is used to list the .map files from the directory as an Arraylist
 	 * @return mapFileList
 	 */
