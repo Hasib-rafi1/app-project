@@ -4,22 +4,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observable;
+import java.util.Random;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
+import helper.InitialPlayerArmy;
 
 import helper.GamePhase;
 
 public class Game extends Observable {
 
-	private MapModel map;
+	private MapModel mapModel;
 	private GamePhase gamePhase;
 	private int currentPlayerId;
+	
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
-
+	
+	InitialPlayerArmy ipa = new InitialPlayerArmy();
 
 	public Game(MapModel map) 
 	{
 		super();
-		this.map = map;
+		this.mapModel = map;
 		this.setGamePhase(GamePhase.Startup);
 	}
 	
@@ -31,6 +38,20 @@ public class Game extends Observable {
 	public ArrayList<Player> getAllPlayers() 
 	{
 		return playerList;
+	}
+	
+	public void startGame() 
+	{
+		//Assigning the Initial armies.
+		for(int i=0; i<playerList.size(); i++)
+		{
+			playerList.get(i).setNumberOfInitialArmies(ipa.getInitialArmyCount(playerList.size()));
+		}
+		
+		int players_count = playerList.size();
+		System.out.println(players_count);
+		int countries_count = mapModel.getCountryList().size();
+		System.out.println(countries_count);
 	}
 	
 	public Player getCurrentPlayer() 
@@ -111,11 +132,11 @@ public class Game extends Observable {
 	
 	public MapModel getMap() 
 	{
-		return map;
+		return mapModel;
 	}
 	public void setMap(MapModel map) 
 	{
-		this.map = map;
+		this.mapModel = map;
 	}
 	public GamePhase getGamePhase() 
 	{

@@ -39,8 +39,8 @@ public class GameController {
 			String name = userinput.nextLine();
 			Player player = new Player(i,name);
 			game.addPlayer(player);
-			System.out.println(game.getAllPlayers());
 		}
+		game.startGame();
 	}
 	
 	public ArrayList<String> listofMapsinDirectory()
