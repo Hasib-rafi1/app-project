@@ -1,5 +1,5 @@
 package model;
-
+import helper.Colors;
 import java.util.ArrayList;
 
 /**
@@ -10,20 +10,32 @@ import java.util.ArrayList;
 public class Country {
     private int countryId;
     private String countryName;
+    private int continentID;
     private int xCoordinate;
     private int yCoordinate;
-    private int continentID;
-   
+    private int playerId;
+    private int armyNumbers;
+    private Colors countryColor;
+
+    
+	public int getPlayerId() {
+		return playerId;
+	}
+
+	public void setPlayerId(int playerId) {
+		this.playerId = playerId;
+	}
+	
+	public Colors getCountryColor() {
+		return countryColor;
+	}
+
+	public void setCountryColor(Colors countryColor) {
+		this.countryColor = countryColor;
+	}
+    
     private ArrayList<String> neighboursString = new ArrayList<>();
     private ArrayList<Country> neighboursOfCountry= new ArrayList<>();
-
-
-    
-    
-    public Country(int countryId, String countryName) {
-		this.countryId = countryId;
-		this.countryName = countryName;
-	}
 
     /**
      * The Constructor is created to set the all parameters of the country Element
@@ -32,6 +44,13 @@ public class Country {
      * @param xCoordinate
      * @param yCoordinate
      */
+    
+    
+    public Country(int countryId, String countryName) {
+		this.countryId = countryId;
+		this.countryName = countryName;
+	}
+    
     public Country (int countryId, String countryName, int xCoordinate, int yCoordinate){
         this.countryId = countryId;
         this.countryName = countryName;
@@ -121,10 +140,6 @@ public class Country {
     public ArrayList<Country> getNeighboursOfCountry() {
         return neighboursOfCountry;
     }
-
-//    public void addNeighboursAsString(String neighbourString){
-//
-//    }
     
     /**
      * From the country-neighbour HashMap adds the neighbours to the country individually
@@ -133,8 +148,7 @@ public class Country {
     public void addNeighboursToTheCountries(Country neighbour){
         neighboursOfCountry.add(neighbour);
     }
-
-    
+       
     /**
 	 * This method is used to get the list of neighbour Strings
 	 * 
@@ -154,8 +168,26 @@ public class Country {
 		if (!this.neighboursString.contains(newNeighbour)) {
 			this.neighboursString.add(newNeighbour);
 		}
-		
-		
 	}  
+	
+	public int getnoOfArmies() {
+		return armyNumbers;
+	}
+
+	public void increaseArmyCount() {
+		armyNumbers++;
+	}
+
+	public void increaseArmyCount(int count) {
+		armyNumbers += count;
+	}
+
+	public void decreseArmyCount() {
+		armyNumbers--;
+	}
+
+	public void decreaseArmyCount(int count) {
+		armyNumbers -= count;
+	}
     
 }

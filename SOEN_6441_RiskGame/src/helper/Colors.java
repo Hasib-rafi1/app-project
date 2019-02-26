@@ -8,8 +8,6 @@ import java.awt.Color;
  * @author Gargi Sharma
  * @version 1.0.0
  */
-
-
 	
 	public enum Colors {
 	    

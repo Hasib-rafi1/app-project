@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +22,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+
 
 
 import helper.Colors;
@@ -67,12 +71,13 @@ public class BoardView implements Observer {
 	String activePlayerName = null;
 	int activePlayerId;
 	Colors activePlayerColor = null;
-	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;  
+	String activePlayerUnassignedArmiesCount = "5", reinforcementUnassignedArmiesCount;  
 	PrintConsoleAndUserInput obj_print=new PrintConsoleAndUserInput();
+	
 
 	String mapPath =obj_print.getMapDir()+ "World.bmp" ;
 	ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
-
+	
 	// PhaseEnum phase;
 	@Override
 	public void update(Observable arg0, Object arg1) {
@@ -83,27 +88,23 @@ public class BoardView implements Observer {
 
 	}
 
-
-
-
-
-
-
 	/**
 	 * Method that loads up the GUI window
 	 */
 	public void gameWindowLoad() {
-
-		//fortification();
-		//gamePhase();
 		actionPlan();
+		gamePhase();
 		view_initialisation();
 		reinforcements();
-		frame_gameWindow.setSize(1450, 800);
+		fortification();
+		
+		frame_gameWindow.setSize(1450, 600);
 		frame_gameWindow.setVisible(true);
 		frame_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
+	
+
 
 	/**
 	 * This method is initializing the jframe and importing the map file and country related data
@@ -145,6 +146,27 @@ public class BoardView implements Observer {
 		panel_gameAction.add(pane_mapScrollPane);
 		frame_gameWindow.add(panel_gameAction);
 	}
+	
+	/**
+	 * Method that updates the phase of the game
+	 */
+	public void gamePhase() {
+		lab_gamePhase = new JLabel();
+		lab_gamePhase.setBorder(
+				BorderFactory.createTitledBorder(null, "Phase Information", TitledBorder.DEFAULT_JUSTIFICATION,
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+		lab_gamePhase.setBounds(pane_mapScrollPane.getX()+930, pane_mapScrollPane.getY(), 490, 100);
+
+		lab_nameofPhase = new JLabel("Initialization");
+		Font font = new Font("Courier", Font.BOLD, 24);
+		lab_nameofPhase.setFont(font);
+		lab_nameofPhase.setBounds(15, 15, 220, 70);
+		
+		lab_gamePhase.add(lab_nameofPhase);
+		panel_gameAction.add(lab_gamePhase);
+	}
+	
+	
 	/**
 	 * Method for initialisation of game view
 	 */
@@ -154,7 +176,7 @@ public class BoardView implements Observer {
 		lab_initialisation.setBorder(
 				BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		lab_initialisation.setBounds(pane_mapScrollPane.getX() + 930, pane_mapScrollPane.getY(), 490, 100);
+		lab_initialisation.setBounds(lab_gamePhase.getX(), lab_gamePhase.getY()+ lab_gamePhase.getHeight()+10, 490, 100);
 
 		// Recreate every components in Label
 		lab_playersTurn = new JLabel(activePlayerName);
@@ -227,7 +249,7 @@ public class BoardView implements Observer {
 		combo_armyToMove.setBounds(combo_countrySource.getX(), combo_countrySource.getHeight() + combo_countrySource.getY() + 7,
 				combo_countrySource.getWidth(), combo_countrySource.getHeight());
 		combo_armyToMove.setBorder(new TitledBorder("Total number of army to move"));
-
+		//button_moveFortification.setFocusable(true);
 		button_moveFortification.setBounds(combo_countryDestination.getX(), combo_armyToMove.getY(),
 				combo_countryDestination.getWidth(), combo_countryDestination.getHeight());
 
@@ -239,24 +261,108 @@ public class BoardView implements Observer {
 		// Adding Label to Panel
 		panel_gameAction.add(lab_fortification);
 	}
+	
 	/**
-	 * Method that updates the phase of the game
+	 * This method is going to use for the mouse event for the map labels
+	 * @param listener MouseListener
 	 */
-	public void gamePhase() {
-		lab_gamePhase = new JLabel();
-		lab_gamePhase.setBorder(
-				BorderFactory.createTitledBorder(null, "Phase Information", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		lab_gamePhase.setBounds(lab_reinforcement.getX(),
-				lab_fortification.getY() + 10 + lab_fortification.getHeight(), lab_fortification.getWidth(), 70);
-
-		lab_gamePhase = new JLabel("Initialization");
-		Font font = new Font("Courier", Font.BOLD, 24);
-		lab_gamePhase.setFont(font);
-		lab_gamePhase.setBounds(15, 15, 220, 70);
-
-		lab_gamePhase.add(lab_gamePhase);
-
-		panel_gameAction.add(lab_gamePhase);
+	public void addMapLabelsListener(MouseListener listener) {
+		int n = lab_map.getComponentCount();
+		for (int i = 0; i < n; i++) {
+			JLabel jLabel = (JLabel) lab_map.getComponent(i);
+			jLabel.addMouseListener(listener);
+		}
+	}
+	
+	/**
+	 * This method is going to add a listener in the combobox of the source country
+	 * @param listener ActionListener
+	 */
+	public void addActionListenToSourceCountryList(ActionListener listener) {
+		combo_countrySource.addActionListener(listener);
+	}
+	
+	
+	/**
+	 * Static method to get selected source country
+	 * @return selectedCountry
+	 */
+	public static String getSourceCountry() {
+		
+		return (String)combo_countrySource.getSelectedItem();
+		
+	}
+	public void ComboSourceCountry(){
+		combo_countrySource.removeAllItems();
+		for (int i = 0; i < countryList.size(); i++) {
+			CountryViewModel temp_cname = countryList.get(i);
+			if (activePlayerId == temp_cname.getPlayerID()) {
+				combo_countrySource.addItem(temp_cname.getCountryName());
+			}
+		}
+		
+	}
+	
+	/**
+	 * Method is populating value in the destination phase combobox 
+	 * @param destinationCountries ArrayList
+	 */	
+	public void populateDestinationCountryComboBox(ArrayList<String> destinationCountries)
+	{   combo_countryDestination.removeAllItems();
+		for(String countryName : destinationCountries)
+		   combo_countryDestination.addItem(countryName);
+			
+	}
+	
+	/**
+	 * Method to add the possible number of the army the player can move
+	 * @param NoOfArmies int
+	 * 
+	 */
+	public void populateNoOfArmyToMoveJcomboBox(int NoOfArmies)
+	{   combo_armyToMove.removeAllItems();
+		for(Integer i=0;i<NoOfArmies;i++)
+			combo_armyToMove.addItem(i.toString());		
+	}
+	
+	
+	/**
+	 * Method for performing action listener on move army button
+	 * @param listener ActionListener
+	 */
+	public void moveArmyButtonListener(ActionListener listener) {
+		button_moveFortification.addActionListener(listener);
+	}
+	
+	/**
+	 * get the selected item from destination combo
+	 * @return selectedCountry
+	 */
+	public static String getDestinationCountry() {
+		
+		Object selectedItem = combo_countryDestination.getSelectedItem();
+		if(selectedItem != null)
+		{
+			String selectedCountry = (String) selectedItem;
+			return selectedCountry;
+		}
+		else {
+			return "";
+		}
+	}
+	
+	
+	/**
+	 * Static method to get number of army the player wants to move
+	 * @return NoOfArmies
+	 */
+	public static Integer getNoOfArmyToMoveJcomboBox() {
+		Object selectedItem = combo_armyToMove.getSelectedItem();
+		if(selectedItem != null)
+		{
+			Integer NoOfArmies = (Integer.parseInt((String) selectedItem));
+			return NoOfArmies;
+		}
+		return 0;
 	}
 }
