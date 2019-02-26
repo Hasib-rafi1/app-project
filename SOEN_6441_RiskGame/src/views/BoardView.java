@@ -84,12 +84,6 @@ public class BoardView implements Observer {
 
 	}
 
-
-
-
-
-
-
 	/**
 	 * Method that loads up the GUI window
 	 */

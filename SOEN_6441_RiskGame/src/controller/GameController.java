@@ -38,13 +38,13 @@ public class GameController {
 	
 			for (int i = 0; i < playerCount ; i++) 
 			{
-				print.consoleOut("\nEnter the name of Player " + i+1);
+				print.consoleOut("\nEnter the name of Player " + i);
 				String name = userinput.nextLine();
 				Player player = new Player(i,name);
 				game.addPlayer(player);
-			}
-			
+			}	
 		game.startGame();
+		boardView.gameWindowLoad();	
 	}
 	
 	public ArrayList<String> listofMapsinDirectory()
