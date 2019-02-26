@@ -67,8 +67,9 @@ public class BoardView implements Observer {
 	String activePlayerName = null;
 	int activePlayerId;
 	Colors activePlayerColor = null;
-	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;  
+	String activePlayerUnassignedArmiesCount = "5", reinforcementUnassignedArmiesCount;  
 	PrintConsoleAndUserInput obj_print=new PrintConsoleAndUserInput();
+	
 
 	String mapPath =obj_print.getMapDir()+ "World.bmp" ;
 	ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
@@ -93,17 +94,19 @@ public class BoardView implements Observer {
 	 * Method that loads up the GUI window
 	 */
 	public void gameWindowLoad() {
-
-		//fortification();
-		//gamePhase();
 		actionPlan();
+		gamePhase();
 		view_initialisation();
 		reinforcements();
-		frame_gameWindow.setSize(1450, 800);
+		fortification();
+		
+		frame_gameWindow.setSize(1450, 600);
 		frame_gameWindow.setVisible(true);
 		frame_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
+	
+
 
 	/**
 	 * This method is initializing the jframe and importing the map file and country related data
@@ -145,6 +148,27 @@ public class BoardView implements Observer {
 		panel_gameAction.add(pane_mapScrollPane);
 		frame_gameWindow.add(panel_gameAction);
 	}
+	
+	/**
+	 * Method that updates the phase of the game
+	 */
+	public void gamePhase() {
+		lab_gamePhase = new JLabel();
+		lab_gamePhase.setBorder(
+				BorderFactory.createTitledBorder(null, "Phase Information", TitledBorder.DEFAULT_JUSTIFICATION,
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+		lab_gamePhase.setBounds(pane_mapScrollPane.getX()+930, pane_mapScrollPane.getY(), 490, 100);
+
+		lab_nameofPhase = new JLabel("Initialization");
+		Font font = new Font("Courier", Font.BOLD, 24);
+		lab_nameofPhase.setFont(font);
+		lab_nameofPhase.setBounds(15, 15, 220, 70);
+		
+		lab_gamePhase.add(lab_nameofPhase);
+		panel_gameAction.add(lab_gamePhase);
+	}
+	
+	
 	/**
 	 * Method for initialisation of game view
 	 */
@@ -154,7 +178,7 @@ public class BoardView implements Observer {
 		lab_initialisation.setBorder(
 				BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		lab_initialisation.setBounds(pane_mapScrollPane.getX() + 930, pane_mapScrollPane.getY(), 490, 100);
+		lab_initialisation.setBounds(lab_gamePhase.getX(), lab_gamePhase.getY()+ lab_gamePhase.getHeight()+10, 490, 100);
 
 		// Recreate every components in Label
 		lab_playersTurn = new JLabel(activePlayerName);
@@ -239,24 +263,5 @@ public class BoardView implements Observer {
 		// Adding Label to Panel
 		panel_gameAction.add(lab_fortification);
 	}
-	/**
-	 * Method that updates the phase of the game
-	 */
-	public void gamePhase() {
-		lab_gamePhase = new JLabel();
-		lab_gamePhase.setBorder(
-				BorderFactory.createTitledBorder(null, "Phase Information", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		lab_gamePhase.setBounds(lab_reinforcement.getX(),
-				lab_fortification.getY() + 10 + lab_fortification.getHeight(), lab_fortification.getWidth(), 70);
 
-		lab_gamePhase = new JLabel("Initialization");
-		Font font = new Font("Courier", Font.BOLD, 24);
-		lab_gamePhase.setFont(font);
-		lab_gamePhase.setBounds(15, 15, 220, 70);
-
-		lab_gamePhase.add(lab_gamePhase);
-
-		panel_gameAction.add(lab_gamePhase);
-	}
 }
