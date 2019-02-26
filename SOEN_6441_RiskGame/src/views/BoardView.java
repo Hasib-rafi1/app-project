@@ -22,8 +22,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
-import helper.Colors;
 
+
+import helper.Colors;
+import helper.PrintConsoleAndUserInput;
 import model.CountryViewModel;
 import model.Game;
 
@@ -67,7 +69,9 @@ public class BoardView implements Observer {
     int activePlayerId;
     Colors activePlayerColor = null;
 	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;  
-    String mapPath;
+	PrintConsoleAndUserInput obj_print=new PrintConsoleAndUserInput();
+	
+    String mapPath =obj_print.getMapDir()+ "World.bmp" ;
     ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
    // PhaseEnum phase;
 	@Override
@@ -75,7 +79,7 @@ public class BoardView implements Observer {
 		// TODO Auto-generated method stub
 		Game game = ((Game)arg0);
 	     
-	  //   mapPath = game.getMap().+ "World.bmp";
+	     mapPath = game.getMap().getMapDir()+ "World.bmp";
 		
 	}
 
@@ -95,7 +99,7 @@ public void gameWindowLoad() {
 	//fortification();
 	//gamePhase();
 	actionPlan();
-	frame_gameWindow.setSize(1250, 700);
+	frame_gameWindow.setSize(1400, 800);
 	frame_gameWindow.setVisible(true);
 	frame_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
@@ -117,13 +121,42 @@ public void actionPlan() {
 	}
 
 	lab_map = new JLabel(icon);
-	
+	pane_mapScrollPane = new JScrollPane(lab_map);
+	pane_mapScrollPane.setBounds(0,10,920,520);
+	pane_mapScrollPane.setBorder(new TitledBorder(""));
+	panel_gameAction.add(pane_mapScrollPane);
+	frame_gameWindow.add(panel_gameAction);
 }
 /**
  * Method for initialisation of game view
  */
 public void view_initialisation() {
+	lab_initialisation = new JLabel();
 
+	lab_initialisation.setBorder(
+			BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
+					TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+	lab_initialisation.setBounds(pane_mapScrollPane.getX() + 700, pane_mapScrollPane.getY(), 490, 100);
+
+	// Recreate every components in Label
+	lab_playersTurn = new JLabel(activePlayerName);
+	Font font = new Font("Courier", Font.BOLD, 24);
+	lab_playersTurn.setFont(font);
+	//lab_playersTurn.setForeground(Colors.(activePlayerColor));
+	lab_playersTurn.setBorder(new TitledBorder("Active Player"));
+	lab_playersTurn.setBounds(15, 25, 220, 70);
+
+	lab_armiesLeft = new JLabel("" + activePlayerUnassignedArmiesCount);
+	lab_armiesLeft.setBorder(new TitledBorder("Armies Left"));
+	lab_armiesLeft.setBounds(lab_playersTurn.getX() + 240,
+			lab_playersTurn.getY() - 70 + lab_playersTurn.getHeight(), lab_playersTurn.getWidth(),
+			lab_playersTurn.getHeight());
+
+	lab_initialisation.add(lab_playersTurn);
+	lab_initialisation.add(lab_playersTurn);
+	lab_initialisation.add(lab_armiesLeft);
+
+	panel_gameAction.add(lab_initialisation);
 }
 /**
  * Method for reinforcement implementation
@@ -147,6 +180,20 @@ public void fortification() {
  * Method that updates the phase of the game
  */
 public void gamePhase() {
-	
+	lab_gamePhase = new JLabel();
+	lab_gamePhase.setBorder(
+			BorderFactory.createTitledBorder(null, "Phase Information", TitledBorder.DEFAULT_JUSTIFICATION,
+					TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+	lab_gamePhase.setBounds(lab_reinforcement.getX(),
+			lab_fortification.getY() + 10 + lab_fortification.getHeight(), lab_fortification.getWidth(), 70);
+
+	lab_gamePhase = new JLabel("Initialization");
+	Font font = new Font("Courier", Font.BOLD, 24);
+	lab_gamePhase.setFont(font);
+	lab_gamePhase.setBounds(15, 15, 220, 70);
+
+	lab_gamePhase.add(lab_gamePhase);
+
+	panel_gameAction.add(lab_gamePhase);
 }
 }
