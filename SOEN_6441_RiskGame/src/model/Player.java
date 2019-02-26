@@ -26,6 +26,7 @@ public class Player {
 		super();
 		this.playerId = playerId;
 		this.playerName = name;
+		this.color = getPlayerColor(playerId);
 	}
 	
 	/**
@@ -124,6 +125,30 @@ public class Player {
 	public void decreaseReinforcementArmy() {
 		if(numberOfReinforcedArmies>0) {
 			numberOfReinforcedArmies= numberOfReinforcedArmies -1;
+		}
+	}
+	
+	/**
+	 * This returns the player color.
+	 * @param playerID the id of the player
+	 * @return EnumColor,color of the player
+	 */
+	public static Colors getPlayerColor(int playerID) {
+		switch (playerID) {
+		case 1:
+			return Colors.BLACK;
+		case 2:
+			return Colors.BLUE;
+		case 3:
+			return Colors.GREEN;
+		case 4:
+			return Colors.RED;
+		case 5:
+			return Colors.DARK_GRAY;
+		case 6:
+			return Colors.MAGENTA;
+		default:
+			return Colors.ORANGE;
 		}
 	}
 	

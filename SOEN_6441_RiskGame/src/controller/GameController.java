@@ -31,20 +31,23 @@ public class GameController {
 	{
 		game = new Game(mapModel);
 		boardView=new BoardView();
+		game.addObserver(boardView);
 		
 		print.consoleOut("\nEnter the number of Players:");
 		int playerCount = PrintConsoleAndUserInput.userIntInput();
-
-		for (int i = 0; i < playerCount ; i++) 
-		{
-			print.consoleOut("\nEnter the name of Player " + (i));
-			String name = userinput.nextLine();
-			Player player = new Player(i,name);
-			game.addPlayer(player);
-			System.out.println(game.getAllPlayers());
+		if(playerCount>1 && playerCount<8) {
+			for (int i = 0; i < playerCount ; i++) 
+			{
+				print.consoleOut("\nEnter the name of Player " + i+1);
+				String name = userinput.nextLine();
+				Player player = new Player(i,name);
+				game.addPlayer(player);
+			}
+			boardView.gameWindowLoad();
+		}else {
+			System.out.println("Invalid Player number!");
+			initializeGame();
 		}
-		game.addObserver(boardView);
-		boardView.gameWindowLoad();
 		
 	}
 	

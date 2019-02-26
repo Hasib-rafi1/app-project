@@ -13,7 +13,7 @@ import java.awt.Color;
 	
 	public enum Colors {
 	    
-		RED, GREEN, BLUE,MAGENTA,WHITE,BLACK,DARK_GRAY,ORANGE;
+		RED, GREEN, BLUE,MAGENTA,BLACK,DARK_GRAY,ORANGE;
 	}
 
 
