@@ -83,7 +83,7 @@ public class BoardView implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		Game game = ((Game)arg0);
-
+		game.getMap().getContinentList();
 		mapPath = game.getMap().getMapDir()+ "World.bmp";
 
 	}
