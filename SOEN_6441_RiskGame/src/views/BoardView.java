@@ -292,6 +292,10 @@ public class BoardView implements Observer {
 		return (String)combo_countrySource.getSelectedItem();
 		
 	}
+	
+	/**
+	 * method to add countries to the source country combo box
+	 */
 	public void ComboSourceCountry(){
 		combo_countrySource.removeAllItems();
 		for (int i = 0; i < countryList.size(); i++) {
