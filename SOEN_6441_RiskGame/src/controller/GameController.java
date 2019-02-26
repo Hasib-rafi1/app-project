@@ -97,9 +97,10 @@ public class GameController {
 
 			public void mouseClicked(MouseEvent e) {
 				JLabel jLabel=	(JLabel) e.getSource();
-				String string=jLabel.getToolTipText();
+				String country=jLabel.getToolTipText();
 				if (game.getGamePhase()==GamePhase.Startup || game.getGamePhase() == GamePhase.Reinforcement){
-					game.addingCountryArmy(string);
+					game.addingCountryArmy(country);
+
 				}
 			}
 		});
@@ -115,9 +116,10 @@ public class GameController {
 				String countryName = boardView.getSourceCountry();
 				if(countryName!=null) {
 					ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
-		        	int armyCount = game.getArmiesAssignedToCountry(countryName);
-		        	boardView.populateDestinationCountryComboBox(neighborCountries);
-		        	boardView.populateNoOfArmyToMoveJcomboBox(armyCount);
+					int armyCount = game.getArmiesAssignedToCountry(countryName);
+					boardView.populateDestinationCountryComboBox(neighborCountries);
+					boardView.populateNoOfArmyToMoveJcomboBox(armyCount);
+
 				}
 			}
 		});

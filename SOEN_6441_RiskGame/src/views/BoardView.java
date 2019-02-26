@@ -27,11 +27,16 @@ import javax.swing.border.TitledBorder;
 
 
 
+import model.MapModel;
+
+import model.Game;
 import helper.Colors;
 import helper.PrintConsoleAndUserInput;
+import model.Country;
 import model.CountryViewModel;
 import model.Game;
-
+import helper.GamePhase;
+import model.Player;
 /**
  * Risk game view designed in java swing
  * 
@@ -77,14 +82,61 @@ public class BoardView implements Observer {
 
 	String mapPath =obj_print.getMapDir()+ "World.bmp" ;
 	ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
-	
-	// PhaseEnum phase;
+	 GamePhase phase;
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		Game game = ((Game)arg0);
 
+		game.getMap().getContinentList();
 		mapPath = game.getMap().getMapDir()+ "World.bmp";
+	     phase = game.getGamePhase(); 
+	    // mapPath = map.getMapPath() + map.getMapName() + ".bmp";
+	     MapModel map = game.getMap();
+	     activePlayerName = game.getCurrentPlayer().getPlayerName();
+	     activePlayerId = game.getCurrentPlayerId();
+	     activePlayerColor = game.getCurrentPlayer().getColor();
+	     activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNumberOfInitialArmies()); 
+	     reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNumberOfReinforcedArmies());
+	     countryList.clear();
+	     for(Country country: map.getCountryList())
+	     {  CountryViewModel viewCountry = new CountryViewModel();
+	        viewCountry.setCountryId(country.getCountryId());
+	        viewCountry.setColorOfCountry(country.getCountryColor());
+	        viewCountry.setCountryName(country.getCountryName());
+	        viewCountry.setNumberOfArmies(country.getnoOfArmies());
+	        viewCountry.setxCoordinate(country.getxCoordinate());
+	        viewCountry.setyCoordinate(country.getyCoordinate());
+	        viewCountry.setNeighbours(country.getNeighboursString());
+	        viewCountry.setPlayerID(country.getPlayerId());
+	        JLabel label = (JLabel)map_hashMap.get(String.valueOf(country.getCountryId()));
+	        if(label != null)
+	        { label.setText(String.valueOf(viewCountry.getNumberOfArmies()));
+	        }
+	        countryList.add(viewCountry);
+	     }
+	     if(lab_playersTurn != null)
+	     {
+	    	 lab_playersTurn.setText(activePlayerName);
+	    
+	    	 
+	    	 lab_playersTurn.setForeground(PrintConsoleAndUserInput.getColor(activePlayerColor));
+			lab_armiesLeft.setText(activePlayerUnassignedArmiesCount);
+			
+			lab_unassignedReinforcement.setText(reinforcementUnassignedArmiesCount);
+			
+			if (game.getGamePhase() == GamePhase.Startup) {
+					lab_gamePhase.setText("Initialization");
+				} else if (game.getGamePhase() == GamePhase.Reinforcement) {
+					lab_gamePhase.setText("Reinforcement");
+				} else if (game.getGamePhase() == GamePhase.Attack) {
+					lab_gamePhase.setText("Attack - not implemented");
+					
+				} else if (game.getGamePhase() == GamePhase.Fortification) {
+					lab_gamePhase.setText("Fortification");
+					comboSourceCountry();
+				}
+	     }
 
 	}
 
@@ -292,7 +344,11 @@ public class BoardView implements Observer {
 		return (String)combo_countrySource.getSelectedItem();
 		
 	}
-	public void ComboSourceCountry(){
+	
+	/**
+	 * method to add countries to the source country combo box
+	 */
+	public void comboSourceCountry(){
 		combo_countrySource.removeAllItems();
 		for (int i = 0; i < countryList.size(); i++) {
 			CountryViewModel temp_cname = countryList.get(i);
