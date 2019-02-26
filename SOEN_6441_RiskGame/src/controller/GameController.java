@@ -82,7 +82,8 @@ public class GameController {
 		return mapFileList;
 	}
 
-	private void callListenerOnView(){
+	private void callListenerOnView()
+	{
 		numberOfArmiesClickListener();
 		addSourceCountriesListener();
 		addMoveArmyButtonListener();
@@ -98,7 +99,7 @@ public class GameController {
 				JLabel jLabel=	(JLabel) e.getSource();
 				String string=jLabel.getToolTipText();
 				if (game.getGamePhase()==GamePhase.Startup || game.getGamePhase() == GamePhase.Reinforcement){
-					//jai do whatever you want to do.
+					game.addingCountryArmy(string);
 				}
 			}
 		});
@@ -113,12 +114,10 @@ public class GameController {
 			public void actionPerformed(ActionEvent  e) {
 				String countryName = boardView.getSourceCountry();
 				if(countryName!=null) {
-					// Jai come up with the neighboring country arraylist from the specific country name
-					// Jai find the army number that is available in this country
-					//call the bellow function and pass the veriable
-					//boardView.populateDestinationCountryComboBox(neighborCountries);
-					//boardView.populateNoOfArmyToMoveJcomboBox(armyCount);
-
+					ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
+		        	int armyCount = game.getArmiesAssignedToCountry(countryName);
+		        	boardView.populateDestinationCountryComboBox(neighborCountries);
+		        	boardView.populateNoOfArmyToMoveJcomboBox(armyCount);
 				}
 			}
 		});
@@ -132,10 +131,7 @@ public class GameController {
 
 			public void actionPerformed(ActionEvent  e) {
 				if (game.getGamePhase()==GamePhase.Fortification) {
-					//jai do whatever you wan to do 
-					//boardView.getSourceCountry(), this is the source country
-					//boardView.getDestinationCountry(), this is the destination country
-					//boardView.getNoOfArmyToMoveJcomboBox() number of the army
+					game.fortificationPhase(boardView.getSourceCountry(),boardView.getDestinationCountry(),boardView.getNoOfArmyToMoveJcomboBox());
 				}
 			}
 		});
