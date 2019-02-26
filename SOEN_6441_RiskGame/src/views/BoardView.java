@@ -26,6 +26,7 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 
+
 import helper.Colors;
 import helper.PrintConsoleAndUserInput;
 import model.CountryViewModel;
@@ -289,6 +290,16 @@ public class BoardView implements Observer {
 	public static String getSourceCountry() {
 		
 		return (String)combo_countrySource.getSelectedItem();
+		
+	}
+	public void ComboSourceCountry(){
+		combo_countrySource.removeAllItems();
+		for (int i = 0; i < countryList.size(); i++) {
+			CountryViewModel temp_cname = countryList.get(i);
+			if (activePlayerId == temp_cname.getPlayerID()) {
+				combo_countrySource.addItem(temp_cname.getCountryName());
+			}
+		}
 		
 	}
 	
