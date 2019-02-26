@@ -55,13 +55,7 @@ public class GameController {
 		boardView.gameWindowLoad();	
 		callListenerOnView();
 	}
-<<<<<<< HEAD
-	
-		
-	
-=======
 
->>>>>>> branch 'master' of https://jaiganesh_vr@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
 	public ArrayList<String> listofMapsinDirectory()
 	{
 		ArrayList<String> mapFileList = new ArrayList<String>();

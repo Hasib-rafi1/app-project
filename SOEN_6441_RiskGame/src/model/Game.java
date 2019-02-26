@@ -5,12 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Random;
-<<<<<<< HEAD
 import java.util.Collections;
-=======
-
 import helper.InitialPlayerArmy;
->>>>>>> branch 'master' of https://jaiganesh_vr@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
 
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
@@ -35,6 +31,61 @@ public class Game extends Observable {
 		this.setGamePhase(GamePhase.Startup);
 	}
 	
+	public void startGame() 
+	{
+		//Assigning the Initial armies.
+		for(int i=0; i<playerList.size(); i++)
+		{
+			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
+		}
+		
+		int players_count = playerList.size();
+		int countries_count = mapModel.getCountryList().size();
+		int players_id = 0;
+		ArrayList<Integer> randomNumbers = new ArrayList<>();
+
+		for(int i=0; i<countries_count; i++)
+		{
+			randomNumbers.add(i);
+		}
+        Collections.shuffle(randomNumbers, new Random());
+        
+        for(int i=0; i<countries_count ; i++)
+        {
+        	if (players_id == players_count)
+        	{
+        		players_id =0;
+        	}
+        	
+        	Country assign_country = mapModel.getCountryList().get(randomNumbers.get(i));
+        	assignPlayerCountry(playerList.get(players_id),assign_country);
+        	assignUnassigned(playerList.get(players_id),assign_country);
+        	players_id++;
+        }
+        notifyObserverslocal(this);
+	}
+	
+	public void addPlayer(Player player) 
+	{
+		this.playerList.add(player);
+	}
+	
+	public void assignPlayerCountry(Player player, Country country)
+	{
+		if(playerCountry.containsKey(player))
+		{
+			playerCountry.get(player).add(country);
+		}
+		else
+		{
+			ArrayList<Country> assign_country = new ArrayList<>();
+			assign_country.add(country);
+			playerCountry.put(player, assign_country);
+		}
+		country.setCountryColor(player.getColor());
+		country.setPlayerId(player.getPlayerId());
+	}
+	
 	public void addingCountryArmy(String countryName)
 	{
 		if(gamePhase == gamePhase.Attack || gamePhase == gamePhase.Fortification)
@@ -54,7 +105,7 @@ public class Game extends Observable {
 		{
 			addingReinforcementCountryArmy(countryName);
 		}
-	
+		notifyObserverslocal(this);
 	}
 	
 	public boolean addingStartupCountryArmy(String countryName)
@@ -119,6 +170,18 @@ public class Game extends Observable {
 		return true;
 	}
 	
+	public void assignUnassigned(Player player, Country country)
+	{
+		player.decreasenumberOfInitialArmies();
+		country.increaseArmyCount();
+	}
+	
+	public void assignReinforcement(Player player, Country country)
+	{
+		player.decreaseReinforcementArmy();
+		country.increaseArmyCount();
+	}
+	
 	public void setNextPlayerTurn()
 	{
 		currentPlayerId++;
@@ -129,71 +192,7 @@ public class Game extends Observable {
 		}
 	}
 	
-	public void startGame() 
-	{
-		//Assigning the Initial armies.
-		for(int i=0; i<playerList.size(); i++)
-		{
-			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
-		}
-		
-		int players_count = playerList.size();
-		int countries_count = mapModel.getCountryList().size();
-		int players_id = 0;
-		ArrayList<Integer> randomNumbers = new ArrayList<>();
-
-		for(int i=0; i<countries_count; i++)
-		{
-			randomNumbers.add(i);
-		}
-        Collections.shuffle(randomNumbers, new Random());
-        
-        for(int i=0; i<countries_count ; i++)
-        {
-        	if (players_id == players_count)
-        	{
-        		players_id =0;
-        	}
-        	
-        	Country assign_country = mapModel.getCountryList().get(randomNumbers.get(i));
-        	assignPlayerCountry(playerList.get(players_id),assign_country);
-        	assignUnassigned(playerList.get(players_id),assign_country);
-        	players_id++;
-        }
-        notifyObserverslocal(this);
-	}
 	
-	public void assignPlayerCountry(Player player, Country country)
-	{
-		if(playerCountry.containsKey(player))
-		{
-			playerCountry.get(player).add(country);
-		}
-		else
-		{
-			ArrayList<Country> assign_country = new ArrayList<>();
-			assign_country.add(country);
-			playerCountry.put(player, assign_country);
-		}
-		country.setCountryColor(player.getColor());
-		country.setPlayerId(player.getPlayerId());
-	}
-	
-	public void assignUnassigned(Player player, Country country)
-	{
-		player.decreasenumberOfInitialArmies();
-		country.increaseArmyCount();
-	}
-	public void assignReinforcement(Player player, Country country)
-	{
-		player.decreaseReinforcementArmy();
-		country.increaseArmyCount();
-	}
-	
-	public void addPlayer(Player player) 
-	{
-		this.playerList.add(player);
-	}
 	
 	public ArrayList<Player> getAllPlayers() 
 	{
