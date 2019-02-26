@@ -370,6 +370,10 @@ public class MapModel {
 	public ArrayList<Continent> getContinentsList() {
 		return continentsList;
 	}
+	
+	public String getMapDir() {
+		return print.getMapDir();
+	}
 }
 
 /*package model;
