@@ -53,7 +53,7 @@ public class MapController {
                     break;
 
                 case 3: // Edit map
-                    editMap();
+                	editMapFile();
                     break;
 
                 case 4: // Back to main menu
@@ -83,7 +83,7 @@ public class MapController {
                 StringBuffer mapContent = new StringBuffer(mapView.returnMapContent());
                 String mapName = mapView.returnMapName();
                 boolean checkMapIsCreated;
-                checkMapIsCreated = mapModel.saveUserMapIntoDirectory(mapContent, mapName);
+                checkMapIsCreated = mapModel.createValidateAndSaveMap(mapContent, mapName);
 
                 if (checkMapIsCreated) {
                     print.consoleOut("Map has been created successfully in directory!");
@@ -100,13 +100,14 @@ public class MapController {
      */
     public void checkMapFileExists() {
         String mapPath = mapModel.getMapNameByUserInput();
+        
         File tempFile = new File(mapPath);
         boolean exists = tempFile.exists();
         if (exists) {
             mapModel.readMapFile(mapPath);
-            mapModel.printingContinents();   // this method print continents
-            mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
-            mapModel.printNeighboursGivenContry(); //prints the neighbours of a country given a country name
+           // mapModel.printingContinents();   // this method print continents
+          //  mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
+           // mapModel.printNeighboursGivenContry(); //prints the neighbours of a country given a country name
         } else {
             print.consoleErr("File not found!!!. Please enter the coreect name of map.");
 
@@ -119,7 +120,7 @@ public class MapController {
      * @version 1.0.0
      * This method is used to edit the map.
      */
-    public void editMap() {
+    public void editMapFile() {
         // Printing all the map files
         listofMapsinDirectory();
 
@@ -136,6 +137,8 @@ public class MapController {
 
             switch (inputForEditMap) {
                 case 1:  // 1. Add Continent to the map?
+                	
+              
                     mapModel.printingContinents();
                     mapModel.addContinentNameToMapFile();
                     mapModel.saveEditedMap();
@@ -166,14 +169,14 @@ public class MapController {
                 case 3:  // 3. Delete Continent from map?
 
                     mapModel.printingContinents();
-                    print.consoleOut("************************************************");
+                    
                     print.consoleOut("Enter name of the Continent you want to delete:");
                     String deleteContinentEnteredByUser = scanner.nextLine();
 
                     boolean checkContinentIsDeleted = mapModel.deleteContinentFromMap(deleteContinentEnteredByUser);
-
+                    mapModel.saveEditedMap();
                     if(checkContinentIsDeleted){
-                        print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
+                        print.consoleOut("Continent '"+deleteContinentEnteredByUser+"' has been deleted successfuly!");
                         mapModel.saveEditedMap();
                     }
                     else {
@@ -184,12 +187,12 @@ public class MapController {
                 case 4:  // 4. Delete Country from map?
 
                     mapModel.printCountriesFromMap();
+                    
                     print.consoleOut("Enter name of the Country you want to delete:");
                     String deleteCountryNameByUser = scanner.nextLine();
 
                     boolean checkCountryIsDeleted =  mapModel.deleteCountryFromMap(deleteCountryNameByUser);
                     mapModel.saveEditedMap();
-
                     if(checkCountryIsDeleted){
                         print.consoleOut("Country "+deleteCountryNameByUser+" has been deleted successfuly!");
                         mapModel.saveEditedMap();

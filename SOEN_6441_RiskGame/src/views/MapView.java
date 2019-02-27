@@ -53,7 +53,7 @@ public class MapView {
 		print.consoleOut("4. Delete Country from the map?");
 		print.consoleOut("5. Back to map menu?");
 		print.consoleOut("=================================");
-		print.consoleOut(" Select number from above editing menu:");
+		print.consoleOut("Select number from above editing menu:");
 		return print.userIntInput();
 	}
 
