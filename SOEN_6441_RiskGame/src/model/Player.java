@@ -55,7 +55,7 @@ public class Player {
 	
 	/**
 	 * This is function is going to set the assigned army numbers in the specific object
-	 * @param noOfUnAssignedArmies
+	 * @param numberOfInitialArmies
 	 */
 	public void setNumberOfInitialArmies(int numberOfInitialArmies) {
 		this.numberOfInitialArmies = numberOfInitialArmies;

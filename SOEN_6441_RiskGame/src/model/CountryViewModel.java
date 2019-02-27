@@ -131,7 +131,7 @@ public class CountryViewModel {
 	
 	/**
 	 * This function is returning the array list of the neighbours of the country
-	 * @return
+	 * @return neighbours
 	 */
 	public ArrayList<String> getNeighbours() {
 		return neighbours;

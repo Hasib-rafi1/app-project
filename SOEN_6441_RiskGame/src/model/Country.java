@@ -41,8 +41,6 @@ public class Country {
      * The Constructor is created to set the all parameters of the country Element
      * @param countryId
      * @param countryName
-     * @param xCoordinate
-     * @param yCoordinate
      */
 
 
