@@ -98,7 +98,6 @@ public class BoardView implements Observer {
 	     activePlayerColor = game.getCurrentPlayer().getColor();
 	     activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNumberOfInitialArmies()); 
 	     reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNumberOfReinforcedArmies());
-	     System.out.println(Integer.toString(game.getCurrentPlayer().getNumberOfInitialArmies()));
 	     countryList.clear();
 	     for(Country country: map.getCountryList())
 	     {  CountryViewModel viewCountry = new CountryViewModel();
@@ -211,7 +210,7 @@ public class BoardView implements Observer {
 		lab_gamePhase.setBounds(pane_mapScrollPane.getX()+930, pane_mapScrollPane.getY(), 490, 100);
 
 		lab_nameofPhase = new JLabel("Initialization");
-		Font font = new Font("Courier", Font.BOLD, 24);
+		Font font = new Font("Courier", Font.ITALIC, 20);
 		lab_nameofPhase.setFont(font);
 		lab_nameofPhase.setBounds(15, 15, 220, 70);
 		

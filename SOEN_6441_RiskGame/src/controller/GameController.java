@@ -125,6 +125,7 @@ public class GameController {
 
 			public void actionPerformed(ActionEvent  e) {
 				String countryName = boardView.getSourceCountry();
+				System.out.println("Game controller class"+countryName);
 				if(countryName!=null) {
 					ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
 					int armyCount = game.getArmiesAssignedToCountry(countryName);
