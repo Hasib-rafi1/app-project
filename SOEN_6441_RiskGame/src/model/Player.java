@@ -144,11 +144,11 @@ public class Player {
 		case 3:
 			return Colors.RED;
 		case 4:
-			return Colors.DARK_GRAY;
+			return Colors.ORANGE ;
 		case 5:
 			return Colors.MAGENTA;
 		default:
-			return Colors.ORANGE;
+			return Colors.BLACK;
 		}
 	}
 }
