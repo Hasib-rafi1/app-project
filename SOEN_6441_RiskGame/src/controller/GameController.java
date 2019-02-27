@@ -37,6 +37,7 @@ public class GameController {
 
 	public void initializeGame()
 	{
+		int j=1;
 		game = new Game(mapModel);
 		boardView=new BoardView();
 		game.addObserver(boardView);
@@ -44,12 +45,13 @@ public class GameController {
 		print.consoleOut("\nEnter the number of Players:");
 		int playerCount = PrintConsoleAndUserInput.userIntInput();
 
-		for (int i = 1; i <= playerCount ; i++) 
+		for (int i = 0; i < playerCount ; i++) 
 		{
-			print.consoleOut("\nEnter the name of Player " + i);
+			print.consoleOut("\nEnter the name of Player " + j);
 			String name = userinput.nextLine();
 			Player player = new Player(i,name);
 			game.addPlayer(player);
+			j++;
 		}	
 		game.startGame();
 		boardView.gameWindowLoad();	
@@ -100,7 +102,6 @@ public class GameController {
 				String country=jLabel.getToolTipText();
 				if (game.getGamePhase()==GamePhase.Startup || game.getGamePhase() == GamePhase.Reinforcement){
 					game.addingCountryArmy(country);
-
 				}
 			}
 		});

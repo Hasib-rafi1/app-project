@@ -40,13 +40,15 @@ public class Game extends Observable {
 		for(int i=0; i<playerList.size(); i++)
 		{
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
+			System.out.println("Player ID:"+playerList.get(i).getPlayerId()+" Player Name:"+playerList.get(i).getPlayerName()+" Player's Army:"+playerList.get(i).getNumberOfInitialArmies());
 		}
 		
 		int players_count = playerList.size();
+		System.out.println("Player Count:"+players_count);
 		int countries_count = mapModel.getCountryList().size();
 		int players_id = 0;
+		
 		ArrayList<Integer> randomNumbers = new ArrayList<>();
-
 		for(int i=0; i<countries_count; i++)
 		{
 			randomNumbers.add(i);
@@ -57,7 +59,7 @@ public class Game extends Observable {
         {
         	if (players_id == players_count)
         	{
-        		players_id =0;
+        		players_id = 0;
         	}
         	
         	Country assign_country = mapModel.getCountryList().get(randomNumbers.get(i));
@@ -158,16 +160,16 @@ public class Game extends Observable {
 			print.consoleOut("Player ID"+currentPlayerId+"does not exist.");
 			return false;
 		}
-		if(player.getNumberOfInitialArmies() == 0)
+		if(player.getNumberOfReinforcedArmies() == 0)
 		{
-			print.consoleOut("Player "+player.getPlayerName()+"Doesn't have any Armies.");
+			print.consoleOut("Player "+player.getPlayerName()+": Doesn't have any Armies.");
 			return false;
 		}
 		Country country = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
 		if (country == null) 
 		{
-			print.consoleOut("Country name -  " + countryName + " does not exist!");
+			print.consoleOut("Country Name: " + countryName + " does not exist!");
 			return false;
 		}
 		assignReinforcement(player,country);
@@ -192,8 +194,8 @@ public class Game extends Observable {
 		if(currentPlayerId==playerList.size())
 		{
 			currentPlayerId = 0;
-			print.consoleOut("Current Player ID:"+currentPlayerId);
 		}
+		print.consoleOut("Current Player ID:"+currentPlayerId);
 	}
 	
 	public void reinforcementPhaseSetup() 
@@ -274,7 +276,6 @@ public class Game extends Observable {
 	
 	private void updateGame() 
 	{
-
 		if (this.getGamePhase() == gamePhase.Startup) 
 		{
 			long pendingPlayersCount = playerList.stream().filter(p -> p.getNumberOfInitialArmies() > 0).count();
@@ -290,7 +291,7 @@ public class Game extends Observable {
 		{	
 			if (getCurrentPlayer().getNumberOfReinforcedArmies() == 0) 
 			{
-				this.setGamePhase(gamePhase.Attack);
+				this.setGamePhase(gamePhase.Fortification);
 			}
 
 		} 
