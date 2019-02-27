@@ -41,16 +41,19 @@ public class Country {
      * The Constructor is created to set the all parameters of the country Element
      * @param countryId
      * @param countryName
-     * @param xCoordinate
-     * @param yCoordinate
      */
-
-
     public Country(int countryId, String countryName) {
         this.countryId = countryId;
         this.countryName = countryName;
     }
 
+    /**
+     * The Constructor is created to set the all parameters of the country Element
+     * @param countryId
+     * @param countryName
+     * @param xCoordinate
+     * @param yCoordinate
+     */
     public Country (int countryId, String countryName, int xCoordinate, int yCoordinate){
         this.countryId = countryId;
         this.countryName = countryName;

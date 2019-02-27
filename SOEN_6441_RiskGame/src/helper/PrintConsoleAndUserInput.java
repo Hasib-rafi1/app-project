@@ -97,9 +97,6 @@ public class PrintConsoleAndUserInput {
             return Color.MAGENTA;
         }
 
-        if (selectedColor.equals(Colors.DARK_GRAY)) {
-            return Color.DARK_GRAY;
-        }
         if (selectedColor.equals(Colors.ORANGE)) {
             return Color.ORANGE;
         }

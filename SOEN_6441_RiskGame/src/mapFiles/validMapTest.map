@@ -7,4 +7,5 @@ Continent2=20
 Country2,193,85,Continent1,Country1,Country3
 Country3,252,33,Continent1,Country2,countrynew
 Country1,127,46,Continent2,Country2,Country3,countrynew
+Country1,127,46,Continent2,Country2,Country3,countrynew
 

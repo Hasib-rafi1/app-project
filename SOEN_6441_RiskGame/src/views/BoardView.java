@@ -3,9 +3,12 @@ package views;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
@@ -150,7 +154,11 @@ public class BoardView implements Observer {
 	 * Method that loads up the GUI window
 	 */
 	public void gameWindowLoad() {
-		actionPlan();
+		frame_gameWindow= new JFrame("Risk Game");
+		panel_gameAction=new JPanel(null);
+		
+		mapGenerator();
+		
 		gamePhase();
 		view_initialisation();
 		reinforcements();
@@ -158,6 +166,10 @@ public class BoardView implements Observer {
 
 		frame_gameWindow.setSize(1450, 600);
 		frame_gameWindow.setVisible(true);
+		panel_gameAction.setBackground(Color.WHITE);
+		
+		
+		
 		frame_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
@@ -167,9 +179,8 @@ public class BoardView implements Observer {
 	/**
 	 * This method is initializing the jframe and importing the map file and country related data
 	 */
-	public void actionPlan() {
-		frame_gameWindow= new JFrame("Risk Game");
-		panel_gameAction=new JPanel(null);
+	public void mapGenerator() {
+		
 		File imageFile = null;
 
 		imageFile = new File(mapPath);
@@ -200,6 +211,7 @@ public class BoardView implements Observer {
 		}
 
 		pane_mapScrollPane = new JScrollPane(lab_map);
+		
 		pane_mapScrollPane.setBounds(0,10,920,520);
 		panel_gameAction.add(pane_mapScrollPane);
 		frame_gameWindow.add(panel_gameAction);
@@ -216,7 +228,7 @@ public class BoardView implements Observer {
 		lab_gamePhase.setBounds(pane_mapScrollPane.getX()+930, pane_mapScrollPane.getY(), 490, 100);
 
 		lab_nameofPhase = new JLabel("Initialization");
-		Font font = new Font("Courier", Font.ITALIC, 20);
+		Font font = new Font("Courier", Font.BOLD, 20);
 		lab_nameofPhase.setFont(font);
 		lab_nameofPhase.setBounds(15, 15, 220, 70);
 

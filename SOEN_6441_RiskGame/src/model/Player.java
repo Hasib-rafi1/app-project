@@ -55,7 +55,7 @@ public class Player {
 	
 	/**
 	 * This is function is going to set the assigned army numbers in the specific object
-	 * @param noOfUnAssignedArmies
+	 * @param numberOfInitialArmies
 	 */
 	public void setNumberOfInitialArmies(int numberOfInitialArmies) {
 		this.numberOfInitialArmies = numberOfInitialArmies;
@@ -144,11 +144,11 @@ public class Player {
 		case 3:
 			return Colors.RED;
 		case 4:
-			return Colors.DARK_GRAY;
+			return Colors.ORANGE ;
 		case 5:
 			return Colors.MAGENTA;
 		default:
-			return Colors.ORANGE;
+			return Colors.BLACK;
 		}
 	}
 }
