@@ -10,12 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
@@ -178,19 +173,52 @@ public class MapModel {
 	 * @return false
 	 */
 	public boolean checkMapIsValid() {
-		boolean oneCountryNotInDiffContinent = true ;
-		boolean atLeastOneCountryInOneContinent = true;
+//		return true;
+		try {
+			boolean oneCountryNotInDiffContinent = true ;
+			boolean atLeastOneCountryInOneContinent = true;
+			ArrayList<String> growingCountryList = new ArrayList<>();
+			ArrayList<String> countriesForSorting = countryListString(getCountryList());
 
+			for(Continent continent : this.continentsList){
+				if(continent.getCountryList().isEmpty()){
+					atLeastOneCountryInOneContinent = false;
+					print.consoleOut("Each continent should have atleast one country.\n **"+
+										continent.getContinentName() + "** is not assigned with any country");
+				}
+				for(Country country : continent.getCountryList()){
+					if(growingCountryList.contains(country.getCountryName())){
+						oneCountryNotInDiffContinent = false;
+						print.consoleOut("One Country **" + country.getCountryName()
+									+ "** cannot belong to different continents.");
+					}else {
+						growingCountryList.add(country.getCountryName());
+					}
+				}
+			}
 
+			Collections.sort(countriesForSorting);
+//			for(int i =0; i<countriesForSorting.size(); i++){
+//				System.out.println("#########"+countriesForSorting.get(i));
+//			}
 
+			if(!atLeastOneCountryInOneContinent){
+				return false;
+			}
+			if(!oneCountryNotInDiffContinent){
+				return false;
+			}
+			return false;
 
-
-		return true;
+		}catch (Exception e){
+			print.printException(e);
+			return false;
+		}
 	}
 
 
 	/**
-	 * This function is used to return the list of countries
+	 * This function is used to return the list of countries as ArrayList Country object
 	 * @return countriesList , list of countries
 	 */
 	public ArrayList<Country> getCountryList() {
@@ -199,6 +227,20 @@ public class MapModel {
 			countriesList.addAll(continents.next().getCountryList());
 		}
 		return countriesList;
+	}
+
+	/**
+	 * This function is used to return the list of country names as ArrayList string type
+	 * @return countriesListString , list of countries
+	 */
+	public ArrayList<String> countryListString(ArrayList<Country> countriesList) {
+//		ArrayList<String> countriesListString = new ArrayList<>(countriesList.size());
+		ArrayList<String> countriesListString = new ArrayList<>();
+		for(Country countryForAdding : countriesList){
+//			countriesListString.add(Objects.toString(countryForAdding.getCountryName(), null));
+			countriesListString.add(countryForAdding.getCountryName());
+		}
+		return countriesListString;
 	}
 
 
@@ -554,7 +596,7 @@ public class MapModel {
 		// Printing the territories
 		print.consoleOut("[Territories]");	
 		for (Continent continentInformation : continentsList) {
-			for (Country countriesInformation : continentInformation.getCountryList()) {			
+			for (Country countriesInformation : continentInformation.getCountryList()) {
 				// fetching and putting the data into variables
 				String countryName = countriesInformation.getCountryName();
 				int xCoordinates = countriesInformation.getxCoordinate();
@@ -564,7 +606,7 @@ public class MapModel {
 				// Append territories parameters
 				print.consoleOut(countryName + "," + xCoordinates+ "," + yCoordinates + "," + continentName);
 			}
-		} 
+		}
 	}
 
 
@@ -577,6 +619,7 @@ public class MapModel {
 		String countryNameForNeighbours = scanner.nextLine().trim();
 //		for (Continent continentInformation : continentsList) {
 			for (Country countriesInformation : getCountryList()) {
+
 				String countryName = countriesInformation.getCountryName().toLowerCase();
 				if (countryNameForNeighbours.equals(countryName)) {
 					print.consoleOut("List of the Neighbours for the Country: '" + countryName + "' is given below");
@@ -586,6 +629,7 @@ public class MapModel {
 					}
 				}
 			}
+//		System.out.println("####################"+ getCountryList().size());
 //		}
 	}
 	
