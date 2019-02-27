@@ -134,7 +134,7 @@ public class BoardView implements Observer {
 					
 				} else if (game.getGamePhase() == GamePhase.Fortification) {
 					lab_nameofPhase.setText("Fortification");
-					comboSourceCountry();
+					combo_sourceCountry();
 				}
 	     }
 
@@ -187,7 +187,7 @@ public class BoardView implements Observer {
 			newLabel.setName("mapLabel" + viewCountry.getCountryId());
 			newLabel.setToolTipText(viewCountry.getCountryName());
 			newLabel.setBounds(xCoordinate, yCoordinate, 25, 25);
-			newLabel.setFont(new Font("Courier", Font.ITALIC, 20));
+			newLabel.setFont(new Font("Courier", Font.BOLD, 20));
 			newLabel.setForeground(PrintConsoleAndUserInput.getColor(viewCountry.getColorOfCountry()));
 			map_hashMap.put(String.valueOf(viewCountry.getCountryId()), newLabel);
 			lab_map.add(newLabel);
@@ -210,7 +210,7 @@ public class BoardView implements Observer {
 		lab_gamePhase.setBounds(pane_mapScrollPane.getX()+930, pane_mapScrollPane.getY(), 490, 100);
 
 		lab_nameofPhase = new JLabel("Initialization");
-		Font font = new Font("Courier", Font.BOLD, 24);
+		Font font = new Font("Courier", Font.ITALIC, 20);
 		lab_nameofPhase.setFont(font);
 		lab_nameofPhase.setBounds(15, 15, 220, 70);
 		
@@ -347,7 +347,7 @@ public class BoardView implements Observer {
 	/**
 	 * method to add countries to the source country combo box
 	 */
-	public void comboSourceCountry(){
+	public void combo_sourceCountry(){
 		combo_countrySource.removeAllItems();
 		for (int i = 0; i < countryList.size(); i++) {
 			CountryViewModel temp_cname = countryList.get(i);
@@ -362,7 +362,7 @@ public class BoardView implements Observer {
 	 * Method is populating value in the destination phase combobox 
 	 * @param destinationCountries ArrayList
 	 */	
-	public void populateDestinationCountryComboBox(ArrayList<String> destinationCountries)
+	public void combo_fillDestinationCountry(ArrayList<String> destinationCountries)
 	{   combo_countryDestination.removeAllItems();
 		for(String countryName : destinationCountries) {
 			System.out.println(countryName);
@@ -376,8 +376,8 @@ public class BoardView implements Observer {
 	 * @param NoOfArmies int
 	 * 
 	 */
-	public void populateNoOfArmyToMoveJcomboBox(int NoOfArmies)
-	{   //combo_armyToMove.removeAllItems();
+	public void combo_fillArmyToMove(int NoOfArmies)
+	{   combo_armyToMove.removeAllItems();
 		for(Integer i=0;i<NoOfArmies;i++)
 			combo_armyToMove.addItem(i.toString());		
 	}
@@ -413,7 +413,7 @@ public class BoardView implements Observer {
 	 * Static method to get number of army the player wants to move
 	 * @return NoOfArmies
 	 */
-	public static Integer getNoOfArmyToMoveJcomboBox() {
+	public static Integer combo_getArmyToMove() {
 		Object selectedItem = combo_armyToMove.getSelectedItem();
 		if(selectedItem != null)
 		{

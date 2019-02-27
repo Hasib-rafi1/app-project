@@ -29,7 +29,7 @@ import java.util.Scanner;
  */
 public class MapModel {
 	Scanner scanner = new Scanner(System.in);
-
+private String mapName;
 	//Making the objects of classes
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
@@ -102,7 +102,7 @@ public class MapModel {
 					String[] neighboursFromArray = Arrays.copyOfRange(territoryElements, 4, territoryElements.length);
 					neighboursOfCountry.put(country, neighboursFromArray); // all the neighbours are put as an array
 
-//					add the neighbouring Countries ony by one as String values in the country Object
+					//					add the neighbouring Countries ony by one as String values in the country Object
 					int k = 0;
 					// k is initialized to get neighboring countries
 					for (String neighbourCountry : neighboursFromArray) {
@@ -162,7 +162,7 @@ public class MapModel {
 	 * @param mapName, map name
 	 * @return true if the map is valid and false if it is not valid
 	 */
-	public boolean createAndValidateMap(StringBuffer mapContent, String mapName) {
+	public boolean createValidateAndSaveMap(StringBuffer mapContent, String mapName) {
 		checkMapIsValid();
 		if (checkMapIsValid()) {
 			saveUserMapIntoDirectory(mapContent, mapName);
@@ -180,7 +180,7 @@ public class MapModel {
 	 * @return false
 	 */
 	public boolean checkMapIsValid() {
-//		return true;
+		//		return true;
 		try {
 			boolean oneCountryNotInDiffContinent = true ;
 			boolean atLeastOneCountryInOneContinent = true;
@@ -197,7 +197,7 @@ public class MapModel {
 					if(growingCountryList.contains(country.getCountryName())){
 						oneCountryNotInDiffContinent = false;
 						print.consoleOut("One Country **" + country.getCountryName()
-								+ "** cannot belong to different continents.");
+						+ "** cannot belong to different continents.");
 					}else {
 						growingCountryList.add(country.getCountryName());
 					}
@@ -205,9 +205,9 @@ public class MapModel {
 			}
 
 			Collections.sort(countriesForSorting);
-//			for(int i =0; i<countriesForSorting.size(); i++){
-//				System.out.println("#########"+countriesForSorting.get(i));
-//			}
+			//			for(int i =0; i<countriesForSorting.size(); i++){
+			//				System.out.println("#########"+countriesForSorting.get(i));
+			//			}
 
 			if(!atLeastOneCountryInOneContinent){
 				return false;
@@ -242,78 +242,16 @@ public class MapModel {
 	 * @return countriesListString , list of countries
 	 */
 	public ArrayList<String> countryListString(ArrayList<Country> countriesList) {
-//		ArrayList<String> countriesListString = new ArrayList<>(countriesList.size());
+		//		ArrayList<String> countriesListString = new ArrayList<>(countriesList.size());
 		ArrayList<String> countriesListString = new ArrayList<>();
 		for(Country countryForAdding : countriesList){
-//			countriesListString.add(Objects.toString(countryForAdding.getCountryName(), null));
+			//			countriesListString.add(Objects.toString(countryForAdding.getCountryName(), null));
 			countriesListString.add(countryForAdding.getCountryName());
 		}
 		return countriesListString;
 	}
 
 
-	/**
-	 * This method is used to save the user map into mapFiles folder.
-	 * @param mapContent, content of the map file
-	 * @param mapName, name of the map
-	 * @return true if file is created
-	 */
-	public boolean saveUserMapIntoDirectory(StringBuffer mapContent, String mapName) {
-		BufferedWriter bw = null;
-		try {
-
-			File filePath = new File(print.getMapDir() + mapName + ".map");
-			if (!filePath.exists()) {
-				filePath.createNewFile();
-			}
-			FileWriter fileWriter = new FileWriter(filePath);
-			bw = new BufferedWriter(fileWriter);
-			bw.write(System.getProperty( "line.separator" ));
-			bw.write(new String(mapContent));
-			return true;
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			return false;
-		}
-		finally{
-			try{
-				if(bw!=null)
-					bw.close();
-			}catch(Exception ex){
-				print.consoleErr("Error in closing the BufferedWriter"+ex);
-			}
-		}
-	}
-
-	/**
-	 * This method is used to take the user input of map file with full directory path.
-	 * @return mapPath
-	 */
-	public String getMapNameByUserInput() {
-		String mapDirectory = print.getMapDir();
-		String mapNameByUserInput = scanner.nextLine().trim();
-		String mapPathWithMapName = mapDirectory + mapNameByUserInput;
-		String mapPath = mapPathWithMapName+".map";
-		return mapPath;
-	}
-
-	/**
-	 * This method is used to take the user input of map name
-	 * @return mapNameByUserInput, map name entered by the user
-	 */
-	public String getMapNameFromUser() {
-		String mapNameByUserInput = scanner.nextLine().trim();
-		return mapNameByUserInput;
-	}
-
-
-	/**
-	 * Gets The ContinentList form the map file
-	 * @return the list of all map file
-	 */
-	public ArrayList<Continent> getContinentList() {
-		return continentsList;
-	}
 
 	// ------------------------------add/edit/delete map functions start here -----------------------------//
 
@@ -522,15 +460,82 @@ public class MapModel {
 
 
 
+	/**
+	 * This method is used to save the user map into mapFiles folder.
+	 * @param mapContent, content of the map file
+	 * @param mapName, name of the map
+	 * @return true if file is created
+	 */
+	public boolean saveUserMapIntoDirectory(StringBuffer mapContent, String mapName) {
+		BufferedWriter bw = null;
+		try {
+
+			File filePath = new File(print.getMapDir() + mapName + ".map");
+			if (!filePath.exists()) {
+				filePath.createNewFile();
+			}
+			FileWriter fileWriter = new FileWriter(filePath);
+			bw = new BufferedWriter(fileWriter);
+			bw.write(System.getProperty( "line.separator" ));
+			bw.write(new String(mapContent));
+			return true;
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			return false;
+		}
+		finally{
+			try{
+				if(bw!=null)
+					bw.close();
+			}catch(Exception ex){
+				print.consoleErr("Error in closing the BufferedWriter"+ex);
+			}
+		}
+	}
+
+	/**
+	 * This method is used to take the user input of map file with full directory path.
+	 * @return mapPath
+	 */
+	public String getMapNameByUserInput() {
+		String mapDirectory = print.getMapDir();
+		String mapNameByUserInput = scanner.nextLine().trim();
+		String mapPathWithMapName = mapDirectory + mapNameByUserInput;
+		String mapPath = mapPathWithMapName+".map";
+		return mapPath;
+	}
+
+	/**
+	 * This method is used to take the user input of map name
+	 * @return mapNameByUserInput, map name entered by the user
+	 */
+	public String getMapNameFromUser() {
+		String mapNameByUserInput = scanner.nextLine().trim();
+		return mapNameByUserInput;
+	}
+
+
+	/**
+	 * Gets The ContinentList form the map file
+	 * @return the list of all map file
+	 */
+	public ArrayList<Continent> getContinentList() {
+		return continentsList;
+	}
+
+
+
+
 
 	/**
 	 * This method is used to save the map into the directory when a user adds, delete
 	 * countries or continents from the map.
 	 */
 	public void saveEditedMap() {
+		
 		StringBuffer textContentInFile = new StringBuffer();
 
-		print.consoleOut("********Updated data is saved in the map file like this***********");
+		print.consoleOut("\n********Updated data is saved in the map file like this***********\n");
 
 		// Add the [Continents] parameter in the text file
 		textContentInFile.append("[Continents]\r\n");
@@ -603,9 +608,10 @@ public class MapModel {
 			String continentName = continentInformation.getContinentName();
 			int controlValue = continentInformation.getControlValue();
 
-			print.consoleOut(i+"."+continentName+"="+ controlValue+"\n");
+			print.consoleOut(i+"."+continentName);
 			i++;
 		}
+		print.consoleOut("\n*************************************************");
 	}
 
 	/**
@@ -670,6 +676,19 @@ public class MapModel {
 	public String getMapDir() {
 		return print.getMapDir();
 	}
+	
+	 public String getMapName() {
+
+	        return mapName.replace(".map", "");
+	    }
+
+	    /**
+	     * This function sets the map name.
+	     * @param mapName, name of the map
+	     */
+	    public void setMapName(String mapName) {
+	        this.mapName = mapName;
+	    }
 
 
 }
