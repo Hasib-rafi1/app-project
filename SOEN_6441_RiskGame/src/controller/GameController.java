@@ -37,6 +37,7 @@ public class GameController {
 
 	public void initializeGame()
 	{
+		int j=1;
 		game = new Game(mapModel);
 		boardView=new BoardView();
 		game.addObserver(boardView);
@@ -46,10 +47,11 @@ public class GameController {
 
 		for (int i = 0; i < playerCount ; i++) 
 		{
-			print.consoleOut("\nEnter the name of Player " + i);
+			print.consoleOut("\nEnter the name of Player " + j);
 			String name = userinput.nextLine();
 			Player player = new Player(i,name);
 			game.addPlayer(player);
+			j++;
 		}	
 		game.startGame();
 		boardView.gameWindowLoad();	
@@ -82,7 +84,8 @@ public class GameController {
 		return mapFileList;
 	}
 
-	private void callListenerOnView(){
+	private void callListenerOnView()
+	{
 		numberOfArmiesClickListener();
 		addSourceCountriesListener();
 		addMoveArmyButtonListener();
@@ -113,9 +116,8 @@ public class GameController {
 			public void actionPerformed(ActionEvent  e) {
 				String countryName = boardView.getSourceCountry();
 				if(countryName!=null) {
-					int armyCount = game.getArmiesAssignedToCountry(countryName);
-					// We have to change the neigbouring country function
 					ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
+					int armyCount = game.getArmiesAssignedToCountry(countryName);
 					boardView.populateDestinationCountryComboBox(neighborCountries);
 					boardView.populateNoOfArmyToMoveJcomboBox(armyCount);
 
@@ -132,10 +134,7 @@ public class GameController {
 
 			public void actionPerformed(ActionEvent  e) {
 				if (game.getGamePhase()==GamePhase.Fortification) {
-					//jai do whatever you wan to do 
-					//boardView.getSourceCountry(), this is the source country
-					//boardView.getDestinationCountry(), this is the destination country
-					//boardView.getNoOfArmyToMoveJcomboBox() number of the army
+					game.fortificationPhase(boardView.getSourceCountry(),boardView.getDestinationCountry(),boardView.getNoOfArmyToMoveJcomboBox());
 				}
 			}
 		});

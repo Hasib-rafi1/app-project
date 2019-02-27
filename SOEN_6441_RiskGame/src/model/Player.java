@@ -114,7 +114,7 @@ public class Player {
 	 */
 	public void decreasenumberOfInitialArmies() {
 		if(numberOfInitialArmies>0) {
-			numberOfInitialArmies= numberOfInitialArmies -1;
+			numberOfInitialArmies = numberOfInitialArmies -1;
 		}
 	}
 	
@@ -135,21 +135,20 @@ public class Player {
 	 */
 	public static Colors getPlayerColor(int playerID) {
 		switch (playerID) {
-		case 1:
+		case 0:
 			return Colors.BLACK;
-		case 2:
+		case 1:
 			return Colors.BLUE;
-		case 3:
+		case 2:
 			return Colors.GREEN;
-		case 4:
+		case 3:
 			return Colors.RED;
-		case 5:
+		case 4:
 			return Colors.DARK_GRAY;
-		case 6:
+		case 5:
 			return Colors.MAGENTA;
 		default:
 			return Colors.ORANGE;
 		}
 	}
-	
 }
