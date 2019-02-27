@@ -17,6 +17,12 @@ import model.MapModel;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 
+/**
+ * Class that achieves the action listener for the user input 
+ * @author Jaiganesh
+ *
+ */
+
 public class GameController {
 
 	Game game;	
@@ -58,6 +64,10 @@ public class GameController {
 		callListenerOnView();
 	}
 
+	/**
+	 * prints the lists of maps in the directory
+	 * @return 
+	 */
 	public ArrayList<String> listofMapsinDirectory()
 	{
 		ArrayList<String> mapFileList = new ArrayList<String>();
@@ -118,8 +128,8 @@ public class GameController {
 				if(countryName!=null) {
 					ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
 					int armyCount = game.getArmiesAssignedToCountry(countryName);
-					boardView.populateDestinationCountryComboBox(neighborCountries);
-					boardView.populateNoOfArmyToMoveJcomboBox(armyCount);
+					boardView.combo_fillDestinationCountry(neighborCountries);
+					boardView.combo_fillArmyToMove(armyCount);
 
 				}
 			}
@@ -134,7 +144,7 @@ public class GameController {
 
 			public void actionPerformed(ActionEvent  e) {
 				if (game.getGamePhase()==GamePhase.Fortification) {
-					game.fortificationPhase(boardView.getSourceCountry(),boardView.getDestinationCountry(),boardView.getNoOfArmyToMoveJcomboBox());
+					game.fortificationPhase(boardView.getSourceCountry(),boardView.getDestinationCountry(),boardView.combo_getArmyToMove());
 				}
 			}
 		});
