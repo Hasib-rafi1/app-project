@@ -42,8 +42,8 @@ public class GameController {
 		boardView=new BoardView();
 		game.addObserver(boardView);
 
-		print.consoleOut("\nEnter the number of Players:");
-		int playerCount = PrintConsoleAndUserInput.userIntInput();
+		print.consoleOut("\nEnter the number of Players 3-5:");
+		int playerCount = Integer.parseInt(userinput.nextLine());
 
 		for (int i = 0; i < playerCount ; i++) 
 		{
@@ -92,7 +92,7 @@ public class GameController {
 	}
 
 	/**
-	 * this method is going to assign armies to the specific countries in initial phase and in reinforcement phase
+	 *This method is going to assign armies to the specific countries in initial phase and in reinforcement phase
 	 */
 	public void numberOfArmiesClickListener(){
 		boardView.addMapLabelsListener(new MouseAdapter() {
@@ -108,7 +108,7 @@ public class GameController {
 	}
 
 	/**
-	 * this method is going to populate destination combo box and the number of army combobox
+	 * This method is going to populate destination combo box and the number of army combobox
 	 */
 	public void addSourceCountriesListener(){
 		boardView.addActionListenToSourceCountryList(new ActionListener() {
@@ -127,7 +127,7 @@ public class GameController {
 	}
 
 	/**
-	 * to update view
+	 * To update view
 	 */
 	public void addMoveArmyButtonListener(){
 		boardView.moveArmyButtonListener(new ActionListener() {

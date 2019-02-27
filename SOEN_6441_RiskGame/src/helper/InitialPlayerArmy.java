@@ -7,11 +7,11 @@ public class InitialPlayerArmy
 		switch (playerCount) 
 		{
 		case 3:
-			return 20;
+			return 35;
 		case 4:
-			return 20;
+			return 30;
 		case 5:
-			return 20;
+			return 25;
 		default:
 			return 20;
 		}

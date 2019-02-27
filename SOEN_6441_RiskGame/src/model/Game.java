@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public class Game extends Observable {
 		for(int i=0; i<playerList.size(); i++)
 		{
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
-			System.out.println("Player ID:"+playerList.get(i).getPlayerId()+" Player Name:"+playerList.get(i).getPlayerName()+" Player's Army:"+playerList.get(i).getNumberOfInitialArmies());
+			System.out.println("Player ID:"+playerList.get(i).getPlayerId()+" Player Name:"+playerList.get(i).getPlayerName()+" Player's Army:"+playerList.get(i).getNumberOfInitialArmies()+"Player's Color"+playerList.get(i).getColor());
 		}
 		
 		int players_count = playerList.size();
@@ -67,6 +68,16 @@ public class Game extends Observable {
         	assignUnassigned(playerList.get(players_id),assign_country);
         	players_id++;
         }
+        for (Map.Entry<Player, ArrayList<Country>> entry : playerCountry.entrySet())
+		{
+			Player key = entry.getKey();
+			ArrayList<Country> value = entry.getValue();
+			System.out.println("\n"+key.getPlayerName()+" countries: \n");
+			for(Country aString : value)
+			{
+				System.out.println(aString.getCountryName());
+			}
+		}
         notifyObserverslocal(this);
 	}
 	
