@@ -104,6 +104,7 @@ public class MapController {
         boolean exists = tempFile.exists();
         if (exists) {
             mapModel.readMapFile(mapPath);
+            mapModel.checkMapIsValid();
             mapModel.printingContinents();   // this method print continents
             mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
             mapModel.printNeighboursGivenContry(); //prints the neighbours of a country given a country name

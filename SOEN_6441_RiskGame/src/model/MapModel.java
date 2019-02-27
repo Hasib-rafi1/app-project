@@ -238,8 +238,10 @@ public class MapModel {
 				return false;
 			}
 			if (visitedAndAllCountryListCheck(visitedList, countriesForSorting)) {
+
 				return true;
 			} else {
+				print.consoleOut("THIS MAP IS NOT CONNECTED. WRONG!");
 				return false;
 			}
 
