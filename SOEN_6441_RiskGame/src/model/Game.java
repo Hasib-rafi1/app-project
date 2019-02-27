@@ -144,6 +144,7 @@ public class Game extends Observable {
 		if(player.getNumberOfInitialArmies() == 0)
 		{
 			print.consoleOut("Player "+player.getPlayerName()+"Doesn't have any Armies.");
+			this.setupNextPlayerTurn();
 			return false;
 		}
 		Country country = playerCountry.get(player).stream()
@@ -202,12 +203,12 @@ public class Game extends Observable {
 	
 	public void setupNextPlayerTurn()
 	{
+		print.consoleOut("Current Player ID:"+currentPlayerId);
 		currentPlayerId++;
 		if(currentPlayerId==playerList.size())
 		{
 			currentPlayerId = 0;
 		}
-		print.consoleOut("Current Player ID:"+currentPlayerId);
 	}
 	
 	public void reinforcementPhaseSetup() 
@@ -291,6 +292,7 @@ public class Game extends Observable {
 		if (this.getGamePhase() == gamePhase.Startup) 
 		{
 			long pendingPlayersCount = playerList.stream().filter(p -> p.getNumberOfInitialArmies() > 0).count();
+			System.out.println(pendingPlayersCount);
 
 			if (pendingPlayersCount == 0) 
 			{

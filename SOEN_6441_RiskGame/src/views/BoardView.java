@@ -377,7 +377,7 @@ public class BoardView implements Observer {
 	 * 
 	 */
 	public void populateNoOfArmyToMoveJcomboBox(int NoOfArmies)
-	{   combo_armyToMove.removeAllItems();
+	{   //combo_armyToMove.removeAllItems();
 		for(Integer i=0;i<NoOfArmies;i++)
 			combo_armyToMove.addItem(i.toString());		
 	}
