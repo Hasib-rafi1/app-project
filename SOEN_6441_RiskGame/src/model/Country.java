@@ -165,11 +165,13 @@ public class Country {
 	 *           
 	 */
 	public void addNeighborString(String newNeighbour) {
-		if (!this.neighboursString.contains(newNeighbour)) {
+		if (this.neighboursString.contains(newNeighbour)) {
+			// Do nothing
+		} else {
 			this.neighboursString.add(newNeighbour);
 		}
 	}  
-	
+
 	public int getnoOfArmies() {
 		return armyNumbers;
 	}

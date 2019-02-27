@@ -17,13 +17,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
+
+
+
+
+
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
  * @author Zakiya Jafrin
  * @version 1.0.0
  */
 public class MapModel {
-
 	Scanner scanner = new Scanner(System.in);
 
 	//Making the objects of classes
@@ -32,7 +36,6 @@ public class MapModel {
 
 	// Arraylist of countries, continents
 	ArrayList<Continent> continentsList = new ArrayList<>();
-
 
 	/**
 	 * This method is used to import the existing file from the directory. It reads the map file and stores the
@@ -99,7 +102,7 @@ public class MapModel {
 					String[] neighboursFromArray = Arrays.copyOfRange(territoryElements, 4, territoryElements.length);
 					neighboursOfCountry.put(country, neighboursFromArray); // all the neighbours are put as an array
 
-//					add the neighbouring Countries ony by one as String values in the country Object
+					//					add the neighbouring Countries ony by one as String values in the country Object
 					int k = 0;
 					// k is initialized to get neighboring countries
 					for (String neighbourCountry : neighboursFromArray) {
@@ -116,7 +119,7 @@ public class MapModel {
 							break;
 						}
 					}
-					print.consoleOut(lineStream);
+					//print.consoleOut(lineStream);
 
 				}
 			}
@@ -154,8 +157,7 @@ public class MapModel {
 	}
 
 	/**
-	 * @author Gargi Sharma
-	 * @version 1.0.0	
+	 * This method is used to create and validate map.
 	 * @param mapContent, content of map file
 	 * @param mapName, map name
 	 * @return true if the map is valid and false if it is not valid
@@ -251,8 +253,7 @@ public class MapModel {
 	 * This method is used to take the user input of map name
 	 * @return mapNameByUserInput, map name entered by the user
 	 */
-	public String getMapNameFromUser() {
-		// TODO Auto-generated method stub						
+	public String getMapNameFromUser() {					
 		String mapNameByUserInput = scanner.nextLine().trim();
 		return mapNameByUserInput;
 	}
@@ -266,21 +267,21 @@ public class MapModel {
 		return continentsList;
 	}
 
+	// ------------------------------add/edit/delete map functions start here -----------------------------//
 
-
-
-
-
-
-	/* ------------------------------add/edit/delete map functions start here -----------------------------*/
-
-
+	/**
+	 * This method is used to add the continent to the continent list.
+	 * @param continent,  object of the continent
+	 *           
+	 */
+	public void addContinent(Continent continent) {
+		continentsList.add(continent);
+	}
 
 	/**
 	 * This method is used to add new continent into the map when editing map operation is performed.
 	 */
 	public void addContinentNameToMapFile() {
-
 		// Asks the number of CONTINENTS a user wants to add.
 		print.consoleOut("How many continents you want to add in a Map?");
 		int numberOfContinentsToAdd = print.userIntInput();
@@ -290,15 +291,15 @@ public class MapModel {
 		// Plus it asks to enter the continent names for each number a user has selected.
 		for (int k = 0; k < numberOfContinentsToAdd; k++) {
 			int incrementOfContinentNumber = k+1;
-			print.consoleOut("Input the CONTINENT NAME for number " +incrementOfContinentNumber+ "continent and its caontrol value.");
+			print.consoleOut("Input the CONTINENT NAME for number = (" +incrementOfContinentNumber+ ") continent and its caontrol value.");
 			String continentNameByUser = scanner.nextLine();
 			int controlValueByUser = print.userIntInput();
-			// add to the continent list
-			Continent addedcontinent = new Continent(k, continentNameByUser, controlValueByUser);		
 
+			// add to the continent list
+			Continent addedcontinent = new Continent(k, continentNameByUser, controlValueByUser);
 
 			// Asks the number of COUNTRIES a user wants to add in a given continent. And eneter the x and y coordinates
-			print.consoleOut("How many countries you want to create in"+continentNameByUser+" continent:\n");
+			print.consoleOut("How many countries you want to create in ("+continentNameByUser+") continent:\n");
 			int numberOfCountriesByUser = print.userIntInput();
 			for (int i = 0; i < numberOfCountriesByUser; i++) {
 
@@ -321,7 +322,6 @@ public class MapModel {
 				country.setyCoordinate(yCoordinateOfCountry);
 				country.setContinentID(i);
 
-
 				// Enter the number of neighbor countries
 				print.consoleOut("\nInput  the number of neighbor countries you want to add:\n");
 				int numberOfNeighbourCountriesByUser = print.userIntInput();
@@ -339,66 +339,43 @@ public class MapModel {
 					// Then add the neighbor countries
 					for (Country newList: getCountryList()) {
 						if (newList.getCountryName().equalsIgnoreCase(neighborCountryName)){
-							newList.addNeighborString(continentNameByUser);
+							newList.addNeighborString(countryNameByUser);
 						}
 					}					
 				}
 
 				// It add a COUNTRY to the continent
 				addedcontinent.addCountriesToTheContinentList(country);
-
 			}
 
 			//It adds the continent which is entered by user
 			addContinent(addedcontinent);
-
 		}
-
-
 	}
-
-	/**
-	 * This method is used to add the continent to the continent list.
-	 * @param continent,  object of the continent
-	 *           
-	 */
-	public void addContinent(Continent continent) {
-		continentsList.add(continent);
-	}
-
 
 	/**
 	 * This method is used to add country name to the continent.
-	 * @param continentID 
-	 * @param continentName 
-	 * @return 
+	 * @param continentID ID of the continent
+	 * @param continentName name of the continent
+	 * 
 	 */
-	public boolean addCountryToContinentInMap(String continentName, int continentID) {
-
-
+	public void addCountryToContinentInMap(String continentName, int continentID) {
 		Continent listOfCurrentContinents  = continentsList.stream()
 				.filter(x-> x.getContinentName().equalsIgnoreCase(continentName))
 				.findAny()
 				.orElse(null);
 
-
-
 		if(listOfCurrentContinents == null){
 			print.consoleErr("Error!!! Continent name does not Exist.");
-			return false;
 		}
 
-
 		print.consoleOut("Input the number of Countries you want to create in this continent:\n");
-		int numberOfCountriesToAddInContinent = scanner.nextInt();
+		int numberOfCountriesToAddInContinent = scanner.nextInt();		
 
 		for (int i = 0; i < numberOfCountriesToAddInContinent; i++) {
 			//	int incrementCountryCounter = (i + 1);
-			print.consoleOut("Input the Country Name for country no: => ");
+			print.consoleOut("Input the Country Name for country no: => "+(i + 1));
 			String countryName = print.userStrInput();
-
-
-
 
 			print.consoleOut("Input x coordinate:");
 			int xCoordinate = scanner.nextInt();
@@ -415,24 +392,16 @@ public class MapModel {
 			for (int k = 0; k < neighborCountries; k++) {
 				int incrementCounterForNeighborCountries =  (k + 1);
 				print.consoleOut("Input the country name for adjacency country number: " + incrementCounterForNeighborCountries);
-
 				String neighbourName = scanner.nextLine();
-
 				country.addNeighborString(neighbourName);
-
-
 				for (Country countryList: getCountryList()) {
 					if (countryList.getCountryName().equalsIgnoreCase(neighbourName)){
 						countryList.addNeighborString(countryName);
 					}
 				}
-
 			}
-			//continent.addCountriesToTheContinentList(country);
+			listOfCurrentContinents.addCountriesToTheContinentList(country);
 		}
-		return false;
-
-
 	}
 
 	/**
@@ -447,33 +416,73 @@ public class MapModel {
 				.filter(x-> x.getContinentName().equalsIgnoreCase(deleteContinentEnteredByUser))
 				.findAny()
 				.orElse(null);	
-		
+
 		if(elementInCurrentContinents==null){
-			print.consoleErr("Error!!!Continent name does not exist");
+			print.consoleErr("Error!!! Continent " +deleteContinentEnteredByUser+ " does not exist");
 			return false;
 		}
 
 		ArrayList<Country> countriesListOfCurrentContinent = elementInCurrentContinents.getCountryList();	      
-	        for ( Continent currentContinentList: continentsList){
-	            for (Country countryListToRemoveContinent : currentContinentList.getCountryList()) {
-	                for (int i = 0; i < countryListToRemoveContinent.getNeighboursString().size() ; i++) {
-	                	String countryNameToDelete = countryListToRemoveContinent.getNeighboursString().get(i);
-	                	
-	                	Country deleteElement = countriesListOfCurrentContinent.stream()
-	                				.filter(x -> x.getCountryName().equalsIgnoreCase(countryNameToDelete))
-	                				.findAny().orElse(null);
-	                    if (deleteElement!=null){
-	                    	countryListToRemoveContinent.getNeighboursString().remove(i);
-	                    }	                    
-	                }
-	            }
-	        }
-	        continentsList.remove(elementInCurrentContinents);
-	        return true;
+		for ( Continent currentContinentList: continentsList){
+			for (Country countryListToRemoveContinent : currentContinentList.getCountryList()) {
+				for (int i = 0; i < countryListToRemoveContinent.getNeighboursString().size() ; i++) {
+					String countryNameToDelete = countryListToRemoveContinent.getNeighboursString().get(i);
+
+					Country deleteElement = countriesListOfCurrentContinent.stream()
+							.filter(x -> x.getCountryName().equalsIgnoreCase(countryNameToDelete))
+							.findAny().orElse(null);
+					if (deleteElement!=null){
+						countryListToRemoveContinent.getNeighboursString().remove(i);
+					}	                    
+				}
+			}
+		}
+		continentsList.remove(elementInCurrentContinents);
+		return true;
 	}
 
+
+	/**
+	 * This method is used to delete country from map file.
+	 * @param deleteCountryByUser, name of the country to delete
+	 * @return true if the country is deleted
+	 */
+	public boolean deleteCountryFromMap(String deleteCountryByUser) {
+		ArrayList<Country> countriesList = getCountryList();
+		Country elementInCurrentCountry = countriesList.stream()
+				.filter(x-> x.getCountryName().equalsIgnoreCase(deleteCountryByUser))
+				.findAny()
+				.orElse(null); 
+		if(elementInCurrentCountry == null){
+			print.consoleErr("Error!!! Country " +deleteCountryByUser+ " does not exist");
+			return false;
+		}
+
+		for (Country countryListToRemoveCountry : countriesList) {
+			print.consoleOut(countryListToRemoveCountry.getCountryName());
+			for (int i = 0; i < countryListToRemoveCountry.getNeighboursString().size() ; i++) {
+				if (countryListToRemoveCountry.getNeighboursString().get(i).equalsIgnoreCase(deleteCountryByUser)){
+					countryListToRemoveCountry.getNeighboursString().remove(i);
+				}               
+			}
+		}
+		for (Continent continent : continentsList) {
+			continent.getCountryList().remove(elementInCurrentCountry);
+		}
+		return true;
+	}
+
+
+
+
+	/**
+	 * This method is used to save the map into the directory when a user adds, delete 
+	 * countries or continents from the map.
+	 */
 	public void saveEditedMap() {
 		StringBuffer textContentInFile = new StringBuffer();
+
+		print.consoleOut("********Updated data is saved in the map file like this***********");
 
 		// Add the [Continents] parameter in the text file
 		textContentInFile.append("[Continents]\r\n");
@@ -498,13 +507,17 @@ public class MapModel {
 				String continentName = continentInformation.getContinentName();
 
 				// Append territories parameters
-				textContentInFile.append(countryName + "," + xCoordinates+ "," + yCoordinates + "," + continentName+"\r\n");
+				textContentInFile.append(countryName + "," + xCoordinates+ "," + yCoordinates + "," + continentName);
 				for (String neighborCountries : countriesInformation.getNeighboursString()) {
 					textContentInFile.append("," + neighborCountries);
 				}
-				textContentInFile.append("\r\n");
+				textContentInFile.append("\n");
 			}
 		}
+		System.out.println(textContentInFile);
+
+
+
 		/*	BufferedWriter bw = null;
 		try {
 
@@ -528,11 +541,11 @@ public class MapModel {
 				print.consoleErr("Error in closing the BufferedWriter"+ex);
 			}
 		}*/
-		System.out.println(textContentInFile);
+
 	}
 
 	/**
-	 * his method is printing continents
+	 * This method is printing continents
 	 */
 	public void printingContinents() {
 		print.consoleOut("**************LIST OF CONTINENTS*****************\n");	
@@ -575,23 +588,41 @@ public class MapModel {
 	public void printNeighboursGivenContry() {
 		print.consoleOut("\n Write down the Country Name for the Neighbour: ");
 		String countryNameForNeighbours = scanner.nextLine().trim();
-//		for (Continent continentInformation : continentsList) {
-			for (Country countriesInformation : getCountryList()) {
-				String countryName = countriesInformation.getCountryName().toLowerCase();
-				if (countryNameForNeighbours.equals(countryName)) {
-					print.consoleOut("List of the Neighbours for the Country: '" + countryName + "' is given below");
-					for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
-						print.consoleOut("Neighbours List ->" +
-								countriesInformation.getNeighboursString().get(i));
-					}
+		//		for (Continent continentInformation : continentsList) {
+		for (Country countriesInformation : getCountryList()) {
+			String countryName = countriesInformation.getCountryName().toLowerCase();
+			if (countryNameForNeighbours.equals(countryName)) {
+				print.consoleOut("List of the Neighbours for the Country: '" + countryName + "' is given below");
+				for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
+					print.consoleOut("Neighbours List ->" +
+							countriesInformation.getNeighboursString().get(i));
 				}
 			}
-//		}
+		}
+		//		}
 	}
-	
 
+	/**
+	 * This method is used to print Countries of the map file
+	 */
+	public void printCountriesFromMap() {
+		ArrayList<Country> countryList = getCountryList();
+		int i =1;
+		print.consoleOut("**************LIST OF COUNTRIES*****************\n");
+		for (Country nameOfCountry: countryList ) {
+			print.consoleOut(i+"." +nameOfCountry.getCountryName());
+			i++;
+		}
+	}
+
+	/**
+	 * This method is used to get the directory of map.
+	 * @return path of the map directory
+	 */
 	public String getMapDir() {
 		return print.getMapDir();
 	}
+
+
 }
 
