@@ -68,6 +68,7 @@ public class Game extends Observable {
         	assignUnassigned(playerList.get(players_id),assign_country);
         	players_id++;
         }
+        
         for (Map.Entry<Player, ArrayList<Country>> entry : playerCountry.entrySet())
 		{
 			Player key = entry.getKey();
