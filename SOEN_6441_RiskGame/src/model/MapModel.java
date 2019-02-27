@@ -165,10 +165,11 @@ private String mapName;
 	public boolean createValidateAndSaveMap(StringBuffer mapContent, String mapName) {
 		checkMapIsValid();
 		if (checkMapIsValid()) {
+			System.out.println("valid");
 			saveUserMapIntoDirectory(mapContent, mapName);
 			return true;
 		} else {
-			System.out.println("in else condition of checkMapIsValid function------");
+			System.out.println("not valid");
 			return false;
 		}
 	}
