@@ -22,41 +22,41 @@ public class MainController {
 	 * and user can exit if he wants to exit the game.
 	 * This function also displays the error message to select valid user input.
 	 * @param args, arguments passed in the main method of class
-	 *            
+	 *
 	 */
-	public static void main(String[] args) {	
+	public static void main(String[] args) {
 
-		MainMenu mainMenu = new MainMenu();  		
-		MapController mapController = new MapController();	
+		MainMenu mainMenu = new MainMenu();
+		MapController mapController = new MapController();
 		PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 		GameController gameController = new GameController();
 
-		int selectMainMenuOption = 0;		
+		int selectMainMenuOption = 0;
 		boolean checkMapStatus = false;
 		do {
 			selectMainMenuOption = mainMenu.displaymainMenu();
-			switch (selectMainMenuOption) 
-			{	
-			case 1:		
-				mapController.generateMap();
-				break;
-			case 2:
-				gameController.initializeMap(); 
-				gameController.initializeGame();
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			case 5:
-				print.consoleErr("Thanks for playing this Game.");
-				System.exit(0);
-			default :
-				System.err.println("\n\t Error! Select option from the menu list (1 to 5):");				
-				break;
+			switch (selectMainMenuOption)
+			{
+				case 1:
+					mapController.generateMap();
+					break;
+				case 2:
+					gameController.initializeMap();
+					gameController.initializeGame();
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				case 5:
+					print.consoleErr("Thanks for playing this Game.");
+					System.exit(0);
+				default :
+					System.err.println("\n\t Error! Select option from the menu list (1 to 5):");
+					break;
 			}
 
-		} 
+		}
 		while (selectMainMenuOption != 5);
 		//System.exit(0);
 	}

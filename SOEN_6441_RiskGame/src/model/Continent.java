@@ -38,10 +38,10 @@ public class Continent {
 		return continentID;
 	}
 
-	
+
 	/**
 	 * This function sets the continent ID of the continent.
-	 * 
+	 *
 	 * @param continentID ,Id of the continent
 	 */
 	public void setContinentId(int continentID) {
@@ -62,19 +62,19 @@ public class Continent {
 	public int getControlValue() {
 		return controlValue;
 	}
-	
+
 	/**
 	 * This function sets the continent name.
-	 * 
+	 *
 	 * @param continentName , Name of the continent
 	 */
 	public void setContinentName(String continentName) {
 		this.continentName = continentName;
 	}
-	
+
 	/**
 	 * This function sets the control value of the continent object.
-	 * 
+	 *
 	 * @param controlValue, Control Value of the continent
 	 */
 	public void setControlValue(int controlValue) {
@@ -84,16 +84,16 @@ public class Continent {
 	/**
 	 * This method is used to takes all the countries as a parameter and list them in an array list under the Continent Name
 	 * @param country, name of the country of the Continent
-	 */	
+	 */
 	public void addCountriesToTheContinentList(Country country) {
 		this.countriesOfTheContinent.add(country);
 
 	}
-	
+
 
 	/**
 	 * This function is used to return the country list.
-	 * 
+	 *
 	 * @return ArrayList country object
 	 */
 	public ArrayList<Country> getCountryList() {

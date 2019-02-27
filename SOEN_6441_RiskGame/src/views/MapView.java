@@ -6,7 +6,7 @@ import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
-import javax.swing.*; 
+import javax.swing.*;
 
 import helper.PrintConsoleAndUserInput;
 
@@ -15,7 +15,7 @@ import helper.PrintConsoleAndUserInput;
  * @author Gargi Sharma
  * @version 1.0.0
  */
-public class MapView {	
+public class MapView {
 
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	JPanel panelWindow = new JPanel();
@@ -23,7 +23,7 @@ public class MapView {
 	String textFieldName = "Enter file name you want to save?";
 	JTextField mapName = new JTextField(textFieldName);
 	public JButton saveButton = new JButton("SAVE MAP");
-	JTextArea textParameters = new JTextArea("[Map]\n\n\n[Continents]\n\n\n[Territories]");	
+	JTextArea textParameters = new JTextArea("[Map]\n\n\n[Continents]\n\n\n[Territories]");
 
 	/**
 	 * This method displays menu for map generator.
@@ -36,7 +36,7 @@ public class MapView {
 		print.consoleOut("2. Create a New Map from scratch");
 		print.consoleOut("3. Edit The Map");
 		print.consoleOut("4. Back to The Main Menu");
-		print.consoleOut("=================================");	
+		print.consoleOut("=================================");
 		return print.userIntInput();
 	}
 
@@ -46,20 +46,20 @@ public class MapView {
 	 */
 	public int editMapMenu() {
 		print.consoleOut("=================================");
-		print.consoleOut("\t Edit Map Menu\t");		
+		print.consoleOut("\t Edit Map Menu\t");
 		print.consoleOut("1. Add Continent to the map?");
 		print.consoleOut("2. Add Country to the map?");
 		print.consoleOut("3. Delete Continent from the map?");
 		print.consoleOut("4. Delete Country from the map?");
-		print.consoleOut("5. Back to map menu?");	
-		print.consoleOut("=================================");	
+		print.consoleOut("5. Back to map menu?");
+		print.consoleOut("=================================");
 		print.consoleOut(" Select number from above editing menu:");
 		return print.userIntInput();
 	}
 
 	/**
 	 * This method is used to return content of file(like continents, territories etc)
-	 * 
+	 *
 	 * @return String mapContent
 	 */
 	public String returnMapContent() {
@@ -68,7 +68,7 @@ public class MapView {
 
 	/**
 	 * This method is used to return name of the map
-	 * 
+	 *
 	 * @return String mapName
 	 */
 	public String returnMapName() {
@@ -81,12 +81,12 @@ public class MapView {
 	 */
 	public void createJframe() {
 		// TODO Auto-generated method stub		
-		panelWindow.setLayout(new FlowLayout());			
+		panelWindow.setLayout(new FlowLayout());
 		panelWindow.setPreferredSize(new Dimension(100, 100));
 		panelWindow.setBackground(Color.lightGray);
 		panelWindow.add(saveButton);
 		panelWindow.add(mapName);
-		panelWindow.add(Box.createHorizontalGlue());				
+		panelWindow.add(Box.createHorizontalGlue());
 
 		// mapname text parameters
 		mapName.setPreferredSize(new Dimension(200, 30));
@@ -105,16 +105,16 @@ public class MapView {
 					mapName.setText(textFieldName);
 				}
 			}
-		});	
+		});
 
 		frameWindow.setTitle("Map Generator");
 		frameWindow.setPreferredSize(new Dimension(1200, 800));
 		frameWindow.add(textParameters);
 		textParameters.setFont(new Font("Courier", Font.BOLD,24));
-		frameWindow.add(panelWindow, BorderLayout.SOUTH);	
+		frameWindow.add(panelWindow, BorderLayout.SOUTH);
 		frameWindow.pack();
 		frameWindow.setVisible(true);
-		frameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		frameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 
