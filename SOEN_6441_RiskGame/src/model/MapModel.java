@@ -29,13 +29,14 @@ import java.util.Scanner;
  */
 public class MapModel {
 	Scanner scanner = new Scanner(System.in);
-private String mapName;
+	private String mapName;
 	//Making the objects of classes
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
 
 	// Arraylist of countries, continents
 	ArrayList<Continent> continentsList = new ArrayList<>();
+	ArrayList<String> visitedList = new ArrayList<>();
 
 	/**
 	 * This method is used to import the existing file from the directory. It reads the map file and stores the
@@ -102,7 +103,7 @@ private String mapName;
 					String[] neighboursFromArray = Arrays.copyOfRange(territoryElements, 4, territoryElements.length);
 					neighboursOfCountry.put(country, neighboursFromArray); // all the neighbours are put as an array
 
-					//					add the neighbouring Countries ony by one as String values in the country Object
+//					add the neighbouring Countries ony by one as String values in the country Object
 					int k = 0;
 					// k is initialized to get neighboring countries
 					for (String neighbourCountry : neighboursFromArray) {
@@ -181,7 +182,7 @@ private String mapName;
 	 * @return false
 	 */
 	public boolean checkMapIsValid() {
-		//		return true;
+//		return true;
 		try {
 			boolean oneCountryNotInDiffContinent = true ;
 			boolean atLeastOneCountryInOneContinent = true;
@@ -191,12 +192,14 @@ private String mapName;
 			for(Continent continent : this.continentsList){
 				if(continent.getCountryList().isEmpty()){
 					atLeastOneCountryInOneContinent = false;
-					print.consoleOut("Each continent should have at least one country.\n **"+
+					print.consoleOut("\n Each continent should have at least one country.\n **"+
 							continent.getContinentName() + "** is not assigned with any country");
 				}
 				for(Country country : continent.getCountryList()){
 					if(growingCountryList.contains(country.getCountryName())){
 						oneCountryNotInDiffContinent = false;
+						print.consoleOut("\nA Country cannot belong to different continents.\n **" + country.getCountryName() +
+						"** is assigned in multiple Continents");
 						print.consoleOut("One Country **" + country.getCountryName()
 						+ "** cannot belong to different continents.");
 					}else {
@@ -205,23 +208,93 @@ private String mapName;
 				}
 			}
 
+//			for(int i =0; i<countriesForSorting.size(); i++){
+//				System.out.println("#########"+countriesForSorting.get(i));
+//			}
+			Collections.sort(countriesForSorting);
+
+			//set the very first Country from the first Continent of the arrayList and set them as an starting
+			//for checking if a Map is a connected one.
+			Country startingVertex = ((this.continentsList.get(0)).getCountryList()).get(0);
+			visitedList.clear();
+			depthFirstSearch(startingVertex);
+//			for(int i =0; i<visitedList.size(); i++){
+//				System.out.println("#########"+visitedList.get(i));
+//			}
+			Collections.sort(visitedList);
+
+			//if the visitedList is same as the allCountryList then is is conclusive that the Map is connected
+			//otherwise the two lists would never be the same because visitedList adds elements only if can visit in DFS
 			Collections.sort(countriesForSorting);
 			//			for(int i =0; i<countriesForSorting.size(); i++){
 			//				System.out.println("#########"+countriesForSorting.get(i));
 			//			}
 
 			if(!atLeastOneCountryInOneContinent){
+				print.consoleOut("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
 				return false;
 			}
 			if(!oneCountryNotInDiffContinent){
+				print.consoleOut("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
 				return false;
 			}
-			return true;
+			if (visitedAndAllCountryListCheck(visitedList, countriesForSorting)) {
+
+				return true;
+			} else {
+				print.consoleOut("THIS MAP IS NOT CONNECTED. WRONG!");
+				return false;
+			}
 
 		}catch (Exception e){
 			print.printException(e);
 			return false;
 		}
+	}
+
+	/**
+	 * This is a recursive function which implements DFS algorithm to visit ALL the vertices(countries) one
+	 * by one starting from the first one -> this is only possible if all the vertices are inter-connected
+	 * store all the visited vertices(countries) in an arrayList 'visitedList'
+	 * @param startingVertex
+	 */
+	public void depthFirstSearch(Country startingVertex){
+		visitedList.add(startingVertex.getCountryName());
+		for (String neighbourVertex: startingVertex.getNeighboursString()) {
+			if(!(visitedList.contains(neighbourVertex))){	//if the vertex is not visited then visit it
+				Country newVertex = null;
+				for (Continent continent : this.continentsList) {
+//					System.out.println(continent.getCountryList().size());
+					for (Country country : continent.getCountryList()) {
+						if (country.getCountryName().equals(neighbourVertex)) {
+							newVertex = country;
+//							print.consoleOut("pilokilo");
+						}
+					}
+				}
+				if (newVertex != null) {
+					depthFirstSearch(newVertex);
+				}
+			}
+//			else {
+//				print.consoleOut("The graph is not Connected");
+//			}
+		}
+	}
+
+	public boolean visitedAndAllCountryListCheck(ArrayList<String> visitedList, ArrayList<String> allCountryList){
+		if (visitedList == null && allCountryList == null)
+			return true;
+		if ((visitedList == null && allCountryList != null) || (visitedList != null && allCountryList == null))
+			return false;
+
+		if (visitedList.size() != allCountryList.size())
+			return false;
+		for (String visitedListElements : visitedList) {
+			if (!allCountryList.contains(visitedListElements))
+				return false;
+		}
+		return true;
 	}
 
 
@@ -243,14 +316,15 @@ private String mapName;
 	 * @return countriesListString , list of countries
 	 */
 	public ArrayList<String> countryListString(ArrayList<Country> countriesList) {
-		//		ArrayList<String> countriesListString = new ArrayList<>(countriesList.size());
+//		ArrayList<String> countriesListString = new ArrayList<>(countriesList.size());
 		ArrayList<String> countriesListString = new ArrayList<>();
 		for(Country countryForAdding : countriesList){
-			//			countriesListString.add(Objects.toString(countryForAdding.getCountryName(), null));
+//			countriesListString.add(Objects.toString(countryForAdding.getCountryName(), null));
 			countriesListString.add(countryForAdding.getCountryName());
 		}
 		return countriesListString;
 	}
+
 
 
 
@@ -533,10 +607,9 @@ private String mapName;
 	 * countries or continents from the map.
 	 */
 	public void saveEditedMap() {
-		
 		StringBuffer textContentInFile = new StringBuffer();
 
-		print.consoleOut("\n********Updated data is saved in the map file like this***********\n");
+		print.consoleOut("********Updated data is saved in the map file like this***********");
 
 		// Add the [Continents] parameter in the text file
 		textContentInFile.append("[Continents]\r\n");
@@ -609,10 +682,9 @@ private String mapName;
 			String continentName = continentInformation.getContinentName();
 			int controlValue = continentInformation.getControlValue();
 
-			print.consoleOut(i+"."+continentName);
+			print.consoleOut(i+"."+continentName+"="+ controlValue+"\n");
 			i++;
 		}
-		print.consoleOut("\n*************************************************");
 	}
 
 	/**
@@ -677,7 +749,7 @@ private String mapName;
 	public String getMapDir() {
 		return print.getMapDir();
 	}
-	
+
 	 public String getMapName() {
 
 	        return mapName.replace(".map", "");
