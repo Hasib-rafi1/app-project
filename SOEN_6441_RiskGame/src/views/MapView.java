@@ -51,8 +51,7 @@ public class MapView {
 		print.consoleOut("2. Add Country to the map?");
 		print.consoleOut("3. Delete Continent from the map?");
 		print.consoleOut("4. Delete Country from the map?");
-		print.consoleOut("5. Save the map?");
-		print.consoleOut("6. Back to menu?");	
+		print.consoleOut("5. Back to map menu?");	
 		print.consoleOut("=================================");	
 		print.consoleOut(" Select number from above editing menu:");
 		return print.userIntInput();

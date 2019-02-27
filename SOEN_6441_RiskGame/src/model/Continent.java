@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 
 
+
+
 /**
  * This is a main class to read and store different elements of the continent
  * @author Zakiya Jafrin
@@ -87,6 +89,7 @@ public class Continent {
 		this.countriesOfTheContinent.add(country);
 
 	}
+	
 
 	/**
 	 * This function is used to return the country list.

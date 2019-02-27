@@ -56,7 +56,7 @@ public class MapController {
 					// Read map file by selecting the map name
 					mapModel.readMapFile(mapPath);	
 					// printing map values
-					mapModel.checkMapIsValid();
+
 					mapModel.printingContinents();   // this method print continents
 					mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
 					mapModel.printNeighboursGivenContry(); //prints the neighbours of a country given a country name

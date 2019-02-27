@@ -25,7 +25,7 @@ public class MainController {
 	 *            
 	 */
 	public static void main(String[] args) {	
-	
+
 		MainMenu mainMenu = new MainMenu();  		
 		MapController mapController = new MapController();	
 		PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
@@ -44,6 +44,10 @@ public class MainController {
 				gameController.initializeMap(); 
 				gameController.initializeGame();
 				break;
+			case 3:
+				break;
+			case 4:
+				break;
 			case 5:
 				print.consoleErr("Thanks for playing this Game.");
 				System.exit(0);
@@ -54,6 +58,6 @@ public class MainController {
 
 		} 
 		while (selectMainMenuOption != 5);
-		System.exit(0);
-		}
+		//System.exit(0);
+	}
 }
