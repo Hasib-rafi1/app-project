@@ -375,7 +375,7 @@ public class Game extends Observable {
 		{
 			if (country.getCountryName().equals(sourceCountryName)) 
 			{
-				//noOfArmies = country.getnoOfArmies();
+				noOfArmies = country.getnoOfArmies();
 			}
 		}
 		return noOfArmies;

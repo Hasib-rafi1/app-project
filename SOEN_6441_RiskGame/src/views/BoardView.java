@@ -285,8 +285,7 @@ public class BoardView implements Observer {
 		combo_countrySource.setBorder(new TitledBorder("Source Country"));
 		combo_countrySource.setBounds(15, 25, 220, 50);
 
-		String destinationCountries[] = { " " };
-		combo_countryDestination = new JComboBox<>(destinationCountries);
+		combo_countryDestination = new JComboBox<>();
 		combo_countryDestination.setBorder(new TitledBorder("Destination Country"));
 		combo_countryDestination.setBounds(combo_countrySource.getX() + 20 + combo_countrySource.getWidth() + 3, combo_countrySource.getY(),
 				combo_countrySource.getWidth(), combo_countrySource.getHeight());
@@ -365,8 +364,10 @@ public class BoardView implements Observer {
 	 */	
 	public void populateDestinationCountryComboBox(ArrayList<String> destinationCountries)
 	{   combo_countryDestination.removeAllItems();
-		for(String countryName : destinationCountries)
+		for(String countryName : destinationCountries) {
+			System.out.println(countryName);
 		   combo_countryDestination.addItem(countryName);
+		   }
 			
 	}
 	
