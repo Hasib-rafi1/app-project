@@ -175,6 +175,8 @@ public class MapModel {
 		}
 	}
 
+
+
 	/**
 	 * Check if the map is valid or not
 	 * checks connectivity, the coordinates, one country does not belong to two Continents, there is at least one
@@ -208,47 +210,49 @@ public class MapModel {
 				}
 			}
 
-			//			for(int i =0; i<countriesForSorting.size(); i++){
-			//				System.out.println("#########"+countriesForSorting.get(i));
-			//			}
-			Collections.sort(countriesForSorting);
-
-			//set the very first Country from the first Continent of the arrayList and set them as an starting
-			//for checking if a Map is a connected one.
-			Country startingVertex = ((this.continentsList.get(0)).getCountryList()).get(0);
-			visitedList.clear();
-			depthFirstSearch(startingVertex);
-			//			for(int i =0; i<visitedList.size(); i++){
-			//				System.out.println("#########"+visitedList.get(i));
-			//			}
-			Collections.sort(visitedList);
-
 			//if the visitedList is same as the allCountryList then is is conclusive that the Map is connected
 			//otherwise the two lists would never be the same because visitedList adds elements only if can visit in DFS
 			Collections.sort(countriesForSorting);
-			//			for(int i =0; i<countriesForSorting.size(); i++){
-			//				System.out.println("#########"+countriesForSorting.get(i));
+            //			for(int i =0; i<countriesForSorting.size(); i++){
+           	//				System.out.println("#########"+countriesForSorting.get(i));
 			//			}
 
-			if(!atLeastOneCountryInOneContinent){
-				print.consoleOut("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
-				return false;
-			}
-			if(!oneCountryNotInDiffContinent){
-				print.consoleOut("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
-				return false;
-			}
-			if (visitedAndAllCountryListCheck(visitedList, countriesForSorting)) {
 
+            // set the very first Country from the first Continent of the arrayList and set them as an starting
+            //for checking if a Map is a connected one.
+			Country startingVertex = ((this.continentsList.get(0)).getCountryList()).get(0);
+			visitedList.clear();
+
+			depthFirstSearch(startingVertex);
+			Collections.sort(visitedList);
+
+			if(!atLeastOneCountryInOneContinent){
+				return false;
+			}
+
+			if(!oneCountryNotInDiffContinent){
+				return false;
+			}
+
+			if (visitedAndAllCountryListCheck(visitedList, countriesForSorting)) {
 				return true;
 			} else {
-				print.consoleOut("THIS MAP IS NOT CONNECTED. WRONG!");
+				print.consoleOut("\n *** This Map is NOT Connected. ***\n");
 				return false;
 			}
+
 
 		}catch (Exception e){
 			print.printException(e);
 			return false;
+		}
+	}
+
+	public void printMapValidOrNot(){
+		if(checkMapIsValid()){
+			print.consoleOut("This Map is Valid");
+		}	else {
+			print.consoleOut("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
 		}
 	}
 
