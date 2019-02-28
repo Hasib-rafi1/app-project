@@ -212,11 +212,14 @@ public class Game extends Observable {
 		}
 	}
 
+	public int calculationForNumberOfArmiesInReinforcement(Player player) {
+		return (int) Math.floor(playerCountry.get(player).stream().count() / 3);
+	}
 	public void reinforcementPhaseSetup() 
 	{
 		Player player = getCurrentPlayer();
 
-		int countries_count = (int) Math.floor(playerCountry.get(player).stream().count() / 3);
+		int countries_count = calculationForNumberOfArmiesInReinforcement(player);
 
 		if (playerCountry.containsKey(player)) 
 		{

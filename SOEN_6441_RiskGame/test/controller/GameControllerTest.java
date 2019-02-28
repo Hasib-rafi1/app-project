@@ -27,8 +27,8 @@ public class GameControllerTest {
 	
 	@Test
 	public void testListofMapsinDirectory() {
-		//assertArrayEquals(mapFileList, mapFileListTest);
-		assertEquals(1, 1);
+		assertEquals(mapFileList, mapFileListTest);
+		
 	}
 	
 	@Ignore
