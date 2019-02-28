@@ -83,10 +83,10 @@ public class MapController {
                 StringBuffer mapContent = new StringBuffer(mapView.returnMapContent());
                 String mapName = mapView.returnMapName();
                 boolean checkMapIsCreated;
-                checkMapIsCreated = mapModel.saveUserMapIntoDirectory(mapContent, mapName);
+                checkMapIsCreated = mapModel.createValidateAndSaveMap(mapContent, mapName);
 
                 if (checkMapIsCreated) {
-                    print.consoleOut("Map has been created successfully in directory!");
+                    print.consoleOut(print.getMapDir()+"Map has been created successfully in directory!");
                 } else {
                     print.consoleErr("Error!!!! Map has not been created successfully!");
                 }

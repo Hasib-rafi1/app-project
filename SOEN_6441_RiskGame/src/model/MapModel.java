@@ -10,6 +10,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -159,6 +164,25 @@ public class MapModel {
 
 	}
 
+
+    private boolean readMapContentSaveInDirectory(StringBuffer content, String nameOfTheMap) {
+        Path path = Paths.get( nameOfTheMap + ".map");
+        BufferedWriter writer = null;
+        try {
+            // Delete temp file
+            Path tempFilePath = Paths.get("temp" + ".map");
+            Files.deleteIfExists(tempFilePath);
+
+            writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+            writer.write(new String(content));
+            writer.close();
+            return true;
+        } catch (Exception e) {
+            print.printException(e);
+            return false;
+        }
+    }
+
 	/**
 	 * This method is used to create and validate map.
 	 * @param mapContent, content of map file
@@ -166,15 +190,34 @@ public class MapModel {
 	 * @return true if the map is valid and false if it is not valid
 	 */
 	public boolean createValidateAndSaveMap(StringBuffer mapContent, String mapName) {
-		checkMapIsValid();
-		if (checkMapIsValid()) {
-			System.out.println("valid");
-			saveUserMapIntoDirectory(mapContent, mapName);
-			return true;
+		String mapDir = getMapDir();
+		if (this.readMapContentSaveInDirectory(mapContent, mapDir+"temp")) {
+//			this.mapName = "temp.map";
+			try {
+				this.readMapFile(mapDir+"temp.map");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (this.checkMapIsValid()) {
+				this.mapName = mapName;
+				this.readMapContentSaveInDirectory(mapContent, mapName);
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			System.out.println("not valid");
 			return false;
 		}
+
+//		checkMapIsValid();
+//		if (checkMapIsValid()) {
+//			System.out.println("valid");
+//			saveUserMapIntoDirectory(mapContent, mapName);
+//			return true;
+//		} else {
+//			System.out.println("not valid");
+//			return false;
+//		}
 	}
 
 	/**
@@ -203,13 +246,6 @@ public class MapModel {
 
 						print.consoleErr("\nA Country cannot belong to different continents.\n **" + country.getCountryName() +
 						"** is assigned in multiple Continents");
-						print.consoleErr("One Country **" + country.getCountryName());
-
-						print.consoleOut("\nA Country cannot belong to different continents.\n **" + country.getCountryName() +
-								"** is assigned in multiple Continents");
-						print.consoleOut("One Country **" + country.getCountryName()
-
-						+ "** cannot belong to different continents.");
 					}else {
 						growingCountryList.add(country.getCountryName());
 					}
@@ -230,33 +266,21 @@ public class MapModel {
 			visitedList.clear();
 
 			depthFirstSearch(startingVertex);
-			//			for(int i =0; i<visitedList.size(); i++){
-			//				System.out.println("#########"+visitedList.get(i));
-			//			}
 			Collections.sort(visitedList);
 
-			//if the visitedList is same as the allCountryList then is is conclusive that the Map is connected
-			//otherwise the two lists would never be the same because visitedList adds elements only if can visit in DFS
-			Collections.sort(countriesForSorting);
-			//			for(int i =0; i<countriesForSorting.size(); i++){
-			//				System.out.println("#########"+countriesForSorting.get(i));
-			//			}
 
 			if(!atLeastOneCountryInOneContinent){
-				print.consoleErr("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
 				return false;
 			}
 
 			if(!oneCountryNotInDiffContinent){
-				print.consoleErr("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
 				return false;
 			}
 
 			if (visitedAndAllCountryListCheck(visitedList, countriesForSorting)) {
 				return true;
 			} else {
-				print.consoleErr("THIS MAP IS NOT CONNECTED. WRONG!");
-				print.consoleOut("\n *** This Map is NOT Connected. ***\n");
+				print.consoleErr("\n *** This Map is NOT Connected. ***\n");
 				return false;
 			}
 
@@ -269,9 +293,9 @@ public class MapModel {
 
 	public void printMapValidOrNot(){
 		if(checkMapIsValid()){
-			print.consoleOut("This Map is Valid");
+			print.consoleOut("\n This Map is Valid\n ");
 		}	else {
-			print.consoleOut("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
+			print.consoleErr("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
 		}
 	}
 
@@ -299,9 +323,6 @@ public class MapModel {
 					depthFirstSearch(newVertex);
 				}
 			}
-			//			else {
-			//				print.consoleOut("The graph is not Connected");
-			//			}
 		}
 	}
 
