@@ -348,34 +348,32 @@ public class Game extends Observable {
 		Player currentPlayer = this.getCurrentPlayer();
 
 		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
-		ArrayList<String> neighborCountriesName = null;
-
-		for (Country country : playerCountry.get(currentPlayer)) 
-		{
-			String countryName = country.getCountryName();
-			countriesAssignedToPlayer.add(countryName);
-			if (country.getCountryName().equals(source)) 
+		ArrayList<String> neighborCountriesName = new ArrayList<String>();
+		ArrayList<String> recneighborCountriesName = new ArrayList<String>();
+		
+			for (Country country : playerCountry.get(currentPlayer)) 
 			{
-				neighborCountriesName = country.getNeighboursString();
+				String countryName = country.getCountryName();
+				countriesAssignedToPlayer.add(countryName);
+				if (country.getCountryName().equals(source)) 
+				{
+					neighborCountriesName = country.getNeighboursString();
+				}
 			}
-		}
-
-		System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-		System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
-
-		Iterator<String> it = neighborCountriesName.iterator();
-		while (it.hasNext()) 
-		{
-			String country = it.next();
-			if (!countriesAssignedToPlayer.contains(country))
+			
+			Iterator<String> it = neighborCountriesName.iterator();
+			while (it.hasNext()) 
 			{
-				it.remove();
+				String country = it.next();
+				if (!countriesAssignedToPlayer.contains(country))
+				{
+					it.remove();
+				}
 			}
-		}
-
-		System.out.println("2. Neighbouring Countries:"+neighborCountriesName.toString());
-		System.out.println("2. Player's Countries:"+countriesAssignedToPlayer.toString());
-
+			
+			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+			
 		return neighborCountriesName;
 	}
 
@@ -393,7 +391,6 @@ public class Game extends Observable {
 		}
 		return noOfArmies;
 	}
-
 
 	public int getCurrentPlayerId() 
 	{

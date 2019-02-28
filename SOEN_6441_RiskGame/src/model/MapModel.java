@@ -24,9 +24,6 @@ import java.util.Scanner;
 
 
 
-
-
-
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
  * @author Zakiya Jafrin
@@ -34,7 +31,8 @@ import java.util.Scanner;
  */
 public class MapModel {
 	Scanner scanner = new Scanner(System.in);
-	private String mapName;
+
+	
 	//Making the objects of classes
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
@@ -127,7 +125,7 @@ public class MapModel {
 						}
 					}
 
-					print.consoleOut(lineStream);
+					//print.consoleOut(lineStream);
 
 				}
 			}
@@ -164,25 +162,30 @@ public class MapModel {
 
 	}
 
-
-    private boolean readMapContentSaveInDirectory(StringBuffer content, String nameOfTheMap) {
+/**
+ * This method is used to read the content of map file while creating a map from scratch and saved in the directory.
+ * @param content, 
+ * @param nameOfTheMap
+ * @return
+ */
+	private boolean readMapContentSaveInDirectory(StringBuffer mapContent, String nameOfMap) {
 		String mapDir = getMapDir();
-        Path path = Paths.get( nameOfTheMap + ".map");
-        BufferedWriter writer = null;
-        try {
-            // Delete temp file
-            Path tempFilePath = Paths.get(mapDir+"temp" + ".map");
-            Files.deleteIfExists(tempFilePath);
+		Path path = Paths.get( nameOfMap + ".map");
+		BufferedWriter writer = null;
+		try {
+			// Delete temp file
+			Path tempFilePath = Paths.get(mapDir+"temp" + ".map");
+			Files.deleteIfExists(tempFilePath);
 
-            writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
-            writer.write(new String(content));
-            writer.close();
-            return true;
-        } catch (Exception e) {
-            print.printException(e);
-            return false;
-        }
-    }
+			writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+			writer.write(new String(mapContent));
+			writer.close();
+			return true;
+		} catch (Exception e) {
+			print.printException(e);
+			return false;
+		}
+	}
 
 	/**
 	 * This method is used to create and validate map.
@@ -199,8 +202,7 @@ public class MapModel {
 				e.printStackTrace();
 			}
 			if (checkMapIsValid()) {
-				//this.mapName = mapName;
-			readMapContentSaveInDirectory(mapContent, mapDir+ mapName);
+				readMapContentSaveInDirectory(mapContent, mapDir+ mapName);
 				return true;
 			} else {
 				return false;
@@ -208,26 +210,15 @@ public class MapModel {
 		} else {
 			return false;
 		}
-
-//		checkMapIsValid();
-//		if (checkMapIsValid()) {
-//			System.out.println("valid");
-//			saveUserMapIntoDirectory(mapContent, mapName);
-//			return true;
-//		} else {
-//			System.out.println("not valid");
-//			return false;
-//		}
 	}
 
 	/**
-	 * Check if the map is valid or not
+	 * This method is used to check if the map is valid or not
 	 * checks connectivity, the coordinates, one country does not belong to two Continents, there is at least one
 	 * country in each Continent
 	 * @return false
 	 */
 	public boolean checkMapIsValid() {
-		//		return true;
 		try {
 			boolean oneCountryNotInDiffContinent = true ;
 			boolean atLeastOneCountryInOneContinent = true;
@@ -245,7 +236,7 @@ public class MapModel {
 						oneCountryNotInDiffContinent = false;
 
 						print.consoleErr("\nA Country cannot belong to different continents.\n **" + country.getCountryName() +
-						"** is assigned in multiple Continents");
+								"** is assigned in multiple Continents");
 					}else {
 						growingCountryList.add(country.getCountryName());
 					}
@@ -255,13 +246,13 @@ public class MapModel {
 			//if the visitedList is same as the allCountryList then is is conclusive that the Map is connected
 			//otherwise the two lists would never be the same because visitedList adds elements only if can visit in DFS
 			Collections.sort(countriesForSorting);
-            //			for(int i =0; i<countriesForSorting.size(); i++){
-           	//				System.out.println("#########"+countriesForSorting.get(i));
+			//			for(int i =0; i<countriesForSorting.size(); i++){
+			//				System.out.println("#########"+countriesForSorting.get(i));
 			//			}
 
 
-            // set the very first Country from the first Continent of the arrayList and set them as an starting
-            //for checking if a Map is a connected one.
+			// set the very first Country from the first Continent of the arrayList and set them as an starting
+			//for checking if a Map is a connected one.
 			Country startingVertex = ((this.continentsList.get(0)).getCountryList()).get(0);
 			visitedList.clear();
 
@@ -290,12 +281,16 @@ public class MapModel {
 			return false;
 		}
 	}
+	
+	/**
+	 * This method is used to print that map is valid or not.
+	 */
 
 	public void printMapValidOrNot(){
 		if(checkMapIsValid()){
-			print.consoleOut("\n This Map is Valid\n ");
+			print.consoleOut("\n ******* This Map is Valid *******\n ");
 		}	else {
-			print.consoleErr("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
+			print.consoleErr("\n ****** Sorry, Map is NOT Valid, Try Again!!! ******\n");
 		}
 	}
 
@@ -315,7 +310,6 @@ public class MapModel {
 					for (Country country : continent.getCountryList()) {
 						if (country.getCountryName().equals(neighbourVertex)) {
 							newVertex = country;
-							//							print.consoleOut("pilokilo");
 						}
 					}
 				}
@@ -332,7 +326,7 @@ public class MapModel {
 	 * and allCountryList are not same.
 	 * @param visitedList
 	 * @param allCountryList
-	 * @return
+	 * @return true if visited otherwise false
 	 */
 	public boolean visitedAndAllCountryListCheck(ArrayList<String> visitedList, ArrayList<String> allCountryList){
 		if (visitedList == null && allCountryList == null)
@@ -657,8 +651,10 @@ public class MapModel {
 	/**
 	 * This method is used to save the map into the directory when a user adds, delete
 	 * countries or continents from the map.
+	 * @param mapNameByUserInput 
+	 * @param mapPath 
 	 */
-	public void saveEditedMap() {
+	public void saveEditedMap(String mapNameByUserInput, String mapPath) {
 		StringBuffer textContentInFile = new StringBuffer();
 
 		print.consoleOut("********Updated data is saved in the map file like this***********");
@@ -696,32 +692,26 @@ public class MapModel {
 		System.out.println(textContentInFile);
 
 
-
-		/*	BufferedWriter bw = null;
+		// write map to disk
+		Path path = Paths.get(print.getMapDir() + mapNameByUserInput );
+		System.out.println(path+"-----");
+		BufferedWriter writer = null;
 		try {
-
-			File filePath = new File(print.getMapDir()+".map");
-			if (!filePath.exists()) {
-				filePath.createNewFile();
-			}
-			FileWriter fileWriter = new FileWriter(filePath);
-			bw = new BufferedWriter(fileWriter);
-			bw.write(new String(textContentInFile));
-
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-
+			//Delete temporary file
+			Path tempFilePath = Paths.get(mapPath + "temp" + ".map");
+			Files.deleteIfExists(tempFilePath);
+			writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8);
+			writer.write(new String(textContentInFile));
+			writer.close();
+		} catch (Exception e) {
+			print.printException(e);
 		}
-		finally{
-			try{
-				if(bw!=null)
-					bw.close();
-			}catch(Exception ex){
-				print.consoleErr("Error in closing the BufferedWriter"+ex);
-			}
-		}*/
-
 	}
+
+
+
+
+
 
 	/**
 	 * This method is printing continents
@@ -802,18 +792,18 @@ public class MapModel {
 		return print.getMapDir();
 	}
 
-	public String getMapName() {
+/*	public String getMapName() {
 
 		return mapName.replace(".map", "");
 	}
 
-	/**
+	*//**
 	 * This function sets the map name.
 	 * @param mapName, name of the map
-	 */
+	 *//*
 	public void setMapName(String mapName) {
 		this.mapName = mapName;
-	}
+	}*/
 
 
 }
