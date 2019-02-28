@@ -15,7 +15,7 @@ public class PrintConsoleAndUserInput {
     static Scanner input = new Scanner(System.in);
     // Try with these directory path if code is not running
     private static String OS = System.getProperty("os.name").toLowerCase();
-    private String mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
+    private static String  mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
     //private String mapDir = ".\\src\\mapFiles\\";
 
 
@@ -55,7 +55,7 @@ public class PrintConsoleAndUserInput {
      * This method is used to get path of map directory.
      * @return String mapDir
      */
-    public String getMapDir() {
+    public static String getMapDir() {
         if(OS.indexOf("win") >= 0) {
             mapDir = ".\\src\\mapFiles\\";
         }

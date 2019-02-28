@@ -18,12 +18,9 @@ import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 
 /**
- * Game Controller sets the game model and the game view. 
- * It initializes the map chose by the player. 
- * It initializes the game and sets the view active.
- * It listens to the view and takes appropriate actions when the player performs an action.
+ * Class that achieves the action listener for the user input 
  * @author Jaiganesh
- * @version 1.0.0
+ *
  */
 
 public class GameController {
@@ -34,11 +31,7 @@ public class GameController {
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	Scanner userinput = new Scanner(System.in);
 
-	/**
-	 * This method prints the available maps for the player.
-	 * It initializes the map selected by the player. 
-	 */
-	public void initializeMap()
+	public void initializeMap() 
 	{
 		int i = 1;
 		print.consoleOut("List of Maps:");
@@ -47,12 +40,7 @@ public class GameController {
 		String mapPath = mapModel.getMapNameByUserInput();
 		mapModel.readMapFile(mapPath);
 	}
-	
-	/**
-	 * This method initializes the game. 
-	 * It gets the number of players and assigns them their Id, Name and Color.
-	 * It starts the game and initializes the board for the game.
-	 */
+
 	public void initializeGame()
 	{
 		int j=1;
@@ -77,8 +65,8 @@ public class GameController {
 	}
 
 	/**
-	 * This method prints the lists of maps available in the directory 
-	 * @return mapFileList
+	 * prints the lists of maps in the directory
+	 * @return 
 	 */
 	public ArrayList<String> listofMapsinDirectory()
 	{
@@ -114,8 +102,7 @@ public class GameController {
 	}
 
 	/**
-	 * This method is going to assign armies to the specific countries 
-	 * in initial phase and in reinforcement phase.
+	 *This method is going to assign armies to the specific countries in initial phase and in reinforcement phase
 	 */
 	public void numberOfArmiesClickListener(){
 		boardView.addMapLabelsListener(new MouseAdapter() {
@@ -131,8 +118,7 @@ public class GameController {
 	}
 
 	/**
-	 * This method is going to populate destination combo box 
-	 * and the number of army combobox.
+	 * This method is going to populate destination combo box and the number of army combobox
 	 */
 	public void addSourceCountriesListener(){
 		boardView.addActionListenToSourceCountryList(new ActionListener() {
