@@ -349,7 +349,9 @@ public class Game extends Observable {
 		Player currentPlayer = this.getCurrentPlayer();
 
 		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
-		ArrayList<String> neighborCountriesName = null;
+		ArrayList<String> neighborCountriesName = new ArrayList<String>();
+		ArrayList<String> recneighborCountriesName = new ArrayList<String>();
+		ArrayList<String> recneighborCountriesName2 = new ArrayList<String>();
 		
 			for (Country country : playerCountry.get(currentPlayer)) 
 			{
@@ -360,9 +362,6 @@ public class Game extends Observable {
 					neighborCountriesName = country.getNeighboursString();
 				}
 			}
-
-			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 			
 			Iterator<String> it = neighborCountriesName.iterator();
 			while (it.hasNext()) 
@@ -373,10 +372,58 @@ public class Game extends Observable {
 					it.remove();
 				}
 			}
-
-			System.out.println("2. Neighbouring Countries:"+neighborCountriesName.toString());
-			System.out.println("2. Player's Countries:"+countriesAssignedToPlayer.toString());
 			
+			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+			
+			for (String string : neighborCountriesName)
+			{
+				recneighborCountriesName = getNeighborRecursive(string);
+				if(recneighborCountriesName == null)
+				{
+					System.out.println("No nodes for:"+string);
+					break;
+				}
+				else
+				{
+					for(String country4 :recneighborCountriesName)
+					{	
+						if(!neighborCountriesName.contains(country4) && !country4.equals(source))
+						{
+							System.out.println(string +" has this nodes:"+country4);
+						}
+					}
+						
+				}
+			}
+			
+		return neighborCountriesName;
+	}
+	
+	public ArrayList<String> getNeighborRecursive(String country)
+	{
+		Player currentPlayer = this.getCurrentPlayer();
+		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
+		ArrayList<String> neighborCountriesName = null;
+
+		for (Country country1 : playerCountry.get(currentPlayer)) 
+		{
+			String countryName = country1.getCountryName();
+			countriesAssignedToPlayer.add(countryName);
+			if (country1.getCountryName().equals(country)) 
+			{
+				neighborCountriesName = country1.getNeighboursString();
+			}
+		}
+		Iterator<String> it = neighborCountriesName.iterator();
+		while (it.hasNext()) 
+		{
+			String country3 = it.next();
+			if (!countriesAssignedToPlayer.contains(country3))
+			{
+				it.remove();
+			}
+		}
 		return neighborCountriesName;
 	}
 	
