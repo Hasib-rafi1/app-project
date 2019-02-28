@@ -166,11 +166,12 @@ public class MapModel {
 
 
     private boolean readMapContentSaveInDirectory(StringBuffer content, String nameOfTheMap) {
+		String mapDir = getMapDir();
         Path path = Paths.get( nameOfTheMap + ".map");
         BufferedWriter writer = null;
         try {
             // Delete temp file
-            Path tempFilePath = Paths.get("temp" + ".map");
+            Path tempFilePath = Paths.get(mapDir+"temp" + ".map");
             Files.deleteIfExists(tempFilePath);
 
             writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
@@ -191,16 +192,15 @@ public class MapModel {
 	 */
 	public boolean createValidateAndSaveMap(StringBuffer mapContent, String mapName) {
 		String mapDir = getMapDir();
-		if (this.readMapContentSaveInDirectory(mapContent, mapDir+"temp")) {
-//			this.mapName = "temp.map";
+		if (readMapContentSaveInDirectory(mapContent, mapDir+"temp")) {
 			try {
-				this.readMapFile(mapDir+"temp.map");
+				readMapFile(mapDir+"temp.map");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (this.checkMapIsValid()) {
-				this.mapName = mapName;
-				this.readMapContentSaveInDirectory(mapContent, mapName);
+			if (checkMapIsValid()) {
+				//this.mapName = mapName;
+			readMapContentSaveInDirectory(mapContent, mapDir+ mapName);
 				return true;
 			} else {
 				return false;

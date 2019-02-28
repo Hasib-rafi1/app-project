@@ -1,5 +1,3 @@
-
-
 [Map]
 image=world.bmp
 wrap=yes
@@ -10,7 +8,7 @@ warn=yes
 
 [Continents]
 Continent1=10
-
+Continent2=20
 
 
 [Territories]
