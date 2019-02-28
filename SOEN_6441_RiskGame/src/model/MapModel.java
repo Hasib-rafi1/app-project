@@ -91,6 +91,7 @@ public class MapModel {
 
 				// Get Territories form the stream of sentences and store them country object with all of three values
 				else if (getTerritories){
+					
 					String[] territoryElements = lineStream.split(",");
 					String countryName = territoryElements[0];
 					int xCoordinate = Integer.parseInt(territoryElements[1]);
@@ -120,8 +121,9 @@ public class MapModel {
 							break;
 						}
 					}
+				
 					print.consoleOut(lineStream);
-
+					
 				}
 			}
 
@@ -192,15 +194,15 @@ public class MapModel {
 			for(Continent continent : this.continentsList){
 				if(continent.getCountryList().isEmpty()){
 					atLeastOneCountryInOneContinent = false;
-					print.consoleOut("\n Each continent should have at least one country.\n **"+
+					print.consoleErr("\n Each continent should have at least one country.\n **"+
 							continent.getContinentName() + "** is not assigned with any country");
 				}
 				for(Country country : continent.getCountryList()){
 					if(growingCountryList.contains(country.getCountryName())){
 						oneCountryNotInDiffContinent = false;
-						print.consoleOut("\nA Country cannot belong to different continents.\n **" + country.getCountryName() +
+						print.consoleErr("\nA Country cannot belong to different continents.\n **" + country.getCountryName() +
 						"** is assigned in multiple Continents");
-						print.consoleOut("One Country **" + country.getCountryName()
+						print.consoleErr("One Country **" + country.getCountryName()
 						+ "** cannot belong to different continents.");
 					}else {
 						growingCountryList.add(country.getCountryName());
@@ -231,18 +233,18 @@ public class MapModel {
 			//			}
 
 			if(!atLeastOneCountryInOneContinent){
-				print.consoleOut("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
+				print.consoleErr("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
 				return false;
 			}
 			if(!oneCountryNotInDiffContinent){
-				print.consoleOut("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
+				print.consoleErr("\n *** Sorry, Map is NOT Valid, Try Again ***\n");
 				return false;
 			}
 			if (visitedAndAllCountryListCheck(visitedList, countriesForSorting)) {
 
 				return true;
 			} else {
-				print.consoleOut("THIS MAP IS NOT CONNECTED. WRONG!");
+				print.consoleErr("THIS MAP IS NOT CONNECTED. WRONG!");
 				return false;
 			}
 

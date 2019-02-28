@@ -2,6 +2,8 @@ package controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import helper.PrintConsoleAndUserInput;
@@ -104,10 +106,15 @@ public class MapController {
         boolean exists = tempFile.exists();
         if (exists) {
             mapModel.readMapFile(mapPath);
-            mapModel.checkMapIsValid();
-            mapModel.printingContinents();   // this method print continents
-            mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
-            mapModel.printNeighboursGivenContry(); //prints the neighbours of a country given a country name
+           
+            if (!mapModel.checkMapIsValid()){
+              print.consoleErr("*****Map is Invalid !*****");
+            }else {
+            	print.consoleOut("****Map is VALID****");
+            }
+          //  mapModel.printingContinents();   // this method print continents
+            //mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
+            //mapModel.printNeighboursGivenContry(); //prints the neighbours of a country given a country name
         } else {
             print.consoleErr("File not found!!!. Please enter the coreect name of map.");
 
@@ -175,11 +182,24 @@ public class MapController {
 
                     if(checkContinentIsDeleted){
                         print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
-                        mapModel.saveEditedMap();
+                       
+                        try{
+	                        if (mapModel.checkMapIsValid()){
+	                        	 mapModel.saveEditedMap();
+	                            print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
+	                        }
+	                        else{
+	                        	print.consoleErr("Map is invalid!");
+	                        }
+	                    }catch (  Exception e){
+	                    	print.consoleErr(" Empty Map !");
+	                    }
                     }
                     else {
                         print.consoleErr("Error!!! Continent can not be deleted");
                     }
+                    
+                    
                     break;
 
                 case 4:  // 4. Delete Country from map?
