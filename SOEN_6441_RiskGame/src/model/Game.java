@@ -21,12 +21,12 @@ public class Game extends Observable {
 	private GamePhase gamePhase;
 	private int currentPlayerId;
 	private int MINIMUM_REINFORCEMENT_PlAYERS = 3;
-	
+
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
-	
+
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
-	
+
 
 	public Game(MapModel map) 
 	{
@@ -34,7 +34,7 @@ public class Game extends Observable {
 		this.mapModel = map;
 		this.setGamePhase(GamePhase.Startup);
 	}
-	
+
 	public void startGame() 
 	{
 		//Assigning the Initial armies.
@@ -43,34 +43,34 @@ public class Game extends Observable {
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
 			System.out.println("Player ID:"+playerList.get(i).getPlayerId()+" Player Name:"+playerList.get(i).getPlayerName()+" Player's Army:"+playerList.get(i).getNumberOfInitialArmies()+"Player's Color"+playerList.get(i).getColor());
 		}
-		
+
 		int players_count = playerList.size();
 		System.out.println("Player Count:"+players_count);
 		int countries_count = mapModel.getCountryList().size();
 		int players_id = 0;
-		
+
 		ArrayList<Integer> randomNumbers = new ArrayList<>();
 		for(int i=0; i<countries_count; i++)
 		{
 			randomNumbers.add(i);
 		}
-        Collections.shuffle(randomNumbers, new Random());
-        
-        for(int i=0; i<countries_count ; i++)
-        {
-        	if (players_id == players_count)
-        	{
-        		players_id = 0;
-        	}
-        	
-        	Country assign_country = mapModel.getCountryList().get(randomNumbers.get(i));
-        	assignPlayerCountry(playerList.get(players_id),assign_country);
-        	System.out.println(players_id+"+"+assign_country);
-        	assignUnassigned(playerList.get(players_id),assign_country);
-        	players_id++;
-        }
-        
-        for (Map.Entry<Player, ArrayList<Country>> entry : playerCountry.entrySet())
+		Collections.shuffle(randomNumbers, new Random());
+
+		for(int i=0; i<countries_count ; i++)
+		{
+			if (players_id == players_count)
+			{
+				players_id = 0;
+			}
+
+			Country assign_country = mapModel.getCountryList().get(randomNumbers.get(i));
+			assignPlayerCountry(playerList.get(players_id),assign_country);
+			System.out.println(players_id+"+"+assign_country);
+			assignUnassigned(playerList.get(players_id),assign_country);
+			players_id++;
+		}
+
+		for (Map.Entry<Player, ArrayList<Country>> entry : playerCountry.entrySet())
 		{
 			Player key = entry.getKey();
 			ArrayList<Country> value = entry.getValue();
@@ -80,14 +80,14 @@ public class Game extends Observable {
 				System.out.println(aString.getCountryName());
 			}
 		}
-        notifyObserverslocal(this);
+		notifyObserverslocal(this);
 	}
-	
+
 	public void addPlayer(Player player) 
 	{
 		this.playerList.add(player);
 	}
-	
+
 	public void assignPlayerCountry(Player player, Country country)
 	{
 		if(playerCountry.containsKey(player))
@@ -103,7 +103,7 @@ public class Game extends Observable {
 		country.setCountryColor(player.getColor());
 		country.setPlayerId(player.getPlayerId());
 	}
-	
+
 	public void addingCountryArmy(String countryName)
 	{
 		if(gamePhase == gamePhase.Attack || gamePhase == gamePhase.Fortification)
@@ -126,7 +126,7 @@ public class Game extends Observable {
 		updateGame();
 		notifyObserverslocal(this);
 	}
-	
+
 	public boolean addingStartupCountryArmy(String countryName)
 	{
 		if(this.gamePhase != gamePhase.Startup)
@@ -134,9 +134,9 @@ public class Game extends Observable {
 			print.consoleOut("Not a Valid Phase");
 			return false;
 		}
-		
+
 		Player player = this.getCurrentPlayer();
-		
+
 		if(player == null)
 		{
 			print.consoleOut("Player ID"+currentPlayerId+"does not exist.");
@@ -158,7 +158,7 @@ public class Game extends Observable {
 		assignUnassigned(player,country);
 		return true;
 	}
-	
+
 	public boolean addingReinforcementCountryArmy(String countryName)
 	{
 		if(this.gamePhase != gamePhase.Reinforcement)
@@ -166,9 +166,9 @@ public class Game extends Observable {
 			print.consoleOut("Not a Valid Phase");
 			return false;
 		}
-		
+
 		Player player = this.getCurrentPlayer();
-		
+
 		if(player == null)
 		{
 			print.consoleOut("Player ID"+currentPlayerId+"does not exist.");
@@ -189,19 +189,19 @@ public class Game extends Observable {
 		assignReinforcement(player,country);
 		return true;
 	}
-	
+
 	public void assignUnassigned(Player player, Country country)
 	{
 		player.decreasenumberOfInitialArmies();
 		country.increaseArmyCount();
 	}
-	
+
 	public void assignReinforcement(Player player, Country country)
 	{
 		player.decreaseReinforcementArmy();
 		country.increaseArmyCount();
 	}
-	
+
 	public void setupNextPlayerTurn()
 	{
 		print.consoleOut("Current Player ID:"+currentPlayerId);
@@ -211,27 +211,27 @@ public class Game extends Observable {
 			currentPlayerId = 0;
 		}
 	}
-	
+
 	public void reinforcementPhaseSetup() 
 	{
 		Player player = getCurrentPlayer();
-		
+
 		int countries_count = (int) Math.floor(playerCountry.get(player).stream().count() / 3);
-		
+
 		if (playerCountry.containsKey(player)) 
 		{
 			ArrayList<Country> assignedCountries = playerCountry.get(player);
-			
+
 			List<Integer> assignedCountryIds = assignedCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
 
 			ArrayList<Continent> continents = mapModel.getContinentList();
-			
+
 			for (Continent continent : continents) 
 			{
 				List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId()).collect(Collectors.toList());
-				
+
 				boolean hasPlayerAllCountries = assignedCountryIds.containsAll(continentCountryIds);
-				
+
 				if (hasPlayerAllCountries)
 				{
 					countries_count += continent.getControlValue();
@@ -243,7 +243,7 @@ public class Game extends Observable {
 		System.out.println("Countries Count:" + countries_count);
 		player.setNumberOfReinforcedArmies(countries_count);
 	}
-		
+
 	public void getCountryArmies(String countryName) 
 	{
 		int armies_number = 0;
@@ -256,17 +256,17 @@ public class Game extends Observable {
 			}
 		}
 	}
-	
+
 	public boolean fortificationPhase(String source, String destination, int armies)
 	{
 		Player player = getCurrentPlayer();
-		
+
 		Country sourceCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(source)).findAny().orElse(null);
-		
+
 		Country destinationCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
-		
+
 
 		if (sourceCountry == null || destinationCountry == null) 
 		{
@@ -287,7 +287,7 @@ public class Game extends Observable {
 		notifyObserverslocal(this);
 		return true;
 	}
-	
+
 	private void updateGame() 
 	{
 		if (this.getGamePhase() == gamePhase.Startup) 
@@ -315,62 +315,67 @@ public class Game extends Observable {
 			this.setGamePhase(gamePhase.Reinforcement);
 		}
 	}
-	
+
 	public ArrayList<Player> getAllPlayers() 
 	{
 		return playerList;
 	}
-	
+
 	public Player getCurrentPlayer() 
 	{
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return currentPlayer;
 	}
-	
+
 	public ArrayList<Country> getCurrentPlayerCountries() 
 	{
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return playerCountry.get(currentPlayer);
 	}
-	
+
 	public ArrayList<Country> getPlayersCountry(Player currentPlayer) 
 	{
-	    return playerCountry.get(currentPlayer);
+		return playerCountry.get(currentPlayer);
 	}
-	
+
 	public ArrayList<String> getNeighbouringCountries(String source) 
 	{
-		ArrayList<String> neighborCountriesName = null;
 		System.out.println("source Country Name :" + source);
 
-			Player currentPlayer = this.getCurrentPlayer();
-			ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
+		Player currentPlayer = this.getCurrentPlayer();
 
-			for (Country country : playerCountry.get(currentPlayer)) 
-			{
-				String countryName = country.getCountryName();
-				System.out.println("-"+countryName);
-				countriesAssignedToPlayer.add(countryName);
-				if (country.getCountryName().equals(source)) 
-				{
-					neighborCountriesName = country.getNeighboursString();
-					break;
-				}
-			}
+		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
+		ArrayList<String> neighborCountriesName = null;
 
-			Iterator<String> it = neighborCountriesName.iterator();
-			while (it.hasNext()) 
+		for (Country country : playerCountry.get(currentPlayer)) 
+		{
+			String countryName = country.getCountryName();
+			countriesAssignedToPlayer.add(countryName);
+			if (country.getCountryName().equals(source)) 
 			{
-				String country = it.next();
-				System.out.println(country);
-				if (!countriesAssignedToPlayer.contains(country))
-				{
-					it.remove();
-				}
+				neighborCountriesName = country.getNeighboursString();
 			}
+		}
+
+		System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+		System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+
+		Iterator<String> it = neighborCountriesName.iterator();
+		while (it.hasNext()) 
+		{
+			String country = it.next();
+			if (!countriesAssignedToPlayer.contains(country))
+			{
+				it.remove();
+			}
+		}
+
+		System.out.println("2. Neighbouring Countries:"+neighborCountriesName.toString());
+		System.out.println("2. Player's Countries:"+countriesAssignedToPlayer.toString());
+
 		return neighborCountriesName;
 	}
-	
+
 	public int getArmiesAssignedToCountry(String sourceCountryName) 
 	{
 		Player currentPlayer = this.getCurrentPlayer();
@@ -385,13 +390,13 @@ public class Game extends Observable {
 		}
 		return noOfArmies;
 	}
-	
+
 
 	public int getCurrentPlayerId() 
 	{
 		return currentPlayerId;
 	}
-	
+
 	public MapModel getMap() 
 	{
 		return mapModel;
@@ -415,4 +420,3 @@ public class Game extends Observable {
 		notifyObservers(this);
 	}
 }
-	
