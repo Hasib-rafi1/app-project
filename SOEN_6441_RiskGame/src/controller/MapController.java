@@ -2,8 +2,6 @@ package controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import helper.PrintConsoleAndUserInput;
@@ -85,10 +83,10 @@ public class MapController {
                 StringBuffer mapContent = new StringBuffer(mapView.returnMapContent());
                 String mapName = mapView.returnMapName();
                 boolean checkMapIsCreated;
-                checkMapIsCreated = mapModel.saveUserMapIntoDirectory(mapContent, mapName);
+                checkMapIsCreated = mapModel.createValidateAndSaveMap(mapContent, mapName);
 
                 if (checkMapIsCreated) {
-                    print.consoleOut("Map has been created successfully in directory!");
+                    print.consoleOut(print.getMapDir()+"Map has been created successfully in directory!");
                 } else {
                     print.consoleErr("Error!!!! Map has not been created successfully!");
                 }
@@ -106,15 +104,10 @@ public class MapController {
         boolean exists = tempFile.exists();
         if (exists) {
             mapModel.readMapFile(mapPath);
-           
-            if (!mapModel.checkMapIsValid()){
-              print.consoleErr("*****Map is Invalid !*****");
-            }else {
-            	print.consoleOut("****Map is VALID****");
-            }
-          //  mapModel.printingContinents();   // this method print continents
-            //mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
-            //mapModel.printNeighboursGivenContry(); //prints the neighbours of a country given a country name
+            mapModel.printMapValidOrNot();
+            mapModel.printingContinents();   // this method print continents
+            mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
+            mapModel.printNeighboursGivenContry(); //prints the neighbours of a country given a country name
         } else {
             print.consoleErr("File not found!!!. Please enter the coreect name of map.");
 
@@ -182,7 +175,7 @@ public class MapController {
 
                     if(checkContinentIsDeleted){
                         print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
-                       
+
                         try{
 	                        if (mapModel.checkMapIsValid()){
 	                        	 mapModel.saveEditedMap();
@@ -198,8 +191,6 @@ public class MapController {
                     else {
                         print.consoleErr("Error!!! Continent can not be deleted");
                     }
-                    
-                    
                     break;
 
                 case 4:  // 4. Delete Country from map?
