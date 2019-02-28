@@ -15,6 +15,11 @@ import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 import helper.InitialPlayerArmy;
 
+/**
+ * 
+ * @author Jaiganesh
+ *
+ */
 public class Game extends Observable {
 
 	private MapModel mapModel;
