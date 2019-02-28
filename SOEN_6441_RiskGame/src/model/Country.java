@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * This is a main class to read and store different elements of the country
  * @author Zakiya Jafrin
+ * @author Jaiganesh
  * @version 1.0.0
  */
 public class Country {

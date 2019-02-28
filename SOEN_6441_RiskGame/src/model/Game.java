@@ -15,6 +15,11 @@ import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 import helper.InitialPlayerArmy;
 
+/**
+ * 
+ * @author Jaiganesh
+ *
+ */
 public class Game extends Observable {
 
 	private MapModel mapModel;
@@ -65,7 +70,6 @@ public class Game extends Observable {
         	
         	Country assign_country = mapModel.getCountryList().get(randomNumbers.get(i));
         	assignPlayerCountry(playerList.get(players_id),assign_country);
-        	System.out.println(players_id+"+"+assign_country);
         	assignUnassigned(playerList.get(players_id),assign_country);
         	players_id++;
         }
@@ -340,34 +344,39 @@ public class Game extends Observable {
 	
 	public ArrayList<String> getNeighbouringCountries(String source) 
 	{
-		ArrayList<String> neighborCountriesName = null;
 		System.out.println("source Country Name :" + source);
 
-			Player currentPlayer = this.getCurrentPlayer();
-			ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
+		Player currentPlayer = this.getCurrentPlayer();
 
+		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
+		ArrayList<String> neighborCountriesName = null;
+		
 			for (Country country : playerCountry.get(currentPlayer)) 
 			{
 				String countryName = country.getCountryName();
-				System.out.println("-"+countryName);
 				countriesAssignedToPlayer.add(countryName);
 				if (country.getCountryName().equals(source)) 
 				{
 					neighborCountriesName = country.getNeighboursString();
-					break;
 				}
 			}
 
+			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+			
 			Iterator<String> it = neighborCountriesName.iterator();
 			while (it.hasNext()) 
 			{
 				String country = it.next();
-				System.out.println(country);
 				if (!countriesAssignedToPlayer.contains(country))
 				{
 					it.remove();
 				}
 			}
+
+			System.out.println("2. Neighbouring Countries:"+neighborCountriesName.toString());
+			System.out.println("2. Player's Countries:"+countriesAssignedToPlayer.toString());
+			
 		return neighborCountriesName;
 	}
 	
