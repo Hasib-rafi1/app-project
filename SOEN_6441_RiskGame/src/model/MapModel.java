@@ -166,11 +166,12 @@ public class MapModel {
 
 
     private boolean readMapContentSaveInDirectory(StringBuffer content, String nameOfTheMap) {
+		String mapDir = getMapDir();
         Path path = Paths.get( nameOfTheMap + ".map");
         BufferedWriter writer = null;
         try {
             // Delete temp file
-            Path tempFilePath = Paths.get("temp" + ".map");
+            Path tempFilePath = Paths.get(mapDir+"temp" + ".map");
             Files.deleteIfExists(tempFilePath);
 
             writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
@@ -200,7 +201,7 @@ public class MapModel {
 			}
 			if (this.checkMapIsValid()) {
 				this.mapName = mapName;
-				this.readMapContentSaveInDirectory(mapContent, mapName);
+				this.readMapContentSaveInDirectory(mapContent, mapDir+ mapName);
 				return true;
 			} else {
 				return false;
