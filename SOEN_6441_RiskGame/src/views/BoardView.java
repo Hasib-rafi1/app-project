@@ -384,7 +384,6 @@ public class BoardView implements Observer {
 	public void combo_fillDestinationCountry(ArrayList<String> destinationCountries)
 	{   combo_countryDestination.removeAllItems();
 	for(String countryName : destinationCountries) {
-		System.out.println(countryName);
 		combo_countryDestination.addItem(countryName);
 	}
 
