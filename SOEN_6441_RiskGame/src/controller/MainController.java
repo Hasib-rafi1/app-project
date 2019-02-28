@@ -46,10 +46,6 @@ public class MainController {
 					gameController.initializeGame();
 					break;
 				case 3:
-					break;
-				case 4:
-					break;
-				case 5:
 					print.consoleErr("Thanks for playing this Game.");
 					System.exit(0);
 				default :

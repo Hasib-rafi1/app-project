@@ -70,6 +70,7 @@ public class Game extends Observable {
         	
         	Country assign_country = mapModel.getCountryList().get(randomNumbers.get(i));
         	assignPlayerCountry(playerList.get(players_id),assign_country);
+        	System.out.println(players_id+"+"+assign_country);
         	assignUnassigned(playerList.get(players_id),assign_country);
         	players_id++;
         }
@@ -353,6 +354,7 @@ public class Game extends Observable {
 			for (Country country : playerCountry.get(currentPlayer)) 
 			{
 				String countryName = country.getCountryName();
+				System.out.println("-"+countryName);
 				countriesAssignedToPlayer.add(countryName);
 				if (country.getCountryName().equals(source)) 
 				{
@@ -365,6 +367,7 @@ public class Game extends Observable {
 			while (it.hasNext()) 
 			{
 				String country = it.next();
+				System.out.println(country);
 				if (!countriesAssignedToPlayer.contains(country))
 				{
 					it.remove();
