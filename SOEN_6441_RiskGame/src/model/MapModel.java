@@ -282,6 +282,14 @@ public class MapModel {
 		}
 	}
 
+	/**
+	 * checking the visitedList and allCountryList if they are same. If returns True, that proves DFS traversal
+	 * has visited all the nodes, thus connected. If returns False, then the graph is not connected. so the visitedList
+	 * and allCountryList are not same.
+	 * @param visitedList
+	 * @param allCountryList
+	 * @return
+	 */
 	public boolean visitedAndAllCountryListCheck(ArrayList<String> visitedList, ArrayList<String> allCountryList){
 		if (visitedList == null && allCountryList == null)
 			return true;
