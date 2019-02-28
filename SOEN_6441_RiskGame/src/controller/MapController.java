@@ -175,7 +175,18 @@ public class MapController {
 
                     if(checkContinentIsDeleted){
                         print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
-                        mapModel.saveEditedMap();
+
+                        try{
+	                        if (mapModel.checkMapIsValid()){
+	                        	 mapModel.saveEditedMap();
+	                            print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
+	                        }
+	                        else{
+	                        	print.consoleErr("Map is invalid!");
+	                        }
+	                    }catch (  Exception e){
+	                    	print.consoleErr(" Empty Map !");
+	                    }
                     }
                     else {
                         print.consoleErr("Error!!! Continent can not be deleted");
