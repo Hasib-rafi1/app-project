@@ -192,16 +192,15 @@ public class MapModel {
 	 */
 	public boolean createValidateAndSaveMap(StringBuffer mapContent, String mapName) {
 		String mapDir = getMapDir();
-		if (this.readMapContentSaveInDirectory(mapContent, mapDir+"temp")) {
-//			this.mapName = "temp.map";
+		if (readMapContentSaveInDirectory(mapContent, mapDir+"temp")) {
 			try {
-				this.readMapFile(mapDir+"temp.map");
+				readMapFile(mapDir+"temp.map");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (this.checkMapIsValid()) {
-				this.mapName = mapName;
-				this.readMapContentSaveInDirectory(mapContent, mapDir+ mapName);
+			if (checkMapIsValid()) {
+				//this.mapName = mapName;
+			readMapContentSaveInDirectory(mapContent, mapDir+ mapName);
 				return true;
 			} else {
 				return false;
