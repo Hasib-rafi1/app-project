@@ -48,7 +48,7 @@ import model.Player;
  *
  */
 public class BoardView implements Observer {
-	private static JFrame frame_gameWindow = null;
+	private static JFrame frame_gameWindow ;
 	private static JPanel panel_gameAction;
 
 	// Map variables
@@ -87,15 +87,17 @@ public class BoardView implements Observer {
 	String mapPath =obj_print.getMapDir()+ "World.bmp" ;
 	ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
 	GamePhase phase;
+	/**
+	 * method to perform all the actions 
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		Game game = ((Game)arg0);
-
 		game.getMap().getContinentList();
 		mapPath = game.getMap().getMapDir()+ "World.bmp";
 		phase = game.getGamePhase(); 
-		// mapPath = map.getMapPath() + map.getMapName() + ".bmp";
+		
 		MapModel map = game.getMap();
 		activePlayerName = game.getCurrentPlayer().getPlayerName();
 		activePlayerId = game.getCurrentPlayerId();
@@ -136,29 +138,28 @@ public class BoardView implements Observer {
 				lab_reinforcement.setVisible(false);
 			} else if (game.getGamePhase() == GamePhase.Reinforcement) {
 				lab_nameofPhase.setText("Reinforcement");
+				lab_nameofPhase.setForeground(Color.red);
 				lab_fortification.setVisible(false);
 				lab_reinforcement.setVisible(true);
 			} else if (game.getGamePhase() == GamePhase.Attack) {
 				lab_nameofPhase.setText("Attack - not implemented");
-
 			} else if (game.getGamePhase() == GamePhase.Fortification) {
 				lab_nameofPhase.setText("Fortification");
+				lab_nameofPhase.setForeground(Color.MAGENTA);
 				lab_fortification.setVisible(true);
 				combo_sourceCountry();
 			}
 		}
-
 	}
 
 	/**
 	 * Method that loads up the GUI window
 	 */
 	public void gameWindowLoad() {
-		frame_gameWindow= new JFrame("Risk Game");
+		frame_gameWindow=  new JFrame("Risk Game");
 		panel_gameAction=new JPanel(null);
 		
 		mapGenerator();
-		
 		gamePhase();
 		view_initialisation();
 		reinforcements();
@@ -166,10 +167,7 @@ public class BoardView implements Observer {
 
 		frame_gameWindow.setSize(1450, 600);
 		frame_gameWindow.setVisible(true);
-		panel_gameAction.setBackground(Color.WHITE);
-		
-		
-		
+		panel_gameAction.setBackground(Color.white);
 		frame_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
@@ -210,8 +208,7 @@ public class BoardView implements Observer {
 			lab_map.add(newLabel);
 		}
 
-		pane_mapScrollPane = new JScrollPane(lab_map);
-		
+		pane_mapScrollPane = new JScrollPane(lab_map);		
 		pane_mapScrollPane.setBounds(0,10,920,520);
 		panel_gameAction.add(pane_mapScrollPane);
 		frame_gameWindow.add(panel_gameAction);
@@ -223,7 +220,7 @@ public class BoardView implements Observer {
 	public void gamePhase() {
 		lab_gamePhase = new JLabel();
 		lab_gamePhase.setBorder(
-				BorderFactory.createTitledBorder(null, "Phase Information", TitledBorder.DEFAULT_JUSTIFICATION,
+				BorderFactory.createTitledBorder(null, "Current Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		lab_gamePhase.setBounds(pane_mapScrollPane.getX()+930, pane_mapScrollPane.getY(), 490, 100);
 
@@ -242,17 +239,15 @@ public class BoardView implements Observer {
 	 */
 	public void view_initialisation() {
 		lab_initialisation = new JLabel();
-
 		lab_initialisation.setBorder(
 				BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		lab_initialisation.setBounds(lab_gamePhase.getX(), lab_gamePhase.getY()+ lab_gamePhase.getHeight()+10, 490, 100);
+		lab_initialisation.setBounds(lab_gamePhase.getX(), lab_gamePhase.getY()+ lab_gamePhase.getHeight()+20, 490, 100);
 
-		// Recreate every components in Label
+	
 		lab_playersTurn = new JLabel(activePlayerName);
 		Font font = new Font("Courier", Font.BOLD, 24);
 		lab_playersTurn.setFont(font);
-		//lab_playersTurn.setForeground(Colors.(activePlayerColor));
 		lab_playersTurn.setBorder(new TitledBorder("Active Player"));
 		lab_playersTurn.setBounds(15, 25, 220, 70);
 
@@ -265,23 +260,23 @@ public class BoardView implements Observer {
 		lab_initialisation.add(lab_playersTurn);
 		lab_initialisation.add(lab_playersTurn);
 		lab_initialisation.add(lab_armiesLeft);
-
 		panel_gameAction.add(lab_initialisation);
 	}
 	/**
 	 * Method for reinforcement implementation
 	 */
 	public void reinforcements() {
+		
 		lab_reinforcement = new JLabel();
 		lab_reinforcement.setBorder(
 				BorderFactory.createTitledBorder(null, "Reinforcement Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		lab_reinforcement.setBounds(lab_initialisation.getX(),
-				lab_initialisation.getY() + 10 + lab_initialisation.getHeight(), lab_initialisation.getWidth(),
+				lab_initialisation.getY() +25 + lab_initialisation.getHeight(), lab_initialisation.getWidth(),
 				80);
 
 		lab_unassignedReinforcement = new JLabel(reinforcementUnassignedArmiesCount);
-		lab_unassignedReinforcement.setBorder(new TitledBorder("Reinforced Army Unit"));
+		lab_unassignedReinforcement.setBorder(new TitledBorder("Reinforced Unit"));
 		lab_unassignedReinforcement.setBounds(15,25, 460,50);
 		lab_reinforcement.setVisible(false);
 		lab_reinforcement.add(lab_unassignedReinforcement);
@@ -291,18 +286,17 @@ public class BoardView implements Observer {
 	 * Method for fortification implementation
 	 */
 	public void fortification() {
-		lab_fortification = new JLabel();
+		lab_fortification= new JLabel();
 		lab_fortification.setBorder(
 				BorderFactory.createTitledBorder(null, "Fortification Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		lab_fortification.setBounds(lab_reinforcement.getX(),
-				lab_reinforcement.getY() + 10 + lab_reinforcement.getHeight(), lab_reinforcement.getWidth(),
+				lab_reinforcement.getY() + 25 + lab_reinforcement.getHeight(), lab_reinforcement.getWidth(),
 				140);
 
 		combo_countrySource = new JComboBox();
 		combo_countrySource.setBorder(new TitledBorder("Source Country"));
 		combo_countrySource.setBounds(15, 25, 220, 50);
-
 		combo_countryDestination = new JComboBox<>();
 		combo_countryDestination.setBorder(new TitledBorder("Destination Country"));
 		combo_countryDestination.setBounds(combo_countrySource.getX() + 20 + combo_countrySource.getWidth() + 3, combo_countrySource.getY(),
@@ -314,26 +308,22 @@ public class BoardView implements Observer {
 		}
 
 		combo_armyToMove = new JComboBox(NoOfArmies.toArray());
-
 		combo_armyToMove.setBounds(combo_countrySource.getX(), combo_countrySource.getHeight() + combo_countrySource.getY() + 7,
 				combo_countrySource.getWidth(), combo_countrySource.getHeight());
 		combo_armyToMove.setBorder(new TitledBorder("Total number of army to move"));
-		//button_moveFortification.setFocusable(true);
+		
 		button_moveFortification.setBounds(combo_countryDestination.getX(), combo_armyToMove.getY(),
 				combo_countryDestination.getWidth(), combo_countryDestination.getHeight());
-
-		// Add all components in Label
 		lab_fortification.add(combo_countrySource);
 		lab_fortification.add(combo_countryDestination);
 		lab_fortification.add(combo_armyToMove);
 		lab_fortification.add(button_moveFortification);
 		lab_fortification.setVisible(false);
-		// Adding Label to Panel
 		panel_gameAction.add(lab_fortification);
 	}
 
 	/**
-	 * This method is going to use for the mouse event for the map labels
+	 * method to use for the mouse event for the map labels
 	 * @param listener MouseListener
 	 */
 	public void addMapLabelsListener(MouseListener listener) {
@@ -345,7 +335,7 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * This method is going to add a listener in the combobox of the source country
+	 * method to add a listener in the combobox of the source country
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToSourceCountryList(ActionListener listener) {
@@ -410,7 +400,7 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * get the selected item from destination combo
+	 * static method to get the selected item from destination combo
 	 * @return selectedCountry
 	 */
 	public static String getDestinationCountry() {
