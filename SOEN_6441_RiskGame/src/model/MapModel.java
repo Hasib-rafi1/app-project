@@ -104,7 +104,7 @@ public class MapModel {
 					String[] neighboursFromArray = Arrays.copyOfRange(territoryElements, 4, territoryElements.length);
 					neighboursOfCountry.put(country, neighboursFromArray); // all the neighbours are put as an array
 
-//					add the neighbouring Countries ony by one as String values in the country Object
+					//					add the neighbouring Countries ony by one as String values in the country Object
 					int k = 0;
 					// k is initialized to get neighboring countries
 					for (String neighbourCountry : neighboursFromArray) {
@@ -184,7 +184,7 @@ public class MapModel {
 	 * @return false
 	 */
 	public boolean checkMapIsValid() {
-//		return true;
+		//		return true;
 		try {
 			boolean oneCountryNotInDiffContinent = true ;
 			boolean atLeastOneCountryInOneContinent = true;
@@ -200,9 +200,15 @@ public class MapModel {
 				for(Country country : continent.getCountryList()){
 					if(growingCountryList.contains(country.getCountryName())){
 						oneCountryNotInDiffContinent = false;
+
 						print.consoleErr("\nA Country cannot belong to different continents.\n **" + country.getCountryName() +
 						"** is assigned in multiple Continents");
-						print.consoleErr("One Country **" + country.getCountryName()
+						print.consoleErr("One Country **" + country.getCountryName());
+
+						print.consoleOut("\nA Country cannot belong to different continents.\n **" + country.getCountryName() +
+								"** is assigned in multiple Continents");
+						print.consoleOut("One Country **" + country.getCountryName()
+
 						+ "** cannot belong to different continents.");
 					}else {
 						growingCountryList.add(country.getCountryName());
@@ -210,9 +216,9 @@ public class MapModel {
 				}
 			}
 
-//			for(int i =0; i<countriesForSorting.size(); i++){
-//				System.out.println("#########"+countriesForSorting.get(i));
-//			}
+			//			for(int i =0; i<countriesForSorting.size(); i++){
+			//				System.out.println("#########"+countriesForSorting.get(i));
+			//			}
 			Collections.sort(countriesForSorting);
 
 			//set the very first Country from the first Continent of the arrayList and set them as an starting
@@ -220,9 +226,9 @@ public class MapModel {
 			Country startingVertex = ((this.continentsList.get(0)).getCountryList()).get(0);
 			visitedList.clear();
 			depthFirstSearch(startingVertex);
-//			for(int i =0; i<visitedList.size(); i++){
-//				System.out.println("#########"+visitedList.get(i));
-//			}
+			//			for(int i =0; i<visitedList.size(); i++){
+			//				System.out.println("#########"+visitedList.get(i));
+			//			}
 			Collections.sort(visitedList);
 
 			//if the visitedList is same as the allCountryList then is is conclusive that the Map is connected
@@ -266,11 +272,11 @@ public class MapModel {
 			if(!(visitedList.contains(neighbourVertex))){	//if the vertex is not visited then visit it
 				Country newVertex = null;
 				for (Continent continent : this.continentsList) {
-//					System.out.println(continent.getCountryList().size());
+					//					System.out.println(continent.getCountryList().size());
 					for (Country country : continent.getCountryList()) {
 						if (country.getCountryName().equals(neighbourVertex)) {
 							newVertex = country;
-//							print.consoleOut("pilokilo");
+							//							print.consoleOut("pilokilo");
 						}
 					}
 				}
@@ -278,12 +284,20 @@ public class MapModel {
 					depthFirstSearch(newVertex);
 				}
 			}
-//			else {
-//				print.consoleOut("The graph is not Connected");
-//			}
+			//			else {
+			//				print.consoleOut("The graph is not Connected");
+			//			}
 		}
 	}
 
+	/**
+	 * checking the visitedList and allCountryList if they are same. If returns True, that proves DFS traversal
+	 * has visited all the nodes, thus connected. If returns False, then the graph is not connected. so the visitedList
+	 * and allCountryList are not same.
+	 * @param visitedList
+	 * @param allCountryList
+	 * @return
+	 */
 	public boolean visitedAndAllCountryListCheck(ArrayList<String> visitedList, ArrayList<String> allCountryList){
 		if (visitedList == null && allCountryList == null)
 			return true;
@@ -318,10 +332,10 @@ public class MapModel {
 	 * @return countriesListString , list of countries
 	 */
 	public ArrayList<String> countryListString(ArrayList<Country> countriesList) {
-//		ArrayList<String> countriesListString = new ArrayList<>(countriesList.size());
+		//		ArrayList<String> countriesListString = new ArrayList<>(countriesList.size());
 		ArrayList<String> countriesListString = new ArrayList<>();
 		for(Country countryForAdding : countriesList){
-//			countriesListString.add(Objects.toString(countryForAdding.getCountryName(), null));
+			//			countriesListString.add(Objects.toString(countryForAdding.getCountryName(), null));
 			countriesListString.add(countryForAdding.getCountryName());
 		}
 		return countriesListString;
@@ -752,18 +766,18 @@ public class MapModel {
 		return print.getMapDir();
 	}
 
-	 public String getMapName() {
+	public String getMapName() {
 
-	        return mapName.replace(".map", "");
-	    }
+		return mapName.replace(".map", "");
+	}
 
-	    /**
-	     * This function sets the map name.
-	     * @param mapName, name of the map
-	     */
-	    public void setMapName(String mapName) {
-	        this.mapName = mapName;
-	    }
+	/**
+	 * This function sets the map name.
+	 * @param mapName, name of the map
+	 */
+	public void setMapName(String mapName) {
+		this.mapName = mapName;
+	}
 
 
 }
