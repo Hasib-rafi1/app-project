@@ -143,6 +143,8 @@ public class CountryViewModel {
 	 */
 	public void setNeighbours(ArrayList<String> neighbours) {
 		this.neighbours = neighbours;
+	
+		
 	}
 	
 }

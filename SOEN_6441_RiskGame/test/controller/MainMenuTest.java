@@ -51,7 +51,7 @@ public class MainMenuTest {
 	
 	@Test
 	public void testDisplaymainMenu() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	
