@@ -62,4 +62,11 @@ public class CountryViewModelTest {
 	}
 	
 	
+	
+	@Test
+	public void testGetNeighbours() {
+		for(String s:neighbours) 
+			System.out.println(s);
+		
+	}
 }
