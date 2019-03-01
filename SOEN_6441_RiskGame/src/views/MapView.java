@@ -22,7 +22,7 @@ public class MapView {
 	JFrame frameWindow = new JFrame(getClass().getSimpleName());
 	String textFieldName = "Enter file name you want to save?";
 	JTextField mapName = new JTextField(textFieldName);
-	public JButton saveButton = new JButton("SAVE MAP");
+	public JButton saveButton = new JButton("Save Map File");
 	JTextArea textParameters = new JTextArea("[Map]\n\n\n[Continents]\n\n\n[Territories]");
 
 	/**
@@ -30,13 +30,13 @@ public class MapView {
 	 * @return  user input for map menu
 	 */
 	public int displayMapMenu() {
-		print.consoleOut("=================================");
+		print.consoleOut("*********************************");
 		print.consoleOut("\t Map Generator menu\t");
 		print.consoleOut("1. Import Map From File");
 		print.consoleOut("2. Create a New Map from scratch");
 		print.consoleOut("3. Edit The Map");
 		print.consoleOut("4. Back to The Main Menu");
-		print.consoleOut("=================================");
+		print.consoleOut("*********************************\n");
 		return print.userIntInput();
 	}
 
@@ -45,14 +45,15 @@ public class MapView {
 	 * @return userIntInput
 	 */
 	public int editMapMenu() {
-		print.consoleOut("=================================");
+		
+		print.consoleOut("\n*********************************");
 		print.consoleOut("\t Edit Map Menu\t");
 		print.consoleOut("1. Add Continent to the map?");
 		print.consoleOut("2. Add Country to the map?");
 		print.consoleOut("3. Delete Continent from the map?");
 		print.consoleOut("4. Delete Country from the map?");
 		print.consoleOut("5. Back to map menu?");
-		print.consoleOut("=================================");
+		print.consoleOut("*********************************");
 		print.consoleOut("Select number from above editing menu:");
 		return print.userIntInput();
 	}
@@ -107,10 +108,10 @@ public class MapView {
 			}
 		});
 
-		frameWindow.setTitle("Map Generator");
+		frameWindow.setTitle("Map Generator for Risk Board Game");
 		frameWindow.setPreferredSize(new Dimension(1200, 800));
 		frameWindow.add(textParameters);
-		textParameters.setFont(new Font("Courier", Font.BOLD,24));
+		textParameters.setFont(new Font("Serif", Font.BOLD,18));
 		frameWindow.add(panelWindow, BorderLayout.SOUTH);
 		frameWindow.pack();
 		frameWindow.setVisible(true);
