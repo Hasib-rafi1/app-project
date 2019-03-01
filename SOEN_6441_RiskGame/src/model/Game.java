@@ -395,8 +395,6 @@ public class Game extends Observable {
 			
 			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
 			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
-//			neighborCountriesName.clear();
-//			neighborCountriesName.addAll(connectedOwnCountries);
 			finalCOuntries.addAll(connectedOwnCountries);
 			connectedOwnCountries.clear();
 		return finalCOuntries;
