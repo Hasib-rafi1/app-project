@@ -343,10 +343,9 @@ public class Game extends Observable {
 		System.out.println("source Country Name :" + source);
 
 		Player currentPlayer = this.getCurrentPlayer();
-
-		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
 		ArrayList<String> neighborCountriesName = new ArrayList<String>();
-		ArrayList<String> recneighborCountriesName = new ArrayList<String>();
+		ArrayList<String> net_neighborCountries = new ArrayList<String>();
+		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
 		
 			for (Country country : playerCountry.get(currentPlayer)) 
 			{
@@ -367,10 +366,42 @@ public class Game extends Observable {
 					it.remove();
 				}
 			}
+
+			net_neighborCountries.addAll(neighborCountriesName);
+
 			
-			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 			
+			System.out.println("Neighbouring Countries:"+net_neighborCountries.toString());
+			System.out.println("Player's Countries:"+countriesAssignedToPlayer.toString());
+			
+		return net_neighborCountries;
+	}
+	
+	public ArrayList<String> findNeighbour(String country_name)
+	{
+		
+		Player currentPlayer = this.getCurrentPlayer();
+		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
+		ArrayList<String> neighborCountriesName = new ArrayList<String>();
+		
+		for (Country country : playerCountry.get(currentPlayer)) 
+		{
+			String countryName = country.getCountryName();
+			countriesAssignedToPlayer.add(countryName);
+			if (country.getCountryName().equals(country_name)) 
+			{
+				neighborCountriesName = country.getNeighboursString();
+			}
+		}
+		Iterator<String> it = neighborCountriesName.iterator();
+		while (it.hasNext()) 
+		{
+			String country = it.next();
+			if (!countriesAssignedToPlayer.contains(country))
+			{
+				it.remove();
+			}
+		}
 		return neighborCountriesName;
 	}
 
