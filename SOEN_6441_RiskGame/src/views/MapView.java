@@ -90,7 +90,7 @@ public class MapView {
 		panelWindow.add(Box.createHorizontalGlue());
 
 		// mapname text parameters
-		mapName.setPreferredSize(new Dimension(200, 30));
+		mapName.setPreferredSize(new Dimension(300, 40));
 		mapName.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -107,6 +107,8 @@ public class MapView {
 				}
 			}
 		});
+		saveButton.setCursor( Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+		saveButton.setPreferredSize(new Dimension(180, 40));
 
 		frameWindow.setTitle("Map Generator for Risk Board Game");
 		frameWindow.setPreferredSize(new Dimension(1200, 800));
