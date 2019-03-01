@@ -15,7 +15,14 @@ import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 import helper.InitialPlayerArmy;
 
-public class Game extends Observable {
+/**
+ * Game model contains the class to create a model for the game. 
+ * It is bounded with the Game Controller and the Board View.
+ * 
+ * @author Jaiganesh
+ */
+public class Game extends Observable 
+{
 
 	private MapModel mapModel;
 	private GamePhase gamePhase;
@@ -30,7 +37,7 @@ public class Game extends Observable {
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
 
-
+	
 	public Game(MapModel map) 
 	{
 		super();
@@ -38,13 +45,21 @@ public class Game extends Observable {
 		this.setGamePhase(GamePhase.Startup);
 	}
 
+	
+	//Functions called from the initializeGame() from the GameController. 
+	
+	public void addPlayer(Player player) 
+	{
+		this.playerList.add(player);
+	}
+	
 	public void startGame() 
 	{
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++)
 		{
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
-			System.out.println("Player ID:"+playerList.get(i).getPlayerId()+" Player Name:"+playerList.get(i).getPlayerName()+" Player's Army:"+playerList.get(i).getNumberOfInitialArmies()+"Player's Color"+playerList.get(i).getColor());
+			System.out.println("Player ID: "+playerList.get(i).getPlayerId()+" Player Name: "+playerList.get(i).getPlayerName()+" Player's Army: "+playerList.get(i).getNumberOfInitialArmies()+" Player's Color"+playerList.get(i).getColor());
 		}
 
 		int players_count = playerList.size();
@@ -68,7 +83,6 @@ public class Game extends Observable {
 
 			Country assign_country = mapModel.getCountryList().get(randomNumbers.get(i));
 			assignPlayerCountry(playerList.get(players_id),assign_country);
-			System.out.println(players_id+"+"+assign_country);
 			assignUnassigned(playerList.get(players_id),assign_country);
 			players_id++;
 		}
@@ -84,11 +98,6 @@ public class Game extends Observable {
 			}
 		}
 		notifyObserverslocal(this);
-	}
-
-	public void addPlayer(Player player) 
-	{
-		this.playerList.add(player);
 	}
 
 	public void assignPlayerCountry(Player player, Country country)
@@ -107,6 +116,14 @@ public class Game extends Observable {
 		country.setPlayerId(player.getPlayerId());
 	}
 
+	public void assignUnassigned(Player player, Country country)
+	{
+		player.decreasenumberOfInitialArmies();
+		country.increaseArmyCount();
+	}
+	
+	//Functions called from numberOfArmiesClickListener() from the GameController.
+	
 	public void addingCountryArmy(String countryName)
 	{
 		if(gamePhase == gamePhase.Attack || gamePhase == gamePhase.Fortification)
@@ -193,12 +210,6 @@ public class Game extends Observable {
 		return true;
 	}
 
-	public void assignUnassigned(Player player, Country country)
-	{
-		player.decreasenumberOfInitialArmies();
-		country.increaseArmyCount();
-	}
-
 	public void assignReinforcement(Player player, Country country)
 	{
 		player.decreaseReinforcementArmy();
@@ -215,9 +226,11 @@ public class Game extends Observable {
 		}
 	}
 
-	public int calculationForNumberOfArmiesInReinforcement(Player player) {
+	public int calculationForNumberOfArmiesInReinforcement(Player player) 
+	{
 		return (int) Math.floor(playerCountry.get(player).stream().count() / 3);
 	}
+	
 	public void reinforcementPhaseSetup() 
 	{
 		Player player = getCurrentPlayer();
