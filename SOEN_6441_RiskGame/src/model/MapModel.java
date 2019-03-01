@@ -32,7 +32,7 @@ import java.util.Scanner;
 public class MapModel {
 	Scanner scanner = new Scanner(System.in);
 
-	
+
 	//Making the objects of classes
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
@@ -42,10 +42,8 @@ public class MapModel {
 	ArrayList<String> visitedList = new ArrayList<>();
 
 
-	private String mapName;
-
-
-	private String mapPath;
+	public String mapName;
+	public String mapPath;
 
 	/**
 	 * This method is used to import the existing file from the directory. It reads the map file and stores the
@@ -168,24 +166,24 @@ public class MapModel {
 
 	}
 
-/**
- * This method is used to read the content of map file while creating a map from scratch and saved in the directory.
- * @param content, 
- * @param nameOfTheMap
- * @return
- */
+	/**
+	 * This method is used to read the content of map file while creating a map from scratch and saved in the directory.
+	 * @param content, 
+	 * @param nameOfTheMap
+	 * @return
+	 */
 	private boolean readMapContentSaveInDirectory(StringBuffer mapContent, String nameOfMap) {
 		String mapDir = getMapDir();
 		Path path = Paths.get( nameOfMap + ".map");
-		BufferedWriter writer = null;
+		BufferedWriter bw = null;
 		try {
-			// Delete temp file
+			
 			Path tempFilePath = Paths.get(mapDir+"temp" + ".map");
 			Files.deleteIfExists(tempFilePath);
 
-			writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
-			writer.write(new String(mapContent));
-			writer.close();
+			bw = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+			bw.write(new String(mapContent));
+			bw.close();
 			return true;
 		} catch (Exception e) {
 			print.printException(e);
@@ -287,7 +285,7 @@ public class MapModel {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * This method is used to print that map is valid or not.
 	 */
@@ -483,7 +481,7 @@ public class MapModel {
 			print.consoleErr("Error!!! Country name does not Exist.");
 			return false;
 		}
-	
+
 		print.consoleOut("Input the number of Countries you want to create in this continent:\n");
 		int numberOfCountriesToAddInContinent = scanner.nextInt();
 		Scanner userinput = new Scanner(System.in);
@@ -491,7 +489,7 @@ public class MapModel {
 			//	int incrementCountryCounter = (i + 1);
 			print.consoleOut("Input the Country Name for country no: => "+(i + 1));
 			String countryName = userinput.nextLine();
-			
+
 
 			print.consoleOut("Input x coordinate:");
 			int xCoordinate = scanner.nextInt();
@@ -532,8 +530,7 @@ public class MapModel {
 	public boolean deleteContinentFromMap(String deleteContinentEnteredByUser) {
 		Continent elementInCurrentContinents = continentsList.stream()
 				.filter(x-> x.getContinentName().equalsIgnoreCase(deleteContinentEnteredByUser))
-				.findAny()
-				.orElse(null);
+				.findAny().orElse(null);
 
 		if(elementInCurrentContinents==null){
 			print.consoleErr("Error!!! Continent " +deleteContinentEnteredByUser+ " does not exist");
@@ -569,13 +566,13 @@ public class MapModel {
 		ArrayList<Country> countriesList = getCountryList();
 		Country elementInCurrentCountry = countriesList.stream()
 				.filter(x-> x.getCountryName().equalsIgnoreCase(deleteCountryByUser))
-				.findAny()
-				.orElse(null);
+				.findAny().orElse(null);
+		
 		if(elementInCurrentCountry == null){
 			print.consoleErr("Error!!! Country " +deleteCountryByUser+ " does not exist");
 			return false;
 		}
-
+		
 		for (Country countryListToRemoveCountry : countriesList) {
 			print.consoleOut(countryListToRemoveCountry.getCountryName());
 			for (int i = 0; i < countryListToRemoveCountry.getNeighboursString().size() ; i++) {
@@ -655,10 +652,6 @@ public class MapModel {
 		return continentsList;
 	}
 
-
-
-
-
 	/**
 	 * This method is used to save the map into the directory when a user adds, delete
 	 * countries or continents from the map.
@@ -685,7 +678,6 @@ public class MapModel {
 
 		for (Continent continentInformation : continentsList) {
 			for (Country countriesInformation : continentInformation.getCountryList()) {
-
 				// fetching and putting the data into variables
 				String countryName = countriesInformation.getCountryName();
 				int xCoordinates = countriesInformation.getxCoordinate();
@@ -702,32 +694,27 @@ public class MapModel {
 		}
 		System.out.println(textContentInFile);
 
-		
-		// write map to disk
+		// Getting the path of directory to save the created map file in directory
 		Path path = Paths.get(print.getMapDir() + mapNameByUserInput+".map" );
-		BufferedWriter writer = null;
+		BufferedWriter bw = null;
 		try {
-			//Delete temporary file
+			// first it deletes the temporary file and then write content into file.
 			Path tempFilePath = Paths.get(mapPath + "temp" + ".map");
 			Files.deleteIfExists(tempFilePath);
-			writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8);
-			writer.write(new String(textContentInFile));
-			writer.close();
+			bw = Files.newBufferedWriter(path, StandardCharsets.UTF_8);
+			bw.write(new String(textContentInFile));
+			bw.close();
 		} catch (Exception e) {
 			print.printException(e);
 		}
 	}
 
 
-
-
-
-
 	/**
 	 * This method is printing continents
 	 */
 	public void printingContinents() {
-		print.consoleOut("**************LIST OF CONTINENTS*****************\n");
+		print.consoleOut("**************List of Continents*****************\n");
 		int i=1;
 		for (Continent continentInformation : continentsList) {
 			int continentID = continentInformation.getContinentID();
@@ -767,7 +754,6 @@ public class MapModel {
 	public void printNeighboursGivenContry() {
 		print.consoleOut("\n Write down the Country Name for the Neighbour: ");
 		String countryNameForNeighbours = scanner.nextLine().trim();
-		//		for (Continent continentInformation : continentsList) {
 		for (Country countriesInformation : getCountryList()) {
 			String countryName = countriesInformation.getCountryName().toLowerCase();
 			if (countryNameForNeighbours.equals(countryName)) {
@@ -778,7 +764,6 @@ public class MapModel {
 				}
 			}
 		}
-		//		}
 	}
 
 	/**
@@ -802,12 +787,7 @@ public class MapModel {
 		return print.getMapDir();
 	}
 
-/*	public String getMapName() {
-
-		return mapName.replace(".map", "");
-	}
-
-	*/
+	
 	/**
 	 * This function sets the map name.
 	 * @param mapName, name of the map
@@ -816,11 +796,11 @@ public class MapModel {
 		this.mapName = mapName;
 	}
 
-	
-	
+
+
 	public void setMapPath(String mapPath) {
-        this.mapPath = mapPath;
-    }
+		this.mapPath = mapPath;
+	}
 
 
 }
