@@ -126,9 +126,6 @@ public class MapController {
 	public void editMap() {
 		// Printing all the map files
 		listofMapsinDirectory();
-
-
-
 		// Select map name by user and check file exists or not
 		print.consoleOut("Please enter the map name you want to edit from the list?");
 		//String mapPath = mapModel.getMapNameByUserInput();
@@ -146,12 +143,7 @@ public class MapController {
 				print.consoleErr(mapNameByUserInput+ ".map  is not valid");
 			}else {
 				print.consoleOut(mapNameByUserInput+ ".map  is valid");
-			}
-		} else {
-			print.consoleErr("File not found!!!. Please enter the coreect name of map.");
-
-		}
-
+			
 
 		int inputForEditMap = -1;
 		while (inputForEditMap != 5) {
@@ -199,21 +191,15 @@ public class MapController {
 
 				boolean checkContinentIsDeleted = mapModel.deleteContinentFromMap(deleteContinentEnteredByUser);
 
-				if(checkContinentIsDeleted){
-
-
-					try{
-						if (mapModel.checkMapIsValid()){
-							//	mapModel.saveEditedMap();
-							mapModel.saveEditedMap(mapNameByUserInput,mapPath);
-							print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
-						}
-						else{
-							print.consoleErr("Map is invalid!");
-						}
-					}catch (  Exception e){
-						print.consoleErr(" Empty Map !");
+				if(checkContinentIsDeleted){				
+					if (mapModel.checkMapIsValid()){
+						//	mapModel.saveEditedMap();
+						mapModel.saveEditedMap(mapNameByUserInput,mapPath);
+						print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
 					}
+					else{
+						print.consoleErr("Map is invalid!");
+					}					
 				}
 				else {
 					print.consoleErr("Error!!! Continent can not be deleted");
@@ -229,18 +215,14 @@ public class MapController {
 				boolean checkCountryIsDeleted =  mapModel.deleteCountryFromMap(deleteCountryNameByUser);
 
 
-				if(checkCountryIsDeleted){
-					try{
-						if (mapModel.checkMapIsValid()){
-							mapModel.saveEditedMap(mapNameByUserInput,mapPath);
-							print.consoleOut("Country "+deleteCountryNameByUser+" has been deleted successfuly!");
-						}
-						else{
-							print.consoleErr("Map is invalid!");
-						}
-					}catch (  Exception e){
-						print.consoleErr(" Empty Map !");
+				if(checkCountryIsDeleted){				
+					if (mapModel.checkMapIsValid()){
+						mapModel.saveEditedMap(mapNameByUserInput,mapPath);
+						print.consoleOut("Country "+deleteCountryNameByUser+" has been deleted successfuly!");
 					}
+					else{
+						print.consoleErr("Map is invalid!");
+					}				
 				}
 				else {
 					print.consoleErr("Error!!! Country can not be deleted");
@@ -256,6 +238,14 @@ public class MapController {
 				break;
 			}
 		}
+		
+		
+			}
+		} else {
+			print.consoleErr("File not found!!!. Please enter the coreect name of map.");
+
+		}
+
 
 	}
 

@@ -1,15 +1,22 @@
 [Map]
-author=SOEN6441 - Team8
-image=Africa.bmp
+author=Sean O'Connor
+image=world.bmp
+wrap=no
+scroll=horizontal
+warn=yes
+
 [Continents]
-Continent1=10
-Continent2=20
+North America=5
+South America=2
+Africa=3
+Europe=5
+Asia=7
+Australia=2
+
 [Territories]
-Country1,127,46,Continent1,Country2,Country3
-Country2,193,85,Continent1,Country1,Country3,Country4
-Country3,252,33,Continent1,Country5,Country1,Country2
-Country4,314,94,Continent2,Country2,Country5
-Country5,415,99,Continent2,Country4,Country347,163,North America,Alaska,Northwest Territory,Ontario,Western United States
+Alaska,70,126,North America,Northwest Territory,Alberta,Kamchatka
+Northwest Territory,148,127,North America,Alaska,Alberta,Ontario,Greenland
+Alberta,147,163,North America,Alaska,Northwest Territory,Ontario,Western United States
 Greenland,324,76,North America,Northwest Territory,Ontario,Quebec,Iceland
 Ontario,199,167,North America,Northwest Territory,Alberta,Greenland,Quebec,Western United States,Eastern United States
 Quebec,253,166,North America,Greenland,Ontario,Eastern United States
