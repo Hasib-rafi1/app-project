@@ -1,0 +1,26 @@
+ist invalid map
+
+A Country cannot belong to different continents.
+ **Country2** is assigned in multiple Continents
+ ****** Sorry, Map is NOT Valid, Try Again!!! ******
+
+ 
+ inv2
+ 
+ A Country cannot belong to different continents.
+ **Country4** is assigned in multiple Continents
+
+A Country cannot belong to different continents.
+ **Country5** is assigned in multiple Continents
+
+ Each continent should have at least one country.
+ **Continent1** is not assigned with any country
+
+ Each continent should have at least one country.
+ **Continent2** is not assigned with any country
+
+ ****** Sorry, Map is NOT Valid, Try Again!!! ******
+ 
+ 
+ inv3
+  Each continent should have at least one country.

@@ -22,7 +22,7 @@ public class Continent {
 	 * @param continentName
 	 * @param controlValue
 	 */
-	Continent(int continentID, String continentName, int controlValue){
+	public Continent(int continentID, String continentName, int controlValue){
 		this.continentID = continentID;
 		this.continentName = continentName;
 		this.controlValue = controlValue;
