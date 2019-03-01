@@ -16,8 +16,8 @@ import model.GameTest;
 import model.PlayerTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({GameControllerTest.class,MainControllerTest.class,MainMenuTest.class,ContinentTest.class,
-	CountryTest.class,CountryViewModelTest.class,GameTest.class,PlayerTest.class})
+@SuiteClasses({GameControllerTest.class,ContinentTest.class,
+	CountryTest.class,CountryViewModelTest.class,GameTest.class})
 
 /**
  * 
