@@ -106,7 +106,7 @@ public class MapController {
 		boolean exists = tempFile.exists();
 		if (exists) {
 			mapModel.readMapFile(mapPath);
-			System.out.println("It reads");
+			mapModel.printMapValidOrNot();
 			//  mapModel.printMapValidOrNot();
 			// mapModel.printingContinents();   // this method print continents
 			//mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
@@ -135,12 +135,24 @@ public class MapController {
 		String mapDirectory = print.getMapDir();
 		String mapNameByUserInput = scanner.nextLine().trim();
 		String mapPathWithMapName = mapDirectory + mapNameByUserInput;
-		String mapPath = mapPathWithMapName+".map";
-		mapModel.readMapFile(mapPath);
-		System.out.println(mapPath+"----");
-		if (!mapModel.checkMapIsValid()){
-			print.consoleErr("Map is not valid");
+		String mapPath = mapPathWithMapName+".map";		
+
+		File tempFile = new File(mapPath);
+		boolean exists = tempFile.exists();
+		if (exists) {
+			mapModel.readMapFile(mapPath);
+			mapModel.printMapValidOrNot();
+			if (!mapModel.checkMapIsValid()){
+				print.consoleErr(mapNameByUserInput+ ".map  is not valid");
+			}else {
+				print.consoleOut(mapNameByUserInput+ ".map  is valid");
+			}
+		} else {
+			print.consoleErr("File not found!!!. Please enter the coreect name of map.");
+
 		}
+
+
 		int inputForEditMap = -1;
 		while (inputForEditMap != 5) {
 
@@ -152,10 +164,6 @@ public class MapController {
 			case 1:  // 1. Add Continent to the map?
 				mapModel.printingContinents();
 				mapModel.addContinentNameToMapFile();
-
-
-
-
 
 				if(mapModel.checkMapIsValid()){
 					mapModel.saveEditedMap(mapNameByUserInput,mapPath);
@@ -173,11 +181,13 @@ public class MapController {
 				mapModel.addCountryToContinentInMap(continentName,continentID);
 
 				if(mapModel.checkMapIsValid()){
-					//	mapModel.saveEditedMap();
+					mapModel.saveEditedMap(mapNameByUserInput,mapPath);
 					print.consoleOut("Country has been added successfully!");
 				}else{
 					print.consoleErr("Invalid Map! Try again!!!");
 				}
+
+
 				break;
 
 			case 3:  // 3. Delete Continent from map?
@@ -195,6 +205,7 @@ public class MapController {
 					try{
 						if (mapModel.checkMapIsValid()){
 							//	mapModel.saveEditedMap();
+							mapModel.saveEditedMap(mapNameByUserInput,mapPath);
 							print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
 						}
 						else{
@@ -221,7 +232,7 @@ public class MapController {
 				if(checkCountryIsDeleted){
 					try{
 						if (mapModel.checkMapIsValid()){
-							//mapModel.saveEditedMap();
+							mapModel.saveEditedMap(mapNameByUserInput,mapPath);
 							print.consoleOut("Country "+deleteCountryNameByUser+" has been deleted successfuly!");
 						}
 						else{
