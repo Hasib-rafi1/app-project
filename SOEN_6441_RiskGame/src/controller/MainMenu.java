@@ -24,7 +24,7 @@ public class MainMenu {
 		print.consoleOut("1.Map Generator");
 		print.consoleOut("2.Start Game");
 		print.consoleOut("3.Exit Game");
-		
+
 		print.consoleOut("=================================");	
 		print.consoleOut(" Please Enter Your Choice: ");
 		return print.userIntInput();

@@ -1,5 +1,10 @@
 package helper;
-
+/**
+ * This class is containgin the values that for how many armies are going to get by 
+ * Specific number of players
+ * @author Jai 
+ *
+ */
 public class InitialPlayerArmy
 {	
 	public static int getInitialArmyCount(int playerCount) 
