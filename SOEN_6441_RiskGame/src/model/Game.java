@@ -21,6 +21,8 @@ public class Game extends Observable {
 	private GamePhase gamePhase;
 	private int currentPlayerId;
 	private int MINIMUM_REINFORCEMENT_PlAYERS = 3;
+	private ArrayList<String> connectedOwnCountries = new ArrayList<String>();
+	private String initialSourceCountry;
 
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 
@@ -346,12 +348,12 @@ public class Game extends Observable {
 		System.out.println("source Country Name :" + source);
 
 		Player currentPlayer = this.getCurrentPlayer();
+		initialSourceCountry = source;
 
 		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
-		ArrayList<String> neighborCountriesName = new ArrayList<String>();
-		ArrayList<String> recneighborCountriesName = new ArrayList<String>();
-		
-			for (Country country : playerCountry.get(currentPlayer)) 
+		ArrayList<String> neighborCountriesName = null;
+		ArrayList<Country> countryList = playerCountry.get(currentPlayer);
+			for (Country country : countryList) 
 			{
 				String countryName = country.getCountryName();
 				countriesAssignedToPlayer.add(countryName);
@@ -370,11 +372,67 @@ public class Game extends Observable {
 					it.remove();
 				}
 			}
+			if(neighborCountriesName!=null) {
+				neighborCountriesName.removeAll(connectedOwnCountries);
+				connectedOwnCountries.addAll(neighborCountriesName);
+			}
 			
+			Iterator<String> rec = neighborCountriesName.iterator();
+			while (rec.hasNext()) 
+			{
+				String country = rec.next();
+				getConnectedCountries(country, countryList);
+			}
+			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+			neighborCountriesName.clear();
+			neighborCountriesName.addAll(connectedOwnCountries);
+			connectedOwnCountries.clear();
+		return neighborCountriesName;
+	}
+	
+	
+	public void getConnectedCountries(String source, ArrayList<Country> countryList) 
+	{
+		System.out.println("source Country Name :" + source);
+
+
+		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
+		ArrayList<String> neighborCountriesName = null;
+		
+			for (Country country : countryList) 
+			{
+				String countryName = country.getCountryName();
+				countriesAssignedToPlayer.add(countryName);
+				if (country.getCountryName().equals(source)) 
+				{
+					neighborCountriesName = country.getNeighboursString();
+				}
+			}
+			
+			Iterator<String> it = neighborCountriesName.iterator();
+			while (it.hasNext()) 
+			{
+				String country = it.next();
+				if (!countriesAssignedToPlayer.contains(country)||country.equals(initialSourceCountry))
+				{
+					it.remove();
+				}
+			}
+			if(neighborCountriesName!=null) {
+				neighborCountriesName.removeAll(connectedOwnCountries);
+				connectedOwnCountries.addAll(neighborCountriesName);
+			}
+
+			Iterator<String> rec = neighborCountriesName.iterator();
+			while (rec.hasNext()) 
+			{
+				String country = rec.next();
+				getConnectedCountries(country, countryList);
+			}
 			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
 			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 			
-		return neighborCountriesName;
 	}
 
 	public int getArmiesAssignedToCountry(String sourceCountryName) 
