@@ -464,25 +464,28 @@ public class MapModel {
 	 * This method is used to add country name to the continent.
 	 * @param continentID ID of the continent
 	 * @param continentName name of the continent
+	 * @return 
 	 *
 	 */
-	public void addCountryToContinentInMap(String continentName, int continentID) {
+	public boolean addCountryToContinentInMap(String continentName, int continentID) {
 		Continent listOfCurrentContinents  = continentsList.stream()
 				.filter(x-> x.getContinentName().equalsIgnoreCase(continentName))
 				.findAny()
 				.orElse(null);
 
 		if(listOfCurrentContinents == null){
-			print.consoleErr("Error!!! Continent name does not Exist.");
+			print.consoleErr("Error!!! Country name does not Exist.");
+			return false;
 		}
-
+	
 		print.consoleOut("Input the number of Countries you want to create in this continent:\n");
 		int numberOfCountriesToAddInContinent = scanner.nextInt();
-
+		Scanner userinput = new Scanner(System.in);
 		for (int i = 0; i < numberOfCountriesToAddInContinent; i++) {
 			//	int incrementCountryCounter = (i + 1);
 			print.consoleOut("Input the Country Name for country no: => "+(i + 1));
-			String countryName = print.userStrInput();
+			String countryName = userinput.nextLine();
+			
 
 			print.consoleOut("Input x coordinate:");
 			int xCoordinate = scanner.nextInt();
@@ -499,7 +502,8 @@ public class MapModel {
 			for (int k = 0; k < neighborCountries; k++) {
 				int incrementCounterForNeighborCountries =  (k + 1);
 				print.consoleOut("Input the country name for adjacency country number: " + incrementCounterForNeighborCountries);
-				String neighbourName = scanner.nextLine();
+				String neighbourName = userinput.nextLine();
+				System.out.println(neighbourName+"-----");
 				country.addNeighborString(neighbourName);
 				for (Country countryList: getCountryList()) {
 					if (countryList.getCountryName().equalsIgnoreCase(neighbourName)){
@@ -509,6 +513,7 @@ public class MapModel {
 			}
 			listOfCurrentContinents.addCountriesToTheContinentList(country);
 		}
+		return true;
 	}
 
 	/**
@@ -691,10 +696,9 @@ public class MapModel {
 		}
 		System.out.println(textContentInFile);
 
-
+		
 		// write map to disk
-		Path path = Paths.get(print.getMapDir() + mapNameByUserInput );
-		System.out.println(path+"-----");
+		Path path = Paths.get(print.getMapDir() + mapNameByUserInput+".map" );
 		BufferedWriter writer = null;
 		try {
 			//Delete temporary file

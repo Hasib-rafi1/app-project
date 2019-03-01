@@ -46,7 +46,7 @@ public class MapView {
 	 */
 	public int editMapMenu() {
 		
-		print.consoleOut("*********************************");
+		print.consoleOut("\n*********************************");
 		print.consoleOut("\t Edit Map Menu\t");
 		print.consoleOut("1. Add Continent to the map?");
 		print.consoleOut("2. Add Country to the map?");
