@@ -38,19 +38,19 @@ public class MainController {
 			selectMainMenuOption = mainMenu.displaymainMenu();
 			switch (selectMainMenuOption)
 			{
-				case 1:
-					mapController.generateMap();
-					break;
-				case 2:
-					gameController.initializeMap();
-					gameController.initializeGame();
-					break;
-				case 3:
-					print.consoleErr("Thanks for playing this Game.");
-					System.exit(0);
-				default :
-					System.err.println("\n\t Error! Select option from the menu list (1 to 5):");
-					break;
+			case 1:
+				mapController.generateMap();
+				break;
+			case 2:
+				gameController.initializeMap();
+				gameController.initializeGame();
+				break;
+			case 3:
+				print.consoleErr("Thanks for playing this Game.");
+				System.exit(0);
+			default :
+				System.err.println("\n\t Error! Select option from the menu list (1 to 5):");
+				break;
 			}
 
 		}

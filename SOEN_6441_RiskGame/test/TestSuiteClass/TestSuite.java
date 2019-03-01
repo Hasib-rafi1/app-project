@@ -7,7 +7,6 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import controller.GameControllerTest;
-import controller.MainControllerTest;
 import controller.MainMenuTest;
 import controller.MapController;
 import controller.MapControllerTest;
@@ -18,7 +17,7 @@ import model.GameTest;
 import model.PlayerTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({GameControllerTest.class,MainControllerTest.class,MainMenuTest.class,ContinentTest.class,
+@SuiteClasses({GameControllerTest.class,MainMenuTest.class,ContinentTest.class,
 	CountryTest.class,CountryViewModelTest.class,GameTest.class,PlayerTest.class, MapControllerTest.class})
 
 /**

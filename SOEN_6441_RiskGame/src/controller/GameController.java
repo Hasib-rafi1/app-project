@@ -31,8 +31,10 @@ public class GameController {
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	Scanner userinput = new Scanner(System.in);
 
-	public void initializeMap() 
-	{
+	/**
+	 * This function is going to initializing the map by taking user input
+	 */
+	public void initializeMap() {
 		int i = 1;
 		print.consoleOut("List of Maps:");
 		listofMapsinDirectory();
@@ -41,8 +43,12 @@ public class GameController {
 		mapModel.readMapFile(mapPath);
 	}
 
-	public void initializeGame()
-	{
+	/**
+	 * This method is setting up the board and game model
+	 * It is intializing the observer for the gui also
+	 * It is taking the the input from the user for creating number of players
+	 */
+	public void initializeGame(){
 		int j=1;
 		game = new Game(mapModel);
 		boardView=new BoardView();
@@ -51,8 +57,7 @@ public class GameController {
 		print.consoleOut("\nEnter the number of Players 3-5:");
 		int playerCount = Integer.parseInt(userinput.nextLine());
 
-		for (int i = 0; i < playerCount ; i++) 
-		{
+		for (int i = 0; i < playerCount ; i++) {
 			print.consoleOut("\nEnter the name of Player " + j);
 			String name = userinput.nextLine();
 			Player player = new Player(i,name);
@@ -66,10 +71,9 @@ public class GameController {
 
 	/**
 	 * prints the lists of maps in the directory
-	 * @return 
+	 * @return ArrayList of String
 	 */
-	public ArrayList<String> listofMapsinDirectory()
-	{
+	public ArrayList<String> listofMapsinDirectory(){
 		ArrayList<String> mapFileList = new ArrayList<String>();
 		File folder = new File(print.getMapDir());
 		File[] listOfFiles = folder.listFiles();
@@ -94,8 +98,11 @@ public class GameController {
 		return mapFileList;
 	}
 
-	private void callListenerOnView()
-	{
+	/**
+	 * The functions is calling the listener functions 
+	 * 
+	 */
+	private void callListenerOnView(){
 		numberOfArmiesClickListener();
 		addSourceCountriesListener();
 		addMoveArmyButtonListener();

@@ -143,103 +143,103 @@ public class MapController {
 				print.consoleErr(mapNameByUserInput+ ".map  is not valid");
 			}else {
 				print.consoleOut(mapNameByUserInput+ ".map  is valid");
-			
-
-		int inputForEditMap = -1;
-		while (inputForEditMap != 5) {
-
-			// Check if the map is valid according to risk rules
-			// boolean checkValidationOfMap = mapModel.checkMapIsValid();
-			inputForEditMap = mapView.editMapMenu();
-
-			switch (inputForEditMap) {
-			case 1:  // 1. Add Continent to the map?
-				mapModel.printingContinents();
-				mapModel.addContinentNameToMapFile();
-
-				if(mapModel.checkMapIsValid()){
-					mapModel.saveEditedMap(mapNameByUserInput,mapPath);
-					print.consoleOut("Continent has been added successfully!");
-				}else{
-					print.consoleErr("Invalid Map! Try again!!!");
-				}
-				break;
-
-			case 2:  // 2. Add Country to the map?
-				int continentID = 0;
-				mapModel.printingContinents();
-				print.consoleOut("Enter the Continent Name from the list in which you want to add new country?");
-				String continentName = scanner.nextLine();
-				mapModel.addCountryToContinentInMap(continentName,continentID);
-
-				if(mapModel.checkMapIsValid()){
-					mapModel.saveEditedMap(mapNameByUserInput,mapPath);
-					print.consoleOut("Country has been added successfully!");
-				}else{
-					print.consoleErr("Invalid Map! Try again!!!");
-				}
 
 
-				break;
+				int inputForEditMap = -1;
+				while (inputForEditMap != 5) {
 
-			case 3:  // 3. Delete Continent from map?
+					// Check if the map is valid according to risk rules
+					// boolean checkValidationOfMap = mapModel.checkMapIsValid();
+					inputForEditMap = mapView.editMapMenu();
 
-				mapModel.printingContinents();
-				print.consoleOut("************************************************");
-				print.consoleOut("Enter name of the Continent you want to delete:");
-				String deleteContinentEnteredByUser = scanner.nextLine();
+					switch (inputForEditMap) {
+					case 1:  // 1. Add Continent to the map?
+						mapModel.printingContinents();
+						mapModel.addContinentNameToMapFile();
 
-				boolean checkContinentIsDeleted = mapModel.deleteContinentFromMap(deleteContinentEnteredByUser);
+						if(mapModel.checkMapIsValid()){
+							mapModel.saveEditedMap(mapNameByUserInput,mapPath);
+							print.consoleOut("Continent has been added successfully!");
+						}else{
+							print.consoleErr("Invalid Map! Try again!!!");
+						}
+						break;
 
-				if(checkContinentIsDeleted){				
-					if (mapModel.checkMapIsValid()){
-						//	mapModel.saveEditedMap();
-						mapModel.saveEditedMap(mapNameByUserInput,mapPath);
-						print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
+					case 2:  // 2. Add Country to the map?
+						int continentID = 0;
+						mapModel.printingContinents();
+						print.consoleOut("Enter the Continent Name from the list in which you want to add new country?");
+						String continentName = scanner.nextLine();
+						mapModel.addCountryToContinentInMap(continentName,continentID);
+
+						if(mapModel.checkMapIsValid()){
+							mapModel.saveEditedMap(mapNameByUserInput,mapPath);
+							print.consoleOut("Country has been added successfully!");
+						}else{
+							print.consoleErr("Invalid Map! Try again!!!");
+						}
+
+
+						break;
+
+					case 3:  // 3. Delete Continent from map?
+
+						mapModel.printingContinents();
+						print.consoleOut("************************************************");
+						print.consoleOut("Enter name of the Continent you want to delete:");
+						String deleteContinentEnteredByUser = scanner.nextLine();
+
+						boolean checkContinentIsDeleted = mapModel.deleteContinentFromMap(deleteContinentEnteredByUser);
+
+						if(checkContinentIsDeleted){				
+							if (mapModel.checkMapIsValid()){
+								//	mapModel.saveEditedMap();
+								mapModel.saveEditedMap(mapNameByUserInput,mapPath);
+								print.consoleOut("Continent "+deleteContinentEnteredByUser+" has been deleted successfuly!");
+							}
+							else{
+								print.consoleErr("Map is invalid!");
+							}					
+						}
+						else {
+							print.consoleErr("Error!!! Continent can not be deleted");
+						}
+						break;
+
+					case 4:  // 4. Delete Country from map?
+
+						mapModel.printCountriesFromMap();
+						print.consoleOut("Enter name of the Country you want to delete:");
+						String deleteCountryNameByUser = scanner.nextLine();
+
+						boolean checkCountryIsDeleted =  mapModel.deleteCountryFromMap(deleteCountryNameByUser);
+
+
+						if(checkCountryIsDeleted){				
+							if (mapModel.checkMapIsValid()){
+								mapModel.saveEditedMap(mapNameByUserInput,mapPath);
+								print.consoleOut("Country "+deleteCountryNameByUser+" has been deleted successfuly!");
+							}
+							else{
+								print.consoleErr("Map is invalid!");
+							}				
+						}
+						else {
+							print.consoleErr("Error!!! Country can not be deleted");
+						}
+						break;
+
+					case 5:
+
+						break;
+
+					default:
+						print.consoleErr("Option not Available. Select Again!!!");
+						break;
 					}
-					else{
-						print.consoleErr("Map is invalid!");
-					}					
 				}
-				else {
-					print.consoleErr("Error!!! Continent can not be deleted");
-				}
-				break;
-
-			case 4:  // 4. Delete Country from map?
-
-				mapModel.printCountriesFromMap();
-				print.consoleOut("Enter name of the Country you want to delete:");
-				String deleteCountryNameByUser = scanner.nextLine();
-
-				boolean checkCountryIsDeleted =  mapModel.deleteCountryFromMap(deleteCountryNameByUser);
 
 
-				if(checkCountryIsDeleted){				
-					if (mapModel.checkMapIsValid()){
-						mapModel.saveEditedMap(mapNameByUserInput,mapPath);
-						print.consoleOut("Country "+deleteCountryNameByUser+" has been deleted successfuly!");
-					}
-					else{
-						print.consoleErr("Map is invalid!");
-					}				
-				}
-				else {
-					print.consoleErr("Error!!! Country can not be deleted");
-				}
-				break;
-
-			case 5:
-
-				break;
-
-			default:
-				print.consoleErr("Option not Available. Select Again!!!");
-				break;
-			}
-		}
-		
-		
 			}
 		} else {
 			print.consoleErr("File not found!!!. Please enter the coreect name of map.");
