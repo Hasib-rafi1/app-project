@@ -7,10 +7,17 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import controller.GameControllerTest;
+import controller.MainControllerTest;
+import controller.MainMenuTest;
+import model.ContinentTest;
+import model.CountryTest;
+import model.CountryViewModelTest;
 import model.GameTest;
+import model.PlayerTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({GameControllerTest.class,GameTest.class,})
+@SuiteClasses({GameControllerTest.class,MainControllerTest.class,MainMenuTest.class,ContinentTest.class,
+	CountryTest.class,CountryViewModelTest.class,GameTest.class,PlayerTest.class})
 
 /**
  * 
