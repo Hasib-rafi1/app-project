@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class PlayerTest {
 
-<<<<<<< HEAD
+
 	Player obj_playertest;
 	
 	@Before
@@ -21,11 +21,6 @@ public class PlayerTest {
 		obj_playertest.setNumberOfInitialArmies(5);
 		obj_playertest.setNumberOfReinforcedArmies(3);
 	
-=======
-	@Test
-	public void test() {
-		//fail("Not yet implemented");
->>>>>>> branch 'master' of https://naren_csp@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
 	}
 	
 	@Test
