@@ -42,7 +42,7 @@ import model.Game;
 import helper.GamePhase;
 import model.Player;
 /**
- * Risk game view designed in java swing
+ * Risk game view designed in gui 
  * 
  * @author naren
  *
@@ -97,7 +97,7 @@ public class BoardView implements Observer {
 		game.getMap().getContinentList();
 		mapPath = game.getMap().getMapDir()+ "World.bmp";
 		phase = game.getGamePhase(); 
-		
+
 		MapModel map = game.getMap();
 		activePlayerName = game.getCurrentPlayer().getPlayerName();
 		activePlayerId = game.getCurrentPlayerId();
@@ -105,24 +105,23 @@ public class BoardView implements Observer {
 		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNumberOfInitialArmies()); 
 		reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNumberOfReinforcedArmies());
 		countryList.clear();
-		for(Country country: map.getCountryList())
-		{  CountryViewModel viewCountry = new CountryViewModel();
-		viewCountry.setCountryId(country.getCountryId());
-		viewCountry.setColorOfCountry(country.getCountryColor());
-		viewCountry.setCountryName(country.getCountryName());
-		viewCountry.setNumberOfArmies(country.getnoOfArmies());
-		viewCountry.setxCoordinate(country.getxCoordinate());
-		viewCountry.setyCoordinate(country.getyCoordinate());
-		viewCountry.setNeighbours(country.getNeighboursString());
-		viewCountry.setPlayerID(country.getPlayerId());
-		JLabel label = (JLabel)map_hashMap.get(String.valueOf(country.getCountryId()));
-		if(label != null)
-		{ label.setText(String.valueOf(viewCountry.getNumberOfArmies()));
+		for(Country country: map.getCountryList()){  
+			CountryViewModel viewCountry = new CountryViewModel();
+			viewCountry.setCountryId(country.getCountryId());
+			viewCountry.setColorOfCountry(country.getCountryColor());
+			viewCountry.setCountryName(country.getCountryName());
+			viewCountry.setNumberOfArmies(country.getnoOfArmies());
+			viewCountry.setxCoordinate(country.getxCoordinate());
+			viewCountry.setyCoordinate(country.getyCoordinate());
+			viewCountry.setNeighbours(country.getNeighboursString());
+			viewCountry.setPlayerID(country.getPlayerId());
+			JLabel label = (JLabel)map_hashMap.get(String.valueOf(country.getCountryId()));
+			if(label != null){
+				label.setText(String.valueOf(viewCountry.getNumberOfArmies()));
+			}
+			countryList.add(viewCountry);
 		}
-		countryList.add(viewCountry);
-		}
-		if(lab_playersTurn != null)
-		{
+		if(lab_playersTurn != null){
 			lab_playersTurn.setText(activePlayerName);
 
 
@@ -158,7 +157,7 @@ public class BoardView implements Observer {
 	public void gameWindowLoad() {
 		frame_gameWindow=  new JFrame("Risk Game");
 		panel_gameAction=new JPanel(null);
-		
+
 		mapGenerator();
 		gamePhase();
 		view_initialisation();
@@ -178,7 +177,7 @@ public class BoardView implements Observer {
 	 * This method is initializing the jframe and importing the map file and country related data
 	 */
 	public void mapGenerator() {
-		
+
 		File imageFile = null;
 
 		imageFile = new File(mapPath);
@@ -244,7 +243,7 @@ public class BoardView implements Observer {
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		lab_initialisation.setBounds(lab_gamePhase.getX(), lab_gamePhase.getY()+ lab_gamePhase.getHeight()+20, 490, 100);
 
-	
+
 		lab_playersTurn = new JLabel(activePlayerName);
 		Font font = new Font("Courier", Font.BOLD, 24);
 		lab_playersTurn.setFont(font);
@@ -266,7 +265,7 @@ public class BoardView implements Observer {
 	 * Method for reinforcement implementation
 	 */
 	public void reinforcements() {
-		
+
 		lab_reinforcement = new JLabel();
 		lab_reinforcement.setBorder(
 				BorderFactory.createTitledBorder(null, "Reinforcement Phase", TitledBorder.DEFAULT_JUSTIFICATION,
@@ -311,7 +310,7 @@ public class BoardView implements Observer {
 		combo_armyToMove.setBounds(combo_countrySource.getX(), combo_countrySource.getHeight() + combo_countrySource.getY() + 7,
 				combo_countrySource.getWidth(), combo_countrySource.getHeight());
 		combo_armyToMove.setBorder(new TitledBorder("Total number of army to move"));
-		
+
 		button_moveFortification.setBounds(combo_countryDestination.getX(), combo_armyToMove.getY(),
 				combo_countryDestination.getWidth(), combo_countryDestination.getHeight());
 		lab_fortification.add(combo_countrySource);
@@ -371,11 +370,11 @@ public class BoardView implements Observer {
 	 * Method is populating value in the destination phase combobox 
 	 * @param destinationCountries ArrayList
 	 */	
-	public void combo_fillDestinationCountry(ArrayList<String> destinationCountries)
-	{   combo_countryDestination.removeAllItems();
-	for(String countryName : destinationCountries) {
-		combo_countryDestination.addItem(countryName);
-	}
+	public void combo_fillDestinationCountry(ArrayList<String> destinationCountries){   
+		combo_countryDestination.removeAllItems();
+		for(String countryName : destinationCountries) {
+			combo_countryDestination.addItem(countryName);
+		}
 
 	}
 
@@ -384,10 +383,10 @@ public class BoardView implements Observer {
 	 * @param NoOfArmies int
 	 * 
 	 */
-	public void combo_fillArmyToMove(int NoOfArmies)
-	{   combo_armyToMove.removeAllItems();
-	for(Integer i=0;i<NoOfArmies;i++)
-		combo_armyToMove.addItem(i.toString());		
+	public void combo_fillArmyToMove(int NoOfArmies){   
+		combo_armyToMove.removeAllItems();
+		for(Integer i=0;i<NoOfArmies;i++)
+			combo_armyToMove.addItem(i.toString());		
 	}
 
 
@@ -406,8 +405,7 @@ public class BoardView implements Observer {
 	public static String getDestinationCountry() {
 
 		Object selectedItem = combo_countryDestination.getSelectedItem();
-		if(selectedItem != null)
-		{
+		if(selectedItem != null){
 			String selectedCountry = (String) selectedItem;
 			return selectedCountry;
 		}
@@ -423,8 +421,7 @@ public class BoardView implements Observer {
 	 */
 	public static Integer combo_getArmyToMove() {
 		Object selectedItem = combo_armyToMove.getSelectedItem();
-		if(selectedItem != null)
-		{
+		if(selectedItem != null){
 			Integer NoOfArmies = (Integer.parseInt((String) selectedItem));
 			return NoOfArmies;
 		}
