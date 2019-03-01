@@ -41,6 +41,12 @@ public class MapModel {
 	ArrayList<Continent> continentsList = new ArrayList<>();
 	ArrayList<String> visitedList = new ArrayList<>();
 
+
+	private String mapName;
+
+
+	private String mapPath;
+
 	/**
 	 * This method is used to import the existing file from the directory. It reads the map file and stores the
 	 * corresponding values for countries and continents.
@@ -801,13 +807,20 @@ public class MapModel {
 		return mapName.replace(".map", "");
 	}
 
-	*//**
+	*/
+	/**
 	 * This function sets the map name.
 	 * @param mapName, name of the map
-	 *//*
+	 */
 	public void setMapName(String mapName) {
 		this.mapName = mapName;
-	}*/
+	}
+
+	
+	
+	public void setMapPath(String mapPath) {
+        this.mapPath = mapPath;
+    }
 
 
 }
