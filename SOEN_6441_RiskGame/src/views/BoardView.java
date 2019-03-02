@@ -43,9 +43,8 @@ import helper.GamePhase;
 import model.Player;
 /**
  * Risk game view designed in gui 
- * 
  * @author naren
- *
+ * @version 1.0.0
  */
 public class BoardView implements Observer {
 	private static JFrame frame_gameWindow ;

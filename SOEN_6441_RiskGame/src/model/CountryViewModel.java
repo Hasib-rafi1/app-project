@@ -6,6 +6,7 @@ import helper.Colors;
  * An object model for country with payers information and number of armies belongs to one country 
  * for creating a view.
  * @author Hasibul Huq
+ * @version 1.0.0
  *
  */
 public class CountryViewModel {
