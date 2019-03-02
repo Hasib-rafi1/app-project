@@ -22,8 +22,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-
-
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
  * @author Zakiya Jafrin
