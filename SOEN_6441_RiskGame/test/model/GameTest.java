@@ -25,7 +25,8 @@ public class GameTest {
 	@Before
 	public void setUp(){
 		mapModel = new MapModel();
-		mapModel.readMapFile(PrintConsoleAndUserInput.getMapDir()+"world.map");
+		mapModel.readMapFile("src/mapFiles/World.map");
+//		mapModel.readMapFile(PrintConsoleAndUserInput.getMapDir()+"World.map");
 		gameObject = new Game(mapModel);
 		player1 = new Player(0,"Jai");
 		player2 = new Player(1,"Gargi");
