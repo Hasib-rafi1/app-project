@@ -13,8 +13,8 @@ public class Player {
 	private int numberOfReinforcedArmies;
 	private String playerName;
 	private Colors color;
-	
-	
+
+
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and
 	 * color.
@@ -28,7 +28,7 @@ public class Player {
 		this.playerName = name;
 		this.color = getPlayerColor(playerId);
 	}
-	
+
 	/**
 	 * This method is going to provide the players id
 	 * @return integer value of playerId
@@ -36,7 +36,7 @@ public class Player {
 	public int getPlayerId() {
 		return playerId;
 	}
-	
+
 	/**
 	 * This method is setting the value of playerId of a player object
 	 * @param playerId
@@ -44,7 +44,7 @@ public class Player {
 	public void setPlayerId(int playerId) {
 		this.playerId = playerId;
 	}
-	
+
 	/**
 	 * This function is providing the assigned army number of a player
 	 * @return integer value of assigned armies
@@ -52,7 +52,7 @@ public class Player {
 	public int getNumberOfInitialArmies() {
 		return numberOfInitialArmies;
 	}
-	
+
 	/**
 	 * This is function is going to set the assigned army numbers in the specific object
 	 * @param numberOfInitialArmies
@@ -60,7 +60,7 @@ public class Player {
 	public void setNumberOfInitialArmies(int numberOfInitialArmies) {
 		this.numberOfInitialArmies = numberOfInitialArmies;
 	}
-	
+
 	/**
 	 * This function is going to return the reinforced army number
 	 * @return integer value number of reinforced army 
@@ -68,7 +68,7 @@ public class Player {
 	public int getNumberOfReinforcedArmies() {
 		return numberOfReinforcedArmies;
 	}
-	
+
 	/**
 	 * This function is setting the reinforced army
 	 * @param noOfReinforcedArmies
@@ -76,7 +76,7 @@ public class Player {
 	public void setNumberOfReinforcedArmies(int noOfReinforcedArmies) {
 		this.numberOfReinforcedArmies = noOfReinforcedArmies;
 	}
-	
+
 	/**
 	 * This function is going to return name of the player
 	 * @return string value.
@@ -84,7 +84,7 @@ public class Player {
 	public String getPlayerName() {
 		return playerName;
 	}
-	
+
 	/**
 	 * This function sets the name of the player
 	 * @param playerName
@@ -92,7 +92,7 @@ public class Player {
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
-	
+
 	/**
 	 * This function returns the color
 	 * @return ENUM value of color
@@ -100,7 +100,7 @@ public class Player {
 	public Colors getColor() {
 		return color;
 	}
-	
+
 	/**
 	 * Setting the color
 	 * @param color
@@ -117,7 +117,7 @@ public class Player {
 			numberOfInitialArmies = numberOfInitialArmies -1;
 		}
 	}
-	
+
 	/**
 	 * This method is going to decrease the unassigned reinforcement armies count. when the reinforcement 
 	 * armies are distributed.  
@@ -127,7 +127,7 @@ public class Player {
 			numberOfReinforcedArmies= numberOfReinforcedArmies -1;
 		}
 	}
-	
+
 	/**
 	 * This returns the player color.
 	 * @param playerID the id of the player

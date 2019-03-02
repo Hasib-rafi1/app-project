@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import helper.PrintConsoleAndUserInput;
@@ -82,7 +81,7 @@ public class MapControllerTest {
 		File file = new File(PrintConsoleAndUserInput.getMapDir()+"World.map");
 		assertTrue(file.exists());
 	}
-	
+
 	/**
 	 * This function is going to test that the world map file does not exist.
 	 */

@@ -1,14 +1,12 @@
 package controller;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import helper.PrintConsoleAndUserInput;
 import model.Continent;
-import model.Country;
 import model.MapModel;
 import views.MapView;
 

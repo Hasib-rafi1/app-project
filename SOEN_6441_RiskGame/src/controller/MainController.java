@@ -1,15 +1,9 @@
 package controller;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
-
 
 import controller.MainMenu;
 import controller.MapController;
-import helper.Colors;
 import helper.PrintConsoleAndUserInput;
-import model.Continent;
-import model.MapModel;
+
 
 /**
  * This is a main class to run the game

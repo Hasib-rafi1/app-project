@@ -18,15 +18,15 @@ public class CountryViewModel {
 	private Colors colorOfCountry;
 	private int playerID;
 	private ArrayList<String> neighbours = new ArrayList<>();
-	
+
 	/**
-     * This method is used to get an integer value of the country which is set as Country ID
-     * @return the country ID Integer
-     */
+	 * This method is used to get an integer value of the country which is set as Country ID
+	 * @return the country ID Integer
+	 */
 	public int getCountryId() {
 		return countryId;
 	}
-	
+
 	/**
 	 * This method is going to set the country id
 	 * @param countryId
@@ -34,15 +34,15 @@ public class CountryViewModel {
 	public void setCountryId(int countryId) {
 		this.countryId = countryId;
 	}
-	
+
 	/**
-     * This method is used to get the name of the Country.
-     * @return the country Name String
-     */
+	 * This method is used to get the name of the Country.
+	 * @return the country Name String
+	 */
 	public String getCountryName() {
 		return countryName;
 	}
-	
+
 	/**
 	 * This method will set the name of the country
 	 * @param countryName
@@ -50,7 +50,7 @@ public class CountryViewModel {
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
 	}
-	
+
 	/**
 	 * This method will return the x coordinate of the view 
 	 * @return xCoordinate as an integer value
@@ -58,7 +58,7 @@ public class CountryViewModel {
 	public int getxCoordinate() {
 		return xCoordinate;
 	}
-	
+
 	/**
 	 * this method will set xCoordinate as an integer value
 	 * @param xCoordinate
@@ -73,7 +73,7 @@ public class CountryViewModel {
 	public int getyCoordinate() {
 		return yCoordinate;
 	}
-	
+
 	/**
 	 * This method is setting yCoordinate value
 	 * @param yCoordinate
@@ -81,7 +81,7 @@ public class CountryViewModel {
 	public void setyCoordinate(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
-	
+
 	/**
 	 * This method will return the numbers of armies that the country have right now
 	 * @return numberOfArmies as an integer value
@@ -89,7 +89,7 @@ public class CountryViewModel {
 	public int getNumberOfArmies() {
 		return numberOfArmies;
 	}
-	
+
 	/**
 	 * This method is setting the numbers
 	 * @param numberOfArmies
@@ -97,7 +97,7 @@ public class CountryViewModel {
 	public void setNumberOfArmies(int numberOfArmies) {
 		this.numberOfArmies = numberOfArmies;
 	}
-	
+
 	/**
 	 * This method will the return the country color according to the player color
 	 * @return colors
@@ -105,7 +105,7 @@ public class CountryViewModel {
 	public Colors getColorOfCountry() {
 		return colorOfCountry;
 	}
-	
+
 	/**
 	 * This method is storing the color of the player who currently acquired the country 
 	 * @param colorOfCountry
@@ -113,7 +113,7 @@ public class CountryViewModel {
 	public void setColorOfCountry(Colors colorOfCountry) {
 		this.colorOfCountry = colorOfCountry;
 	}
-	
+
 	/**
 	 * This function is returning the data of player id who is currently acquired the country 
 	 * @return player id as integer value
@@ -121,7 +121,7 @@ public class CountryViewModel {
 	public int getPlayerID() {
 		return playerID;
 	}
-	
+
 	/**
 	 * This method is setting player id who is currently acquired the country
 	 * @param playerID
@@ -129,7 +129,7 @@ public class CountryViewModel {
 	public void setPlayerID(int playerID) {
 		this.playerID = playerID;
 	}
-	
+
 	/**
 	 * This function is returning the array list of the neighbours of the country
 	 * @return neighbours
@@ -137,15 +137,15 @@ public class CountryViewModel {
 	public ArrayList<String> getNeighbours() {
 		return neighbours;
 	}
-	
+
 	/**
 	 * The function is going to set the neighbours of the specific country.
 	 * @param neighbours
 	 */
 	public void setNeighbours(ArrayList<String> neighbours) {
 		this.neighbours = neighbours;
-	
-		
+
+
 	}
-	
+
 }

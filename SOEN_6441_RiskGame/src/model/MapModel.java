@@ -175,7 +175,7 @@ public class MapModel {
 		Path path = Paths.get( nameOfMap + ".map");
 		BufferedWriter bw = null;
 		try {
-			
+
 			Path tempFilePath = Paths.get(mapDir+"temp" + ".map");
 			Files.deleteIfExists(tempFilePath);
 
@@ -565,12 +565,12 @@ public class MapModel {
 		Country elementInCurrentCountry = countriesList.stream()
 				.filter(x-> x.getCountryName().equalsIgnoreCase(deleteCountryByUser))
 				.findAny().orElse(null);
-		
+
 		if(elementInCurrentCountry == null){
 			print.consoleErr("Error!!! Country " +deleteCountryByUser+ " does not exist");
 			return false;
 		}
-		
+
 		for (Country countryListToRemoveCountry : countriesList) {
 			print.consoleOut(countryListToRemoveCountry.getCountryName());
 			for (int i = 0; i < countryListToRemoveCountry.getNeighboursString().size() ; i++) {
@@ -785,7 +785,7 @@ public class MapModel {
 		return print.getMapDir();
 	}
 
-	
+
 	/**
 	 * This function sets the map name.
 	 * @param mapName, name of the map

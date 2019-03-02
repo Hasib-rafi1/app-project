@@ -3,9 +3,6 @@ package views;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.Scanner;
 import javax.swing.*;
 
 import helper.PrintConsoleAndUserInput;

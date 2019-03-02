@@ -3,12 +3,9 @@ package views;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,8 +22,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 
@@ -38,15 +33,14 @@ import helper.Colors;
 import helper.PrintConsoleAndUserInput;
 import model.Country;
 import model.CountryViewModel;
-import model.Game;
 import helper.GamePhase;
-import model.Player;
 /**
  * Risk game view designed in gui 
  * @author naren
  * @version 1.0.0
  */
 public class BoardView implements Observer {
+	// Board Initialization
 	private static JFrame frame_gameWindow ;
 	private static JPanel panel_gameAction;
 
@@ -76,6 +70,7 @@ public class BoardView implements Observer {
 	private static JComboBox<String> combo_armyToMove;
 	private static JButton button_moveFortification = new JButton("Move Army");
 
+	//Flags for determining the next actions
 	String activePlayerName = null;
 	int activePlayerId;
 	Colors activePlayerColor = null;
@@ -233,7 +228,7 @@ public class BoardView implements Observer {
 
 
 	/**
-	 * Method for initialisation of game view
+	 * Method for initialization of game view
 	 */
 	public void view_initialisation() {
 		lab_initialisation = new JLabel();

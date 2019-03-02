@@ -22,7 +22,7 @@ public class GameControllerTest {
 	GameController game = new GameController();
 	ArrayList<String> mapFileListTest = new ArrayList<String>();
 	ArrayList<String> mapFileList = new ArrayList<String>();
-	
+
 	/**
 	 * THis function is getting the map files and listing in an array list when starting the class
 	 * @throws Exception
@@ -31,7 +31,7 @@ public class GameControllerTest {
 	public void setUpBeforeClass() throws Exception {
 		getFileListFromFolder();
 		mapFileList= game.listofMapsinDirectory();
-		
+
 	}
 
 	/**
@@ -40,9 +40,9 @@ public class GameControllerTest {
 	@Test
 	public void testListofMapsinDirectory() {
 		assertEquals(mapFileList, mapFileListTest);
-		
+
 	}
-	
+
 	/**
 	 * This function is going to get the files from the specific folder
 	 */

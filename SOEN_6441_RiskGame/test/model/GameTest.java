@@ -1,13 +1,9 @@
 package model;
 
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
-
-
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 /**
@@ -22,7 +18,7 @@ public class GameTest {
 	Player player2;
 	Player player3;
 	int id =0;
-	
+
 	/**
 	 * Initializing the values and object to start a game .
 	 */
@@ -38,7 +34,7 @@ public class GameTest {
 		gameObject.addPlayer(player2);
 		gameObject.addPlayer(player3);
 		gameObject.startGame();
-		
+
 		while (gameObject.getGamePhase() == GamePhase.Startup) {
 			// Randomly increase army for the country of player
 			ArrayList<Country> playerCountries = gameObject.getCurrentPlayerCountries();
@@ -66,7 +62,7 @@ public class GameTest {
 		int a = gameObject.calculationForNumberOfArmiesInReinforcement(player);
 		assertEquals(4, a);
 	}
-	
+
 	/**
 	 * Test the current player object is same or not 
 	 */

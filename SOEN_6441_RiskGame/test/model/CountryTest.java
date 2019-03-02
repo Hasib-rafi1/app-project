@@ -17,7 +17,7 @@ import helper.Colors;
 public class CountryTest {
 	Country country;  
 	private ArrayList<String> neighboursString = new ArrayList<>();
-	
+
 	/**
 	 * this function is going to run before every function executes. It is initiating some predefined data
 	 * @throws Exception
@@ -35,7 +35,7 @@ public class CountryTest {
 		country.setyCoordinate(100);
 		country.setCountryColor(Colors.BLUE);
 	}
-	
+
 	/**
 	 * Test the country name is same or not
 	 */
@@ -43,7 +43,7 @@ public class CountryTest {
 	public void testCountryName() {
 		assertEquals("Bangladesh", country.getCountryName());
 	}
-	
+
 	/**
 	 * test the country id is same or not
 	 */
@@ -51,7 +51,7 @@ public class CountryTest {
 	public void testCountryId() {
 		assertEquals(1, country.getCountryId());
 	}
-	
+
 	/**
 	 * tests the neighbour countries
 	 */
@@ -66,7 +66,7 @@ public class CountryTest {
 	public void testCountryContinent() {
 		assertEquals(1, country.getContinentID());
 	}
-	
+
 	/**
 	 * it is testing the coordinate is same or not
 	 */

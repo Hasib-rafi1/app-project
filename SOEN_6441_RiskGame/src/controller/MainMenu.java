@@ -2,7 +2,6 @@ package controller;
 
 import helper.PrintConsoleAndUserInput;
 
-import java.util.Scanner;
 
 
 /**
