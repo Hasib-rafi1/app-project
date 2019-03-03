@@ -18,8 +18,10 @@ import helper.PrintConsoleAndUserInput;
  * It is bounded with the Game Controller and the Board View.
  * @author Jaiganesh
  * @author Hasibul Huq
+ * @author Gargi sharma
  * @version 1.0.0
  */
+
 public class Game extends Observable {
 
 	private MapModel mapModel;
@@ -46,7 +48,7 @@ public class Game extends Observable {
 	//Functions called by the initializeGame() from the GameController. 
 	/**
 	 * This method adds the player to the game's player list.
-	 * @param player
+	 * @param player get the player
 	 */
 	public void addPlayer(Player player) {
 		this.playerList.add(player);
@@ -97,9 +99,9 @@ public class Game extends Observable {
 		notifyObserverslocal(this);
 	}
 	/**
-	 * This method assigns the player to the corresponding coutry. 
-	 * @param player
-	 * @param country
+	 * This method assigns the player to the corresponding country. 
+	 * @param player player
+	 * @param country country 
 	 */
 	public void assignPlayerCountry(Player player, Country country){
 		if(playerCountry.containsKey(player)){
@@ -117,7 +119,7 @@ public class Game extends Observable {
 	//Functions called by numberOfArmiesClickListener() from the GameController.
 	/**
 	 * This method adds armies to the country based on the startup or reinforcement game phase.
-	 * @param countryName
+	 * @param countryName name of country
 	 */
 	public void addingCountryArmy(String countryName){
 		if(gamePhase == gamePhase.Attack || gamePhase == gamePhase.Fortification){
@@ -140,8 +142,8 @@ public class Game extends Observable {
 
 	/**
 	 * This method add armies to the country during the startup phase and returns true when successful.
-	 * @param countryName
-	 * @return
+	 * @param countryName name of country
+	 * @return true if valid phase otherwise false
 	 */
 	public boolean addingStartupCountryArmy(String countryName){
 		if(this.gamePhase != gamePhase.Startup){
@@ -171,8 +173,8 @@ public class Game extends Observable {
 	}
 	/**
 	 * This method adds armies to the country during the reinforcement phase and returns when successful. 
-	 * @param countryName
-	 * @return
+	 * @param countryName name of country
+	 * @return true
 	 */
 	public boolean addingReinforcementCountryArmy(String countryName){
 		if(this.gamePhase != gamePhase.Reinforcement){
@@ -231,8 +233,8 @@ public class Game extends Observable {
 	}
 	/**
 	 * This method calculates the corresponding reinforcement armies from a particular player from the number of countries owned by the layer.
-	 * @param player
-	 * @return
+	 * @param player Player
+	 * @return total number of armies in reinforcement
 	 */
 	public int calculationForNumberOfArmiesInReinforcement(Player player) {
 		return (int) Math.floor(playerCountry.get(player).stream().count() / 3);
@@ -267,8 +269,8 @@ public class Game extends Observable {
 	//Functions called by addSourceCountriesListener() from the GameController.
 	/**
 	 * This method returns the neighboring connected countries of a specific country.
-	 * @param source
-	 * @return
+	 * @param source source countries
+	 * @return finalCOuntries countries
 	 */
 	public ArrayList<String> getNeighbouringCountries(String source) {
 		System.out.println("source Country Name :" + source);
@@ -317,13 +319,14 @@ public class Game extends Observable {
 		connectedOwnCountries.clear();
 		return finalCOuntries;
 	}
+	
+	
 	/**
 	 * This method recursively explores all the nodes connected to a country and returns the neighboring countries.
-	 * @param source
-	 * @return
+	 * @param source source countries
+	 * @param countryList list of countries
 	 */
-	public void getConnectedCountries(String source, ArrayList<Country> countryList) 
-	{
+	public void getConnectedCountries(String source, ArrayList<Country> countryList) {
 		System.out.println("source Country Name :" + source);
 
 		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
@@ -362,10 +365,11 @@ public class Game extends Observable {
 		System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 
 	}
+	
 	/**
 	 * This method returns the number of armies assigned to a specific country.
-	 * @param sourceCountryName
-	 * @return
+	 * @param sourceCountryName source country names
+	 * @return noOfArmies number of armies
 	 */
 	public int getArmiesAssignedToCountry(String sourceCountryName) {
 		Player currentPlayer = this.getCurrentPlayer();
@@ -382,10 +386,10 @@ public class Game extends Observable {
 	//Functions called by addMoveArmyButtonListener() from GameController.
 	/**
 	 * This method checks whether the source and destination countries belongs to the player and moves the armies from source to destination.
-	 * @param source
-	 * @param destination
-	 * @param armies
-	 * @return
+	 * @param source  source as string
+	 * @param destination destination countries as string
+	 * @param armies count of armies as int
+	 * @return true
 	 */
 	public boolean fortificationPhase(String source, String destination, int armies){
 		Player player = getCurrentPlayer();
@@ -419,48 +423,96 @@ public class Game extends Observable {
 	//Functions called by other functions within the Game model.
 
 	//Getter and Setter functions of Map. 
+	
+	/**
+	 * This function is used to get map
+	 * @return mapModel
+	 */
 	public MapModel getMap() {
 		return mapModel;
 	}
+	
+	
+	/**
+	 *  This is used to set map
+	 * @param map map
+	 */
 	public void setMap(MapModel map) {
 		this.mapModel = map;
 	}
 
-	//Getter and Setter functions of Game Phase.
+	
+	
+	/**
+	 *This is used to get game phase.
+	 * @return gamePhase getGamePhase
+	 */
 	public GamePhase getGamePhase() {
 		return gamePhase;
 	}
+	
+	
+	/**
+	 * This is used to set game phase
+	 * @param gamePhase Game phase
+	 */
 	public void setGamePhase(GamePhase gamePhase) {
 		this.gamePhase = gamePhase;
 	}
 
-	//Getter function for all the Player.
+	
+	/**
+	 * Getter function for all the Player.
+	 * @return playerList list of players
+	 */
 	public ArrayList<Player> getAllPlayers() {
 		return playerList;
 	}
 
-	//Getter function for Current Player Id.
+	
+	/**
+	 * Getter function for Current Player Id.
+	 * @return currentPlayerId, current id of player
+	 */
 	public int getCurrentPlayerId() {
 		return currentPlayerId;
 	}
 
-	//Getter function for Current Player.
+	
+	/**
+	 * Getter function for Current Player.
+	 * @return currentPlayer current player
+	 */
 	public Player getCurrentPlayer() {
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return currentPlayer;
 	}
 
-	//Getter function for getting all the Current Player Countries using current player's ID.
+	
+	/**
+	 * Getter function for getting all the Current Player Countries using current player's ID.
+	 * @return playerCountry arraylist
+	 */
 	public ArrayList<Country> getCurrentPlayerCountries() {
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return playerCountry.get(currentPlayer);
 	}
 
-	//Getter function for getting all the Current Player Countries using current player's object.
+	
+	/**
+	 * Getter function for getting all the Current Player Countries using current player's object.
+	 * @param currentPlayer current player 
+	 * @return playerCountry player country
+	 */
 	public ArrayList<Country> getPlayersCountry(Player currentPlayer) {
 		return playerCountry.get(currentPlayer);
 	}
-	//Function the sets the next player's turn.
+	
+	
+	
+	/**
+	 * Function the sets the next player's turn.
+	 */
 	public void setupNextPlayerTurn(){
 		print.consoleOut("Current Player ID:"+currentPlayerId);
 		currentPlayerId++;
@@ -469,9 +521,12 @@ public class Game extends Observable {
 		}
 	}
 
-	//Function the returns the armies of the country of the current player.
-	public void getCountryArmies(String countryName) 
-	{
+	
+	/**
+	 * Function the returns the armies of the country of the current player.
+	 * @param countryName anme of the country
+	 */
+	public void getCountryArmies(String countryName) {
 		int armies_number = 0;
 		Player player = this.getCurrentPlayer();
 		for(Country country: playerCountry.get(player)){
@@ -481,19 +536,33 @@ public class Game extends Observable {
 		}
 	}
 
-	//Function that moves an army from the player's initial army to the country's army.
+	
+	/**
+	 * Function that moves an army from the player's initial army to the country's army.
+	 * @param player player 
+	 * @param country country
+	 */
 	public void assignUnassigned(Player player, Country country){
 		player.decreasenumberOfInitialArmies();
 		country.increaseArmyCount();
 	}
 
-	//Function that moves an army from the player's reinforcement army to the country's army.
+	
+	/**
+	 * Function that moves an army from the player's reinforcement army to the country's army.
+	 * @param player player 
+	 * @param country country
+	 */
 	public void assignReinforcement(Player player, Country country){
 		player.decreaseReinforcementArmy();
 		country.increaseArmyCount();
 	}
 
-	//Function that notifies all the observers connected to the observable.
+
+	/**
+	 * This is the method that notifies all the observers connected to the observable.
+	 * @param game game view
+	 */
 	private void notifyObserverslocal(Game game){
 		setChanged();
 		notifyObservers(this);

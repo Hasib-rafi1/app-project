@@ -29,7 +29,7 @@ public class CountryViewModel {
 
 	/**
 	 * This method is going to set the country id
-	 * @param countryId
+	 * @param countryId id of country
 	 */
 	public void setCountryId(int countryId) {
 		this.countryId = countryId;
@@ -45,7 +45,7 @@ public class CountryViewModel {
 
 	/**
 	 * This method will set the name of the country
-	 * @param countryName
+	 * @param countryName name of the country
 	 */
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
@@ -61,7 +61,7 @@ public class CountryViewModel {
 
 	/**
 	 * this method will set xCoordinate as an integer value
-	 * @param xCoordinate
+	 * @param xCoordinate x coordinates of country
 	 */
 	public void setxCoordinate(int xCoordinate) {
 		this.xCoordinate = xCoordinate;
@@ -76,7 +76,7 @@ public class CountryViewModel {
 
 	/**
 	 * This method is setting yCoordinate value
-	 * @param yCoordinate
+	 * @param yCoordinate y coordinates of country
 	 */
 	public void setyCoordinate(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
@@ -91,8 +91,8 @@ public class CountryViewModel {
 	}
 
 	/**
-	 * This method is setting the numbers
-	 * @param numberOfArmies
+	 * This method is setting the numbers of armies
+	 * @param numberOfArmies , the numbers of armies
 	 */
 	public void setNumberOfArmies(int numberOfArmies) {
 		this.numberOfArmies = numberOfArmies;
@@ -100,7 +100,7 @@ public class CountryViewModel {
 
 	/**
 	 * This method will the return the country color according to the player color
-	 * @return colors
+	 * @return colors , color of country
 	 */
 	public Colors getColorOfCountry() {
 		return colorOfCountry;
@@ -108,7 +108,7 @@ public class CountryViewModel {
 
 	/**
 	 * This method is storing the color of the player who currently acquired the country 
-	 * @param colorOfCountry
+	 * @param colorOfCountry color of country
 	 */
 	public void setColorOfCountry(Colors colorOfCountry) {
 		this.colorOfCountry = colorOfCountry;
@@ -124,7 +124,7 @@ public class CountryViewModel {
 
 	/**
 	 * This method is setting player id who is currently acquired the country
-	 * @param playerID
+	 * @param playerID ID of player
 	 */
 	public void setPlayerID(int playerID) {
 		this.playerID = playerID;
@@ -132,7 +132,7 @@ public class CountryViewModel {
 
 	/**
 	 * This function is returning the array list of the neighbours of the country
-	 * @return neighbours
+	 * @return neighbours country neighbours
 	 */
 	public ArrayList<String> getNeighbours() {
 		return neighbours;
@@ -140,7 +140,7 @@ public class CountryViewModel {
 
 	/**
 	 * The function is going to set the neighbours of the specific country.
-	 * @param neighbours
+	 * @param neighbours country neighbours
 	 */
 	public void setNeighbours(ArrayList<String> neighbours) {
 		this.neighbours = neighbours;

@@ -45,6 +45,7 @@ public class GameController {
 		mapModel.readMapFile(mapPath);
 	}
 
+	
 	/**
 	 * This method is setting up the board and game model
 	 * It is intializing the observer for the gui also

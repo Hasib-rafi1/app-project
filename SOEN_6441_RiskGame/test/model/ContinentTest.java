@@ -17,13 +17,13 @@ public class ContinentTest {
 	private ArrayList<Country> countriesOfTheContinent= new ArrayList<>();
 	Continent obj_continent;
 	Country obj_country;
+
+
 	/**
 	 * Initializing objects and values for the test cases
-	 * @throws Exception
 	 */
-
 	@Before
-	public void setUp() throws Exception  {
+	public void setUp()  {
 		obj_continent = new Continent(1,"Asia",3);
 		obj_country = new Country(1, "India");
 		countriesOfTheContinent.add(obj_country);
