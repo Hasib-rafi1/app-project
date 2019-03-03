@@ -17,6 +17,7 @@ public class PrintConsoleAndUserInput {
 	private static String OS = System.getProperty("os.name").toLowerCase();
 	private static String  mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
 	//private String mapDir = ".\\src\\mapFiles\\";
+	//private static String mapDir = "src/mapFiles/";
 
 
 	/**
