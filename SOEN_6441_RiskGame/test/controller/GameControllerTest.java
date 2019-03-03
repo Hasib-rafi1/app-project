@@ -19,7 +19,7 @@ import helper.PrintConsoleAndUserInput;
  */
 public class GameControllerTest {
 
-	GameController game = new GameController();
+	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	ArrayList<String> mapFileListTest = new ArrayList<String>();
 	ArrayList<String> mapFileList = new ArrayList<String>();
 
@@ -30,7 +30,7 @@ public class GameControllerTest {
 	@Before
 	public void setUpBeforeClass() throws Exception {
 		getFileListFromFolder();
-		mapFileList= game.listofMapsinDirectory();
+		mapFileList= print.listofMapsinDirectory();
 
 	}
 

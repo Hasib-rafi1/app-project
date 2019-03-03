@@ -39,7 +39,7 @@ public class GameController {
 	public void initializeMap() {
 		int i = 1;
 		print.consoleOut("List of Maps:");
-		listofMapsinDirectory();
+		print.listofMapsinDirectory();
 		print.consoleOut("\nEnter Map Name to load Map file:\n");
 		String mapPath = mapModel.getMapNameByUserInput();
 		mapModel.readMapFile(mapPath);
@@ -72,34 +72,34 @@ public class GameController {
 		callListenerOnView();
 	}
 
-	/**
-	 * prints the lists of maps in the directory
-	 * @return ArrayList of String
-	 */
-	public ArrayList<String> listofMapsinDirectory(){
-		ArrayList<String> mapFileList = new ArrayList<String>();
-		File folder = new File(print.getMapDir());
-		File[] listOfFiles = folder.listFiles();
-		int i = 0, j = 1;
-		for(File file : listOfFiles)
-		{		    
-			if(file.isFile())
-			{
-				if (file.getName().toLowerCase().contains(".map"))
-				{
-					mapFileList.add(listOfFiles[i].getName());
-				}
-			}
-			i++;
-		}
-		print.consoleOut("\n"+ "The List of Maps is Given Below:-"+ "\n");
-		for (String s : mapFileList) 
-		{
-			print.consoleOut(j + "."+s);
-			j++;
-		}
-		return mapFileList;
-	}
+//	/**
+//	 * prints the lists of maps in the directory
+//	 * @return ArrayList of String
+//	 */
+//	public ArrayList<String> listofMapsinDirectory(){
+//		ArrayList<String> mapFileList = new ArrayList<String>();
+//		File folder = new File(print.getMapDir());
+//		File[] listOfFiles = folder.listFiles();
+//		int i = 0, j = 1;
+//		for(File file : listOfFiles)
+//		{
+//			if(file.isFile())
+//			{
+//				if (file.getName().toLowerCase().contains(".map"))
+//				{
+//					mapFileList.add(listOfFiles[i].getName());
+//				}
+//			}
+//			i++;
+//		}
+//		print.consoleOut("\n"+ "The List of Maps is Given Below:-"+ "\n");
+//		for (String s : mapFileList)
+//		{
+//			print.consoleOut(j + "."+s);
+//			j++;
+//		}
+//		return mapFileList;
+//	}
 
 	/**
 	 * The functions is calling the listener functions 

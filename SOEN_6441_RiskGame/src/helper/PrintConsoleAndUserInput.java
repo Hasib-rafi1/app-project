@@ -1,5 +1,7 @@
 package helper;
 import java.awt.Color;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -100,6 +102,28 @@ public class PrintConsoleAndUserInput {
 		}
 		return null;
 
+	}
+
+	public ArrayList<String> listofMapsinDirectory(){
+		ArrayList<String> mapFileList = new ArrayList<String>();
+		File folder = new File(getMapDir());
+//		File folder = new File("src/mapFiles/");
+		File[] listOfFiles = folder.listFiles();
+		int i = 0, j = 1;
+		for(File file : listOfFiles){
+			if(file.isFile()){
+				if (file.getName().toLowerCase().contains(".map")){
+					mapFileList.add(listOfFiles[i].getName());
+				}
+			}
+			i++;
+		}
+		consoleOut("\n"+ "The List of Maps is Given Below:-"+ "\n");
+		for (String s : mapFileList) {
+			consoleOut(j + "."+s);
+			j++;
+		}
+		return mapFileList;
 	}
 }
 

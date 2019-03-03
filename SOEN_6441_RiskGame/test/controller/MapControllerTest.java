@@ -18,7 +18,7 @@ import helper.PrintConsoleAndUserInput;
  */
 public class MapControllerTest {
 
-	MapController mapcontroller = new MapController();
+	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	ArrayList<String> expectedMapFileListTest = new ArrayList<String>();
 	ArrayList<String> actualMapFileList = new ArrayList<String>();
 
@@ -57,7 +57,8 @@ public class MapControllerTest {
 	 */
 	@Test
 	public void testListofMapsinDirectory() {
-		File folder = new File(PrintConsoleAndUserInput.getMapDir());
+		File folder = new File(print.getMapDir());
+//		File folder = new File("src/mapFiles/");
 		File[] listOfFiles = folder.listFiles();
 		int i = 0, j = 1;
 		for(File file : listOfFiles){		    
@@ -68,7 +69,7 @@ public class MapControllerTest {
 			}
 			i++;
 		}
-		actualMapFileList= mapcontroller.listofMapsinDirectory();
+		actualMapFileList= print.listofMapsinDirectory();
 		assertEquals(expectedMapFileListTest, actualMapFileList);
 		//	assertEquals(expected, actual);
 	}
