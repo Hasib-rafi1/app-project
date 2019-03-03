@@ -27,7 +27,7 @@ public class MapView {
 	 * @return  user input for map menu
 	 */
 	public int displayMapMenu() {
-		print.consoleOut("*********************************");
+		print.consoleOut("\n*********************************");
 		print.consoleOut("\t Map Generator menu\t");
 		print.consoleOut("1. Import Map From File");
 		print.consoleOut("2. Create a New Map from scratch");

@@ -266,7 +266,6 @@ public class MapController {
 		int i = 0, j = 1;
 		for(File file : listOfFiles){
 			if(file.isFile()){
-				//System.out.println(file.getName());
 				if (file.getName().toLowerCase().contains(".map")){
 					mapFileList.add(listOfFiles[i].getName());
 				}

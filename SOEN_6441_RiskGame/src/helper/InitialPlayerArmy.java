@@ -5,12 +5,9 @@ package helper;
  * @author Jaiganesh 
  *
  */
-public class InitialPlayerArmy
-{	
-	public static int getInitialArmyCount(int playerCount) 
-	{
-		switch (playerCount) 
-		{
+public class InitialPlayerArmy{	
+	public static int getInitialArmyCount(int playerCount) {
+		switch (playerCount) {
 		case 3:
 			return 15;
 		case 4:

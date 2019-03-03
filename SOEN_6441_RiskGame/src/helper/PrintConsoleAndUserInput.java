@@ -2,9 +2,6 @@ package helper;
 import java.awt.Color;
 import java.util.Scanner;
 
-
-
-
 /**
  * This class is used to take the input from from the console.
  * @author Zakiya Jafrin
@@ -13,6 +10,7 @@ import java.util.Scanner;
 public class PrintConsoleAndUserInput {
 
 	static Scanner input = new Scanner(System.in);
+	
 	// Try with these directory path if code is not running
 	private static String OS = System.getProperty("os.name").toLowerCase();
 	private static String  mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
