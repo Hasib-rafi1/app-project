@@ -89,7 +89,8 @@ public class BoardView implements Observer {
 		// TODO Auto-generated method stub
 		Game game = ((Game)arg0);
 		game.getMap().getContinentList();
-		mapPath = game.getMap().getMapDir()+ "World.bmp";
+		
+		mapPath = game.getMap().getMapDir()+game.getMap().getMapName()+ ".bmp";
 		phase = game.getGamePhase(); 
 
 		MapModel map = game.getMap();
@@ -158,7 +159,7 @@ public class BoardView implements Observer {
 		reinforcements();
 		fortification();
 
-		frame_gameWindow.setSize(1450, 600);
+		frame_gameWindow.setSize(1450, 800);
 		frame_gameWindow.setVisible(true);
 		panel_gameAction.setBackground(Color.white);
 		frame_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -202,7 +203,7 @@ public class BoardView implements Observer {
 		}
 
 		pane_mapScrollPane = new JScrollPane(lab_map);		
-		pane_mapScrollPane.setBounds(0,10,920,520);
+		pane_mapScrollPane.setBounds(0,10,920,icon.getIconHeight()+20);
 		panel_gameAction.add(pane_mapScrollPane);
 		frame_gameWindow.add(panel_gameAction);
 	}

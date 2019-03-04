@@ -702,6 +702,7 @@ public class MapModel {
 		String mapNameByUserInput = scanner.nextLine().trim();
 		String mapPathWithMapName = mapDirectory + mapNameByUserInput;
 		String mapPath = mapPathWithMapName+".map";
+		mapName = mapNameByUserInput;
 		return mapPath;
 	}
 
@@ -714,7 +715,13 @@ public class MapModel {
 		return mapNameByUserInput;
 	}
 
-
+	/**
+	 * This method is used to take the user input of map name
+	 * @return mapName, map name entered by the user
+	 */
+	public String getMapName() {
+		return mapName;
+	}
 	/**
 	 * Gets The ContinentList form the map file
 	 * @return the list of all map file
