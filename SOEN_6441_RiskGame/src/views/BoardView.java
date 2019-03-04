@@ -92,6 +92,11 @@ public class BoardView implements Observer {
 		
 		mapPath = game.getMap().getMapDir()+game.getMap().getMapName()+ ".bmp";
 		phase = game.getGamePhase(); 
+		File tempFile = new File(mapPath);
+		boolean exists = tempFile.exists();
+		if (!exists) {
+			mapPath = game.getMap().getMapDir()+"no.bmp";
+		}
 
 		MapModel map = game.getMap();
 		activePlayerName = game.getCurrentPlayer().getPlayerName();
@@ -159,11 +164,10 @@ public class BoardView implements Observer {
 		reinforcements();
 		fortification();
 
-		frame_gameWindow.setSize(1450, 800);
+		frame_gameWindow.setSize(1600, 1200);
 		frame_gameWindow.setVisible(true);
 		panel_gameAction.setBackground(Color.white);
 		frame_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 	}
 
 
@@ -203,7 +207,7 @@ public class BoardView implements Observer {
 		}
 
 		pane_mapScrollPane = new JScrollPane(lab_map);		
-		pane_mapScrollPane.setBounds(0,10,920,icon.getIconHeight()+20);
+		pane_mapScrollPane.setBounds(0,10,icon.getIconWidth()+20,icon.getIconHeight()+20);
 		panel_gameAction.add(pane_mapScrollPane);
 		frame_gameWindow.add(panel_gameAction);
 	}
@@ -216,7 +220,7 @@ public class BoardView implements Observer {
 		lab_gamePhase.setBorder(
 				BorderFactory.createTitledBorder(null, "Current Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		lab_gamePhase.setBounds(pane_mapScrollPane.getX()+930, pane_mapScrollPane.getY(), 490, 100);
+		lab_gamePhase.setBounds(pane_mapScrollPane.getWidth()+20, pane_mapScrollPane.getY(), 490, 100);
 
 		lab_nameofPhase = new JLabel("Initialization");
 		Font font = new Font("Courier", Font.BOLD, 20);
