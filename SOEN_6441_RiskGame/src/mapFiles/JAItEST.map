@@ -1,0 +1,13 @@
+[Map]
+
+
+[Continents]
+C1=10
+C2=12
+
+
+[Territories]
+CN1,124,456,C1,CN2,CN3,CN4
+CN2,34,56,C1,CN3,CN4
+CN3,867,78,C2,CN1,CN2,CN4
+CN4,22,33,C2,CN1,CN2

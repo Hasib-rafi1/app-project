@@ -25,7 +25,7 @@ public class GameControllerTest {
 
 	/**
 	 * THis function is getting the map files and listing in an array list when starting the class
-	 * @throws Exception
+	 * @throws Exception if there is no files in the directory
 	 */
 	@Before
 	public void setUpBeforeClass() throws Exception {

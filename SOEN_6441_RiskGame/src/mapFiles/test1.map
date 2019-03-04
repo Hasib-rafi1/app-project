@@ -1,9 +1,4 @@
-Map]
-image=world.bmp
-wrap=yes
-scroll=horizontal
-author=Gargi sharma
-warn=yes
+[Map]
 
 
 [Continents]
