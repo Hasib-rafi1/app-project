@@ -1,3 +1,11 @@
+Map]
+image=world.bmp
+wrap=yes
+scroll=horizontal
+author=Gargi sharma
+warn=yes
+
+
 [Continents]
 Continent1=10
 Continent2=20
@@ -9,5 +17,3 @@ Country2,193,85,Continent1,Country1,Country3,Country4
 Country3,252,33,Continent1,Country5,Country1,Country2
 Country4,314,94,Continent2,Country2,Country5
 Country5,415,99,Continent2,Country4,Country3
-Country6,415,92,Continent2,Country7
-Country7,415,92,Continent2,Country6
