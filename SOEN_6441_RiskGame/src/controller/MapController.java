@@ -124,9 +124,10 @@ public class MapController {
 	public void editMap() {
 		// Printing all the map files
 		print.listofMapsinDirectory();
+		
 		// Select map name by user and check file exists or not
 		print.consoleOut("Please enter the map name you want to edit from the list?");
-		//String mapPath = mapModel.getMapNameByUserInput();
+		
 		String mapDirectory = print.getMapDir();
 		String mapNameByUserInput = scanner.nextLine().trim();
 		String mapPathWithMapName = mapDirectory + mapNameByUserInput;
@@ -146,8 +147,6 @@ public class MapController {
 				int inputForEditMap = -1;
 				while (inputForEditMap != 5) {
 
-					// Check if the map is valid according to risk rules
-					// boolean checkValidationOfMap = mapModel.checkMapIsValid();
 					inputForEditMap = mapView.editMapMenu();
 
 					switch (inputForEditMap) {
@@ -157,7 +156,7 @@ public class MapController {
 
 						if(mapModel.checkMapIsValid()){
 							mapModel.saveEditedMap(mapNameByUserInput,mapPath);
-							print.consoleOut("Continent has been added successfully!");
+							print.consoleOut("***Continent has been added successfully!***");
 						}else{
 							print.consoleErr("Invalid Map! Try again!!!");
 						}
@@ -240,7 +239,7 @@ public class MapController {
 
 			}
 		} else {
-			print.consoleErr("File not found!!!. Please enter the coreect name of map.");
+			print.consoleErr("****File not found!!!. Please enter the coreect name of map.****");
 
 		}
 
@@ -255,30 +254,6 @@ public class MapController {
 		return continentsList;
 	}
 
-//	/**
-//	 * This method is used to list the .map files from the directory as an Arraylist
-//	 * @return mapFileList
-//	 */
-//	public ArrayList<String> listofMapsinDirectory(){
-//		ArrayList<String> mapFileList = new ArrayList<String>();
-//		File folder = new File(print.getMapDir());
-//		File[] listOfFiles = folder.listFiles();
-//		int i = 0, j = 1;
-//		for(File file : listOfFiles){
-//			if(file.isFile()){
-//				if (file.getName().toLowerCase().contains(".map")){
-//					mapFileList.add(listOfFiles[i].getName());
-//				}
-//			}
-//			i++;
-//		}
-//		print.consoleOut("\n"+ "The List of Maps is Given Below:-"+ "\n");
-//		for (String s : mapFileList) {
-//			print.consoleOut(j + "."+s);
-//			j++;
-//		}
-//		return mapFileList;
-//	}
 }
 
 

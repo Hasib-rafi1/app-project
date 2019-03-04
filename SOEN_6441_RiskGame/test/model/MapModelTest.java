@@ -64,6 +64,10 @@ public class MapModelTest {
     }
 
 
+    /**
+     * This method runs at the end of each test case
+     * @throws Exception if not
+     */
     @After
     public void tearDown() throws Exception {
         stringForValid = null;
@@ -71,6 +75,9 @@ public class MapModelTest {
         mapModel = null;
     }
 
+    /**
+     * This method tests the valid map file while reading.
+     */
     @Test
     public void readMapFileTest() {
         ArrayList<String> continentsListFromFile = new ArrayList<String>();
@@ -91,6 +98,10 @@ public class MapModelTest {
     }
 
 
+    /**
+     * This method tests the valid map is created.
+     * @throws Exception if not
+     */
     @Test
     public void checkIfValidMapCreated() throws Exception {
         String mapName = "validMapTestCreated";
@@ -98,6 +109,10 @@ public class MapModelTest {
         assertTrue(isMapCreated);
     }
 
+    /**
+     * This method tests the valid map is created.
+     * @throws Exception if not
+     */
     @Test
     public void checkIfInValidMapCreated() throws Exception {
         String mapName = "inValidMapNoTCreated";
@@ -105,6 +120,10 @@ public class MapModelTest {
         assertFalse(isMapCreated);
     }
 
+    /**
+     * This method tests the invalid map is created.
+     * @throws Exception if not
+     */
     @Test
     public void checkMapIsValidTest() throws Exception {
         mapModel.readMapFile(inValidMap);

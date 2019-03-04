@@ -1,15 +1,12 @@
 package model;
 import helper.PrintConsoleAndUserInput;
-
 import views.MapView;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -98,7 +95,6 @@ public class MapModel {
 
 				// Get Territories form the stream of sentences and store them country object with all of three values
 				else if (getTerritories){
-
 					String[] territoryElements = lineStream.split(",");
 					String countryName = territoryElements[0];
 					int xCoordinate = Integer.parseInt(territoryElements[1]);
@@ -111,7 +107,7 @@ public class MapModel {
 					String[] neighboursFromArray = Arrays.copyOfRange(territoryElements, 4, territoryElements.length);
 					neighboursOfCountry.put(country, neighboursFromArray); // all the neighbours are put as an array
 
-					//					add the neighbouring Countries ony by one as String values in the country Object
+					//add the neighbouring Countries ony by one as String values in the country Object
 					int k = 0;
 					// k is initialized to get neighboring countries
 					for (String neighbourCountry : neighboursFromArray) {
@@ -119,7 +115,7 @@ public class MapModel {
 						k++;
 					}
 
-					//to list the countries depending on their continentName
+					//To list the countries depending on their continentName
 					//ex: NorthAmerica: Alaska, Canada etc
 					for (int i = 0; i < continentsList.size(); i++) {
 						if (continentsList.get(i).getContinentName().equals(belongsToContinent)) {
@@ -128,16 +124,13 @@ public class MapModel {
 							break;
 						}
 					}
-
-					//print.consoleOut(lineStream);
-
 				}
 			}
 
 
-			//in the array the neighbour and the country is NOT interconnected
-			//here, we are getting the country name as Country object as key, and each of the neighbours
-			//INdividually as string array. thus the country object is paired with neighbouring countries array
+			//In the array the neighbor and the country is NOT interconnected
+			//here, we are getting the country name as Country object as key, and each of the neighbors
+			//Individually as string array. thus the country object is paired with neighboring countries array
 			Country neighbours;
 			for (HashMap.Entry<Country, String[]> countryNeighbourPair : neighboursOfCountry.entrySet()) {
 				Country countryOfPair = countryNeighbourPair.getKey();
@@ -165,18 +158,18 @@ public class MapModel {
 
 	}
 
-/**
- * This method is used to read the content of map file while creating a map from scratch and saved in the directory.
- * @param mapContent,
- * @param nameOfMap
- * @return
- */
+	/**
+	 * This method is used to read the content of map file while creating a map from scratch and saved in the directory.
+	 * @param mapContent,
+	 * @param nameOfMap
+	 * @return
+	 */
 	private boolean readMapContentSaveInDirectory(StringBuffer mapContent, String nameOfMap) {
 		String mapDir = getMapDir();
 		Path path = Paths.get( nameOfMap + ".map");
 		BufferedWriter bw = null;
 		try {
-			// Delete temp file
+			// Delete temporary file from the directory
 			Path tempFilePath = Paths.get(mapDir+"temp" + ".map");
 			Files.deleteIfExists(tempFilePath);
 
@@ -267,24 +260,24 @@ public class MapModel {
 				}
 			}
 
-//			for (Country countriesInformation : getCountryList()) {
-//				for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
-//					String countryName = countriesInformation.getNeighboursString().get(i);
-//					if (!(neighbourString.contains(countryName))){
-//						neighbourString.add(countryName);
-//					}
-//				}
-//			}
-//
-//			for (Country countriesInformation : getCountryList()) {
-//				String countryName = countriesInformation.getCountryName();
-//				for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
-//					String sameAsNeighbor = countriesInformation.getNeighboursString().get(i);
-//					if(countryName.equals(sameAsNeighbor))
-//						print.consoleOut("Country ***" + sameAsNeighbor +" *** Can not be a neighbor of its own");
-//					aCountryIsNotOwnNeighbor= false;
-//				}
-//			}
+			//			for (Country countriesInformation : getCountryList()) {
+			//				for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
+			//					String countryName = countriesInformation.getNeighboursString().get(i);
+			//					if (!(neighbourString.contains(countryName))){
+			//						neighbourString.add(countryName);
+			//					}
+			//				}
+			//			}
+			//
+			//			for (Country countriesInformation : getCountryList()) {
+			//				String countryName = countriesInformation.getCountryName();
+			//				for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
+			//					String sameAsNeighbor = countriesInformation.getNeighboursString().get(i);
+			//					if(countryName.equals(sameAsNeighbor))
+			//						print.consoleOut("Country ***" + sameAsNeighbor +" *** Can not be a neighbor of its own");
+			//					aCountryIsNotOwnNeighbor= false;
+			//				}
+			//			}
 
 
 
@@ -293,9 +286,9 @@ public class MapModel {
 			//if the visitedList is same as the allCountryList then is is conclusive that the Map is connected
 			//otherwise the two lists would never be the same because visitedList adds elements only if can visit in DFS
 			Collections.sort(countriesForSorting);
-//						for(int i =0; i<countriesForSorting.size(); i++){
-//							System.out.println("#########"+countriesForSorting.get(i));
-//						}
+			//						for(int i =0; i<countriesForSorting.size(); i++){
+			//							System.out.println("#########"+countriesForSorting.get(i));
+			//						}
 			Collections.sort(neighbourString);
 			if(!(neighbourString.equals(countriesForSorting))){
 				for(int i = 0; i<neighbourString.size(); i++){
@@ -307,15 +300,15 @@ public class MapModel {
 			}
 
 
-//			for (Country countriesInformation : getCountryList()) {
-//				String countryName = countriesInformation.getCountryName();
-//				for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
-//					String sameAsNeighbor = countriesInformation.getNeighboursString().get(i);
-//					if(countryName.equals(sameAsNeighbor))
-//						print.consoleOut("Country *** " + sameAsNeighbor +" *** Can not be a neighbor of its own");
-//						aCountryIsNotOwnNeighbor= false;
-//				}
-//			}
+			//			for (Country countriesInformation : getCountryList()) {
+			//				String countryName = countriesInformation.getCountryName();
+			//				for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
+			//					String sameAsNeighbor = countriesInformation.getNeighboursString().get(i);
+			//					if(countryName.equals(sameAsNeighbor))
+			//						print.consoleOut("Country *** " + sameAsNeighbor +" *** Can not be a neighbor of its own");
+			//						aCountryIsNotOwnNeighbor= false;
+			//				}
+			//			}
 
 			// set the very first Country from the first Continent of the arrayList and set them as an starting
 			//for checking if a Map is a connected one.
@@ -330,15 +323,6 @@ public class MapModel {
 					!aCountryIsNotOwnNeighbor || !aCountryNotLeftUndefined ) {
 				return false;
 			}
-
-//			if(!oneCountryNotInDiffContinent)
-//				return false;
-//
-//			if(!aCountryIsNotOwnNeighbor)
-//				return false;
-//
-//			if(!aCountryNotLeftUndefined)
-//				return false;
 
 			if (visitedAndAllCountryListCheck(visitedList, countriesForSorting)) {
 				return true;
