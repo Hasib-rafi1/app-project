@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import org.junit.runners.Parameterized.Parameters;
+
 /**
  * This Class is to read and Validate the created or existing Map file according to the requirement
  * @author Zakiya Jafrin
@@ -366,9 +368,9 @@ public class MapModel {
 
 	/**
 	 * This is a recursive function which implements DFS algorithm to visit ALL the vertices(countries) one
-	 * by one starting from the first one -> this is only possible if all the vertices are inter-connected
+	 * by one starting from the first one = this is only possible if all the vertices are inter-connected
 	 * store all the visited vertices(countries) in an arrayList 'visitedList'
-	 * @param startingVertex
+	 * @param startingVertex check from the starting point
 	 */
 	public void depthFirstSearch(Country startingVertex){
 		visitedList.add(startingVertex.getCountryName());
@@ -394,8 +396,8 @@ public class MapModel {
 	 * checking the visitedList and allCountryList if they are same. If returns True, that proves DFS traversal
 	 * has visited all the nodes, thus connected. If returns False, then the graph is not connected. so the visitedList
 	 * and allCountryList are not same.
-	 * @param visitedList
-	 * @param allCountryList
+	 * @param visitedList visited list
+	 * @param allCountryList list of all countries
 	 * @return true if visited otherwise false
 	 */
 	public boolean visitedAndAllCountryListCheck(ArrayList<String> visitedList, ArrayList<String> allCountryList){
@@ -427,9 +429,12 @@ public class MapModel {
 	}
 
 
+
 	/**
 	 * This function is used to return the list of country names as ArrayList string type
 	 * @return countriesListString , list of countries
+	 * @param countriesList list of countries
+	 * 
 	 */
 	public ArrayList<String> countryListString(ArrayList<Country> countriesList) {
 		//		ArrayList<String> countriesListString = new ArrayList<>(countriesList.size());
@@ -534,7 +539,7 @@ public class MapModel {
 	 * This method is used to add country name to the continent.
 	 * @param continentID ID of the continent
 	 * @param continentName name of the continent
-	 * @return 
+	 * @return true if country is added
 	 *
 	 */
 	public boolean addCountryToContinentInMap(String continentName, int continentID) {
@@ -725,8 +730,8 @@ public class MapModel {
 	/**
 	 * This method is used to save the map into the directory when a user adds, delete
 	 * countries or continents from the map.
-	 * @param mapNameByUserInput 
-	 * @param mapPath 
+	 * @param mapNameByUserInput  name of map by user
+	 * @param mapPath directory of map files
 	 */
 	public void saveEditedMap(String mapNameByUserInput, String mapPath) {
 		StringBuffer textContentInFile = new StringBuffer();

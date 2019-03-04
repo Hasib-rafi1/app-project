@@ -10,7 +10,7 @@ import java.util.Collections;
 import static org.junit.Assert.*;
 
 public class MapModelTest {
-    private StringBuffer stringForValid;
+   private StringBuffer stringForValid;
     private StringBuffer stringForInValid;
     private ArrayList<String> continentsListTest = new ArrayList<>();
     private ArrayList<String> territoriesListTest = new ArrayList<>();
