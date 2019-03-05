@@ -20,7 +20,7 @@ public class CountryTest {
 
 	/**
 	 * this function is going to run before every function executes. It is initiating some predefined data
-	 * @throws Exception
+	 * @throws Exception if it is not setting the values at the starting 
 	 */
 	@Before
 	public void setUp() throws Exception {

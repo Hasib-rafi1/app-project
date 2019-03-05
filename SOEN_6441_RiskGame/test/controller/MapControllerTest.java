@@ -12,27 +12,17 @@ import org.junit.Test;
 
 import helper.PrintConsoleAndUserInput;
 /**
+ * This file test the test cases for the map controller class.
  * @author Gargi Sharma
  * @version 1.0.0
  *
  */
 public class MapControllerTest {
 
-	MapController mapcontroller = new MapController();
+	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	ArrayList<String> expectedMapFileListTest = new ArrayList<String>();
 	ArrayList<String> actualMapFileList = new ArrayList<String>();
 
-
-
-	@BeforeClass
-	public static void setUpBeforeClass()  {
-		System.out.println("These test cases are for map controller class.");
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass()  {
-		System.out.println("These test cases are for map controller class.");
-	}
 
 	/**
 	 * This is test Method which runs before each test case
@@ -57,7 +47,8 @@ public class MapControllerTest {
 	 */
 	@Test
 	public void testListofMapsinDirectory() {
-		File folder = new File(PrintConsoleAndUserInput.getMapDir());
+		File folder = new File(print.getMapDir());
+//		File folder = new File("src/mapFiles/");
 		File[] listOfFiles = folder.listFiles();
 		int i = 0, j = 1;
 		for(File file : listOfFiles){		    
@@ -68,7 +59,7 @@ public class MapControllerTest {
 			}
 			i++;
 		}
-		actualMapFileList= mapcontroller.listofMapsinDirectory();
+		actualMapFileList= print.listofMapsinDirectory();
 		assertEquals(expectedMapFileListTest, actualMapFileList);
 		//	assertEquals(expected, actual);
 	}

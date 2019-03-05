@@ -39,7 +39,7 @@ public class Player {
 
 	/**
 	 * This method is setting the value of playerId of a player object
-	 * @param playerId
+	 * @param playerId ID of player
 	 */
 	public void setPlayerId(int playerId) {
 		this.playerId = playerId;
@@ -55,7 +55,7 @@ public class Player {
 
 	/**
 	 * This is function is going to set the assigned army numbers in the specific object
-	 * @param numberOfInitialArmies
+	 * @param numberOfInitialArmies number of initial armies
 	 */
 	public void setNumberOfInitialArmies(int numberOfInitialArmies) {
 		this.numberOfInitialArmies = numberOfInitialArmies;
@@ -71,7 +71,7 @@ public class Player {
 
 	/**
 	 * This function is setting the reinforced army
-	 * @param noOfReinforcedArmies
+	 * @param noOfReinforcedArmies number of enforced armies
 	 */
 	public void setNumberOfReinforcedArmies(int noOfReinforcedArmies) {
 		this.numberOfReinforcedArmies = noOfReinforcedArmies;
@@ -87,7 +87,7 @@ public class Player {
 
 	/**
 	 * This function sets the name of the player
-	 * @param playerName
+	 * @param playerName name of player
 	 */
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
@@ -103,7 +103,7 @@ public class Player {
 
 	/**
 	 * Setting the color
-	 * @param color
+	 * @param color set color
 	 */
 	public void setColor(Colors color) {
 		this.color = color;

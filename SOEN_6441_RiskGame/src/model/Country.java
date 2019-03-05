@@ -6,9 +6,10 @@ import java.util.ArrayList;
  * This is a main class to read and store different elements of the country
  * @author Zakiya Jafrin
  * @author Jaiganesh
+ * @author Gargi
  * @version 1.0.0
  */
-public class Country {
+ public class Country {
 	private int countryId;
 	private String countryName;
 	private int continentID;
@@ -19,18 +20,35 @@ public class Country {
 	private Colors countryColor;
 
 
+	/**
+	 * This method is used to get played id.
+	 * @return playerId ID of the player
+	 */
 	public int getPlayerId() {
 		return playerId;
 	}
 
+	
+	/**
+	 * This method is used to set played id.
+	 * @param playerId ID of the player
+	 */
 	public void setPlayerId(int playerId) {
 		this.playerId = playerId;
 	}
 
+	/**
+	 * This method is used to get color of country
+	 * @return countryColor, get color of country
+	 */
 	public Colors getCountryColor() {
 		return countryColor;
 	}
 
+	/**
+	 * This method is used to set color of country
+	 * @param countryColor, color of country
+	 */
 	public void setCountryColor(Colors countryColor) {
 		this.countryColor = countryColor;
 	}
@@ -40,8 +58,8 @@ public class Country {
 
 	/**
 	 * The Constructor is created to set the all parameters of the country Element
-	 * @param countryId
-	 * @param countryName
+	 * @param countryId ID of country
+	 * @param countryName name of country
 	 */
 	public Country(int countryId, String countryName) {
 		this.countryId = countryId;
@@ -50,10 +68,10 @@ public class Country {
 
 	/**
 	 * The Constructor is created to set the all parameters of the country Element
-	 * @param countryId
-	 * @param countryName
-	 * @param xCoordinate
-	 * @param yCoordinate
+	 * @param countryId ID of country
+	 * @param countryName name of country
+	 * @param xCoordinate x coordinates  of country
+	 * @param yCoordinate y coordinates  of country
 	 */
 	public Country (int countryId, String countryName, int xCoordinate, int yCoordinate){
 		this.countryId = countryId;
@@ -61,9 +79,6 @@ public class Country {
 		this.xCoordinate =xCoordinate;
 		this.yCoordinate = yCoordinate;
 	}
-
-
-
 
 	/**
 	 * This method is used to get an integer value of the country which is set as Country ID
@@ -73,6 +88,10 @@ public class Country {
 		return countryId;
 	}
 
+	/**
+	 * This method is used to set country id.
+	 * @param countryId iD of country
+	 */
 	public void setCountryId(int countryId) {
 		this.countryId = countryId;
 	}
@@ -85,6 +104,10 @@ public class Country {
 		return countryName;
 	}
 
+	/**
+	 * This method is used to set country name.
+	 * @param countryName name of country
+	 */
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
 	}
@@ -98,6 +121,10 @@ public class Country {
 	}
 
 
+	/**
+	 * This method is used to set x coordinates
+	 * @param xCoordinate x coordinates  of country
+	 */
 	public void setxCoordinate(int xCoordinate) {
 		this.xCoordinate = xCoordinate;
 	}
@@ -110,14 +137,14 @@ public class Country {
 		return yCoordinate;
 	}
 
-
+	/**
+	 * This method is used to set y coordinates
+	 * @param yCoordinate y coordinates  of country
+	 */
 	public void setyCoordinate(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
-
-
-
-
+	
 	/**
 	 * This method is used to get an integer value of the continent which is set as Country ID
 	 * @return the continent ID.
@@ -125,10 +152,7 @@ public class Country {
 	public int getContinentID() {
 		return continentID;
 	}
-
-
-
-
+	
 	/**
 	 * This method is used to sets an integer value of the continent which is set as Country ID
 	 * @param continentID, ID of the continent
@@ -176,22 +200,40 @@ public class Country {
 		}
 	}
 
+	/**
+	 * This method is used to get number of armies
+	 * @return armyNumbers number of armies
+	 */
 	public int getnoOfArmies() {
 		return armyNumbers;
 	}
 
+	/**
+	 * This method is used to increment the count of army.
+	 */
 	public void increaseArmyCount() {
 		armyNumbers++;
 	}
 
+	/**
+	 * This method is used to increment the count of army and put the count in army numbers.
+	 * @param count count of the army
+	 */
 	public void increaseArmyCount(int count) {
 		armyNumbers += count;
 	}
 
+	/**
+	 * This method is used to decrease the count of army.
+	 */
 	public void decreseArmyCount() {
 		armyNumbers--;
 	}
 
+	/**
+	 * This method is used to decrement the count of army and put the count in army numbers.
+	 * @param count count of the army
+	 */
 	public void decreaseArmyCount(int count) {
 		armyNumbers -= count;
 	}

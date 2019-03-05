@@ -19,18 +19,18 @@ import helper.PrintConsoleAndUserInput;
  */
 public class GameControllerTest {
 
-	GameController game = new GameController();
+	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	ArrayList<String> mapFileListTest = new ArrayList<String>();
 	ArrayList<String> mapFileList = new ArrayList<String>();
 
 	/**
 	 * THis function is getting the map files and listing in an array list when starting the class
-	 * @throws Exception
+	 * @throws Exception if there is no files in the directory
 	 */
 	@Before
 	public void setUpBeforeClass() throws Exception {
 		getFileListFromFolder();
-		mapFileList= game.listofMapsinDirectory();
+		mapFileList= print.listofMapsinDirectory();
 
 	}
 

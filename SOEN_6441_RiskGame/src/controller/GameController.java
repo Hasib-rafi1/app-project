@@ -37,13 +37,24 @@ public class GameController {
 	 * This function is going to initializing the map by taking user input
 	 */
 	public void initializeMap() {
-		int i = 1;
-		print.consoleOut("List of Maps:");
-		listofMapsinDirectory();
+		print.listofMapsinDirectory();
 		print.consoleOut("\nEnter Map Name to load Map file:\n");
-		String mapPath = mapModel.getMapNameByUserInput();
-		mapModel.readMapFile(mapPath);
+		String mapPath = mapModel.getMapNameByUserInput();		
+		File tempFile = new File(mapPath);
+		boolean exists = tempFile.exists();
+		if (exists) {			
+			mapModel.readMapFile(mapPath);
+			mapModel.printMapValidOrNot();
+			if (!mapModel.checkMapIsValid()){
+				//print.consoleErr("****Error!! Invalid map name. Please try again with the valid name****");
+			}else {
+				initializeGame();
+			}
+		}else {
+			print.consoleErr("****File not found!!!. Please enter the coreect name of map.****");
+		}
 	}
+
 
 	/**
 	 * This method is setting up the board and game model
@@ -72,36 +83,7 @@ public class GameController {
 	}
 
 	/**
-	 * prints the lists of maps in the directory
-	 * @return ArrayList of String
-	 */
-	public ArrayList<String> listofMapsinDirectory(){
-		ArrayList<String> mapFileList = new ArrayList<String>();
-		File folder = new File(print.getMapDir());
-		File[] listOfFiles = folder.listFiles();
-		int i = 0, j = 1;
-		for(File file : listOfFiles)
-		{		    
-			if(file.isFile())
-			{
-				if (file.getName().toLowerCase().contains(".map"))
-				{
-					mapFileList.add(listOfFiles[i].getName());
-				}
-			}
-			i++;
-		}
-		print.consoleOut("\n"+ "The List of Maps is Given Below:-"+ "\n");
-		for (String s : mapFileList) 
-		{
-			print.consoleOut(j + "."+s);
-			j++;
-		}
-		return mapFileList;
-	}
-
-	/**
-	 * The functions is calling the listener functions 
+	 * This function is used to call the listener functions. 
 	 * 
 	 */
 	private void callListenerOnView(){
@@ -115,7 +97,6 @@ public class GameController {
 	 */
 	public void numberOfArmiesClickListener(){
 		boardView.addMapLabelsListener(new MouseAdapter() {
-
 			public void mouseClicked(MouseEvent e) {
 				JLabel jLabel=	(JLabel) e.getSource();
 				String country=jLabel.getToolTipText();
@@ -140,18 +121,16 @@ public class GameController {
 					int armyCount = game.getArmiesAssignedToCountry(countryName);
 					boardView.combo_fillDestinationCountry(neighborCountries);
 					boardView.combo_fillArmyToMove(armyCount);
-
 				}
 			}
 		});
 	}
 
 	/**
-	 * To update view
+	 * This method is to update the board view.
 	 */
 	public void addMoveArmyButtonListener(){
 		boardView.moveArmyButtonListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent  e) {
 				if (game.getGamePhase()==GamePhase.Fortification) {
 					game.fortificationPhase(boardView.getSourceCountry(),boardView.getDestinationCountry(),boardView.combo_getArmyToMove());

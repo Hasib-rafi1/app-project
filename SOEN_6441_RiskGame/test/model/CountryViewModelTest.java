@@ -18,7 +18,7 @@ public class CountryViewModelTest {
 
 	/**
 	 * Initializing objects and values for the test cases
-	 * @throws Exception
+	 * @throws Exception if it is not setting the values at the starting
 	 */
 
 	@Before
