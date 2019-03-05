@@ -1,0 +1,8 @@
+[Continents]
+c1=12
+c2=21
+
+[Territories]
+country1,12,123,c1,country2
+country2,22,133,c1,country3
+country3,32,143,c2,country1,country2
