@@ -24,7 +24,6 @@ import helper.PrintConsoleAndUserInput;
  * @author Jaiganesh
  * @version 1.0.0
  */
-
 public class GameController {
 
 	Game game;	
