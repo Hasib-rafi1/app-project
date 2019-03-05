@@ -97,6 +97,7 @@ public class Game extends Observable {
 		}
 		notifyObserverslocal(this);
 	}
+	
 	/**
 	 * This method assigns the player to the corresponding country. 
 	 * @param player player
@@ -170,6 +171,7 @@ public class Game extends Observable {
 		assignUnassigned(player,country);
 		return true;
 	}
+	
 	/**
 	 * This method adds armies to the country during the reinforcement phase and returns when successful. 
 	 * @param countryName name of country
@@ -200,6 +202,7 @@ public class Game extends Observable {
 		assignReinforcement(player,country);
 		return true;
 	}
+	
 	/**
 	 * This method initializes the reinforcement phase for each player by adding corresponding number of armies. 
 	 */
@@ -230,6 +233,7 @@ public class Game extends Observable {
 		System.out.println("Countries Count:" + countries_count);
 		player.setNumberOfReinforcedArmies(countries_count);
 	}
+	
 	/**
 	 * This method calculates the corresponding reinforcement armies from a particular player from the number of countries owned by the layer.
 	 * @param player Player
@@ -263,7 +267,6 @@ public class Game extends Observable {
 			this.setGamePhase(gamePhase.Reinforcement);
 		}
 	}
-
 
 	//Functions called by addSourceCountriesListener() from the GameController.
 	/**

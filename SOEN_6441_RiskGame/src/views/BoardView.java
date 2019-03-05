@@ -35,11 +35,12 @@ import model.Country;
 import model.CountryViewModel;
 import helper.GamePhase;
 /**
- * Risk game view designed in gui 
+ * This class implements the Risk game view designed in gui 
  * @author naren
  * @version 1.0.0
  */
 public class BoardView implements Observer {
+	
 	// Board Initialization
 	private static JFrame frame_gameWindow ;
 	private static JPanel panel_gameAction;
@@ -219,7 +220,8 @@ public class BoardView implements Observer {
 		lab_gamePhase = new JLabel();
 		lab_gamePhase.setBorder(
 				BorderFactory.createTitledBorder(null, "Current Phase", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+						TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.BLUE));
+	
 		lab_gamePhase.setBounds(pane_mapScrollPane.getWidth()+20, pane_mapScrollPane.getY(), 490, 100);
 
 		lab_nameofPhase = new JLabel("Initialization");
@@ -246,7 +248,7 @@ public class BoardView implements Observer {
 		lab_playersTurn = new JLabel(activePlayerName);
 		Font font = new Font("Courier", Font.BOLD, 24);
 		lab_playersTurn.setFont(font);
-		lab_playersTurn.setBorder(new TitledBorder("Active Player"));
+		lab_playersTurn.setBorder(new TitledBorder("Active Player Name"));
 		lab_playersTurn.setBounds(15, 25, 220, 70);
 
 		lab_armiesLeft = new JLabel("" + activePlayerUnassignedArmiesCount);
@@ -308,7 +310,7 @@ public class BoardView implements Observer {
 		combo_armyToMove = new JComboBox(NoOfArmies.toArray());
 		combo_armyToMove.setBounds(combo_countrySource.getX(), combo_countrySource.getHeight() + combo_countrySource.getY() + 7,
 				combo_countrySource.getWidth(), combo_countrySource.getHeight());
-		combo_armyToMove.setBorder(new TitledBorder("Total number of army to move"));
+		combo_armyToMove.setBorder(new TitledBorder("Total number of armies to move"));
 
 		button_moveFortification.setBounds(combo_countryDestination.getX(), combo_armyToMove.getY(),
 				combo_countryDestination.getWidth(), combo_countryDestination.getHeight());
