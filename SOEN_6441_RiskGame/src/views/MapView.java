@@ -29,7 +29,7 @@ public class MapView {
 	public int displayMapMenu() {
 		print.consoleOut("\n*********************************");
 		print.consoleOut("\t Map Generator menu\t");
-		print.consoleOut("1. Import Map From File");
+		print.consoleOut("1. Verify Map file");
 		print.consoleOut("2. Create a New Map from scratch");
 		print.consoleOut("3. Edit The Map");
 		print.consoleOut("4. Back to The Main Menu");
@@ -110,7 +110,7 @@ public class MapView {
 		frameWindow.setTitle("Map Generator for Risk Board Game");
 		frameWindow.setPreferredSize(new Dimension(1200, 800));
 		frameWindow.add(textParameters);
-		textParameters.setFont(new Font("Serif", Font.BOLD,18));
+		textParameters.setFont(new Font("Serif", Font.BOLD,24));
 		frameWindow.add(panelWindow, BorderLayout.SOUTH);
 		frameWindow.pack();
 		frameWindow.setVisible(true);

@@ -1,6 +1,5 @@
 package controller;
 
-import controller.MainMenu;
 import controller.MapController;
 import helper.PrintConsoleAndUserInput;
 
@@ -11,6 +10,7 @@ import helper.PrintConsoleAndUserInput;
  * @version 1.0.0
  */
 public class MainController {
+	
 	/**
 	 * This is a main method to run the game.
 	 * This function is used to enter the user input and call the functions to create or edit the map, start, load the game
@@ -21,7 +21,6 @@ public class MainController {
 	 */
 	public static void main(String[] args) {
 
-		MainMenu mainMenu = new MainMenu();
 		MapController mapController = new MapController();
 		PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 		GameController gameController = new GameController();
@@ -29,7 +28,7 @@ public class MainController {
 		int selectMainMenuOption = 0;
 		boolean checkMapStatus = false;
 		do {
-			selectMainMenuOption = mainMenu.displaymainMenu();
+			selectMainMenuOption = displaymainMenu();
 			switch (selectMainMenuOption)
 			{
 			case 1:
@@ -49,5 +48,23 @@ public class MainController {
 		}
 		while (selectMainMenuOption != 5);
 		System.exit(0);
+	}
+	
+	/**
+	 * This is the method for Displaying main menu for game. 
+	 * This function is used to show the user input to create or edit the map, start, load the game
+	 * and user can exit if he wants to exit the game.
+	 * @return userIntInput
+	 */
+	public static int displaymainMenu() {
+		PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+		print.consoleOut("\n*********************************");
+		print.consoleOut("\t Risk Game\t");
+		print.consoleOut("1.Map Generator");
+		print.consoleOut("2.Start Game");
+		print.consoleOut("3.Exit Game");
+		print.consoleOut("\n*********************************");
+		print.consoleOut("Please Enter Your Choice from the list: ");
+		return print.userIntInput();
 	}
 }

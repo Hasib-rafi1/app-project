@@ -16,12 +16,14 @@ import views.MapView;
  * @author Zakiya Jafrin
  * @version 1.0.0
  */
+
 public class MapController {
 	Scanner scanner = new Scanner(System.in);
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 	MapView mapView = new MapView();
 	MapModel mapModel = new MapModel();
-	MainMenu mainMenu = new MainMenu();
+	MainController maincontroller = new MainController();
+
 
 	// It stores all the continents of map File in this list
 	ArrayList<Continent> continentsList = new ArrayList<>();
@@ -29,19 +31,16 @@ public class MapController {
 
 	/**
 	 *
-	 * This method is used to select the map options(like import, design a new map, save a map).
-	 *
+	 * This method is used to select the map options(like import, design a new map, save a map).	 *
 	 * @return userinput
 	 */
 	public boolean generateMap() {
 		int selectMapMenuOption = 0;
-
 		while (selectMapMenuOption != 3){
 			selectMapMenuOption = mapView.displayMapMenu();
 			switch (selectMapMenuOption) {
 
 			case 1: // Import map file
-
 				print.listofMapsinDirectory();
 
 				// Check if the entered map file name is exists in directory or not
@@ -53,11 +52,11 @@ public class MapController {
 				break;
 
 			case 3: // Edit map
-				editMap();
+				editExistingMapFile();
 				break;
 
 			case 4: // Back to main menu
-				mainMenu.displaymainMenu();
+				maincontroller.displaymainMenu();
 				break;
 			}
 
@@ -86,9 +85,9 @@ public class MapController {
 				checkMapIsCreated = mapModel.createValidateAndSaveMap(mapContent, mapName);
 
 				if (checkMapIsCreated) {
-					print.consoleOut("Map has been created successfully in "+print.getMapDir()+ " as " +mapName+".map");
+					print.consoleOut(" ****Map has been created successfully in "+print.getMapDir()+ " as " +mapName+".map ****");
 				} else {
-					print.consoleErr("Error!!!! Map has not been created successfully!");
+					print.consoleErr("**** Error!!!! Map has not been created successfully! ****");
 				}
 				mapView.closeFrameWindow();
 			}
@@ -105,13 +104,8 @@ public class MapController {
 		if (exists) {
 			mapModel.readMapFile(mapPath);
 			mapModel.printMapValidOrNot();
-			//  mapModel.printMapValidOrNot();
-			// mapModel.printingContinents();   // this method print continents
-			//mapModel.printingTerritoriesAndNeighborCountries(); // this method print territories
-			//mapModel.printNeighboursGivenContry(); //prints the neighbours of a country given a country name
 		} else {
 			print.consoleErr("File not found!!!. Please enter the coreect name of map.");
-
 		}
 	}
 
@@ -121,7 +115,7 @@ public class MapController {
 	 * @version 1.0.0
 	 * This method is used to edit the map.
 	 */
-	public void editMap() {
+	public void editExistingMapFile() {
 		// Printing all the map files
 		print.listofMapsinDirectory();
 		
@@ -142,7 +136,6 @@ public class MapController {
 				print.consoleErr(mapNameByUserInput+ ".map  is not valid");
 			}else {
 				print.consoleOut(mapNameByUserInput+ ".map  is valid");
-
 
 				int inputForEditMap = -1;
 				while (inputForEditMap != 5) {
@@ -175,8 +168,6 @@ public class MapController {
 						}else{
 							print.consoleErr("Invalid Map! Try again!!!");
 						}
-
-
 						break;
 
 					case 3:  // 3. Delete Continent from map?
@@ -215,7 +206,7 @@ public class MapController {
 						if(checkCountryIsDeleted){				
 							if (mapModel.checkMapIsValid()){
 								mapModel.saveEditedMap(mapNameByUserInput,mapPath);
-								print.consoleOut("Country "+deleteCountryNameByUser+" has been deleted successfuly!");
+								print.consoleOut(deleteCountryNameByUser+" has been deleted successfuly!");
 							}
 							else{
 								print.consoleErr("Map is invalid!");
@@ -239,7 +230,7 @@ public class MapController {
 
 			}
 		} else {
-			print.consoleErr("****File not found!!!. Please enter the coreect name of map.****");
+			print.consoleErr("****File not found!!!. Please enter the correct map name.****");
 
 		}
 

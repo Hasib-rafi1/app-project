@@ -230,14 +230,14 @@ public class MapModel {
 				if(continent.getCountryList().isEmpty()){
 					atLeastOneCountryInOneContinent = false;
 					print.consoleErr("\n Each continent should have at least one country.\n **"+
-							continent.getContinentName() + "** is not assigned with any country");
+							continent.getContinentName() + "** is not assigned with any country.\n");
 				}
 				for(Country country : continent.getCountryList()){
 					if(growingCountryList.contains(country.getCountryName())){
 						oneCountryNotInDiffContinent = false;
 
 						print.consoleErr("\nA Country cannot belong to different continents.\n **" + country.getCountryName() +
-								"** is assigned in multiple Continents");
+								"** is assigned in multiple Continents.\n");
 					}else {
 						growingCountryList.add(country.getCountryName());
 					}
@@ -260,7 +260,7 @@ public class MapModel {
 				}
 			}
 
-			//			for (Country countriesInformation : getCountryList()) {
+			/*		//			for (Country countriesInformation : getCountryList()) {
 			//				for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
 			//					String countryName = countriesInformation.getNeighboursString().get(i);
 			//					if (!(neighbourString.contains(countryName))){
@@ -278,17 +278,14 @@ public class MapModel {
 			//					aCountryIsNotOwnNeighbor= false;
 			//				}
 			//			}
+			 */
 
 
-
-			//TODO two Countries Can not have same x, y co-ordinates;
 
 			//if the visitedList is same as the allCountryList then is is conclusive that the Map is connected
 			//otherwise the two lists would never be the same because visitedList adds elements only if can visit in DFS
 			Collections.sort(countriesForSorting);
-			//						for(int i =0; i<countriesForSorting.size(); i++){
-			//							System.out.println("#########"+countriesForSorting.get(i));
-			//						}
+
 			Collections.sort(neighbourString);
 			if(!(neighbourString.equals(countriesForSorting))){
 				for(int i = 0; i<neighbourString.size(); i++){
@@ -300,7 +297,7 @@ public class MapModel {
 			}
 
 
-			//			for (Country countriesInformation : getCountryList()) {
+			/*			//			for (Country countriesInformation : getCountryList()) {
 			//				String countryName = countriesInformation.getCountryName();
 			//				for (int i = 0; i < countriesInformation.getNeighboursString().size(); i++) {
 			//					String sameAsNeighbor = countriesInformation.getNeighboursString().get(i);
@@ -309,15 +306,15 @@ public class MapModel {
 			//						aCountryIsNotOwnNeighbor= false;
 			//				}
 			//			}
+			 */
 
-			// set the very first Country from the first Continent of the arrayList and set them as an starting
-			//for checking if a Map is a connected one.
+			// Set the very first Country from the first Continent of the arrayList and set them as an starting
+			// For checking if a Map is a connected one.
 			Country startingVertex = ((this.continentsList.get(0)).getCountryList()).get(0);
 			visitedList.clear();
 
 			depthFirstSearch(startingVertex);
 			Collections.sort(visitedList);
-
 
 			if(!atLeastOneCountryInOneContinent || !oneCountryNotInDiffContinent ||
 					!aCountryIsNotOwnNeighbor || !aCountryNotLeftUndefined ) {
@@ -331,7 +328,6 @@ public class MapModel {
 				return false;
 			}
 
-
 		}catch (Exception e){
 			print.printException(e);
 			return false;
@@ -341,7 +337,6 @@ public class MapModel {
 	/**
 	 * This method is used to print that map is valid or not.
 	 */
-
 	public void printMapValidOrNot(){
 		if(checkMapIsValid()){
 			print.consoleOut("\n ******* This Map is Valid *******\n ");
@@ -375,6 +370,7 @@ public class MapModel {
 			}
 		}
 	}
+
 
 	/**
 	 * checking the visitedList and allCountryList if they are same. If returns True, that proves DFS traversal
@@ -411,8 +407,6 @@ public class MapModel {
 		}
 		return countriesList;
 	}
-
-
 
 	/**
 	 * This function is used to return the list of country names as ArrayList string type
@@ -562,7 +556,7 @@ public class MapModel {
 				int incrementCounterForNeighborCountries =  (k + 1);
 				print.consoleOut("Input the country name for adjacency country number: " + incrementCounterForNeighborCountries);
 				String neighbourName = userinput.nextLine();
-				System.out.println(neighbourName+"-----");
+				//System.out.println(neighbourName+"-----");
 				country.addNeighborString(neighbourName);
 				for (Country countryList: getCountryList()) {
 					if (countryList.getCountryName().equalsIgnoreCase(neighbourName)){
@@ -714,10 +708,6 @@ public class MapModel {
 		return continentsList;
 	}
 
-
-
-
-
 	/**
 	 * This method is used to save the map into the directory when a user adds, delete
 	 * countries or continents from the map.
@@ -778,7 +768,7 @@ public class MapModel {
 
 
 	/**
-	 * This method is printing continents
+	 * This method is printing continents in the list.
 	 */
 	public void printingContinents() {
 		print.consoleOut("**************List of Continents*****************\n");
@@ -866,7 +856,10 @@ public class MapModel {
 	}
 
 
-
+	/**
+	 * This function sets the map directory path.
+	 * @param mapPath path of map directory
+	 */
 	public void setMapPath(String mapPath) {
 		this.mapPath = mapPath;
 	}
