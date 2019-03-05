@@ -17,6 +17,8 @@ public class GameTest {
 	Player player1;
 	Player player2;
 	Player player3;
+	Player player4;
+	Player player5;
 	int id =0;
 
 	/**
@@ -31,9 +33,13 @@ public class GameTest {
 		player1 = new Player(0,"Jai");
 		player2 = new Player(1,"Gargi");
 		player3 = new Player(2,"Zakia");
+		player4 = new Player(3,"Narendra");
+		player5 = new Player(4,"Rafi");
 		gameObject.addPlayer(player1);
 		gameObject.addPlayer(player2);
 		gameObject.addPlayer(player3);
+		gameObject.addPlayer(player4);
+		gameObject.addPlayer(player5);
 		gameObject.startGame();
 
 		while (gameObject.getGamePhase() == GamePhase.Startup) {
@@ -43,6 +49,9 @@ public class GameTest {
 			gameObject.addingCountryArmy(playerCountries.get(id).getCountryName());
 
 			id++;
+			if(id==8) {
+				id = 0;
+			}
 		}
 	}
 
@@ -61,7 +70,7 @@ public class GameTest {
 	public void testCalculationOfReinforcementArmies() {
 		Player player = gameObject.getCurrentPlayer();
 		int a = gameObject.calculationForNumberOfArmiesInReinforcement(player);
-		assertEquals(4, a);
+		assertEquals(3, a);
 	}
 
 	/**
