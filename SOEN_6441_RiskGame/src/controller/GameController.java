@@ -66,19 +66,23 @@ public class GameController {
 		boardView=new BoardView();
 		game.addObserver(boardView);
 
-		print.consoleOut("\nEnter the number of Players 3-5:");
+		print.consoleOut("\nEnter the number of Players between 3-5:");
 		int playerCount = Integer.parseInt(userinput.nextLine());
 
-		for (int i = 0; i < playerCount ; i++) {
-			print.consoleOut("\nEnter the name of Player " + j);
-			String name = userinput.nextLine();
-			Player player = new Player(i,name);
-			game.addPlayer(player);
-			j++;
-		}	
-		game.startGame();
-		boardView.gameWindowLoad();	
-		callListenerOnView();
+		if(playerCount < 3 || playerCount > 5) {
+			print.consoleErr("**** Error!!! Please enter the number of Players between 3-5. ****");
+		} else {
+			for (int i = 0; i < playerCount ; i++) {
+				print.consoleOut("\nEnter the name of Player " + j);
+				String name = userinput.nextLine();
+				Player player = new Player(i,name);
+				game.addPlayer(player);
+				j++;
+			}	
+			game.startGame();
+			boardView.gameWindowLoad();	
+			callListenerOnView();
+		}
 	}
 
 	/**
