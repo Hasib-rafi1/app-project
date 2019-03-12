@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Collectors;
+
 import java.util.Collections;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
@@ -259,10 +260,14 @@ public class Game extends Observable {
 		} 
 		else if (this.getGamePhase() == gamePhase.Reinforcement) {	
 			if (getCurrentPlayer().getNumberOfReinforcedArmies() == 0) {
-				this.setGamePhase(gamePhase.Fortification);
+				this.setGamePhase(gamePhase.Attack);
 			}
 
 		} 
+		else if (this.getGamePhase() ==  gamePhase.Attack) {
+			this.setGamePhase(gamePhase.Fortification);
+			notifyObserverslocal(this);
+		}
 		else if (this.getGamePhase() == gamePhase.Fortification) {
 			this.setGamePhase(gamePhase.Reinforcement);
 		}
