@@ -8,6 +8,8 @@ import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+
+
 import java.util.Collections;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
@@ -622,5 +624,46 @@ public class Game extends Observable {
 			}
 		}
 		return allowableAttackingArmies;
+	}
+	
+	/**
+	 * Method for  attack phase where attack will handled
+	 * @param attackerCountry, Attacking Country in String
+	 * @param defenderCountry, Defending country in String
+	 * @param attackerDiceCount, Attacking Dice Count
+	 * @param defendergDiceCount, Defending Dice Count
+	 * @return true, if attack done
+	 */
+	public Boolean attackPhase(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
+
+		Country attCountry = mapModel.getCountryFromName(attackerCountry);
+		Country defCountry = mapModel.getCountryFromName(defenderCountry);
+
+		if (attCountry == null || defCountry == null) {
+			return false;
+		}
+
+		if (defCountry.getnoOfArmies() < defendergDiceCount) {
+			return false;
+		}
+
+		Player defenderPlayer = playerList.stream().filter(p -> p.getPlayerId()==defCountry.getPlayerId())
+				.findAny().orElse(null);
+
+		if (defenderPlayer == null) {
+			return false;
+		}
+
+//		getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount);
+//
+//		if (isMapConquered()) {
+//			isMapConqueredFlag = true;
+//		} else if (!getCurrentPlayer().isAttackPossible()) {
+//			updatePhase();
+//		}
+
+		notifyObserverslocal(this);
+
+		return true;
 	}
 }

@@ -86,9 +86,9 @@ public class BoardView implements Observer {
 	private static JComboBox<String> combo_countryDestination;
 	private static JComboBox<String> combo_armyToMove;
 	private static JButton button_moveFortification = new JButton("Move Army");
-	
+
 	// Player World Domination Button
-		private static JButton button_playerWorldDominationView;
+	private static JButton button_playerWorldDominationView;
 
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int screen_height = screenSize.height;
@@ -105,6 +105,8 @@ public class BoardView implements Observer {
 	String mapPath =obj_print.getMapDir()+ "World.bmp" ;
 	ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
 	GamePhase phase;
+
+	//----------------------------- View Update Function ---------------------------
 	/**
 	 * method to perform all the actions 
 	 */
@@ -181,6 +183,7 @@ public class BoardView implements Observer {
 		}
 	}
 
+	//-------------------------- Board View Initializer ---------------------------------
 	/**
 	 * Method that loads up the GUI window
 	 */
@@ -203,7 +206,7 @@ public class BoardView implements Observer {
 	}
 
 
-
+	//------------------------ Map View initializing -----------------------------
 	/**
 	 * This method is initializing the jframe and importing the map file and country related data
 	 */
@@ -244,6 +247,7 @@ public class BoardView implements Observer {
 		frame_gameWindow.add(panel_gameAction);
 	}
 
+	//-------------------------------  Game Phase details ---------------------------
 	/**
 	 * Method that updates the phase of the game
 	 */
@@ -264,7 +268,7 @@ public class BoardView implements Observer {
 		panel_gameAction.add(lab_gamePhase);
 	}
 
-
+	//--------------------------- initial Phase Start -----------------------------
 	/**
 	 * Method for initialization of game view
 	 */
@@ -293,6 +297,8 @@ public class BoardView implements Observer {
 		lab_initialisation.add(lab_armiesLeft);
 		panel_gameAction.add(lab_initialisation);
 	}
+
+	//------------------------------- Reinforcement Phase ------------------------------
 	/**
 	 * Method for reinforcement implementation
 	 */
@@ -314,6 +320,7 @@ public class BoardView implements Observer {
 		panel_gameAction.add(lab_reinforcement);
 	}
 
+	//------------------------------------ Attack phase ---------------------------------
 	/**
 	 * Method used to perform Attack phase of game
 	 */
@@ -373,6 +380,7 @@ public class BoardView implements Observer {
 
 	}
 
+	//------------------------ Fortification View Initial ------------------------------
 	/**
 	 * Method for fortification implementation
 	 */
@@ -412,8 +420,8 @@ public class BoardView implements Observer {
 		lab_fortification.setVisible(false);
 		panel_gameAction.add(lab_fortification);
 	}
-	
-	
+
+	// ----------------------------- Player Domination Button Initialzed ------------------
 	/**
 	 * Method to display world domination view for each player
 	 */
@@ -423,6 +431,8 @@ public class BoardView implements Observer {
 		panel_gameAction.add(button_playerWorldDominationView);
 	}
 
+
+	//--------------------------------- Listener Initialization -------------------------
 	/**
 	 * method to use for the mouse event for the map labels
 	 * @param listener MouseListener
@@ -443,6 +453,41 @@ public class BoardView implements Observer {
 		combo_countrySource.addActionListener(listener);
 	}
 
+	/**
+	 * method to add a listener in the combobox of the attacker country
+	 * @param listener ActionListener
+	 */
+	public void addActionListenToAttackerCountryList(ActionListener listener) {
+		combo_attackerCountry.addActionListener(listener);
+	}
+
+	/**
+	 * method to add a listener in the combobox of the defender country
+	 * @param listener ActionListener
+	 */
+	public void addActionListenToDefenderCountryList(ActionListener listener) {
+		combo_defenderCountry.addActionListener(listener);
+	}
+
+	/**
+	 * Method for performing action listener on move army button
+	 * @param listener ActionListener
+	 */
+	public void moveArmyButtonListener(ActionListener listener) {
+		button_moveFortification.addActionListener(listener);
+	}
+	
+	/**
+	 * Method for performing action listener on attack Button
+	 * 
+	 * @param listener
+	 *            ActionListener
+	 */
+	public void addActionListenToAttackButton(ActionListener listener) {
+		button_attack.addActionListener(listener);
+	}
+
+	//--------------------- General Functions for data gathering ---------------- 
 
 	/**
 	 * Static method to get selected source country
@@ -467,24 +512,9 @@ public class BoardView implements Observer {
 		}
 
 	}
-	
-	
-	/**
-	 * method to add a listener in the combobox of the attacker country
-	 * @param listener ActionListener
-	 */
-	public void addActionListenToAttackerCountryList(ActionListener listener) {
-		combo_attackerCountry.addActionListener(listener);
-	}
-	
-	/**
-	 * method to add a listener in the combobox of the defender country
-	 * @param listener ActionListener
-	 */
-	public void addActionListenToDefenderCountryList(ActionListener listener) {
-		combo_defenderCountry.addActionListener(listener);
-	}
-	
+
+
+
 	/**
 	 * Static method to get selected attacker country
 	 * @return selectedCountry
@@ -493,20 +523,11 @@ public class BoardView implements Observer {
 		return (String)combo_attackerCountry.getSelectedItem();
 
 	}
-	
-	/**
-	 * Static method to get selected attacker country
-	 * @return selectedCountry
-	 */
-	public static String getDefenderCountry() {
-		return (String)combo_defenderCountry.getSelectedItem();
 
-	}
-	
 	/**
 	 * method to add countries to the attacker country combo box
 	 */
-	
+
 	public void combo_attackerCountry(){
 		combo_attackerCountry.removeAllItems();
 		for (int i = 0; i < countryList.size(); i++) {
@@ -517,18 +538,17 @@ public class BoardView implements Observer {
 		}
 
 	}
+
 	/**
-	 * Method is populating value in the destination phase combobox 
-	 * @param destinationCountries ArrayList
-	 */	
-	public void combo_fillDestinationCountry(ArrayList<String> destinationCountries){   
-		combo_countryDestination.removeAllItems();
-		for(String countryName : destinationCountries) {
-			combo_countryDestination.addItem(countryName);
-		}
+	 * Static method to get selected attacker country
+	 * @return selectedCountry
+	 */
+	public static String getDefenderCountry() {
+		return (String)combo_defenderCountry.getSelectedItem();
 
 	}
-	
+
+
 	/**
 	 * Method is populating value in the destination phase combobox 
 	 * @param defenderCountries ArrayList
@@ -542,23 +562,15 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * Method to add the possible number of the army the player can move
-	 * @param NoOfArmies int
-	 * 
-	 */
-	public void combo_fillArmyToMove(int NoOfArmies){   
-		combo_armyToMove.removeAllItems();
-		for(Integer i=0;i<NoOfArmies;i++)
-			combo_armyToMove.addItem(i.toString());		
-	}
+	 * Method is populating value in the destination phase combobox 
+	 * @param destinationCountries ArrayList
+	 */	
+	public void combo_fillDestinationCountry(ArrayList<String> destinationCountries){   
+		combo_countryDestination.removeAllItems();
+		for(String countryName : destinationCountries) {
+			combo_countryDestination.addItem(countryName);
+		}
 
-
-	/**
-	 * Method for performing action listener on move army button
-	 * @param listener ActionListener
-	 */
-	public void moveArmyButtonListener(ActionListener listener) {
-		button_moveFortification.addActionListener(listener);
 	}
 
 	/**
@@ -577,6 +589,17 @@ public class BoardView implements Observer {
 		}
 	}
 
+	/**
+	 * Method to add the possible number of the army the player can move
+	 * @param NoOfArmies int
+	 * 
+	 */
+	public void combo_fillArmyToMove(int NoOfArmies){   
+		combo_armyToMove.removeAllItems();
+		for(Integer i=0;i<NoOfArmies;i++)
+			combo_armyToMove.addItem(i.toString());		
+	}
+
 
 	/**
 	 * Static method to get number of army the player wants to move
@@ -590,7 +613,7 @@ public class BoardView implements Observer {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * Method used to populate value in the attacker dice
 	 * 
@@ -601,6 +624,15 @@ public class BoardView implements Observer {
 		for (int i = 1; i <= allowableDices; i++) {
 			combo_attackerNoOfDice.addItem(Integer.toString(i));
 		}
+	}
+
+	/**
+	 * Static method to get selected attacker dice no
+	 * @return selectedCountry
+	 */
+	public static int getAttackerDiceNo() {
+		return (int)combo_attackerNoOfDice.getSelectedItem();
+
 	}
 	
 	/**
@@ -613,5 +645,14 @@ public class BoardView implements Observer {
 		for (int i = 1; i <= allowableDices; i++) {
 			combo_defenderNoOfDice.addItem(Integer.toString(i));
 		}
+	}
+	
+	/**
+	 * Static method to get selected defender dice no
+	 * @return selectedCountry
+	 */
+	public static int getDefenderDiceNo() {
+		return (int)combo_attackerNoOfDice.getSelectedItem();
+
 	}
 }
