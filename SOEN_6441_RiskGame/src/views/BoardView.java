@@ -170,6 +170,7 @@ public class BoardView implements Observer {
 				lab_nameofPhase.setForeground(Color.BLUE);
 				lab_attack.setVisible(true);
 				lab_fortification.setVisible(false);
+				combo_attackerCountry();
 			} else if (game.getGamePhase() == GamePhase.Fortification) {
 				lab_nameofPhase.setText("Fortification");
 				lab_nameofPhase.setForeground(Color.MAGENTA);
@@ -466,7 +467,56 @@ public class BoardView implements Observer {
 		}
 
 	}
+	
+	
+	/**
+	 * method to add a listener in the combobox of the attacker country
+	 * @param listener ActionListener
+	 */
+	public void addActionListenToAttackerCountryList(ActionListener listener) {
+		combo_attackerCountry.addActionListener(listener);
+	}
+	
+	/**
+	 * method to add a listener in the combobox of the defender country
+	 * @param listener ActionListener
+	 */
+	public void addActionListenToDefenderCountryList(ActionListener listener) {
+		combo_defenderCountry.addActionListener(listener);
+	}
+	
+	/**
+	 * Static method to get selected attacker country
+	 * @return selectedCountry
+	 */
+	public static String getAttackerCountry() {
+		return (String)combo_attackerCountry.getSelectedItem();
 
+	}
+	
+	/**
+	 * Static method to get selected attacker country
+	 * @return selectedCountry
+	 */
+	public static String getDefenderCountry() {
+		return (String)combo_defenderCountry.getSelectedItem();
+
+	}
+	
+	/**
+	 * method to add countries to the attacker country combo box
+	 */
+	
+	public void combo_attackerCountry(){
+		combo_attackerCountry.removeAllItems();
+		for (int i = 0; i < countryList.size(); i++) {
+			CountryViewModel temp_cname = countryList.get(i);
+			if (activePlayerId == temp_cname.getPlayerID()&& temp_cname.getNumberOfArmies()>1) {
+				combo_attackerCountry.addItem(temp_cname.getCountryName());
+			}
+		}
+
+	}
 	/**
 	 * Method is populating value in the destination phase combobox 
 	 * @param destinationCountries ArrayList
@@ -475,6 +525,18 @@ public class BoardView implements Observer {
 		combo_countryDestination.removeAllItems();
 		for(String countryName : destinationCountries) {
 			combo_countryDestination.addItem(countryName);
+		}
+
+	}
+	
+	/**
+	 * Method is populating value in the destination phase combobox 
+	 * @param defenderCountries ArrayList
+	 */	
+	public void combo_fillDefendersCountry(ArrayList<String> defenderCountries){   
+		combo_defenderCountry.removeAllItems();
+		for(String countryName : defenderCountries) {
+			combo_defenderCountry.addItem(countryName);
 		}
 
 	}
@@ -527,5 +589,29 @@ public class BoardView implements Observer {
 			return NoOfArmies;
 		}
 		return 0;
+	}
+	
+	/**
+	 * Method used to populate value in the attacker dice
+	 * 
+	 * @param allowableDices
+	 */
+	public void setAttackerDiceComboBox(int allowableDices) {
+		combo_attackerNoOfDice.removeAllItems();
+		for (int i = 1; i <= allowableDices; i++) {
+			combo_attackerNoOfDice.addItem(Integer.toString(i));
+		}
+	}
+	
+	/**
+	 * Method used to populate value in the defender dice
+	 * 
+	 * @param allowableDices
+	 */
+	public void setDefenderDiceComboBox(int allowableDices) {
+		combo_defenderNoOfDice.removeAllItems();
+		for (int i = 1; i <= allowableDices; i++) {
+			combo_defenderNoOfDice.addItem(Integer.toString(i));
+		}
 	}
 }

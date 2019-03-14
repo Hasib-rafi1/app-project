@@ -93,6 +93,8 @@ public class GameController {
 		numberOfArmiesClickListener();
 		addSourceCountriesListener();
 		addMoveArmyButtonListener();
+		addAttackerCountryListener();
+		addDefenderCountryListener();
 	}
 
 	/**
@@ -124,6 +126,42 @@ public class GameController {
 					int armyCount = game.getArmiesAssignedToCountry(countryName);
 					boardView.combo_fillDestinationCountry(neighborCountries);
 					boardView.combo_fillArmyToMove(armyCount);
+				}
+			}
+		});
+	}
+
+	/**
+	 * to add listeners on the attacker Country List
+	 */
+	public void addAttackerCountryListener() {
+		boardView.addActionListenToAttackerCountryList(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				String countryName = boardView.getAttackerCountry();
+
+				if (countryName != null) {
+					ArrayList<String> neighborCountries = game.getOthersNeighbouringCountriesOnly(countryName);
+					boardView.combo_fillDefendersCountry(neighborCountries);
+					int diceCount = game.getMaximumDices(countryName, "Attacker");
+					boardView.setAttackerDiceComboBox(diceCount);
+				}
+			}
+		});
+	}
+	
+	/**
+	 * to add listeners on the defender Country List
+	 */
+	public void addDefenderCountryListener() {
+		boardView.addActionListenToDefenderCountryList(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				String countryName = boardView.getDefenderCountry();
+
+				if (countryName != null) {
+					int diceCount = game.getMaximumDices(countryName, "Defender");
+					boardView.setDefenderDiceComboBox(diceCount);
 				}
 			}
 		});

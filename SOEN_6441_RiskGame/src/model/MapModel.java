@@ -409,6 +409,17 @@ public class MapModel {
 	}
 
 	/**
+	 * Get country object from country name
+	 * @param countryName, String
+	 * @return Country
+	 */
+	public Country getCountryFromName(String countryName) {
+		Country country = getCountryList().stream().filter(x -> x.getCountryName().equals(countryName)).findAny()
+				.orElse(null);
+
+		return country;
+	}
+	/**
 	 * This function is used to return the list of country names as ArrayList string type
 	 * @return countriesListString , list of countries
 	 * @param countriesList list of countries

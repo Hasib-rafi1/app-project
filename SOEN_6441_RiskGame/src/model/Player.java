@@ -127,7 +127,32 @@ public class Player {
 			numberOfReinforcedArmies= numberOfReinforcedArmies -1;
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param country, Country Object
+	 * @param playerStatus, status of the player
+	 * @return allowableAttackingArmies
+	 */
+	public int getNumberDices(Country country, String playerStatus) {
+		int allowableAttackingArmies = 0;
+		int maximumDiceCount = 0;
+		if (playerStatus.equals("Attacker")) {
+			if(country.getnoOfArmies()>3) {
+				allowableAttackingArmies =3;
+			}else {
+				allowableAttackingArmies = country.getnoOfArmies() - 1;	
+			}
+		} else {
+			if(country.getnoOfArmies()>2) {
+				allowableAttackingArmies =2;
+			}else {
+				allowableAttackingArmies = country.getnoOfArmies();	
+			}
+		}
+		return allowableAttackingArmies;
+	}
+	
 	/**
 	 * This returns the player color.
 	 * @param playerID the id of the player

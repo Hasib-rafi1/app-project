@@ -574,4 +574,53 @@ public class Game extends Observable {
 		setChanged();
 		notifyObservers(this);
 	}
+	
+	/**
+	 * Returns number of dices for attacking / defending country
+	 * @param countryName, name of the country in String
+	 * @param playerStatus, status of the player in String
+	 * 
+	 * @return Integer
+	 */
+	public int getMaximumDices(String countryName, String playerStatus) {
+		int allowableAttackingArmies = 0;
+		if (this.gamePhase ==GamePhase.Attack) {
+			// Will also add validation if the attacker is assigned to player or not
+
+			Country c = mapModel.getCountryFromName(countryName);
+
+			if (c != null) {
+				allowableAttackingArmies = getCurrentPlayer().getNumberDices(c, playerStatus);
+			}
+		}
+		return allowableAttackingArmies;
+	}
+	
+	/**
+	 * Returns allowable dices for attacking country
+	 * @param countryName, name of the country in String
+	 * @param playerStatus, status of the player in String
+	 * 
+	 * @return Integer
+	 */
+	public ArrayList<String> getOthersNeighbouringCountriesOnly(String countryName) {
+		ArrayList<String> allowableAttackingArmies = new ArrayList<String>();
+		if (this.gamePhase ==GamePhase.Attack) {
+			// Will also add validation if the attacker is assigned to player or not
+
+			Country c = mapModel.getCountryFromName(countryName);
+			Player currentPlayer = this.getCurrentPlayer();
+			ArrayList<Country> countryList = playerCountry.get(currentPlayer);
+
+			if (c != null) {
+				allowableAttackingArmies = c.getNeighboursString();
+				for (Country country : countryList) {
+					String countryName1 = country.getCountryName();
+					allowableAttackingArmies.remove(countryName1);
+				}
+				
+			}
+		}
+		return allowableAttackingArmies;
+	}
 }
