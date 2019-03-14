@@ -630,8 +630,8 @@ public class BoardView implements Observer {
 	 * Static method to get selected attacker dice no
 	 * @return selectedCountry
 	 */
-	public static int getAttackerDiceNo() {
-		return (int)combo_attackerNoOfDice.getSelectedItem();
+	public static String getAttackerDiceNo() {
+		return (String) combo_attackerNoOfDice.getSelectedItem();
 
 	}
 	
@@ -651,8 +651,8 @@ public class BoardView implements Observer {
 	 * Static method to get selected defender dice no
 	 * @return selectedCountry
 	 */
-	public static int getDefenderDiceNo() {
-		return (int)combo_attackerNoOfDice.getSelectedItem();
+	public static String getDefenderDiceNo() {
+		return (String)combo_defenderNoOfDice.getSelectedItem();
 
 	}
 }

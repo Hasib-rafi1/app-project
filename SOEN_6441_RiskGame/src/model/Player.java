@@ -1,5 +1,10 @@
 package model;
 
+
+import java.util.ArrayList;
+import java.util.Random;
+
+
 import helper.Colors;
 /**
  * this is a player class which contains the players attributes and basic setter getter functions 
@@ -13,6 +18,7 @@ public class Player {
 	private int numberOfReinforcedArmies;
 	private String playerName;
 	private Colors color;
+	private ArrayList<Integer> diceResults = new ArrayList<>();
 
 
 	/**
@@ -127,7 +133,7 @@ public class Player {
 			numberOfReinforcedArmies= numberOfReinforcedArmies -1;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param country, Country Object
@@ -152,7 +158,81 @@ public class Player {
 		}
 		return allowableAttackingArmies;
 	}
-	
+
+	/**
+	 * This method will process attack for the selected player and for the defender player
+	 * 
+	 * @param defenderPlayer, Player
+	 * @param attackerCountry, Attacking country
+	 * @param defenderCountry, Defending country
+	 * @param attackerDiceCount, attacking dices count
+	 * @param defenderDiceCount, defending dices count
+	 */
+	public void attackPhaseActions(Player defenderPlayer, Country attackerCountry, Country defenderCountry, int attackerDiceCount, int defenderDiceCount) {
+		diceRoller(attackerDiceCount);
+		defenderPlayer.diceRoller(defenderDiceCount);
+
+		ArrayList<Integer> attackingDices = diceResults;
+		ArrayList<Integer> defendingDices = defenderPlayer.diceResults;
+
+		int totalNumberOfDice = attackingDices.size() < defendingDices.size() ? attackingDices.size()
+				: defendingDices.size();
+
+		for (int i = 0; i < totalNumberOfDice; i++) {
+
+			int attackerDice = attackingDices.get(i);
+			int defencerDice = defendingDices.get(i);
+
+			System.out.print("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
+
+			if (attackerDice > defencerDice) {
+				System.out.print("Attacker wins for dice " + (i + 1));
+				defenderCountry.decreaseArmyCount(1);
+
+			} else {
+				System.out.print("Defender wins for dice " + (i + 1));
+				attackerCountry.decreaseArmyCount(1);
+			}
+
+			if (attackerCountry.getnoOfArmies() == 1) {
+				System.out.print("Attacker not able to Attack ");
+				break;
+			} else if (defenderCountry.getnoOfArmies() == 0) {
+				System.out.print("Defender lost all armies in " + (i + 1) + " dice roll");
+				break;
+			}
+
+		}
+		// Check if defending armies are 0 then acquire the country with cards
+		if (defenderCountry.getnoOfArmies() == 0) {
+			defenderCountry.setPlayerId(playerId);
+
+			// attacker has to put minimum one army defending country (By Game rules)
+			attackerCountry.decreaseArmyCount(1);
+			defenderCountry.increaseArmyCount(1);
+		}
+	}
+
+	/**
+	 * This method will roll a Dice
+	 * 
+	 * @param diceCount, count of the dice
+	 */
+	private void diceRoller(int diceCount) {
+		diceResults.clear();
+		for (int i = 0; i < diceCount; i++) {
+			diceResults.add(this.getRandomDiceNumber());
+		}
+	}
+
+	/**
+	 * This will generate the random integers between  1 to 6
+	 * @return random integer
+	 */
+	public int getRandomDiceNumber() {
+		Random r = new Random();
+		return r.nextInt((6 - 1) + 1) + 1;
+	}
 	/**
 	 * This returns the player color.
 	 * @param playerID the id of the player
