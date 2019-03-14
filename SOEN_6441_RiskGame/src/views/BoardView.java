@@ -192,7 +192,7 @@ public class BoardView implements Observer {
 		panel_gameAction=new JPanel(null);
 
 		mapGenerator();
-		loadPlayerWorldDominationView();
+		createPlayerWorldDominationView();
 		gamePhase();
 		view_initialisation();
 		reinforcements();
@@ -425,7 +425,7 @@ public class BoardView implements Observer {
 	/**
 	 * Method to display world domination view for each player
 	 */
-	public void loadPlayerWorldDominationView() {
+	public void createPlayerWorldDominationView() {
 		button_playerWorldDominationView = new JButton("Player World Domination View");
 		button_playerWorldDominationView.setBounds(screen_width-550, pane_mapScrollPane.getY(), 490, 50);
 		panel_gameAction.add(button_playerWorldDominationView);
