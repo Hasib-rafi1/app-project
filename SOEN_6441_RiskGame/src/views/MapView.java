@@ -108,10 +108,11 @@ public class MapView {
 		saveButton.setPreferredSize(new Dimension(180, 40));
 
 		frameWindow.setTitle("Map Generator for Risk Board Game");
-		frameWindow.setPreferredSize(new Dimension(1200, 800));
+		frameWindow.setPreferredSize(new Dimension(800, 800));
+		frameWindow.setLocationRelativeTo(null);
 		frameWindow.add(textParameters);
 		textParameters.setFont(new Font("Serif", Font.BOLD,24));
-		frameWindow.add(panelWindow, BorderLayout.SOUTH);
+		frameWindow.add(panelWindow, BorderLayout.SOUTH);   // consists of save button and textfield
 		frameWindow.pack();
 		frameWindow.setVisible(true);
 		frameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

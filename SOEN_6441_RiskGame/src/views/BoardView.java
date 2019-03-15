@@ -430,9 +430,17 @@ public class BoardView implements Observer {
 		button_playerWorldDominationView.setBounds(screen_width-550, pane_mapScrollPane.getY(), 490, 50);
 		panel_gameAction.add(button_playerWorldDominationView);
 	}
+	
+	
+	
 
 
 	//--------------------------------- Listener Initialization -------------------------
+	public void worldDominationViewListener(ActionListener listener) {
+		button_playerWorldDominationView.addActionListener(listener);
+	}
+	
+	
 	/**
 	 * method to use for the mouse event for the map labels
 	 * @param listener MouseListener

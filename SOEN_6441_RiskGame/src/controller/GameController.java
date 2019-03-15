@@ -1,19 +1,30 @@
 package controller;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.JTableHeader;
 
 import model.Game;
 import model.Player;
 import views.BoardView;
+import views.WorldDominationView;
 import model.MapModel;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
@@ -31,6 +42,7 @@ public class GameController {
 	BoardView boardView;
 	MapModel mapModel = new MapModel();
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	WorldDominationView worldDominationView = new WorldDominationView();
 	Scanner userinput = new Scanner(System.in);
 
 	/**
@@ -96,6 +108,8 @@ public class GameController {
 		addMoveArmyButtonListener();
 		addAttackerCountryListener();
 		addDefenderCountryListener();
+		addActionListenerForWorldDominationView();
+		
 	}
 
 	/**
@@ -199,6 +213,56 @@ public class GameController {
 				if (game.getGamePhase()==GamePhase.Fortification) {
 					game.fortificationPhase(boardView.getSourceCountry(),boardView.getDestinationCountry(),boardView.combo_getArmyToMove());
 				}
+			}
+		});
+	}
+	
+	public void addActionListenerForWorldDominationView() {		
+		boardView.worldDominationViewListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent e) {
+				worldDominationView.createJframeForWorldDominationView();
+				
+				 if (game==null)
+	                    return;
+	                int i=0;
+	                ArrayList<Player> listOfPlayers = game.getAllPlayers();
+	                ArrayList<String> playerNames = new ArrayList<>();
+	                for (Player obj : listOfPlayers ) {
+	                    String name = obj.getPlayerName();
+	                    playerNames.add(name);
+	                    i++;
+	                }
+				// create some tabular data
+			    String[] headings = 
+			      new String[] {"Number", "Hot?", "Origin",
+			                    "Destination", "Ship Date", "Weight" };
+			    Object[][] data = new Object[][] {
+			      { "100420", Boolean.FALSE, "Des Moines IA", "Spokane WA",
+			          "02/06/2000", new Float(450) },
+			      { "202174", Boolean.TRUE, "Basking Ridge NJ", "Princeton NJ", 
+			          "05/20/2000", new Float(1250) },
+			      { "450877", Boolean.TRUE, "St. Paul MN", "Austin TX",
+			          "03/20/2000", new Float(1745) },
+			      { "101891", Boolean.FALSE, "Boston MA", "Albany NY",
+			          "04/04/2000", new Float(88) }
+			    };
+				JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
+				JFrame frameWindowForWorldDominationView = new JFrame("Players World Domination View");
+			    
+			    panelWindowForWorldDominationView.setLayout(new FlowLayout());
+				panelWindowForWorldDominationView.setPreferredSize(new Dimension(600, 300));
+				panelWindowForWorldDominationView.setBackground(Color.lightGray);
+				frameWindowForWorldDominationView.setSize(600, 200);
+				frameWindowForWorldDominationView.setLocationRelativeTo(null);
+				frameWindowForWorldDominationView.setVisible(true);
+				frameWindowForWorldDominationView.add(panelWindowForWorldDominationView);
+				frameWindowForWorldDominationView.pack();
+
+				frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			    JTable table = new JTable(data, headings);
+			    frameWindowForWorldDominationView.getContentPane( ).add(new JScrollPane(table));
+			    
+
 			}
 		});
 	}
