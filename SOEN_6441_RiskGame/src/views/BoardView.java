@@ -46,7 +46,7 @@ import helper.GamePhase;
 public class BoardView implements Observer {
 
 	// Board Initialization
-	private static JFrame frame_gameWindow ;
+	private static JFrame frameGameWindow ;
 	private static JPanel panel_gameAction;
 
 	// Map variables
@@ -188,7 +188,7 @@ public class BoardView implements Observer {
 	 * Method that loads up the GUI window
 	 */
 	public void gameWindowLoad() {
-		frame_gameWindow=  new JFrame("Risk Game");
+		frameGameWindow=  new JFrame("Risk Game");
 		panel_gameAction=new JPanel(null);
 
 		mapGenerator();
@@ -199,10 +199,10 @@ public class BoardView implements Observer {
 		viewAttackPhase();
 		fortification();
 
-		frame_gameWindow.setSize(1800, 800);
-		frame_gameWindow.setVisible(true);
+		frameGameWindow.setSize(1800, 800);
+		frameGameWindow.setVisible(true);
 		panel_gameAction.setBackground(Color.white);
-		frame_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frameGameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 
@@ -244,7 +244,7 @@ public class BoardView implements Observer {
 		pane_mapScrollPane = new JScrollPane(lab_map);		
 		pane_mapScrollPane.setBounds(0,10,icon.getIconWidth()+20,icon.getIconHeight()+20);
 		panel_gameAction.add(pane_mapScrollPane);
-		frame_gameWindow.add(panel_gameAction);
+		frameGameWindow.add(panel_gameAction);
 	}
 
 	//-------------------------------  Game Phase details ---------------------------
@@ -427,8 +427,10 @@ public class BoardView implements Observer {
 	 */
 	public void createPlayerWorldDominationView() {
 		button_playerWorldDominationView = new JButton("Player World Domination View");
+		button_playerWorldDominationView.setBackground(Color.LIGHT_GRAY);
 		button_playerWorldDominationView.setBounds(screen_width-800, pane_mapScrollPane.getY(), 490, 50);
-		panel_gameAction.add(button_playerWorldDominationView);
+		panel_gameAction.add(button_playerWorldDominationView,BorderLayout.NORTH);
+	
 	}
 
 	//--------------------------------- Listener Initialization -------------------------

@@ -24,10 +24,8 @@ public class MapController {
 	MapModel mapModel = new MapModel();
 	MainController maincontroller = new MainController();
 
-
 	// It stores all the continents of map File in this list
 	ArrayList<Continent> continentsList = new ArrayList<>();
-
 
 	/**
 	 *
@@ -116,12 +114,13 @@ public class MapController {
 	 * This method is used to edit the map.
 	 */
 	public void editExistingMapFile() {
+		
 		// Printing all the map files
 		print.listofMapsinDirectory();
-		
+
 		// Select map name by user and check file exists or not
 		print.consoleOut("Please enter the map name you want to edit from the list?");
-		
+
 		String mapDirectory = print.getMapDir();
 		String mapNameByUserInput = scanner.nextLine().trim();
 		String mapPathWithMapName = mapDirectory + mapNameByUserInput;
@@ -226,15 +225,11 @@ public class MapController {
 						break;
 					}
 				}
-
-
 			}
 		} else {
 			print.consoleErr("****File not found!!!. Please enter the correct map name.****");
 
 		}
-
-
 	}
 
 	/**

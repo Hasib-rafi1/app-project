@@ -108,7 +108,6 @@ public class PrintConsoleAndUserInput {
 	public ArrayList<String> listofMapsinDirectory(){
 		ArrayList<String> mapFileList = new ArrayList<String>();
 		File folder = new File(getMapDir());
-//		File folder = new File("src/mapFiles/");
 		File[] listOfFiles = folder.listFiles();
 		int i = 0, j = 1;
 		for(File file : listOfFiles){
