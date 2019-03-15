@@ -430,16 +430,11 @@ public class BoardView implements Observer {
 		button_playerWorldDominationView.setBounds(screen_width-550, pane_mapScrollPane.getY(), 490, 50);
 		panel_gameAction.add(button_playerWorldDominationView);
 	}
-	
-	
-	
-
 
 	//--------------------------------- Listener Initialization -------------------------
 	public void worldDominationViewListener(ActionListener listener) {
 		button_playerWorldDominationView.addActionListener(listener);
-	}
-	
+	}	
 	
 	/**
 	 * method to use for the mouse event for the map labels
@@ -638,8 +633,8 @@ public class BoardView implements Observer {
 	 * Static method to get selected attacker dice no
 	 * @return selectedCountry
 	 */
-	public static int getAttackerDiceNo() {
-		return (int)combo_attackerNoOfDice.getSelectedItem();
+	public static String getAttackerDiceNo() {
+		return (String) combo_attackerNoOfDice.getSelectedItem();
 
 	}
 	
@@ -659,8 +654,8 @@ public class BoardView implements Observer {
 	 * Static method to get selected defender dice no
 	 * @return selectedCountry
 	 */
-	public static int getDefenderDiceNo() {
-		return (int)combo_attackerNoOfDice.getSelectedItem();
+	public static String getDefenderDiceNo() {
+		return (String)combo_defenderNoOfDice.getSelectedItem();
 
 	}
 }

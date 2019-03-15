@@ -8,8 +8,6 @@ import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-
-
 import java.util.Collections;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
@@ -100,7 +98,7 @@ public class Game extends Observable {
 		}
 		notifyObserverslocal(this);
 	}
-	
+
 	/**
 	 * This method assigns the player to the corresponding country. 
 	 * @param player player
@@ -174,7 +172,7 @@ public class Game extends Observable {
 		assignUnassigned(player,country);
 		return true;
 	}
-	
+
 	/**
 	 * This method adds armies to the country during the reinforcement phase and returns when successful. 
 	 * @param countryName name of country
@@ -205,7 +203,7 @@ public class Game extends Observable {
 		assignReinforcement(player,country);
 		return true;
 	}
-	
+
 	/**
 	 * This method initializes the reinforcement phase for each player by adding corresponding number of armies. 
 	 */
@@ -236,7 +234,7 @@ public class Game extends Observable {
 		System.out.println("Countries Count:" + countries_count);
 		player.setNumberOfReinforcedArmies(countries_count);
 	}
-	
+
 	/**
 	 * This method calculates the corresponding reinforcement armies from a particular player from the number of countries owned by the layer.
 	 * @param player Player
@@ -328,8 +326,8 @@ public class Game extends Observable {
 		connectedOwnCountries.clear();
 		return finalCOuntries;
 	}
-	
-	
+
+
 	/**
 	 * This method recursively explores all the nodes connected to a country and returns the neighboring countries.
 	 * @param source source countries
@@ -374,7 +372,7 @@ public class Game extends Observable {
 		System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 
 	}
-	
+
 	/**
 	 * This method returns the number of armies assigned to a specific country.
 	 * @param sourceCountryName source country names
@@ -432,7 +430,7 @@ public class Game extends Observable {
 	//Functions called by other functions within the Game model.
 
 	//Getter and Setter functions of Map. 
-	
+
 	/**
 	 * This function is used to get map
 	 * @return mapModel
@@ -440,8 +438,8 @@ public class Game extends Observable {
 	public MapModel getMap() {
 		return mapModel;
 	}
-	
-	
+
+
 	/**
 	 *  This is used to set map
 	 * @param map map
@@ -450,8 +448,8 @@ public class Game extends Observable {
 		this.mapModel = map;
 	}
 
-	
-	
+
+
 	/**
 	 *This is used to get game phase.
 	 * @return gamePhase getGamePhase
@@ -459,8 +457,8 @@ public class Game extends Observable {
 	public GamePhase getGamePhase() {
 		return gamePhase;
 	}
-	
-	
+
+
 	/**
 	 * This is used to set game phase
 	 * @param gamePhase Game phase
@@ -469,7 +467,7 @@ public class Game extends Observable {
 		this.gamePhase = gamePhase;
 	}
 
-	
+
 	/**
 	 * Getter function for all the Player.
 	 * @return playerList list of players
@@ -478,7 +476,7 @@ public class Game extends Observable {
 		return playerList;
 	}
 
-	
+
 	/**
 	 * Getter function for Current Player Id.
 	 * @return currentPlayerId, current id of player
@@ -487,7 +485,7 @@ public class Game extends Observable {
 		return currentPlayerId;
 	}
 
-	
+
 	/**
 	 * Getter function for Current Player.
 	 * @return currentPlayer current player
@@ -497,7 +495,7 @@ public class Game extends Observable {
 		return currentPlayer;
 	}
 
-	
+
 	/**
 	 * Getter function for getting all the Current Player Countries using current player's ID.
 	 * @return playerCountry arraylist
@@ -507,7 +505,7 @@ public class Game extends Observable {
 		return playerCountry.get(currentPlayer);
 	}
 
-	
+
 	/**
 	 * Getter function for getting all the Current Player Countries using current player's object.
 	 * @param currentPlayer current player 
@@ -516,9 +514,9 @@ public class Game extends Observable {
 	public ArrayList<Country> getPlayersCountry(Player currentPlayer) {
 		return playerCountry.get(currentPlayer);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Function the sets the next player's turn.
 	 */
@@ -530,7 +528,7 @@ public class Game extends Observable {
 		}
 	}
 
-	
+
 	/**
 	 * Function the returns the armies of the country of the current player.
 	 * @param countryName anme of the country
@@ -545,7 +543,7 @@ public class Game extends Observable {
 		}
 	}
 
-	
+
 	/**
 	 * Function that moves an army from the player's initial army to the country's army.
 	 * @param player player 
@@ -556,7 +554,7 @@ public class Game extends Observable {
 		country.increaseArmyCount();
 	}
 
-	
+
 	/**
 	 * Function that moves an army from the player's reinforcement army to the country's army.
 	 * @param player player 
@@ -576,7 +574,7 @@ public class Game extends Observable {
 		setChanged();
 		notifyObservers(this);
 	}
-	
+
 	/**
 	 * Returns number of dices for attacking / defending country
 	 * @param countryName, name of the country in String
@@ -597,7 +595,7 @@ public class Game extends Observable {
 		}
 		return allowableAttackingArmies;
 	}
-	
+
 	/**
 	 * Returns allowable dices for attacking country
 	 * @param countryName, name of the country in String
@@ -620,12 +618,12 @@ public class Game extends Observable {
 					String countryName1 = country.getCountryName();
 					allowableAttackingArmies.remove(countryName1);
 				}
-				
+
 			}
 		}
 		return allowableAttackingArmies;
 	}
-	
+
 	/**
 	 * Method for  attack phase where attack will handled
 	 * @param attackerCountry, Attacking Country in String
@@ -654,16 +652,59 @@ public class Game extends Observable {
 			return false;
 		}
 
-//		getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount);
-//
-//		if (isMapConquered()) {
-//			isMapConqueredFlag = true;
-//		} else if (!getCurrentPlayer().isAttackPossible()) {
-//			updatePhase();
-//		}
+		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount);
+		
+		if (isMapConcured()) {
+			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
+		} else if (!checkAttackPossible()) {
+			updateGame();
+		}
 
 		notifyObserverslocal(this);
 
 		return true;
+	}
+	public boolean isMapConcured() {
+		if(mapModel.getCountryList().size() == playerCountry.get(this.getCurrentPlayer()).size()) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	/**
+	 * method to get countries from the attackers country where number of armies are getter than 1
+	 * @return ArrayList<String>
+	 */
+	public ArrayList<String> getAttackPossibleCountries() {
+		ArrayList<String> attackerCountry = new ArrayList<String>();
+		ArrayList<Country> countryList = this.getCurrentPlayerCountries();
+		for (int i = 0; i < countryList.size(); i++) {
+			Country temp_cname = countryList.get(i);
+			if (temp_cname.getnoOfArmies()>1) {
+				attackerCountry.add(temp_cname.getCountryName());
+			}
+		}
+		return attackerCountry;
+
+	}
+
+	/**
+	 * This method is to check current user can attack or not.
+	 * @return boolean
+	 */
+	public boolean checkAttackPossible() {
+		ArrayList<String> attackerPossibleCountries = getAttackPossibleCountries();
+		if (attackerPossibleCountries.size() == 0) {
+			return false;
+		}else {
+			for (String countryName : attackerPossibleCountries) {
+				ArrayList<String> neighborCountries = getOthersNeighbouringCountriesOnly(countryName);
+				if (neighborCountries.size() > 0) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }
