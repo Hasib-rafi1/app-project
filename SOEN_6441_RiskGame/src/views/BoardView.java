@@ -199,7 +199,7 @@ public class BoardView implements Observer {
 		viewAttackPhase();
 		fortification();
 
-		frame_gameWindow.setSize(screen_width, screen_height);
+		frame_gameWindow.setSize(1800, 800);
 		frame_gameWindow.setVisible(true);
 		panel_gameAction.setBackground(Color.white);
 		frame_gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -257,7 +257,7 @@ public class BoardView implements Observer {
 				BorderFactory.createTitledBorder(null, "Current Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.BLUE));
 
-		lab_gamePhase.setBounds(screen_width-550, pane_mapScrollPane.getY()+55, 490, 100);
+		lab_gamePhase.setBounds(screen_width-800, pane_mapScrollPane.getY()+55, 490, 100);
 
 		lab_nameofPhase = new JLabel("Initialization");
 		Font font = new Font("Courier", Font.BOLD, 20);
@@ -427,7 +427,7 @@ public class BoardView implements Observer {
 	 */
 	public void createPlayerWorldDominationView() {
 		button_playerWorldDominationView = new JButton("Player World Domination View");
-		button_playerWorldDominationView.setBounds(screen_width-550, pane_mapScrollPane.getY(), 490, 50);
+		button_playerWorldDominationView.setBounds(screen_width-800, pane_mapScrollPane.getY(), 490, 50);
 		panel_gameAction.add(button_playerWorldDominationView);
 	}
 
