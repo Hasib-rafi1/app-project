@@ -28,7 +28,7 @@ public class WorldDominationView {
 	JFrame frameWindowForWorldDominationView = new JFrame("Player World Domination View");
 	
 
-	public void createJframeForWorldDominationView(String[][] rowData, String[] playerNamesInTableColumns) {	
+	public static void createJframeForWorldDominationView(String[][] rowData, String[] playerNamesInTableColumns) {	
 		
 		// TODO Auto-generated method stub		
 		JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());

@@ -4,7 +4,6 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 import helper.Colors;
 /**
  * this is a player class which contains the players attributes and basic setter getter functions 
@@ -159,6 +158,33 @@ public class Player {
 		}
 		return allowableAttackingArmies;
 	}
+	
+	/**
+	 * This method is used to return the assigned countries to each Player.
+	 * 
+	 * @return assignedListOfCountries
+	 */
+	public ArrayList<Country> getAssignedListOfCountries() {
+		return assignedListOfCountries;
+	}
+	
+	/**
+	 * Assigns the current country to player
+	 * 
+	 * @param newCountry, Country Object
+	 */
+	public void assignCountryToPlayer(Country country) {
+		assignedListOfCountries.add(country);
+	}
+	
+	/**
+	 * Unassigns the current country to player
+	 * 
+	 * @param newCountry, Country Object
+	 */
+	public void unAssignCountryToPlayer(Country country) {
+		assignedListOfCountries.remove(country);
+	}
 
 	/**
 	 * This method will process attack for the selected player and for the defender player
@@ -208,9 +234,11 @@ public class Player {
 		// Check if defending armies are 0 then acquire the country with cards
 		if (defenderCountry.getnoOfArmies() == 0) {
 			defenderCountry.setPlayerId(playerId);
-			System.out.println("test");
-			System.out.println(playerId);
+			defenderCountry.setCountryColor(attackerCountry.getCountryColor());
+			defenderPlayer.unAssignCountryToPlayer(defenderCountry);
+			assignCountryToPlayer(defenderCountry);
 			System.out.println(defenderCountry.getPlayerId());
+			System.out.println(defenderCountry.getCountryColor());
 			// attacker has to put minimum one army defending country (By Game rules)
 			attackerCountry.decreaseArmyCount(1);
 			defenderCountry.increaseArmyCount(1);
@@ -259,14 +287,5 @@ public class Player {
 		default:
 			return Colors.BLACK;
 		}
-	}
-	
-	/**
-	 * This method is used to return the assigned countries to each Player.
-	 * 
-	 * @return assignedListOfCountries
-	 */
-	public ArrayList<Country> getAssignedListOfCountries() {
-		return assignedListOfCountries;
 	}
 }

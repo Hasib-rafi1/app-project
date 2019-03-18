@@ -102,7 +102,7 @@ public class BoardView implements Observer {
 	PrintConsoleAndUserInput obj_print=new PrintConsoleAndUserInput();
 
 
-	String mapPath =obj_print.getMapDir()+ "World.bmp" ;
+	String mapPath;
 	ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
 	GamePhase phase;
 
@@ -114,7 +114,6 @@ public class BoardView implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		Game game = ((Game)arg0);
-		game.getMap().getContinentList();
 
 		mapPath = game.getMap().getMapDir()+game.getMap().getMapName()+ ".bmp";
 		phase = game.getGamePhase(); 
@@ -199,7 +198,7 @@ public class BoardView implements Observer {
 		viewAttackPhase();
 		fortification();
 
-		frameGameWindow.setSize(1800, 800);
+		frameGameWindow.setSize(pane_mapScrollPane.getWidth()+550, 800);
 		frameGameWindow.setVisible(true);
 		panel_gameAction.setBackground(Color.white);
 		frameGameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -428,7 +427,7 @@ public class BoardView implements Observer {
 	public void createPlayerWorldDominationView() {
 		button_playerWorldDominationView = new JButton("Player World Domination View");
 		button_playerWorldDominationView.setBackground(Color.LIGHT_GRAY);
-		button_playerWorldDominationView.setBounds(screen_width-800, pane_mapScrollPane.getY(), 490, 50);
+		button_playerWorldDominationView.setBounds(pane_mapScrollPane.getWidth()+10, pane_mapScrollPane.getY(), 490, 50);
 		panel_gameAction.add(button_playerWorldDominationView,BorderLayout.NORTH);
 	
 	}

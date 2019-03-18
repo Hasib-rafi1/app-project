@@ -417,6 +417,10 @@ public class Game extends Observable {
 
 		if (armies == 0) {
 			print.consoleOut("No armies to move");
+			this.setupNextPlayerTurn();
+			setGamePhase(gamePhase.Reinforcement);
+			reinforcementPhaseSetup();
+			notifyObserverslocal(this);
 			return true;
 		}
 		sourceCountry.decreaseArmyCount(armies);
@@ -646,16 +650,23 @@ public class Game extends Observable {
 		if (defCountry.getnoOfArmies() < defendergDiceCount) {
 			return false;
 		}
-
+		System.out.println("Player Id"+ defCountry.getPlayerId());
+		System.out.println("Color"+ defCountry.getCountryColor());
+		System.out.println("Armies"+ defCountry.getnoOfArmies());
 		Player defenderPlayer = playerList.stream().filter(p -> p.getPlayerId()==defCountry.getPlayerId())
 				.findAny().orElse(null);
 
 		if (defenderPlayer == null) {
 			return false;
 		}
-
+		
 		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount);
 		
+		//playerCountry;
+		
+		System.out.println("Player Id"+ defCountry.getPlayerId());
+		System.out.println("Color"+ defCountry.getCountryColor());
+		System.out.println("Armies"+ defCountry.getnoOfArmies());
 		if (isMapConcured()) {
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {

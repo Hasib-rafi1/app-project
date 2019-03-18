@@ -25,6 +25,7 @@ import javax.swing.table.JTableHeader;
 import model.Game;
 import model.Player;
 import views.BoardView;
+import views.WorldDominationView;
 //import views.WorldDominationView;
 import model.MapModel;
 import helper.GamePhase;
@@ -197,8 +198,6 @@ public class GameController {
 						Integer attackerDiceCount = Integer.parseInt(boardView.getAttackerDiceNo());
 						Integer defenderDiceCount = Integer.parseInt(boardView.getDefenderDiceNo());
 						game.attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
-						System.out.println(attackerDiceCount);
-						System.out.println(defenderDiceCount);
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Selecting attacking and defending countries");
@@ -258,7 +257,7 @@ public class GameController {
 				}
 
 
-				worldDominationView.createJframeForWorldDominationView(rowData,playerNamesInTableColumns);
+				WorldDominationView.createJframeForWorldDominationView(rowData,playerNamesInTableColumns);
 
 
 				/*	JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
