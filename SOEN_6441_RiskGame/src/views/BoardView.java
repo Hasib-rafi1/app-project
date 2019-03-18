@@ -257,7 +257,7 @@ public class BoardView implements Observer {
 				BorderFactory.createTitledBorder(null, "Current Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.BLUE));
 
-		lab_gamePhase.setBounds(screen_width-800, pane_mapScrollPane.getY()+55, 490, 100);
+		lab_gamePhase.setBounds(pane_mapScrollPane.getWidth()+10, pane_mapScrollPane.getY()+55, 490, 100);
 
 		lab_nameofPhase = new JLabel("Initialization");
 		Font font = new Font("Courier", Font.BOLD, 20);

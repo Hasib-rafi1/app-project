@@ -197,7 +197,8 @@ public class Player {
 			if (attackerCountry.getnoOfArmies() == 1) {
 				System.out.print("Attacker not able to Attack ");
 				break;
-			} else if (defenderCountry.getnoOfArmies() == 0) {
+			} 
+			if (defenderCountry.getnoOfArmies() == 0) {
 				System.out.print("Defender lost all armies in " + (i + 1) + " dice roll");
 				break;
 			}
@@ -206,7 +207,9 @@ public class Player {
 		// Check if defending armies are 0 then acquire the country with cards
 		if (defenderCountry.getnoOfArmies() == 0) {
 			defenderCountry.setPlayerId(playerId);
-
+			System.out.println("test");
+			System.out.println(playerId);
+			System.out.println(defenderCountry.getPlayerId());
 			// attacker has to put minimum one army defending country (By Game rules)
 			attackerCountry.decreaseArmyCount(1);
 			defenderCountry.increaseArmyCount(1);

@@ -24,7 +24,7 @@ import javax.swing.table.JTableHeader;
 import model.Game;
 import model.Player;
 import views.BoardView;
-import views.WorldDominationView;
+//import views.WorldDominationView;
 import model.MapModel;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
@@ -42,7 +42,7 @@ public class GameController {
 	BoardView boardView;
 	MapModel mapModel = new MapModel();
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
-	WorldDominationView worldDominationView = new WorldDominationView();
+//	WorldDominationView worldDominationView = new WorldDominationView();
 	Scanner userinput = new Scanner(System.in);
 
 	/**
@@ -222,7 +222,7 @@ public class GameController {
 	public void addActionListenerForWorldDominationView() {		
 		boardView.worldDominationViewListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {
-				worldDominationView.createJframeForWorldDominationView();
+//				worldDominationView.createJframeForWorldDominationView();
 				
 				 if (game==null)
 	                    return;
