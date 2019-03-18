@@ -86,6 +86,7 @@ public class BoardView implements Observer {
 	private static JComboBox<String> combo_countryDestination;
 	private static JComboBox<String> combo_armyToMove;
 	private static JButton button_moveFortification = new JButton("Move Army");
+	private static JButton button_skip = new JButton("Skip");
 
 	// Player World Domination Button
 	private static JButton button_playerWorldDominationView;
@@ -157,26 +158,29 @@ public class BoardView implements Observer {
 
 			if (game.getGamePhase() == GamePhase.Startup) {
 				lab_nameofPhase.setText("Initialization");
-				lab_fortification.setVisible(false);
-				lab_initialisation.setVisible(true);
-				lab_reinforcement.setVisible(false);
-			} else if (game.getGamePhase() == GamePhase.Reinforcement) {
+				
+				  lab_fortification.setVisible(false); lab_initialisation.setVisible(true);
+				  lab_reinforcement.setVisible(false);
+				} else if (game.getGamePhase() == GamePhase.Reinforcement) {
 				lab_nameofPhase.setText("Reinforcement");
 				lab_nameofPhase.setForeground(Color.red);
-				lab_fortification.setVisible(false);
-				lab_reinforcement.setVisible(true);
-				lab_attack.setVisible(false);
+				
+				  lab_fortification.setVisible(false); lab_reinforcement.setVisible(true);
+				  lab_attack.setVisible(false);
+				 
 			} else if (game.getGamePhase() == GamePhase.Attack) {
 				lab_nameofPhase.setText("Attack Phase");
 				lab_nameofPhase.setForeground(Color.BLUE);
-				lab_attack.setVisible(true);
-				lab_fortification.setVisible(false);
+				
+				  lab_attack.setVisible(true); lab_fortification.setVisible(false);
+				 
 				combo_attackerCountry();
 			} else if (game.getGamePhase() == GamePhase.Fortification) {
 				lab_nameofPhase.setText("Fortification");
 				lab_nameofPhase.setForeground(Color.MAGENTA);
-				lab_attack.setVisible(false);
-				lab_fortification.setVisible(true);
+				
+				  lab_attack.setVisible(false); lab_fortification.setVisible(true);
+				 
 				combo_sourceCountry();
 			}
 		}
@@ -195,8 +199,8 @@ public class BoardView implements Observer {
 		gamePhase();
 		view_initialisation();
 		reinforcements();
-		viewAttackPhase();
 		fortification();
+		viewAttackPhase();
 
 		frameGameWindow.setSize(pane_mapScrollPane.getWidth()+550, 800);
 		frameGameWindow.setVisible(true);
@@ -256,12 +260,12 @@ public class BoardView implements Observer {
 				BorderFactory.createTitledBorder(null, "Current Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.BLUE));
 
-		lab_gamePhase.setBounds(pane_mapScrollPane.getWidth()+10, pane_mapScrollPane.getY()+55, 490, 100);
+		lab_gamePhase.setBounds(pane_mapScrollPane.getWidth()+10, pane_mapScrollPane.getY()+55, 490, 60);
 
 		lab_nameofPhase = new JLabel("Initialization");
 		Font font = new Font("Courier", Font.BOLD, 20);
 		lab_nameofPhase.setFont(font);
-		lab_nameofPhase.setBounds(15, 15, 220, 70);
+		lab_nameofPhase.setBounds(15, 15, 220, 40);
 
 		lab_gamePhase.add(lab_nameofPhase);
 		panel_gameAction.add(lab_gamePhase);
@@ -276,19 +280,19 @@ public class BoardView implements Observer {
 		lab_initialisation.setBorder(
 				BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		lab_initialisation.setBounds(lab_gamePhase.getX(), lab_gamePhase.getY()+ lab_gamePhase.getHeight()+20, 490, 100);
+		lab_initialisation.setBounds(lab_gamePhase.getX(), lab_gamePhase.getY()+ lab_gamePhase.getHeight()+20, 490, 80);
 
 
 		lab_playersTurn = new JLabel(activePlayerName);
 		Font font = new Font("Courier", Font.BOLD, 24);
 		lab_playersTurn.setFont(font);
 		lab_playersTurn.setBorder(new TitledBorder("Active Player Name"));
-		lab_playersTurn.setBounds(15, 25, 220, 70);
+		lab_playersTurn.setBounds(15, 25, 220, 40);
 
 		lab_armiesLeft = new JLabel("" + activePlayerUnassignedArmiesCount);
 		lab_armiesLeft.setBorder(new TitledBorder("Armies Left"));
 		lab_armiesLeft.setBounds(lab_playersTurn.getX() + 240,
-				lab_playersTurn.getY() - 70 + lab_playersTurn.getHeight(), lab_playersTurn.getWidth(),
+				lab_playersTurn.getY() - 40 + lab_playersTurn.getHeight(), lab_playersTurn.getWidth(),
 				lab_playersTurn.getHeight());
 
 		lab_initialisation.add(lab_playersTurn);
@@ -308,7 +312,7 @@ public class BoardView implements Observer {
 				BorderFactory.createTitledBorder(null, "Reinforcement Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		lab_reinforcement.setBounds(lab_initialisation.getX(),
-				lab_initialisation.getY() +25 + lab_initialisation.getHeight(), lab_initialisation.getWidth(),
+				lab_initialisation.getY() +20 + lab_initialisation.getHeight(), lab_initialisation.getWidth(),
 				80);
 
 		lab_unassignedReinforcement = new JLabel(reinforcementUnassignedArmiesCount);
@@ -323,62 +327,68 @@ public class BoardView implements Observer {
 	/**
 	 * Method used to perform Attack phase of game
 	 */
-	public void viewAttackPhase() {
-		lab_attack = new JLabel();
-		lab_attack
-		.setBorder(BorderFactory.createTitledBorder(null, "Attack Phase", TitledBorder.DEFAULT_JUSTIFICATION,
-				TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		lab_attack.setBounds(lab_reinforcement.getX(),
-				lab_reinforcement.getY() + 25 + lab_reinforcement.getHeight(), lab_reinforcement.getWidth(),
-				250);
 
-		combo_attackerCountry = new JComboBox();
-		combo_attackerCountry.setBorder(new TitledBorder("Attack From"));
-		combo_attackerCountry.setBounds(15, 15, 220, 50);
-
-		combo_defenderCountry = new JComboBox();
-		combo_defenderCountry.setBorder(new TitledBorder("Attack To"));
-		combo_defenderCountry.setBounds(combo_attackerCountry.getX() + 20 + combo_attackerCountry.getWidth() + 3, combo_attackerCountry.getY(),
-				combo_attackerCountry.getWidth(), combo_attackerCountry.getHeight());
-
-		combo_attackerNoOfDice = new JComboBox<>();
-		combo_attackerNoOfDice.setBorder(new TitledBorder("Attacker's No Of Dice"));
-		combo_attackerNoOfDice.setBounds(combo_attackerCountry.getX(), combo_attackerCountry.getY() + 7 + combo_attackerCountry.getHeight(),
-				combo_attackerCountry.getWidth(), combo_attackerCountry.getHeight());
-
-		combo_defenderNoOfDice = new JComboBox<>();
-		combo_defenderNoOfDice.setBorder(new TitledBorder("Defender's No Of Dice"));
-		combo_defenderNoOfDice.setBounds(combo_attackerNoOfDice.getX() + 20 + combo_attackerNoOfDice.getWidth() + 3,
-				combo_attackerNoOfDice.getY(), combo_attackerNoOfDice.getWidth(), combo_attackerNoOfDice.getHeight());
-
-		button_attack.setBounds(combo_attackerNoOfDice.getX(), combo_attackerNoOfDice.getY() + 7 + combo_attackerNoOfDice.getHeight(), 100,
-				30);
-
-		button_allOut.setBounds(button_attack.getX() + button_attack.getWidth() + 21, button_attack.getY(), 100, 30);
-
-		button_endAttack.setBounds(button_allOut.getX() + button_allOut.getWidth() + 21, button_allOut.getY(), 100, 30);
-
-		combo_attackMoveArmies = new JComboBox<>();
-		combo_attackMoveArmies.setBorder(new TitledBorder("Move armies"));
-		combo_attackMoveArmies.setBounds(button_attack.getX(), button_attack.getY() + button_attack.getHeight() + 7,
-				combo_attackerNoOfDice.getWidth(), combo_attackerNoOfDice.getHeight());
-
-		button_moveArmies.setBounds(button_endAttack.getX(), combo_attackMoveArmies.getY() + 10, 100, 30);
-
-		lab_attack.add(combo_attackerCountry);
-		lab_attack.add(combo_defenderCountry);
-		lab_attack.add(combo_attackerNoOfDice);
-		lab_attack.add(combo_defenderNoOfDice);
-		lab_attack.add(combo_attackMoveArmies);
-		lab_attack.add(button_moveArmies);
-		lab_attack.add(button_attack);
-		lab_attack.add(button_allOut);
-		lab_attack.add(button_endAttack);
-		lab_attack.setVisible(false);
-		panel_gameAction.add(lab_attack);
-
-	}
-
+	
+	
+	  public void viewAttackPhase() { lab_attack = new JLabel(); lab_attack
+	  .setBorder(BorderFactory.createTitledBorder(null, "Attack Phase",
+	  TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new
+	  Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+	  lab_attack.setBounds(lab_reinforcement.getX(), lab_reinforcement.getY() + 25
+	  + lab_reinforcement.getHeight(), lab_reinforcement.getWidth(), 250);
+	  
+	  combo_attackerCountry = new JComboBox(); combo_attackerCountry.setBorder(new
+	  TitledBorder("Attack From")); combo_attackerCountry.setBounds(15, 15, 220,
+	  50);
+	  
+	  combo_defenderCountry = new JComboBox(); combo_defenderCountry.setBorder(new
+	  TitledBorder("Attack To"));
+	  combo_defenderCountry.setBounds(combo_attackerCountry.getX() + 20 +
+	  combo_attackerCountry.getWidth() + 3, combo_attackerCountry.getY(),
+	  combo_attackerCountry.getWidth(), combo_attackerCountry.getHeight());
+	  
+	  combo_attackerNoOfDice = new JComboBox<>();
+	  combo_attackerNoOfDice.setBorder(new TitledBorder("Attacker's No Of Dice"));
+	  combo_attackerNoOfDice.setBounds(combo_attackerCountry.getX(),
+	  combo_attackerCountry.getY() + 7 + combo_attackerCountry.getHeight(),
+	  combo_attackerCountry.getWidth(), combo_attackerCountry.getHeight());
+	  
+	  combo_defenderNoOfDice = new JComboBox<>();
+	  combo_defenderNoOfDice.setBorder(new TitledBorder("Defender's No Of Dice"));
+	  combo_defenderNoOfDice.setBounds(combo_attackerNoOfDice.getX() + 20 +
+	  combo_attackerNoOfDice.getWidth() + 3, combo_attackerNoOfDice.getY(),
+	  combo_attackerNoOfDice.getWidth(), combo_attackerNoOfDice.getHeight());
+	  
+	  button_attack.setBounds(combo_attackerNoOfDice.getX(),
+	  combo_attackerNoOfDice.getY() + 7 + combo_attackerNoOfDice.getHeight(), 100,
+	  30);
+	  
+	  button_allOut.setBounds(button_attack.getX() + button_attack.getWidth() + 21,
+	  button_attack.getY(), 100, 30);
+	  
+	  button_endAttack.setBounds(button_allOut.getX() + button_allOut.getWidth() +
+	  21, button_allOut.getY(), 100, 30);
+	  
+	  combo_attackMoveArmies = new JComboBox<>();
+	  combo_attackMoveArmies.setBorder(new TitledBorder("Move armies"));
+	  combo_attackMoveArmies.setBounds(button_attack.getX(), button_attack.getY() +
+	  button_attack.getHeight() + 7, combo_attackerNoOfDice.getWidth(),
+	  combo_attackerNoOfDice.getHeight());
+	  
+	  button_moveArmies.setBounds(button_endAttack.getX(),
+	  combo_attackMoveArmies.getY() + 10, 100, 30);
+	  
+	  lab_attack.add(combo_attackerCountry); lab_attack.add(combo_defenderCountry);
+	  lab_attack.add(combo_attackerNoOfDice);
+	  lab_attack.add(combo_defenderNoOfDice);
+	  lab_attack.add(combo_attackMoveArmies); lab_attack.add(button_moveArmies);
+	  lab_attack.add(button_attack); lab_attack.add(button_allOut);
+	  lab_attack.add(button_endAttack); lab_attack.setVisible(false);
+	  panel_gameAction.add(lab_attack);
+	  
+	  }
+	 
+	 
 	//------------------------ Fortification View Initial ------------------------------
 	/**
 	 * Method for fortification implementation
@@ -410,12 +420,18 @@ public class BoardView implements Observer {
 				combo_countrySource.getWidth(), combo_countrySource.getHeight());
 		combo_armyToMove.setBorder(new TitledBorder("Total number of armies to move"));
 
-		button_moveFortification.setBounds(combo_countryDestination.getX(), combo_armyToMove.getY(),
-				combo_countryDestination.getWidth(), combo_countryDestination.getHeight());
+		//button_moveFortification.setBounds(combo_countryDestination.getX(), combo_armyToMove.getY(),
+			//	combo_countryDestination.getWidth(), combo_countryDestination.getHeight());
+		button_moveFortification.setBounds(combo_countryDestination.getX(),
+				combo_countryDestination.getHeight() + combo_countryDestination.getY() + 17, 100, 30);
+		button_skip.setBounds(button_moveFortification.getX() + button_moveFortification.getWidth() + 10,
+				button_moveFortification.getY(), button_moveFortification.getWidth(),
+				button_moveFortification.getHeight());
 		lab_fortification.add(combo_countrySource);
 		lab_fortification.add(combo_countryDestination);
 		lab_fortification.add(combo_armyToMove);
 		lab_fortification.add(button_moveFortification);
+		lab_fortification.add(button_skip);
 		lab_fortification.setVisible(false);
 		panel_gameAction.add(lab_fortification);
 	}
@@ -426,8 +442,8 @@ public class BoardView implements Observer {
 	 */
 	public void createPlayerWorldDominationView() {
 		button_playerWorldDominationView = new JButton("Player World Domination View");
-		button_playerWorldDominationView.setBackground(Color.LIGHT_GRAY);
-		button_playerWorldDominationView.setBounds(pane_mapScrollPane.getWidth()+10, pane_mapScrollPane.getY(), 490, 50);
+		//button_playerWorldDominationView.setBackground(Color.blue);
+		button_playerWorldDominationView.setBounds(pane_mapScrollPane.getWidth()+10, pane_mapScrollPane.getY(), 490, 40);
 		panel_gameAction.add(button_playerWorldDominationView,BorderLayout.NORTH);
 	
 	}

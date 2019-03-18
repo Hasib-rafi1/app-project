@@ -20,7 +20,11 @@ import javax.swing.JTextField;
 import javax.swing.table.JTableHeader;
 
 import helper.PrintConsoleAndUserInput;
-
+/**
+ * 
+ * @author Gargi Sharma
+ * @version 1.0.0
+ */
 public class WorldDominationView {
 
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
