@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 
+
 import model.Game;
 import model.Player;
 import views.BoardView;
@@ -112,6 +113,7 @@ public class GameController {
 		addDefenderCountryListener();
 		addActionListenerForWorldDominationView();
 		addAttackButtonListener();
+		addEndAttackButtonListener();
 	}
 
 	/**
@@ -206,6 +208,19 @@ public class GameController {
 		});
 	}
 
+	/**
+	 * to add listener on the END Attack Button
+	 */
+	public void addEndAttackButtonListener() {
+		boardView.addActionListenToEndAttackButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == GamePhase.Attack) {
+					game.updateGame();
+				}
+			}
+		});
+	}
 	/**
 	 * This method is to update the board view.
 	 */
