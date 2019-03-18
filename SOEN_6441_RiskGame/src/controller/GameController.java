@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -151,7 +152,7 @@ public class GameController {
 	 */
 	public void addAttackerCountryListener() {
 		boardView.addActionListenToAttackerCountryList(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				String countryName = boardView.getAttackerCountry();
 
@@ -164,13 +165,13 @@ public class GameController {
 			}
 		});
 	}
-	
+
 	/**
 	 * to add listeners on the defender Country List
 	 */
 	public void addDefenderCountryListener() {
 		boardView.addActionListenToDefenderCountryList(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				String countryName = boardView.getDefenderCountry();
 
@@ -181,7 +182,7 @@ public class GameController {
 			}
 		});
 	}
-	
+
 	/**
 	 * to add listener on the Attack Button
 	 */
@@ -218,53 +219,63 @@ public class GameController {
 			}
 		});
 	}
-	
+
 	public void addActionListenerForWorldDominationView() {		
 		boardView.worldDominationViewListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {
-//				worldDominationView.createJframeForWorldDominationView();
-				
-				 if (game==null)
-	                    return;
-	                int i=0;
-	                ArrayList<Player> listOfPlayers = game.getAllPlayers();
-	                ArrayList<String> playerNames = new ArrayList<>();
-	                for (Player obj : listOfPlayers ) {
-	                    String name = obj.getPlayerName();
-	                    playerNames.add(name);
-	                    i++;
-	                }
-				// create some tabular data
-			    String[] headings = 
-			      new String[] {"Number", "Hot?", "Origin",
-			                    "Destination", "Ship Date", "Weight" };
-			    Object[][] data = new Object[][] {
-			      { "100420", Boolean.FALSE, "Des Moines IA", "Spokane WA",
-			          "02/06/2000", new Float(450) },
-			      { "202174", Boolean.TRUE, "Basking Ridge NJ", "Princeton NJ", 
-			          "05/20/2000", new Float(1250) },
-			      { "450877", Boolean.TRUE, "St. Paul MN", "Austin TX",
-			          "03/20/2000", new Float(1745) },
-			      { "101891", Boolean.FALSE, "Boston MA", "Albany NY",
-			          "04/04/2000", new Float(88) }
-			    };
-				JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
+				ArrayList<Player> playerList = game.getAllPlayers();
+
+				// Get players from the above arraylist and add in the other arraylist.
+				int x = 0;
+				ArrayList<String> newPlayerNameList = new ArrayList<>();
+				for (Player playerData : playerList) {
+					String name = playerData.getPlayerName();
+					newPlayerNameList.add(name);
+					x++;
+				}
+
+				// print Player name in tabular columns(Ist row heading)				
+				String[] playerNamesInTableColumns = new String[newPlayerNameList.size()];
+				int y=0;				
+				for ( String nameOfPlayer : newPlayerNameList ) {				
+					playerNamesInTableColumns[y] = "Player name "+nameOfPlayer;
+					y++;
+				}
+
+				// Get the percentage of the map controlled by every player(not working till now)
+				Float[] mapPercentage = new Float[newPlayerNameList.size()];
+				HashMap<Integer,Float> findPercentageOfMap =  game.getPercentageOfMapControlledByEveryPlayer();
+				int z=0;
+				for (Map.Entry<Integer, Float> entry : findPercentageOfMap.entrySet()) {
+					//   System.out.println(entry.getKey()+" : "+entry.getValue());
+					mapPercentage[z] = entry.getValue();
+					z++;
+				}
+
+				String[][] rowData = new String[3][newPlayerNameList.size()];
+				for (int i = 0; i < rowData[0].length; i++) {
+					rowData[0][i] = mapPercentage[i] + " %";
+				}
+
+
+				worldDominationView.createJframeForWorldDominationView(rowData,playerNamesInTableColumns);
+
+
+				/*	JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
 				JFrame frameWindowForWorldDominationView = new JFrame("Players World Domination View");
-			    
-			    panelWindowForWorldDominationView.setLayout(new FlowLayout());
-				panelWindowForWorldDominationView.setPreferredSize(new Dimension(600, 300));
-				panelWindowForWorldDominationView.setBackground(Color.lightGray);
-				frameWindowForWorldDominationView.setSize(600, 200);
+				panelWindowForWorldDominationView.setLayout(new FlowLayout());
+				panelWindowForWorldDominationView.setPreferredSize(new Dimension(580, 300));
+
+
+				// Putting the data in a table
+				JTable table = new JTable(rowData, playerNamesInTableColumns);
+				frameWindowForWorldDominationView.getContentPane( ).add(new JScrollPane(table));
+				frameWindowForWorldDominationView.setSize(600, 300);
 				frameWindowForWorldDominationView.setLocationRelativeTo(null);
 				frameWindowForWorldDominationView.setVisible(true);
 				frameWindowForWorldDominationView.add(panelWindowForWorldDominationView);
 				frameWindowForWorldDominationView.pack();
-
-				frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			    JTable table = new JTable(data, headings);
-			    frameWindowForWorldDominationView.getContentPane( ).add(new JScrollPane(table));
-			    
-
+				frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
 			}
 		});
 	}

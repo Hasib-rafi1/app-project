@@ -19,6 +19,7 @@ public class Player {
 	private String playerName;
 	private Colors color;
 	private ArrayList<Integer> diceResults = new ArrayList<>();
+	private ArrayList<Country> assignedListOfCountries = new ArrayList<Country>();
 
 
 	/**
@@ -258,5 +259,14 @@ public class Player {
 		default:
 			return Colors.BLACK;
 		}
+	}
+	
+	/**
+	 * This method is used to return the assigned countries to each Player.
+	 * 
+	 * @return assignedListOfCountries
+	 */
+	public ArrayList<Country> getAssignedListOfCountries() {
+		return assignedListOfCountries;
 	}
 }

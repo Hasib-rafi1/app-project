@@ -8,6 +8,8 @@ import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+
+
 import java.util.Collections;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
@@ -707,4 +709,27 @@ public class Game extends Observable {
 			return false;
 		}
 	}
+	
+	public HashMap<Integer, Float> getPercentageOfMapControlledByEveryPlayer() {
+		HashMap<Integer, Float> returnMap = new HashMap<Integer, Float>();
+		
+		
+		float totalCountries = 0;
+		ArrayList<Continent> allContinents = mapModel.getContinentList();
+		for (Continent continent : allContinents) {
+			ArrayList<Country> country = continent.getCountryList();
+			totalCountries = totalCountries + country.size();
+			System.out.println(totalCountries+"====="+country.size());
+		}
+		for (Player player : playerList) {
+			float playerNumberOfCountries = player.getAssignedListOfCountries().size();
+			System.out.println("+++++" +playerNumberOfCountries);
+			//float percentage = (playerNumberOfCountries / totalCountries) * 100;
+		//	returnMap.put(player.getPlayerId(), percentage);
+		}
+		return returnMap;
+	}
+	
+	
+	
 }

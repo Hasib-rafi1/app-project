@@ -13,6 +13,7 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -27,22 +28,24 @@ public class WorldDominationView {
 	JFrame frameWindowForWorldDominationView = new JFrame("Player World Domination View");
 	
 
-	public void createJframeForWorldDominationView() {
+	public void createJframeForWorldDominationView(String[][] rowData, String[] playerNamesInTableColumns) {	
+		
 		// TODO Auto-generated method stub		
+		JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
+		JFrame frameWindowForWorldDominationView = new JFrame("Players World Domination View");
 		panelWindowForWorldDominationView.setLayout(new FlowLayout());
-		panelWindowForWorldDominationView.setPreferredSize(new Dimension(600, 300));
-		panelWindowForWorldDominationView.setBackground(Color.lightGray);
+		panelWindowForWorldDominationView.setPreferredSize(new Dimension(580, 300));
 		
-
 		
-	
-		
-		frameWindowForWorldDominationView.setSize(600, 200);
+		// Putting the data in a table
+		JTable table = new JTable(rowData, playerNamesInTableColumns);
+		frameWindowForWorldDominationView.getContentPane( ).add(new JScrollPane(table));
+		frameWindowForWorldDominationView.setSize(600, 300);
 		frameWindowForWorldDominationView.setLocationRelativeTo(null);
 		frameWindowForWorldDominationView.setVisible(true);
 		frameWindowForWorldDominationView.add(panelWindowForWorldDominationView);
 		frameWindowForWorldDominationView.pack();
-		frameWindowForWorldDominationView.setVisible(true);
+
 		frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
