@@ -31,7 +31,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
 
 import model.MapModel;
-
+import model.Player;
 import model.Game;
 import helper.Colors;
 import helper.PrintConsoleAndUserInput;
@@ -93,6 +93,7 @@ public class BoardView implements Observer {
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int screen_height = screenSize.height;
 	int screen_width = screenSize.width;
+	private static Country DEF_Country;
 
 	//Flags for determining the next actions
 	String activePlayerName = null;
@@ -105,6 +106,8 @@ public class BoardView implements Observer {
 	String mapPath;
 	ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
 	GamePhase phase;
+	MapModel mapIt;
+	boolean a =false;
 
 	//----------------------------- View Update Function ---------------------------
 	/**
@@ -114,7 +117,7 @@ public class BoardView implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		Game game = ((Game)arg0);
-
+		mapIt = game.getMap();
 		mapPath = game.getMap().getMapDir()+game.getMap().getMapName()+ ".bmp";
 		phase = game.getGamePhase(); 
 		File tempFile = new File(mapPath);
@@ -130,6 +133,14 @@ public class BoardView implements Observer {
 		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNumberOfInitialArmies()); 
 		reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNumberOfReinforcedArmies());
 		countryList.clear();
+		if(a) {
+			Country countryTest = map.getCountryList().stream().filter(p -> p.getCountryId()==DEF_Country.getCountryId())
+					.findAny().orElse(null);
+					System.out.println("Player Id"+ countryTest.getPlayerId());
+					System.out.println("Color"+ countryTest.getCountryColor());
+					System.out.println("Armies"+ countryTest.getnoOfArmies());
+		}
+
 		for(Country country: map.getCountryList()){  
 			CountryViewModel viewCountry = new CountryViewModel();
 			viewCountry.setCountryId(country.getCountryId());
@@ -547,7 +558,9 @@ public class BoardView implements Observer {
 	 * Static method to get selected attacker country
 	 * @return selectedCountry
 	 */
-	public static String getDefenderCountry() {
+	public  String getDefenderCountry() {
+		DEF_Country = mapIt.getCountryFromName((String)combo_defenderCountry.getSelectedItem());
+		a =true;
 		return (String)combo_defenderCountry.getSelectedItem();
 
 	}

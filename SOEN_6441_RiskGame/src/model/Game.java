@@ -660,13 +660,20 @@ public class Game extends Observable {
 			return false;
 		}
 		
-		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount);
+		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount,playerCountry);
 		
 		//playerCountry;
 		
 		System.out.println("Player Id"+ defCountry.getPlayerId());
 		System.out.println("Color"+ defCountry.getCountryColor());
 		System.out.println("Armies"+ defCountry.getnoOfArmies());
+		
+		Country countryTest = mapModel.getCountryList().stream().filter(p -> p.getCountryId()==defCountry.getCountryId())
+		.findAny().orElse(null);
+		
+		System.out.println("Player Id"+ countryTest.getPlayerId());
+		System.out.println("Color"+ countryTest.getCountryColor());
+		System.out.println("Armies"+ countryTest.getnoOfArmies());
 		if (isMapConcured()) {
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
