@@ -249,7 +249,7 @@ public class Game extends Observable {
 	/**
 	 * This method updates the game phase of the game during the end of every Startup, Reinforcement and Fortification phase.
 	 */
-	private void updateGame() {
+	public void updateGame() {
 		if (this.getGamePhase() == gamePhase.Startup) {
 			long pendingPlayersCount = playerList.stream().filter(p -> p.getNumberOfInitialArmies() > 0).count();
 			System.out.println(pendingPlayersCount);
@@ -272,6 +272,7 @@ public class Game extends Observable {
 		}
 		else if (this.getGamePhase() == gamePhase.Fortification) {
 			this.setGamePhase(gamePhase.Reinforcement);
+			notifyObserverslocal(this);
 		}
 	}
 

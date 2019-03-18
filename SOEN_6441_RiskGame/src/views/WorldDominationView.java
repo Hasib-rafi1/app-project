@@ -50,7 +50,7 @@ public class WorldDominationView {
 		frameWindowForWorldDominationView.add(panelWindowForWorldDominationView);
 		frameWindowForWorldDominationView.pack();
 
-		frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 
