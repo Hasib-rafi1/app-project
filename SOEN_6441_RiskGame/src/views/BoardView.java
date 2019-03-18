@@ -503,12 +503,21 @@ public class BoardView implements Observer {
 	/**
 	 * Method for performing action listener on attack Button
 	 * 
-	 * @param listener
-	 *            ActionListener
+	 * @param listener  ActionListener
 	 */
 	public void addActionListenToAttackButton(ActionListener listener) {
 		button_attack.addActionListener(listener);
 	}
+	
+	/**
+	 * Method for performing action listener on End attack Button
+	 * 
+	 * @param listener ActionListener
+	 */
+	public void addActionListenToEndAttackButton(ActionListener listener) {
+		button_endAttack.addActionListener(listener);
+	}
+	
 
 	public void skipFortificationActionListener(ActionListener listener) {
 		button_skip.addActionListener(listener);
