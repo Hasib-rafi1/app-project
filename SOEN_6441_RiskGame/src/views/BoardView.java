@@ -31,7 +31,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
 
 import model.MapModel;
-
+import model.Player;
 import model.Game;
 import helper.Colors;
 import helper.PrintConsoleAndUserInput;
@@ -106,6 +106,7 @@ public class BoardView implements Observer {
 	String mapPath;
 	ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
 	GamePhase phase;
+	MapModel mapIt;
 
 	//----------------------------- View Update Function ---------------------------
 	/**
@@ -115,7 +116,7 @@ public class BoardView implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		Game game = ((Game)arg0);
-
+		mapIt = game.getMap();
 		mapPath = game.getMap().getMapDir()+game.getMap().getMapName()+ ".bmp";
 		phase = game.getGamePhase(); 
 		File tempFile = new File(mapPath);
@@ -131,6 +132,7 @@ public class BoardView implements Observer {
 		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNumberOfInitialArmies()); 
 		reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNumberOfReinforcedArmies());
 		countryList.clear();
+
 		for(Country country: map.getCountryList()){  
 			CountryViewModel viewCountry = new CountryViewModel();
 			viewCountry.setCountryId(country.getCountryId());
@@ -144,6 +146,7 @@ public class BoardView implements Observer {
 			JLabel label = (JLabel)map_hashMap.get(String.valueOf(country.getCountryId()));
 			if(label != null){
 				label.setText(String.valueOf(viewCountry.getNumberOfArmies()));
+				label.setForeground(PrintConsoleAndUserInput.getColor(viewCountry.getColorOfCountry()));
 			}
 			countryList.add(viewCountry);
 		}
@@ -563,7 +566,7 @@ public class BoardView implements Observer {
 	 * Static method to get selected attacker country
 	 * @return selectedCountry
 	 */
-	public static String getDefenderCountry() {
+	public  String getDefenderCountry() {
 		return (String)combo_defenderCountry.getSelectedItem();
 
 	}

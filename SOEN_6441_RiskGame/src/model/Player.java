@@ -2,6 +2,7 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import helper.Colors;
@@ -195,7 +196,7 @@ public class Player {
 	 * @param attackerDiceCount, attacking dices count
 	 * @param defenderDiceCount, defending dices count
 	 */
-	public void attackPhaseActions(Player defenderPlayer, Country attackerCountry, Country defenderCountry, int attackerDiceCount, int defenderDiceCount) {
+	public void attackPhaseActions(Player defenderPlayer, Country attackerCountry, Country defenderCountry, int attackerDiceCount, int defenderDiceCount,HashMap<Player, ArrayList<Country>> playerCountry) {
 		diceRoller(attackerDiceCount);
 		defenderPlayer.diceRoller(defenderDiceCount);
 
@@ -237,8 +238,9 @@ public class Player {
 			defenderCountry.setCountryColor(attackerCountry.getCountryColor());
 			defenderPlayer.unAssignCountryToPlayer(defenderCountry);
 			assignCountryToPlayer(defenderCountry);
-			System.out.println(defenderCountry.getPlayerId());
-			System.out.println(defenderCountry.getCountryColor());
+			playerCountry.get(this).add(defenderCountry);
+			playerCountry.get(defenderPlayer).remove(defenderCountry);
+			
 			// attacker has to put minimum one army defending country (By Game rules)
 			attackerCountry.decreaseArmyCount(1);
 			defenderCountry.increaseArmyCount(1);
