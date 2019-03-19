@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 import helper.Colors;
+import helper.Card;
+
 // TODO: Auto-generated Javadoc
 /**
  * this is a player class which contains the players attributes and basic setter getter functions 
@@ -36,10 +38,11 @@ public class Player {
 	/** The assigned list of countries. */
 	private ArrayList<Country> assignedListOfCountries = new ArrayList<Country>();
 	
-	/** To assign a card after the attack phase if the country is Conquered */
+	/** To assign a card after the attack phase if the country is Conquered. */
 	private Boolean isConquered = false;
 
-
+	/** The assigned Risk Card of the player. */
+	private ArrayList<Card> playerCards = new ArrayList<>();
 
 
 
@@ -309,8 +312,8 @@ public class Player {
 	
 	/**
 	 * This method checks whether the source and destination countries belongs to the player and moves the armies from source to destination.
-	 * @param source  source as string
-	 * @param destination destination countries as string
+	 * @param sourceCountry  source as string
+	 * @param destinationCountry destination countries as string
 	 * @param armies count of armies as int
 	 * @return true
 	 */
