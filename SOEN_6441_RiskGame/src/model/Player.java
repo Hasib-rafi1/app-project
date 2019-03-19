@@ -283,7 +283,8 @@ public class Player {
 			defenderCountry.increaseArmyCount(1);
 			
 			if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
-				// Jai just assign the defender cards in the attacker 
+
+			    // Jai just assign the defender cards in the attacker
 			}
 		}
 	}
@@ -341,11 +342,11 @@ public class Player {
 		return playerCards;
 	}
 
-	public void removeAllCardsFromPlayer() {
+	public void removeCards() {
 		playerCards.clear();
 	}
 
-	public void addCardToPlayer(Card card) {
+	public void addCard(Card card) {
 		playerCards.add(card);
 	}
 
