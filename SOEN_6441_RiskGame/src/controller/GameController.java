@@ -113,11 +113,11 @@ public class GameController {
 		addDefenderCountryListener();
 		addActionListenerForWorldDominationView();
 		addAttackButtonListener();
-<<<<<<< HEAD
+
 		addSkipButtonListener();
-=======
+
 		addEndAttackButtonListener();
->>>>>>> branch 'master' of https://naren_csp@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
+
 	}
 
 	/**
