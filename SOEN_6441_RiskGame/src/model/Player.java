@@ -315,7 +315,7 @@ public class Player {
 	
 	/**
 	 * This method calculates the corresponding reinforcement armies from a particular player from the number of countries owned by the layer.
-	 * @param player Player
+	 * @param playerCountry Player
 	 * @return total number of armies in reinforcement
 	 */
 	public int calculationForNumberOfArmiesInReinforcement(HashMap<Player, ArrayList<Country>> playerCountry,ArrayList<Continent> continents) {
