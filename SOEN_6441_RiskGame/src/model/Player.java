@@ -3,7 +3,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import helper.Colors;
 import helper.Card;
@@ -309,6 +311,31 @@ public class Player {
 	public int getRandomDiceNumber() {
 		Random r = new Random();
 		return r.nextInt((6 - 1) + 1) + 1;
+	}
+	
+	/**
+	 * This method calculates the corresponding reinforcement armies from a particular player from the number of countries owned by the layer.
+	 * @param player Player
+	 * @return total number of armies in reinforcement
+	 */
+	public int calculationForNumberOfArmiesInReinforcement(HashMap<Player, ArrayList<Country>> playerCountry,ArrayList<Continent> continents) {
+		int countries_count = (int) Math.floor(playerCountry.get(this).stream().count() / 3);
+		if (playerCountry.containsKey(this)) {
+			ArrayList<Country> assignedCountries = playerCountry.get(this);
+
+			List<Integer> assignedCountryIds = assignedCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
+
+			for (Continent continent : continents) {
+				List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId()).collect(Collectors.toList());
+
+				boolean hasPlayerAllCountries = assignedCountryIds.containsAll(continentCountryIds);
+
+				if (hasPlayerAllCountries){
+					countries_count += continent.getControlValue();
+				}
+			}
+		}
+		return countries_count;
 	}
 	
 	/**
