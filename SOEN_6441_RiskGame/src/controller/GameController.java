@@ -14,12 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.AbstractListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import model.Country;
@@ -32,6 +36,7 @@ import model.MapModel;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 
+// TODO: Auto-generated Javadoc
 /**
  * Game Controller initializes the game by calling the game model.
  * It controls the view by actively listing to the view elements and performing the respective actions. 
@@ -41,17 +46,26 @@ import helper.PrintConsoleAndUserInput;
  */
 public class GameController {
 
+	/** The game. */
 	Game game;	
+	
+	/** The board view. */
 	BoardView boardView;
+	
+	/** The map model. */
 	MapModel mapModel = new MapModel();
+	
+	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	
+	/** The userinput. */
 	//	WorldDominationView worldDominationView = new WorldDominationView();
 	Scanner userinput = new Scanner(System.in);
 	Country attCountry;
 	Country defCountry;
 
 	/**
-	 * This function is going to initializing the map by taking user input
+	 * This function is going to initializing the map by taking user input.
 	 */
 	public void initializeMap() {
 		print.listofMapsinDirectory();
@@ -76,7 +90,7 @@ public class GameController {
 	/**
 	 * This method is setting up the board and game model
 	 * It is intializing the observer for the gui also
-	 * It is taking the the input from the user for creating number of players
+	 * It is taking the the input from the user for creating number of players.
 	 */
 	public void initializeGame(){
 		int j=1;
@@ -122,7 +136,7 @@ public class GameController {
 	}
 
 	/**
-	 *This method is going to assign armies to the specific countries in initial phase and in reinforcement phase
+	 * This method is going to assign armies to the specific countries in initial phase and in reinforcement phase.
 	 */
 	public void numberOfArmiesClickListener(){
 		boardView.addMapLabelsListener(new MouseAdapter() {
@@ -137,7 +151,7 @@ public class GameController {
 	}
 
 	/**
-	 * This method is going to populate destination combo box and the number of army combobox
+	 * This method is going to populate destination combo box and the number of army combobox.
 	 */
 	public void addSourceCountriesListener(){
 		boardView.addActionListenToSourceCountryList(new ActionListener() {
@@ -156,7 +170,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listeners on the attacker Country List
+	 * to add listeners on the attacker Country List.
 	 */
 	public void addAttackerCountryListener() {
 		boardView.addActionListenToAttackerCountryList(new ActionListener() {
@@ -175,7 +189,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listeners on the defender Country List
+	 * to add listeners on the defender Country List.
 	 */
 	public void addDefenderCountryListener() {
 		boardView.addActionListenToDefenderCountryList(new ActionListener() {
@@ -192,7 +206,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the Attack Button
+	 * to add listener on the Attack Button.
 	 */
 	public void addAttackButtonListener() {
 		boardView.addActionListenToAttackButton(new ActionListener() {
@@ -220,7 +234,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the END Attack Button
+	 * to add listener on the END Attack Button.
 	 */
 	public void addEndAttackButtonListener() {
 		boardView.addActionListenToEndAttackButton(new ActionListener() {
@@ -234,7 +248,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the END Attack Button
+	 * to add listener on the END Attack Button.
 	 */
 	public void addAllOutButtonListener() {
 		boardView.addActionListenToAllOutButton(new ActionListener() {
@@ -292,6 +306,10 @@ public class GameController {
 		});
 	}
 
+	/**
+	 * Add action listener for the world domination view.
+	 * 
+	 */
 	public void addActionListenerForWorldDominationView() {		
 		boardView.worldDominationViewListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {
@@ -310,48 +328,46 @@ public class GameController {
 				String[] playerNamesInTableColumns = new String[newPlayerNameList.size()];
 				int y=0;				
 				for ( String nameOfPlayer : newPlayerNameList ) {				
-					playerNamesInTableColumns[y] = "Player name "+nameOfPlayer;
+					playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
 					y++;
 				}
+				
+				int size = newPlayerNameList.size();
 
-				// Get the percentage of the map controlled by every player(not working till now)
-				Float[] mapPercentage = new Float[newPlayerNameList.size()];
+				// Get the Percentage of the map controlled by every player
+				
+				Float[] mapPercentage = new Float[size];
 				HashMap<Integer,Float> findPercentageOfMap =  game.getPercentageOfMapControlledByEveryPlayer();
 				int z=0;
 				for (Map.Entry<Integer, Float> entry : findPercentageOfMap.entrySet()) {
 					//   System.out.println(entry.getKey()+" : "+entry.getValue());
-					mapPercentage[z] = entry.getValue();
+					float value = entry.getValue();
+					mapPercentage[z] = value;
 					z++;
 				}
 
-				String[][] rowData = new String[3][newPlayerNameList.size()];
-				for (int i = 0; i < rowData[0].length; i++) {
-					rowData[0][i] = mapPercentage[i] + " %";
+				// To print data in a table
+				String[][] dataInTableRows = new String[3][newPlayerNameList.size()];
+				for (int percentColumn = 0; percentColumn < dataInTableRows[0].length; percentColumn++) {
+					dataInTableRows[0][percentColumn] = Float.toString(mapPercentage[percentColumn]) + " %";
 				}
+				
+				
+				//Get the continents controlled by every player 
+				 int[] continentsControlledByPlayer = new int[size];
+	                
 
 
-				WorldDominationView.createJframeForWorldDominationView(rowData,playerNamesInTableColumns);
+				WorldDominationView.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 
-
-				/*	JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
-				JFrame frameWindowForWorldDominationView = new JFrame("Players World Domination View");
-				panelWindowForWorldDominationView.setLayout(new FlowLayout());
-				panelWindowForWorldDominationView.setPreferredSize(new Dimension(580, 300));
-
-
-				// Putting the data in a table
-				JTable table = new JTable(rowData, playerNamesInTableColumns);
-				frameWindowForWorldDominationView.getContentPane( ).add(new JScrollPane(table));
-				frameWindowForWorldDominationView.setSize(600, 300);
-				frameWindowForWorldDominationView.setLocationRelativeTo(null);
-				frameWindowForWorldDominationView.setVisible(true);
-				frameWindowForWorldDominationView.add(panelWindowForWorldDominationView);
-				frameWindowForWorldDominationView.pack();
-				frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
+				
 			}
 		});
 	}
 
+	/**
+	 * Adds the skip button listener.
+	 */
 	public void addSkipButtonListener() {
 		boardView.skipFortificationActionListener(new ActionListener() {
 

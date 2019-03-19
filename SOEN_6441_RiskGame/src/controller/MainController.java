@@ -4,8 +4,10 @@ import controller.MapController;
 import helper.PrintConsoleAndUserInput;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * This is a main class to run the game
+ * This is a main class to run the game.
+ *
  * @author Gargi Sharma
  * @version 1.0.0
  */
@@ -16,8 +18,8 @@ public class MainController {
 	 * This function is used to enter the user input and call the functions to create or edit the map, start, load the game
 	 * and user can exit if he wants to exit the game.
 	 * This function also displays the error message to select valid user input.
-	 * @param args, arguments passed in the main method of class
 	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 

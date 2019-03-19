@@ -5,22 +5,27 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
 /**
- * Test class for Continent class that checks the values for the continent
+ * Test class for Continent class that checks the values for the continent.
+ *
  * @author naren
  */
 
 public class ContinentTest {
-	/**
-	 * Declaring objects
-	 */
+	
+	/** Declaring objects. */
 	private ArrayList<Country> countriesOfTheContinent= new ArrayList<>();
+	
+	/** The obj continent. */
 	Continent obj_continent;
+	
+	/** The obj country. */
 	Country obj_country;
 
 
 	/**
-	 * Initializing objects and values for the test cases
+	 * Initializing objects and values for the test cases.
 	 */
 	@Before
 	public void setUp()  {
@@ -31,7 +36,7 @@ public class ContinentTest {
 	}
 
 	/**
-	 * test method to check if it returns correct continent id
+	 * test method to check if it returns correct continent id.
 	 */
 
 	@Test
@@ -41,7 +46,7 @@ public class ContinentTest {
 	}
 
 	/**
-	 * test method to check if it returns correct continent Name
+	 * test method to check if it returns correct continent Name.
 	 */
 
 	@Test
@@ -51,7 +56,7 @@ public class ContinentTest {
 	}
 
 	/**
-	 * test method to check if it returns correct control value for the continent
+	 * test method to check if it returns correct control value for the continent.
 	 */
 
 	@Test
@@ -64,7 +69,7 @@ public class ContinentTest {
 
 
 	/**
-	 * test method to check whether the country is being added to the continent 
+	 * test method to check whether the country is being added to the continent.
 	 */
 
 	@Test

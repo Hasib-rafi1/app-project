@@ -4,20 +4,22 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import helper.Colors;
 import org.junit.Test;
+// TODO: Auto-generated Javadoc
+
 /**
- * Test class that tests the correctness in values in Player class that'll be used in further operations 
- * @author naren
+ * Test class that tests the correctness in values in Player class that'll be used in further operations .
  *
+ * @author naren
  */
 public class PlayerTest {
-	/**
-	 * Declaring objects
-	 */
+	
+	/** Declaring objects. */
 
 	Player obj_playertest;
 
 	/**
-	 * Initializing objects and values for the test cases
+	 * Initializing objects and values for the test cases.
+	 *
 	 * @throws Exception if it is not setting the values at the starting
 	 */
 
@@ -32,7 +34,7 @@ public class PlayerTest {
 
 
 	/**
-	 * test method to check if it returns correct player id
+	 * test method to check if it returns correct player id.
 	 */
 
 	@Test
@@ -42,7 +44,7 @@ public class PlayerTest {
 
 
 	/**
-	 * test method to check the initial number of armies
+	 * test method to check the initial number of armies.
 	 */
 
 	@Test
@@ -52,7 +54,7 @@ public class PlayerTest {
 
 
 	/**
-	 * test method to check the reinforced number of armies
+	 * test method to check the reinforced number of armies.
 	 */
 
 	@Test 
@@ -63,7 +65,7 @@ public class PlayerTest {
 
 
 	/**
-	 * test method to check if it returns correct player name
+	 * test method to check if it returns correct player name.
 	 */
 
 	@Test
@@ -73,7 +75,7 @@ public class PlayerTest {
 
 
 	/**
-	 * test method to check if the function getColor() fetches the correct colors 
+	 * test method to check if the function getColor() fetches the correct colors.
 	 */
 
 	@Test 
@@ -83,7 +85,7 @@ public class PlayerTest {
 
 
 	/**
-	 * test method to check if it returns correct color for every player
+	 * test method to check if it returns correct color for every player.
 	 */
 
 	@Test
@@ -94,7 +96,7 @@ public class PlayerTest {
 
 
 	/**
-	 * test method to check if the method implements the decrease the initial army operation correctly
+	 * test method to check if the method implements the decrease the initial army operation correctly.
 	 */
 
 	@Test
@@ -105,7 +107,7 @@ public class PlayerTest {
 
 
 	/**
-	 * test method to check if the method implements the decrease the reinforced army operation correctly
+	 * test method to check if the method implements the decrease the reinforced army operation correctly.
 	 */
 
 	@Test

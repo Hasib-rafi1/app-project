@@ -2,22 +2,31 @@ package model;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
- * This is a main class to read and store different elements of the continent
+ * This is a main class to read and store different elements of the continent. *
  * @author Zakiya Jafrin
  * @author Jaiganesh
  * @version 1.0.0
  */
 public class Continent {
 
+	/** The continent ID. */
 	private int continentID;
+	
+	/** The continent name. */
 	private String continentName;
+	
+	/** The control value. */
 	private int controlValue;
+	
+	/** The countries of the continent. */
 	private ArrayList<Country> countriesOfTheContinent= new ArrayList<>();
 
 
 	/**
-	 * The Constructor is created to set the all parameters of the continent Element
+	 * The Constructor is created to set the all parameters of the continent Element.
+	 *
 	 * @param continentID ID of continent
 	 * @param continentName name of continent
 	 * @param controlValue control value of continent
@@ -29,7 +38,8 @@ public class Continent {
 	}
 
 	/**
-	 * This method is used to get an integer value of the continent which is set as Continent ID
+	 * This method is used to get an integer value of the continent which is set as Continent ID.
+	 *
 	 * @return continentID, ID of the continent.
 	 */
 	public int getContinentID() {
@@ -45,7 +55,8 @@ public class Continent {
 	}
 	
 	/**
-	 * This method is used to get the name of the Continent as a String
+	 * This method is used to get the name of the Continent as a String.
+	 *
 	 * @return continentName, name of the continent.
 	 */
 	public String getContinentName() {
@@ -53,7 +64,8 @@ public class Continent {
 	}
 
 	/**
-	 * This method is used to get the control Value of the Continent in the conquest Map
+	 * This method is used to get the control Value of the Continent in the conquest Map.
+	 *
 	 * @return controlValue,  Control Value to the continent.
 	 */
 	public int getControlValue() {
@@ -70,15 +82,17 @@ public class Continent {
 
 	/**
 	 * This function sets the control value of the continent object.	 *
-	 * @param controlValue, Control Value of the continent
+	 *
+	 * @param controlValue the new control value
 	 */
 	public void setControlValue(int controlValue) {
 		this.controlValue = controlValue;
 	}
 
 	/**
-	 * This method is used to takes all the countries as a parameter and list them in an array list under the Continent Name
-	 * @param country, name of the country of the Continent
+	 * This method is used to takes all the countries as a parameter and list them in an array list under the Continent Name.
+	 *
+	 * @param country the country
 	 */
 	public void addCountriesToTheContinentList(Country country) {
 		this.countriesOfTheContinent.add(country);
