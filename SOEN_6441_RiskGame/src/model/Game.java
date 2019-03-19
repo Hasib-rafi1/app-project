@@ -86,6 +86,7 @@ public class Game extends Observable {
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
 			System.out.println("Player ID: "+playerList.get(i).getPlayerId()+" Player Name: "+playerList.get(i).getPlayerName()+" Player's Army: "+playerList.get(i).getNumberOfInitialArmies()+" Player's Color"+playerList.get(i).getColor());
+			playerList.get(i).setConcuredContinents(mapModel.getContinentList());
 		}
 
 		int players_count = playerList.size();
@@ -119,6 +120,7 @@ public class Game extends Observable {
 				System.out.println(aString.getCountryName());
 			}
 		}
+		
 		notifyObserverslocal(this);
 	}
 
@@ -667,6 +669,7 @@ public class Game extends Observable {
 			updateGame();
 		}
 
+		getCurrentPlayer().setConcuredContinents(mapModel.getContinentList());
 		notifyObserverslocal(this);
 		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
 			return true;
