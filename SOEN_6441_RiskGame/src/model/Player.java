@@ -336,6 +336,20 @@ public class Player {
 		}
 		return true;
 	}
+
+	public ArrayList<Card> getCards() {
+		return playerCards;
+	}
+
+	public void removeAllCardsFromPlayer() {
+		playerCards.clear();
+	}
+
+	public void addCardToPlayer(Card card) {
+		playerCards.add(card);
+	}
+
+
 	/**
 	 * This returns the player color.
 	 * @param playerID the id of the player
