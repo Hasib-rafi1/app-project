@@ -44,7 +44,7 @@ public class GameController {
 	BoardView boardView;
 	MapModel mapModel = new MapModel();
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
-//	WorldDominationView worldDominationView = new WorldDominationView();
+	//	WorldDominationView worldDominationView = new WorldDominationView();
 	Scanner userinput = new Scanner(System.in);
 
 	/**
@@ -112,11 +112,9 @@ public class GameController {
 		addDefenderCountryListener();
 		addActionListenerForWorldDominationView();
 		addAttackButtonListener();
-
-		addSkipButtonListener();
-
-		addEndAttackButtonListener();
 		addAllOutButtonListener();
+		addEndAttackButtonListener();
+		addSkipButtonListener();
 	}
 
 	/**
@@ -224,7 +222,7 @@ public class GameController {
 			}
 		});
 	}
-	
+
 	/**
 	 * to add listener on the END Attack Button
 	 */
@@ -246,7 +244,7 @@ public class GameController {
 			}
 		});
 	}
-	
+
 	/**
 	 * This method is to update the board view.
 	 */
@@ -319,7 +317,7 @@ public class GameController {
 			}
 		});
 	}
-	
+
 	public void addSkipButtonListener() {
 		boardView.skipFortificationActionListener(new ActionListener() {
 
@@ -328,10 +326,10 @@ public class GameController {
 				System.out.print("A");
 				if(game.getGamePhase()==GamePhase.Fortification) {
 					game.updateGame();
-					
+
 				}
 			}
-			
+
 		});
 	}
 
