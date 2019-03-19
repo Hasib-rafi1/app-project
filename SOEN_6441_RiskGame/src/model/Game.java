@@ -232,7 +232,7 @@ public class Game extends Observable {
 	 */
 	public void reinforcementPhaseSetup() {
 		Player player = getCurrentPlayer();
-
+		
 		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
 
 		countries_count = countries_count < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : countries_count;
@@ -843,5 +843,10 @@ public class Game extends Observable {
 		return returnMap;
 	}
 
-
+	/**
+	 * get all the players and countries
+	 */
+	public HashMap<Player, ArrayList<Country>> playerandCountries(){
+		return playerCountry;
+	}
 }

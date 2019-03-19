@@ -86,7 +86,7 @@ public class GameTest {
 	@Test
 	public void testCalculationOfReinforcementArmies() {
 		Player player = gameObject.getCurrentPlayer();
-		int a = gameObject.calculationForNumberOfArmiesInReinforcement(player);
+		int a = gameObject.getCurrentPlayer().calculationForNumberOfArmiesInReinforcement(gameObject.playerandCountries(),mapModel.getContinentList());
 		assertEquals(3, a);
 	}
 
