@@ -311,9 +311,11 @@ public class GameController {
 					mapPercentage[z] = value;
 					z++;
 				}
-
+				
+				
+				
 				// To print data in a table
-				String[][] dataInTableRows = new String[3][newPlayerNameList.size()];
+				String[][] dataInTableRows = new String[3][size];
 				for (int percentColumn = 0; percentColumn < dataInTableRows[0].length; percentColumn++) {
 					dataInTableRows[0][percentColumn] = Float.toString(mapPercentage[percentColumn]) + " %";
 				}
@@ -321,8 +323,31 @@ public class GameController {
 				
 				//Get the continents controlled by every player 
 				 int[] continentsControlledByPlayer = new int[size];
-	                
-
+				 HashMap<Integer,Integer> continentsMap = game.getNumberOfContinentsControlledForEachPlayer();
+	                int j=0;
+	                for (Map.Entry<Integer, Integer> entry : continentsMap.entrySet()) {
+	                    int value = entry.getValue();
+	                    continentsControlledByPlayer[j] = value;
+	                    j++;
+	                }
+				 for (int continentColumn = 0; continentColumn < dataInTableRows[0].length ; continentColumn++) {
+					 dataInTableRows[1][continentColumn] = Integer.toString(continentsControlledByPlayer[continentColumn]) + " (continents)";
+					 
+	                }
+				 
+				 
+				 int[] numberOfArmies = new int[size];
+			        HashMap<Integer, Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
+			        int i=0;
+			        for (Map.Entry<Integer, Integer> entry : armiesMap.entrySet()) {
+			            int value = entry.getValue();
+			            numberOfArmies[i] = value;
+			            i++;
+			        }
+				 
+	                for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
+	                	dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]) + " (armies)";
+	                }
 
 				WorldDominationView.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 

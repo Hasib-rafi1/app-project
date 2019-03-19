@@ -8,6 +8,8 @@ import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+
+
 import java.util.Collections;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
@@ -824,7 +826,45 @@ public class Game extends Observable {
 		return mapPercentageStoredInMap;
 
 	}
-
+	public HashMap<Integer, Integer> getNumberOfContinentsControlledForEachPlayer() {
+		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
+		ArrayList<Continent> allContinents = this.mapModel.getContinentList();
+		for (Player player : this.playerList) {
+			boolean goToOuterLoop = false;
+			int numberOfContinentsAquired = 0;
+			for (Continent continent : allContinents) {
+				for (Country country : continent.getCountryList()) {
+					if (player.getAssignedListOfCountries().contains(country)) {
+					} else {
+						goToOuterLoop = true;
+						break;
+					}
+				}
+				if (goToOuterLoop) {
+					goToOuterLoop = false;
+					continue;
+				}
+				numberOfContinentsAquired++;
+			}
+			returnMap.put(player.getPlayerId(), numberOfContinentsAquired);
+		}
+		return returnMap;
+	}
+	
+	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
+		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
+		for (Player player : this.playerList) {
+			for (Country country : player.getAssignedListOfCountries()) {
+				int totalArmies = country.getnoOfArmies();
+				if(returnMap.containsKey(player.getPlayerId())) 
+				{
+					totalArmies += returnMap.get(player.getPlayerId());
+				}
+				returnMap.put(player.getPlayerId(), totalArmies);
+			}
+		}
+		return returnMap;
+	}
 
 
 }

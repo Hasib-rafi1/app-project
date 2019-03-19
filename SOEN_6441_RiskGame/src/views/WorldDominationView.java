@@ -77,12 +77,6 @@ public class WorldDominationView {
 
 		frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-
-		//frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-
 	}
 
 
