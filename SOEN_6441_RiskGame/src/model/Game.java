@@ -233,38 +233,11 @@ public class Game extends Observable {
 	public void reinforcementPhaseSetup() {
 		Player player = getCurrentPlayer();
 
-		int countries_count = calculationForNumberOfArmiesInReinforcement(player);
-
-		if (playerCountry.containsKey(player)) {
-			ArrayList<Country> assignedCountries = playerCountry.get(player);
-
-			List<Integer> assignedCountryIds = assignedCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
-
-			ArrayList<Continent> continents = mapModel.getContinentList();
-
-			for (Continent continent : continents) {
-				List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId()).collect(Collectors.toList());
-
-				boolean hasPlayerAllCountries = assignedCountryIds.containsAll(continentCountryIds);
-
-				if (hasPlayerAllCountries){
-					countries_count += continent.getControlValue();
-				}
-			}
-		}
+		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
 
 		countries_count = countries_count < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : countries_count;
 		System.out.println("Countries Count:" + countries_count);
 		player.setNumberOfReinforcedArmies(countries_count);
-	}
-
-	/**
-	 * This method calculates the corresponding reinforcement armies from a particular player from the number of countries owned by the layer.
-	 * @param player Player
-	 * @return total number of armies in reinforcement
-	 */
-	public int calculationForNumberOfArmiesInReinforcement(Player player) {
-		return (int) Math.floor(playerCountry.get(player).stream().count() / 3);
 	}
 
 	/**
