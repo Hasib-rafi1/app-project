@@ -22,7 +22,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 
-
 import model.Game;
 import model.Player;
 import views.BoardView;
@@ -114,6 +113,7 @@ public class GameController {
 		addActionListenerForWorldDominationView();
 		addAttackButtonListener();
 		addEndAttackButtonListener();
+		addAllOutButtonListener();
 	}
 
 	/**
@@ -221,6 +221,29 @@ public class GameController {
 			}
 		});
 	}
+	
+	/**
+	 * to add listener on the END Attack Button
+	 */
+	public void addAllOutButtonListener() {
+		boardView.addActionListenToAllOutButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == GamePhase.Attack) {
+					String attackerCountry = boardView.getAttackerCountry();
+					String defenderCountry = boardView.getDefenderCountry();
+					if (attackerCountry != null && defenderCountry != null) {
+						game.attackAllOutPhase(attackerCountry, defenderCountry);
+						System.out.println(attackerCountry);
+						System.out.println(defenderCountry);
+					} else {
+						JOptionPane.showMessageDialog(null, "Selecting attacking and defending countries");
+					}
+				}
+			}
+		});
+	}
+	
 	/**
 	 * This method is to update the board view.
 	 */

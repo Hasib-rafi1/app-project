@@ -363,23 +363,23 @@ public class BoardView implements Observer {
 	  combo_attackerNoOfDice.getWidth(), combo_attackerNoOfDice.getHeight());
 	  
 	  button_attack.setBounds(combo_attackerNoOfDice.getX(),
-	  combo_attackerNoOfDice.getY() + 7 + combo_attackerNoOfDice.getHeight(), 100,
+	  combo_attackerNoOfDice.getY() + 7 + combo_attackerNoOfDice.getHeight(), 138,
 	  30);
 	  
 	  button_allOut.setBounds(button_attack.getX() + button_attack.getWidth() + 21,
-	  button_attack.getY(), 100, 30);
+	  button_attack.getY(), 138, 30);
 	  
 	  button_endAttack.setBounds(button_allOut.getX() + button_allOut.getWidth() +
-	  21, button_allOut.getY(), 100, 30);
+	  21, button_allOut.getY(), 138, 30);
 	  
 	  combo_attackMoveArmies = new JComboBox<>();
 	  combo_attackMoveArmies.setBorder(new TitledBorder("Move armies"));
 	  combo_attackMoveArmies.setBounds(button_attack.getX(), button_attack.getY() +
-	  button_attack.getHeight() + 7, combo_attackerNoOfDice.getWidth(),
+	  button_attack.getHeight() + 7, combo_attackerNoOfDice.getWidth()+80,
 	  combo_attackerNoOfDice.getHeight());
 	  
 	  button_moveArmies.setBounds(button_endAttack.getX(),
-	  combo_attackMoveArmies.getY() + 10, 100, 30);
+	  combo_attackMoveArmies.getY() + 10, 138, 30);
 	  
 	  lab_attack.add(combo_attackerCountry); lab_attack.add(combo_defenderCountry);
 	  lab_attack.add(combo_attackerNoOfDice);
@@ -516,6 +516,15 @@ public class BoardView implements Observer {
 	 */
 	public void addActionListenToEndAttackButton(ActionListener listener) {
 		button_endAttack.addActionListener(listener);
+	}
+	
+	/**
+	 * Method for performing action listener on End attack Button
+	 * 
+	 * @param listener ActionListener
+	 */
+	public void addActionListenToAllOutButton(ActionListener listener) {
+		button_allOut.addActionListener(listener);
 	}
 	
 

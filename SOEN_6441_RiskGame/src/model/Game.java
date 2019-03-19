@@ -8,8 +8,6 @@ import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-
-
 import java.util.Collections;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
@@ -727,6 +725,36 @@ public class Game extends Observable {
 			return false;
 		}
 	}
+	
+	
+	/**
+	 * Method for performing All out attack phase
+	 * @param attackingCountry, Attacking Country in String
+	 * @param defendingCountry, Defending country in String
+	 * @return true, if attack phase out
+	 * 
+	 */
+	public Boolean attackAllOutPhase(String attackerCountry, String defenderCountry) {
+		
+		Country attCountry = mapModel.getCountryFromName(attackerCountry);
+		Country defCountry = mapModel.getCountryFromName(defenderCountry);
+
+
+		if (attCountry == null || defCountry == null) {
+			return false;
+		}
+
+		while ((attCountry.getPlayerId()!=defCountry.getPlayerId()) && attCountry.getnoOfArmies() > 1) {
+			int attackerDiceCount = this.getMaximumDices(attackerCountry, "Attacker");
+			int defenderDiceCount = this.getMaximumDices(defenderCountry, "Defender");
+
+			attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
+		}
+		notifyObserverslocal(this);
+
+		return true;
+	}
+	
 	
 	public HashMap<Integer, Float> getPercentageOfMapControlledByEveryPlayer() {
 		HashMap<Integer, Float> returnMap = new HashMap<Integer, Float>();
