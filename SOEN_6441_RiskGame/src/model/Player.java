@@ -35,6 +35,9 @@ public class Player {
 	
 	/** The assigned list of countries. */
 	private ArrayList<Country> assignedListOfCountries = new ArrayList<Country>();
+	
+	/** To assign a card after the attack phase if the country is Conquered */
+	private Boolean isConquered = false;
 
 
 	/**
@@ -242,20 +245,20 @@ public class Player {
 			System.out.print("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
 
 			if (attackerDice > defencerDice) {
-				System.out.print("Attacker wins for dice " + (i + 1));
+				System.out.println("Attacker wins for dice " + (i + 1));
 				defenderCountry.decreaseArmyCount(1);
 
 			} else {
-				System.out.print("Defender wins for dice " + (i + 1));
+				System.out.println("Defender wins for dice " + (i + 1));
 				attackerCountry.decreaseArmyCount(1);
 			}
 
 			if (attackerCountry.getnoOfArmies() == 1) {
-				System.out.print("Attacker not able to Attack ");
+				System.out.println("Attacker not able to Attack ");
 				break;
 			} 
 			if (defenderCountry.getnoOfArmies() == 0) {
-				System.out.print("Defender lost all armies in " + (i + 1) + " dice roll");
+				System.out.println("Defender lost all armies in " + (i + 1) + " dice roll");
 				break;
 			}
 
@@ -268,10 +271,14 @@ public class Player {
 			assignCountryToPlayer(defenderCountry);
 			playerCountry.get(this).add(defenderCountry);
 			playerCountry.get(defenderPlayer).remove(defenderCountry);
-			
+			isConquered =true;
 			// attacker has to put minimum one army defending country (By Game rules)
 			attackerCountry.decreaseArmyCount(1);
 			defenderCountry.increaseArmyCount(1);
+			
+			if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
+				// Jai just assign the defender cards in the attacker 
+			}
 		}
 	}
 
@@ -295,6 +302,33 @@ public class Player {
 	public int getRandomDiceNumber() {
 		Random r = new Random();
 		return r.nextInt((6 - 1) + 1) + 1;
+	}
+	
+	/**
+	 * This method checks whether the source and destination countries belongs to the player and moves the armies from source to destination.
+	 * @param source  source as string
+	 * @param destination destination countries as string
+	 * @param armies count of armies as int
+	 * @return true
+	 */
+	public boolean fortificationPhase(Country sourceCountry, Country destinationCountry, int armies){
+		if (sourceCountry == null || destinationCountry == null) {
+			System.out.println("Source or destination country is invalid!");
+			return false;
+		}
+
+		if (armies == 0) {
+			System.out.println("No armies to move");
+			return false;
+		}
+		sourceCountry.decreaseArmyCount(armies);
+		destinationCountry.increaseArmyCount(armies);
+		
+		if(isConquered) {
+			//Jai just write the logics to get a card. 
+			isConquered= false;
+		}
+		return true;
 	}
 	/**
 	 * This returns the player color.
