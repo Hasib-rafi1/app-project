@@ -107,6 +107,7 @@ public class Game extends Observable {
 			Country assign_country = mapModel.getCountryList().get(randomNumbers.get(i));
 			assignPlayerCountry(playerList.get(players_id),assign_country);
 			assignUnassigned(playerList.get(players_id),assign_country);
+			playerList.get(players_id).assignCountryToPlayer(assign_country);
 			players_id++;
 		}
 
@@ -431,19 +432,10 @@ public class Game extends Observable {
 
 		Country destinationCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
-
-
-		if (sourceCountry == null || destinationCountry == null) {
-			print.consoleOut("Source or destination country is invalid!");
-			return false;
-		}
-
-		if (armies == 0) {
-			print.consoleOut("No armies to move");
-			return true;
-		}
-		sourceCountry.decreaseArmyCount(armies);
-		destinationCountry.increaseArmyCount(armies);
+		// player class function
+		boolean sucesss = player.fortificationPhase(sourceCountry, destinationCountry, armies);
+		
+	
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
@@ -562,6 +554,9 @@ public class Game extends Observable {
 		currentPlayerId++;
 		if(currentPlayerId==playerList.size()){
 			currentPlayerId = 0;
+		}
+		if(playerCountry.get(getCurrentPlayer()).size()==0) {
+			setupNextPlayerTurn();
 		}
 	}
 
