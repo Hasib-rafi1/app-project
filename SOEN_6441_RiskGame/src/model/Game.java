@@ -787,7 +787,12 @@ public class Game extends Observable {
 		}
 		return false;
 	}
-	
+	/**
+	 * move Armies after attack
+	 * @param attackersCountry
+	 * @param atteckersNewCountry
+	 * @param attackerMoveArmies
+	 */
 	public void moveArmies(Country attackersCountry, Country atteckersNewCountry, int attackerMoveArmies) {
 		attackersCountry.decreaseArmyCount(attackerMoveArmies);
 		atteckersNewCountry.increaseArmyCount(attackerMoveArmies);
