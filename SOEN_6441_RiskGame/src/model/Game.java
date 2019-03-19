@@ -8,8 +8,6 @@ import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-
-
 import java.util.Collections;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
@@ -249,7 +247,7 @@ public class Game extends Observable {
 	/**
 	 * This method updates the game phase of the game during the end of every Startup, Reinforcement and Fortification phase.
 	 */
-	private void updateGame() {
+	public void updateGame() {
 		if (this.getGamePhase() == gamePhase.Startup) {
 			long pendingPlayersCount = playerList.stream().filter(p -> p.getNumberOfInitialArmies() > 0).count();
 			System.out.println(pendingPlayersCount);
@@ -272,6 +270,7 @@ public class Game extends Observable {
 		}
 		else if (this.getGamePhase() == gamePhase.Fortification) {
 			this.setGamePhase(gamePhase.Reinforcement);
+			notifyObserverslocal(this);
 		}
 	}
 
@@ -659,14 +658,21 @@ public class Game extends Observable {
 		if (defenderPlayer == null) {
 			return false;
 		}
-		
-		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount);
-		
+
+		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount,playerCountry);
+
 		//playerCountry;
-		
+
 		System.out.println("Player Id"+ defCountry.getPlayerId());
 		System.out.println("Color"+ defCountry.getCountryColor());
 		System.out.println("Armies"+ defCountry.getnoOfArmies());
+
+		Country countryTest = mapModel.getCountryList().stream().filter(p -> p.getCountryId()==defCountry.getCountryId())
+				.findAny().orElse(null);
+
+		System.out.println("Player Id"+ countryTest.getPlayerId());
+		System.out.println("Color"+ countryTest.getCountryColor());
+		System.out.println("Armies"+ countryTest.getnoOfArmies());
 		if (isMapConcured()) {
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
@@ -720,34 +726,66 @@ public class Game extends Observable {
 			return false;
 		}
 	}
-	
-	public HashMap<Integer, Float> getPercentageOfMapControlledByEveryPlayer() {		
-		float totalNumberOfCountries = 0;			
-		ArrayList<Continent> continentsInList = mapModel.getContinentList();
-		for (Continent continent : continentsInList) {
-			ArrayList<Country> countriesInContinent = continent.getCountryList();
-			totalNumberOfCountries = totalNumberOfCountries + countriesInContinent.size();			
-			//System.out.println(totalNumberOfCountries+"====="+countriesInContinent.size());
+
+
+
+
+	/**
+	 * Method for performing All out attack phase
+	 * @param attackingCountry, Attacking Country in String
+	 * @param defendingCountry, Defending country in String
+	 * @return true, if attack phase out
+	 * 
+	 */
+	public Boolean attackAllOutPhase(String attackerCountry, String defenderCountry) {
+
+		Country attCountry = mapModel.getCountryFromName(attackerCountry);
+		Country defCountry = mapModel.getCountryFromName(defenderCountry);
+
+
+		if (attCountry == null || defCountry == null) {
+			return false;
 		}
-		
+
+		while ((attCountry.getPlayerId()!=defCountry.getPlayerId()) && attCountry.getnoOfArmies() > 1) {
+			int attackerDiceCount = this.getMaximumDices(attackerCountry, "Attacker");
+			int defenderDiceCount = this.getMaximumDices(defenderCountry, "Defender");
+
+			attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
+		}
+		notifyObserverslocal(this);
+
+		return true;
+	}
+
+
+	public HashMap<Integer, Float> getPercentageOfMapControlledByEveryPlayer() {
+		float totalNumberOfCountries = 0;
+		ArrayList<Continent> allContinents = mapModel.getContinentList();
+		for (Continent continent : allContinents) {
+			ArrayList<Country> country = continent.getCountryList();
+			totalNumberOfCountries = totalNumberOfCountries + country.size();
+			//System.out.println(totalNumberOfCountries+"====="+country.size());
+		}
+
 		// store the percentage in a hashmap with the player id.
 		HashMap<Integer, Float> mapPercentageStoredInMap = new HashMap<Integer, Float>();
 		for (Player player : playerList) {
-			
+
 			// get size of player country list
 			int playerCountries = playerCountry.get(player).size();
-	
+
 			// find percentage
 			float percentage = (playerCountries / totalNumberOfCountries) * 100;			
-			
+
 			// get player id and percentage and then put in map
 			int playerId = player.getPlayerId();			
 			mapPercentageStoredInMap.put(playerId, percentage);
 		}
 		return mapPercentageStoredInMap;
-		
+
 	}
-	
-	
-	
+
+
+
 }

@@ -116,6 +116,9 @@ public class GameController {
 		addDefenderCountryListener();
 		addActionListenerForWorldDominationView();
 		addAttackButtonListener();
+		addAllOutButtonListener();
+		addEndAttackButtonListener();
+		addSkipButtonListener();
 	}
 
 	/**
@@ -211,6 +214,42 @@ public class GameController {
 	}
 
 	/**
+	 * to add listener on the END Attack Button
+	 */
+	public void addEndAttackButtonListener() {
+		boardView.addActionListenToEndAttackButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == GamePhase.Attack) {
+					game.updateGame();
+				}
+			}
+		});
+	}
+
+	/**
+	 * to add listener on the END Attack Button
+	 */
+	public void addAllOutButtonListener() {
+		boardView.addActionListenToAllOutButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == GamePhase.Attack) {
+					String attackerCountry = boardView.getAttackerCountry();
+					String defenderCountry = boardView.getDefenderCountry();
+					if (attackerCountry != null && defenderCountry != null) {
+						game.attackAllOutPhase(attackerCountry, defenderCountry);
+						System.out.println(attackerCountry);
+						System.out.println(defenderCountry);
+					} else {
+						JOptionPane.showMessageDialog(null, "Selecting attacking and defending countries");
+					}
+				}
+			}
+		});
+	}
+
+	/**
 	 * This method is to update the board view.
 	 */
 	public void addMoveArmyButtonListener(){
@@ -279,6 +318,21 @@ public class GameController {
 
 				
 			}
+		});
+	}
+
+	public void addSkipButtonListener() {
+		boardView.skipFortificationActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.print("A");
+				if(game.getGamePhase()==GamePhase.Fortification) {
+					game.updateGame();
+
+				}
+			}
+
 		});
 	}
 

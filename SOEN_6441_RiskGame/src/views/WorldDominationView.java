@@ -24,7 +24,11 @@ import javax.swing.text.Position.Bias;
 import javax.swing.text.View;
 
 import helper.PrintConsoleAndUserInput;
-
+/**
+ * 
+ * @author Gargi Sharma
+ * @version 1.0.0
+ */
 public class WorldDominationView {
 
 
@@ -55,7 +59,14 @@ public class WorldDominationView {
 		frameWindowForWorldDominationView.add(panelWindowForWorldDominationView);
 		frameWindowForWorldDominationView.pack();
 
+
 		frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+
+		//frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 
 	}
 
