@@ -26,6 +26,7 @@ import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import model.Country;
 import model.Game;
 import model.Player;
 import views.BoardView;
@@ -60,6 +61,8 @@ public class GameController {
 	/** The userinput. */
 	//	WorldDominationView worldDominationView = new WorldDominationView();
 	Scanner userinput = new Scanner(System.in);
+	Country attCountry;
+	Country defCountry;
 
 	/**
 	 * This function is going to initializing the map by taking user input.
@@ -128,6 +131,7 @@ public class GameController {
 		addAttackButtonListener();
 		addAllOutButtonListener();
 		addEndAttackButtonListener();
+		addAttackMoveArmyButtonListener();
 		addSkipButtonListener();
 	}
 
@@ -214,7 +218,13 @@ public class GameController {
 					if (game.getGamePhase() == GamePhase.Attack) {
 						Integer attackerDiceCount = Integer.parseInt(boardView.getAttackerDiceNo());
 						Integer defenderDiceCount = Integer.parseInt(boardView.getDefenderDiceNo());
-						game.attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
+						boolean state =game.attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
+						if(state) {
+							attCountry = mapModel.getCountryFromName(attackerCountry);
+							defCountry = mapModel.getCountryFromName(defenderCountry);
+							boardView.setVisibalityOfMoveAfterConcure();
+							boardView.setMoveComboBox(attCountry.getnoOfArmies());
+						}
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Selecting attacking and defending countries");
@@ -248,12 +258,36 @@ public class GameController {
 					String attackerCountry = boardView.getAttackerCountry();
 					String defenderCountry = boardView.getDefenderCountry();
 					if (attackerCountry != null && defenderCountry != null) {
-						game.attackAllOutPhase(attackerCountry, defenderCountry);
-						System.out.println(attackerCountry);
-						System.out.println(defenderCountry);
+						boolean state = game.attackAllOutPhase(attackerCountry, defenderCountry);
+						if(state) {
+							attCountry = mapModel.getCountryFromName(attackerCountry);
+							defCountry = mapModel.getCountryFromName(defenderCountry);
+							boardView.setVisibalityOfMoveAfterConcure();
+							boardView.setMoveComboBox(attCountry.getnoOfArmies());
+						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Selecting attacking and defending countries");
 					}
+				}
+			}
+		});
+	}
+
+	/**
+	 * to add listener on the move army Button
+	 */
+	public void addAttackMoveArmyButtonListener() {
+		boardView.addActionListenToMoveButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == GamePhase.Attack) {
+
+					Integer attackerMoveArmies = Integer.parseInt(boardView.getMoveComboBox());
+					game.moveArmies(attCountry,defCountry,attackerMoveArmies);
+					attCountry = null;
+					defCountry = null;
+					boardView.setVisibalityOfMoveAfterMove();
+
 				}
 			}
 		});
@@ -366,7 +400,7 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				System.out.print("A");
 				if(game.getGamePhase()==GamePhase.Fortification) {
-					game.updateGame();
+					game.skipFortification();
 
 				}
 			}

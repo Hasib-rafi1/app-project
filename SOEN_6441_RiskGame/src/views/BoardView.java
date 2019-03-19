@@ -450,13 +450,10 @@ public class BoardView implements Observer {
 	  
 	  combo_attackMoveArmies = new JComboBox<>();
 	  combo_attackMoveArmies.setBorder(new TitledBorder("Move armies"));
-	  combo_attackMoveArmies.setBounds(button_attack.getX(), button_attack.getY() +
-	  button_attack.getHeight() + 7, combo_attackerNoOfDice.getWidth()+80,
-	  combo_attackerNoOfDice.getHeight());
-	  
-	  button_moveArmies.setBounds(button_endAttack.getX(),
-	  combo_attackMoveArmies.getY() + 10, 138, 30);
-	  
+	  combo_attackMoveArmies.setBounds(button_attack.getX(), button_attack.getY() + button_attack.getHeight() + 7, combo_attackerNoOfDice.getWidth()+80,combo_attackerNoOfDice.getHeight());
+	  combo_attackMoveArmies.setVisible(false);
+	  button_moveArmies.setBounds(button_endAttack.getX(),combo_attackMoveArmies.getY() + 10, 138, 30);
+	  button_moveArmies.setVisible(false);
 	  lab_attack.add(combo_attackerCountry); lab_attack.add(combo_defenderCountry);
 	  lab_attack.add(combo_attackerNoOfDice);
 	  lab_attack.add(combo_defenderNoOfDice);
@@ -613,11 +610,18 @@ public class BoardView implements Observer {
 		button_allOut.addActionListener(listener);
 	}
 	
-
 	/**
-	 * Skip fortification action listener.
-	 *
-	 * @param listener the listener
+	 * Method for performing action listener on move armies after concuring Button
+	 * 
+	 * @param listener ActionListener
+	 */
+	public void addActionListenToMoveButton(ActionListener listener) {
+		button_moveArmies.addActionListener(listener);
+	}
+	
+	/**
+	 * Skip the fortification round
+	 * @param listener ActionListener
 	 */
 	public void skipFortificationActionListener(ActionListener listener) {
 		button_skip.addActionListener(listener);
@@ -798,6 +802,45 @@ public class BoardView implements Observer {
 	 */
 	public static String getDefenderDiceNo() {
 		return (String)combo_defenderNoOfDice.getSelectedItem();
+
+	}
+	
+	/**
+	 * A method to set visible to move after attack
+	 * @return selectedCountry
+	 */
+	public void setVisibalityOfMoveAfterConcure() {
+		combo_attackMoveArmies.setVisible(true);
+		button_moveArmies.setVisible(true);
+	}
+	
+	/**
+	 * A method to set visible to move after move
+	 * @return selectedCountry
+	 */
+	public void setVisibalityOfMoveAfterMove() {
+		combo_attackMoveArmies.setVisible(false);
+		button_moveArmies.setVisible(false);
+	}
+	
+	/**
+	 * Method used to populate value in the move
+	 * 
+	 * @param allowableDices
+	 */
+	public void setMoveComboBox(int movePossible) {
+		combo_attackMoveArmies.removeAllItems();
+		for (int i = 1; i < movePossible; i++) {
+			combo_attackMoveArmies.addItem(Integer.toString(i));
+		}
+	}
+	
+	/**
+	 * Static method to get selected move possible
+	 * @return selectedCountry
+	 */
+	public  String getMoveComboBox() {
+		return (String)combo_attackMoveArmies.getSelectedItem();
 
 	}
 }

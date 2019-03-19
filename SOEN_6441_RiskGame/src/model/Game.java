@@ -440,10 +440,6 @@ public class Game extends Observable {
 
 		if (armies == 0) {
 			print.consoleOut("No armies to move");
-			this.setupNextPlayerTurn();
-			setGamePhase(gamePhase.Reinforcement);
-			reinforcementPhaseSetup();
-			notifyObserverslocal(this);
 			return true;
 		}
 		sourceCountry.decreaseArmyCount(armies);
@@ -454,7 +450,16 @@ public class Game extends Observable {
 		notifyObserverslocal(this);
 		return true;
 	}
-
+	
+	/**
+	 * This function skip the fortification phase
+	 */
+	public void skipFortification() {
+		this.setupNextPlayerTurn();
+		setGamePhase(gamePhase.Reinforcement);
+		reinforcementPhaseSetup();
+		notifyObserverslocal(this);
+	}
 
 	//Functions called by other functions within the Game model.
 
@@ -678,9 +683,6 @@ public class Game extends Observable {
 		if (defCountry.getnoOfArmies() < defendergDiceCount) {
 			return false;
 		}
-		System.out.println("Player Id"+ defCountry.getPlayerId());
-		System.out.println("Color"+ defCountry.getCountryColor());
-		System.out.println("Armies"+ defCountry.getnoOfArmies());
 		Player defenderPlayer = playerList.stream().filter(p -> p.getPlayerId()==defCountry.getPlayerId())
 				.findAny().orElse(null);
 
@@ -691,17 +693,6 @@ public class Game extends Observable {
 		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount,playerCountry);
 
 		//playerCountry;
-
-		System.out.println("Player Id"+ defCountry.getPlayerId());
-		System.out.println("Color"+ defCountry.getCountryColor());
-		System.out.println("Armies"+ defCountry.getnoOfArmies());
-
-		Country countryTest = mapModel.getCountryList().stream().filter(p -> p.getCountryId()==defCountry.getCountryId())
-				.findAny().orElse(null);
-
-		System.out.println("Player Id"+ countryTest.getPlayerId());
-		System.out.println("Color"+ countryTest.getCountryColor());
-		System.out.println("Armies"+ countryTest.getnoOfArmies());
 		if (isMapConcured()) {
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
@@ -709,8 +700,11 @@ public class Game extends Observable {
 		}
 
 		notifyObserverslocal(this);
+		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
+			return true;
+		}
 
-		return true;
+		return false;
 	}
 	
 	/**
@@ -790,9 +784,24 @@ public class Game extends Observable {
 			attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
 		}
 		notifyObserverslocal(this);
-
-		return true;
+		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
+			return true;
+		}
+		return false;
 	}
+	/**
+	 * move Armies after attack
+	 * @param attackersCountry
+	 * @param atteckersNewCountry
+	 * @param attackerMoveArmies
+	 */
+	public void moveArmies(Country attackersCountry, Country atteckersNewCountry, int attackerMoveArmies) {
+		attackersCountry.decreaseArmyCount(attackerMoveArmies);
+		atteckersNewCountry.increaseArmyCount(attackerMoveArmies);
+		notifyObserverslocal(this);
+		
+	}
+	
 
 
 	/**
