@@ -14,12 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.AbstractListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import model.Game;
@@ -44,7 +48,7 @@ public class GameController {
 	BoardView boardView;
 	MapModel mapModel = new MapModel();
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
-//	WorldDominationView worldDominationView = new WorldDominationView();
+	//	WorldDominationView worldDominationView = new WorldDominationView();
 	Scanner userinput = new Scanner(System.in);
 
 	/**
@@ -219,6 +223,10 @@ public class GameController {
 		});
 	}
 
+	/**
+	 * Add action listener for the world domination view.
+	 * 
+	 */
 	public void addActionListenerForWorldDominationView() {		
 		boardView.worldDominationViewListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {
@@ -237,44 +245,39 @@ public class GameController {
 				String[] playerNamesInTableColumns = new String[newPlayerNameList.size()];
 				int y=0;				
 				for ( String nameOfPlayer : newPlayerNameList ) {				
-					playerNamesInTableColumns[y] = "Player name "+nameOfPlayer;
+					playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
 					y++;
 				}
+				
+				int size = newPlayerNameList.size();
 
-				// Get the percentage of the map controlled by every player(not working till now)
-				Float[] mapPercentage = new Float[newPlayerNameList.size()];
+				// Get the Percentage of the map controlled by every player
+				
+				Float[] mapPercentage = new Float[size];
 				HashMap<Integer,Float> findPercentageOfMap =  game.getPercentageOfMapControlledByEveryPlayer();
 				int z=0;
 				for (Map.Entry<Integer, Float> entry : findPercentageOfMap.entrySet()) {
 					//   System.out.println(entry.getKey()+" : "+entry.getValue());
-					mapPercentage[z] = entry.getValue();
+					float value = entry.getValue();
+					mapPercentage[z] = value;
 					z++;
 				}
 
-				String[][] rowData = new String[3][newPlayerNameList.size()];
-				for (int i = 0; i < rowData[0].length; i++) {
-					rowData[0][i] = mapPercentage[i] + " %";
+				// To print data in a table
+				String[][] dataInTableRows = new String[3][newPlayerNameList.size()];
+				for (int percentColumn = 0; percentColumn < dataInTableRows[0].length; percentColumn++) {
+					dataInTableRows[0][percentColumn] = Float.toString(mapPercentage[percentColumn]) + " %";
 				}
+				
+				
+				//Get the continents controlled by every player 
+				 int[] continentsControlledByPlayer = new int[size];
+	                
 
 
-				WorldDominationView.createJframeForWorldDominationView(rowData,playerNamesInTableColumns);
+				WorldDominationView.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 
-
-				/*	JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
-				JFrame frameWindowForWorldDominationView = new JFrame("Players World Domination View");
-				panelWindowForWorldDominationView.setLayout(new FlowLayout());
-				panelWindowForWorldDominationView.setPreferredSize(new Dimension(580, 300));
-
-
-				// Putting the data in a table
-				JTable table = new JTable(rowData, playerNamesInTableColumns);
-				frameWindowForWorldDominationView.getContentPane( ).add(new JScrollPane(table));
-				frameWindowForWorldDominationView.setSize(600, 300);
-				frameWindowForWorldDominationView.setLocationRelativeTo(null);
-				frameWindowForWorldDominationView.setVisible(true);
-				frameWindowForWorldDominationView.add(panelWindowForWorldDominationView);
-				frameWindowForWorldDominationView.pack();
-				frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
+				
 			}
 		});
 	}

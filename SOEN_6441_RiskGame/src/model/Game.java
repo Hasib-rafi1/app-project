@@ -721,24 +721,31 @@ public class Game extends Observable {
 		}
 	}
 	
-	public HashMap<Integer, Float> getPercentageOfMapControlledByEveryPlayer() {
-		HashMap<Integer, Float> returnMap = new HashMap<Integer, Float>();
-		
-		
-		float totalCountries = 0;
-		ArrayList<Continent> allContinents = mapModel.getContinentList();
-		for (Continent continent : allContinents) {
-			ArrayList<Country> country = continent.getCountryList();
-			totalCountries = totalCountries + country.size();
-			System.out.println(totalCountries+"====="+country.size());
+	public HashMap<Integer, Float> getPercentageOfMapControlledByEveryPlayer() {		
+		float totalNumberOfCountries = 0;			
+		ArrayList<Continent> continentsInList = mapModel.getContinentList();
+		for (Continent continent : continentsInList) {
+			ArrayList<Country> countriesInContinent = continent.getCountryList();
+			totalNumberOfCountries = totalNumberOfCountries + countriesInContinent.size();			
+			//System.out.println(totalNumberOfCountries+"====="+countriesInContinent.size());
 		}
+		
+		// store the percentage in a hashmap with the player id.
+		HashMap<Integer, Float> mapPercentageStoredInMap = new HashMap<Integer, Float>();
 		for (Player player : playerList) {
-			float playerNumberOfCountries = player.getAssignedListOfCountries().size();
-			System.out.println("+++++" +playerNumberOfCountries);
-			//float percentage = (playerNumberOfCountries / totalCountries) * 100;
-		//	returnMap.put(player.getPlayerId(), percentage);
+			
+			// get size of player country list
+			int playerCountries = playerCountry.get(player).size();
+	
+			// find percentage
+			float percentage = (playerCountries / totalNumberOfCountries) * 100;			
+			
+			// get player id and percentage and then put in map
+			int playerId = player.getPlayerId();			
+			mapPercentageStoredInMap.put(playerId, percentage);
 		}
-		return returnMap;
+		return mapPercentageStoredInMap;
+		
 	}
 	
 	
