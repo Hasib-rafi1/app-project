@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import helper.Colors;
+// TODO: Auto-generated Javadoc
 /**
  * this is a player class which contains the players attributes and basic setter getter functions 
  * to get and set the value out of it. Some business logic is also added in this class
@@ -13,21 +14,35 @@ import helper.Colors;
  * @version 1.0.0
  */
 public class Player {
+	
+	/** The player id. */
 	private int playerId;
+	
+	/** The number of initial armies. */
 	private int numberOfInitialArmies;
+	
+	/** The number of reinforced armies. */
 	private int numberOfReinforcedArmies;
+	
+	/** The player name. */
 	private String playerName;
+	
+	/** The color. */
 	private Colors color;
+	
+	/** The dice results. */
 	private ArrayList<Integer> diceResults = new ArrayList<>();
+	
+	/** The assigned list of countries. */
 	private ArrayList<Country> assignedListOfCountries = new ArrayList<Country>();
 
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and
 	 * color.
-	 * 
-	 * @param playerId,id of the player
-	 * @param name,name of the player
+	 *
+	 * @param playerId the player id
+	 * @param name the name
 	 */
 	public Player(int playerId, String name) {
 		super();
@@ -37,7 +52,8 @@ public class Player {
 	}
 
 	/**
-	 * This method is going to provide the players id
+	 * This method is going to provide the players id.
+	 *
 	 * @return integer value of playerId
 	 */
 	public int getPlayerId() {
@@ -45,7 +61,8 @@ public class Player {
 	}
 
 	/**
-	 * This method is setting the value of playerId of a player object
+	 * This method is setting the value of playerId of a player object.
+	 *
 	 * @param playerId ID of player
 	 */
 	public void setPlayerId(int playerId) {
@@ -53,7 +70,8 @@ public class Player {
 	}
 
 	/**
-	 * This function is providing the assigned army number of a player
+	 * This function is providing the assigned army number of a player.
+	 *
 	 * @return integer value of assigned armies
 	 */
 	public int getNumberOfInitialArmies() {
@@ -61,7 +79,8 @@ public class Player {
 	}
 
 	/**
-	 * This is function is going to set the assigned army numbers in the specific object
+	 * This is function is going to set the assigned army numbers in the specific object.
+	 *
 	 * @param numberOfInitialArmies number of initial armies
 	 */
 	public void setNumberOfInitialArmies(int numberOfInitialArmies) {
@@ -69,15 +88,17 @@ public class Player {
 	}
 
 	/**
-	 * This function is going to return the reinforced army number
-	 * @return integer value number of reinforced army 
+	 * This function is going to return the reinforced army number.
+	 *
+	 * @return integer value number of reinforced army
 	 */
 	public int getNumberOfReinforcedArmies() {
 		return numberOfReinforcedArmies;
 	}
 
 	/**
-	 * This function is setting the reinforced army
+	 * This function is setting the reinforced army.
+	 *
 	 * @param noOfReinforcedArmies number of enforced armies
 	 */
 	public void setNumberOfReinforcedArmies(int noOfReinforcedArmies) {
@@ -85,7 +106,8 @@ public class Player {
 	}
 
 	/**
-	 * This function is going to return name of the player
+	 * This function is going to return name of the player.
+	 *
 	 * @return string value.
 	 */
 	public String getPlayerName() {
@@ -93,7 +115,8 @@ public class Player {
 	}
 
 	/**
-	 * This function sets the name of the player
+	 * This function sets the name of the player.
+	 *
 	 * @param playerName name of player
 	 */
 	public void setPlayerName(String playerName) {
@@ -101,7 +124,8 @@ public class Player {
 	}
 
 	/**
-	 * This function returns the color
+	 * This function returns the color.
+	 *
 	 * @return ENUM value of color
 	 */
 	public Colors getColor() {
@@ -109,15 +133,17 @@ public class Player {
 	}
 
 	/**
-	 * Setting the color
+	 * Setting the color.
+	 *
 	 * @param color set color
 	 */
 	public void setColor(Colors color) {
 		this.color = color;
 	}
+	
 	/**
 	 * This method is going to decrease the number of initial armies after each assigning 
-	 * in initial assigning step 
+	 * in initial assigning step.
 	 */
 	public void decreasenumberOfInitialArmies() {
 		if(numberOfInitialArmies>0) {
@@ -136,9 +162,10 @@ public class Player {
 	}
 
 	/**
-	 * 
-	 * @param country, Country Object
-	 * @param playerStatus, status of the player
+	 * Gets the number dices.
+	 *
+	 * @param country the country
+	 * @param playerStatus the player status
 	 * @return allowableAttackingArmies
 	 */
 	public int getNumberDices(Country country, String playerStatus) {
@@ -170,31 +197,32 @@ public class Player {
 	}
 	
 	/**
-	 * Assigns the current country to player
-	 * 
-	 * @param newCountry, Country Object
+	 * Assigns the current country to player.
+	 *
+	 * @param country the country
 	 */
 	public void assignCountryToPlayer(Country country) {
 		assignedListOfCountries.add(country);
 	}
 	
 	/**
-	 * Unassigns the current country to player
-	 * 
-	 * @param newCountry, Country Object
+	 * Unassigns the current country to player.
+	 *
+	 * @param country the country
 	 */
 	public void unAssignCountryToPlayer(Country country) {
 		assignedListOfCountries.remove(country);
 	}
 
 	/**
-	 * This method will process attack for the selected player and for the defender player
-	 * 
-	 * @param defenderPlayer, Player
-	 * @param attackerCountry, Attacking country
-	 * @param defenderCountry, Defending country
-	 * @param attackerDiceCount, attacking dices count
-	 * @param defenderDiceCount, defending dices count
+	 * This method will process attack for the selected player and for the defender player.
+	 *
+	 * @param defenderPlayer the defender player
+	 * @param attackerCountry the attacker country
+	 * @param defenderCountry the defender country
+	 * @param attackerDiceCount the attacker dice count
+	 * @param defenderDiceCount the defender dice count
+	 * @param playerCountry the player country
 	 */
 	public void attackPhaseActions(Player defenderPlayer, Country attackerCountry, Country defenderCountry, int attackerDiceCount, int defenderDiceCount,HashMap<Player, ArrayList<Country>> playerCountry) {
 		diceRoller(attackerDiceCount);
@@ -248,9 +276,9 @@ public class Player {
 	}
 
 	/**
-	 * This method will roll a Dice
-	 * 
-	 * @param diceCount, count of the dice
+	 * This method will roll a Dice.
+	 *
+	 * @param diceCount the dice count
 	 */
 	private void diceRoller(int diceCount) {
 		diceResults.clear();
@@ -260,7 +288,8 @@ public class Player {
 	}
 
 	/**
-	 * This will generate the random integers between  1 to 6
+	 * This will generate the random integers between  1 to 6.
+	 *
 	 * @return random integer
 	 */
 	public int getRandomDiceNumber() {

@@ -13,6 +13,7 @@ import helper.InitialPlayerArmy;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 
+// TODO: Auto-generated Javadoc
 /**
  * Game model contains the class to create a model for the game. 
  * It is bounded with the Game Controller and the Board View.
@@ -24,19 +25,38 @@ import helper.PrintConsoleAndUserInput;
 
 public class Game extends Observable {
 
+	/** The map model. */
 	private MapModel mapModel;
+	
+	/** The game phase. */
 	private GamePhase gamePhase;
+	
+	/** The current player id. */
 	private int currentPlayerId;
+	
+	/** The MINIMU M REINFORCEMEN T pl AYERS. */
 	private int MINIMUM_REINFORCEMENT_PlAYERS = 3;
 
+	/** The connected own countries. */
 	private ArrayList<String> connectedOwnCountries = new ArrayList<String>();
+	
+	/** The initial source country. */
 	private String initialSourceCountry;
 
+	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 
+	/** The player list. */
 	private ArrayList<Player> playerList = new ArrayList<Player>();
+	
+	/** The player country. */
 	private HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
 
+	/**
+	 * Instantiates a new game.
+	 *
+	 * @param map the map
+	 */
 	//Initializes the map and the game phase of the game.
 	public Game(MapModel map) {
 		super();
@@ -331,8 +351,10 @@ public class Game extends Observable {
 
 	/**
 	 * This method recursively explores all the nodes connected to a country and returns the neighboring countries.
+	 *
 	 * @param source source countries
 	 * @param countryList list of countries
+	 * @return the connected countries
 	 */
 	public void getConnectedCountries(String source, ArrayList<Country> countryList) {
 		System.out.println("source Country Name :" + source);
@@ -437,7 +459,8 @@ public class Game extends Observable {
 	//Getter and Setter functions of Map. 
 
 	/**
-	 * This function is used to get map
+	 * This function is used to get map.
+	 *
 	 * @return mapModel
 	 */
 	public MapModel getMap() {
@@ -446,7 +469,8 @@ public class Game extends Observable {
 
 
 	/**
-	 *  This is used to set map
+	 *  This is used to set map.
+	 *
 	 * @param map map
 	 */
 	public void setMap(MapModel map) {
@@ -465,7 +489,8 @@ public class Game extends Observable {
 
 
 	/**
-	 * This is used to set game phase
+	 * This is used to set game phase.
+	 *
 	 * @param gamePhase Game phase
 	 */
 	public void setGamePhase(GamePhase gamePhase) {
@@ -536,7 +561,9 @@ public class Game extends Observable {
 
 	/**
 	 * Function the returns the armies of the country of the current player.
+	 *
 	 * @param countryName anme of the country
+	 * @return the country armies
 	 */
 	public void getCountryArmies(String countryName) {
 		int armies_number = 0;
@@ -581,10 +608,10 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * Returns number of dices for attacking / defending country
-	 * @param countryName, name of the country in String
-	 * @param playerStatus, status of the player in String
-	 * 
+	 * Returns number of dices for attacking / defending country.
+	 *
+	 * @param countryName the country name
+	 * @param playerStatus the player status
 	 * @return Integer
 	 */
 	public int getMaximumDices(String countryName, String playerStatus) {
@@ -602,10 +629,9 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * Returns allowable dices for attacking country
-	 * @param countryName, name of the country in String
-	 * @param playerStatus, status of the player in String
-	 * 
+	 * Returns allowable dices for attacking country.
+	 *
+	 * @param countryName the country name
 	 * @return Integer
 	 */
 	public ArrayList<String> getOthersNeighbouringCountriesOnly(String countryName) {
@@ -630,11 +656,12 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * Method for  attack phase where attack will handled
-	 * @param attackerCountry, Attacking Country in String
-	 * @param defenderCountry, Defending country in String
-	 * @param attackerDiceCount, Attacking Dice Count
-	 * @param defendergDiceCount, Defending Dice Count
+	 * Method for  attack phase where attack will handled.
+	 *
+	 * @param attackerCountry the attacker country
+	 * @param defenderCountry the defender country
+	 * @param attackerDiceCount the attacker dice count
+	 * @param defendergDiceCount the defenderg dice count
 	 * @return true, if attack done
 	 */
 	public Boolean attackPhase(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
@@ -683,6 +710,12 @@ public class Game extends Observable {
 
 		return true;
 	}
+	
+	/**
+	 * Checks if is map concured.
+	 *
+	 * @return true, if is map concured
+	 */
 	public boolean isMapConcured() {
 		if(mapModel.getCountryList().size() == playerCountry.get(this.getCurrentPlayer()).size()) {
 			return true;
@@ -692,7 +725,8 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * method to get countries from the attackers country where number of armies are getter than 1
+	 * method to get countries from the attackers country where number of armies are getter than 1.
+	 *
 	 * @return ArrayList<String>
 	 */
 	public ArrayList<String> getAttackPossibleCountries() {
@@ -731,11 +765,11 @@ public class Game extends Observable {
 
 
 	/**
-	 * Method for performing All out attack phase
-	 * @param attackingCountry, Attacking Country in String
-	 * @param defendingCountry, Defending country in String
+	 * Method for performing All out attack phase.
+	 *
+	 * @param attackerCountry the attacker country
+	 * @param defenderCountry the defender country
 	 * @return true, if attack phase out
-	 * 
 	 */
 	public Boolean attackAllOutPhase(String attackerCountry, String defenderCountry) {
 
@@ -759,6 +793,11 @@ public class Game extends Observable {
 	}
 
 
+	/**
+	 * Gets the percentage of map controlled by every player.
+	 *
+	 * @return the percentage of map controlled by every player
+	 */
 	public HashMap<Integer, Float> getPercentageOfMapControlledByEveryPlayer() {
 		float totalNumberOfCountries = 0;
 		ArrayList<Continent> allContinents = mapModel.getContinentList();

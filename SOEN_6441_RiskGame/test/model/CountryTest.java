@@ -9,13 +9,18 @@ import org.junit.Test;
 
 import helper.Colors;
 
+// TODO: Auto-generated Javadoc
 /**
  * This test case tested the country class functions.
  * @author Hasibul Huq
  *
  */
 public class CountryTest {
+	
+	/** The country. */
 	Country country;  
+	
+	/** The neighbours string. */
 	private ArrayList<String> neighboursString = new ArrayList<>();
 
 	/**
@@ -37,7 +42,7 @@ public class CountryTest {
 	}
 
 	/**
-	 * Test the country name is same or not
+	 * Test the country name is same or not.
 	 */
 	@Test
 	public void testCountryName() {
@@ -45,7 +50,7 @@ public class CountryTest {
 	}
 
 	/**
-	 * test the country id is same or not
+	 * test the country id is same or not.
 	 */
 	@Test
 	public void testCountryId() {
@@ -53,14 +58,15 @@ public class CountryTest {
 	}
 
 	/**
-	 * tests the neighbour countries
+	 * tests the neighbour countries.
 	 */
 	@Test
 	public void testCountryNeighbours() {
 		assertEquals(neighboursString, country.getNeighboursString());
 	}
+	
 	/**
-	 * test the continent name is sama or not
+	 * test the continent name is sama or not.
 	 */
 	@Test
 	public void testCountryContinent() {
@@ -68,7 +74,7 @@ public class CountryTest {
 	}
 
 	/**
-	 * it is testing the coordinate is same or not
+	 * it is testing the coordinate is same or not.
 	 */
 	@Test
 	public void testCountryCo0rdinate() {

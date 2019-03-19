@@ -38,79 +38,155 @@ import helper.PrintConsoleAndUserInput;
 import model.Country;
 import model.CountryViewModel;
 import helper.GamePhase;
+// TODO: Auto-generated Javadoc
+
 /**
- * This class implements the Risk game view designed in gui 
+ * This class implements the Risk game view designed in gui .
+ *
  * @author naren
  * @version 1.0.0
  */
 public class BoardView implements Observer {
 
+	/** The frame game window. */
 	// Board Initialization
 	private static JFrame frameGameWindow ;
+	
+	/** The panel game action. */
 	private static JPanel panel_gameAction;
 
+	/** The lab map. */
 	// Map variables
 	private static JLabel lab_map;
+	
+	/** The pane map scroll pane. */
 	private static JScrollPane pane_mapScrollPane = null;
+	
+	/** The map hash map. */
 	private static HashMap<String, Component> map_hashMap = new HashMap<>();
 
+	/** The lab game phase. */
 	// Phase variables
 	private static JLabel lab_gamePhase;
+	
+	/** The lab nameof phase. */
 	private static JLabel lab_nameofPhase;
 
+	/** The lab initialisation. */
 	// Initialization variables
 	private static JLabel lab_initialisation;
+	
+	/** The lab players turn. */
 	private static JLabel lab_playersTurn;
+	
+	/** The lab armies left. */
 	private static JLabel lab_armiesLeft;
 
+	/** The lab reinforcement. */
 	// Reinforcement variables
 	private static JLabel lab_reinforcement;
+	
+	/** The lab unassigned reinforcement. */
 	private static JLabel lab_unassignedReinforcement;
 
+	/** The lab attack. */
 	// Attack Label
 	private static JLabel lab_attack;
+	
+	/** The combo attacker country. */
 	private static JComboBox<String> combo_attackerCountry;
+	
+	/** The combo defender country. */
 	private static JComboBox<String> combo_defenderCountry;
+	
+	/** The combo attacker no of dice. */
 	private static JComboBox<String> combo_attackerNoOfDice;
+	
+	/** The combo defender no of dice. */
 	private static JComboBox<String> combo_defenderNoOfDice;
+	
+	/** The combo attack move armies. */
 	private static JComboBox<String> combo_attackMoveArmies;
+	
+	/** The button move armies. */
 	private static JButton button_moveArmies = new JButton("Move");
+	
+	/** The button attack. */
 	private static JButton button_attack = new JButton("Attack");
+	
+	/** The button all out. */
 	private static JButton button_allOut = new JButton("All Out");
+	
+	/** The button end attack. */
 	private static JButton button_endAttack = new JButton("End Attack");
 
+	/** The lab fortification. */
 	// Fortification variables
 	private static JLabel lab_fortification;
+	
+	/** The combo country source. */
 	private static JComboBox<String> combo_countrySource;
 
+	/** The combo country destination. */
 	private static JComboBox<String> combo_countryDestination;
+	
+	/** The combo army to move. */
 	private static JComboBox<String> combo_armyToMove;
+	
+	/** The button move fortification. */
 	private static JButton button_moveFortification = new JButton("Move Army");
+	
+	/** The button skip. */
 	private static JButton button_skip = new JButton("Skip");
 
+	/** The button player world domination view. */
 	// Player World Domination Button
 	private static JButton button_playerWorldDominationView;
 
+	/** The screen size. */
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	/** The screen height. */
 	int screen_height = screenSize.height;
+	
+	/** The screen width. */
 	int screen_width = screenSize.width;
 
+	/** The active player name. */
 	//Flags for determining the next actions
 	String activePlayerName = null;
+	
+	/** The active player id. */
 	int activePlayerId;
+	
+	/** The active player color. */
 	Colors activePlayerColor = null;
+	
+	/** The reinforcement unassigned armies count. */
 	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;  
+	
+	/** The obj print. */
 	PrintConsoleAndUserInput obj_print=new PrintConsoleAndUserInput();
 
 
+	/** The map path. */
 	String mapPath;
+	
+	/** The country list. */
 	ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
+	
+	/** The phase. */
 	GamePhase phase;
+	
+	/** The map it. */
 	MapModel mapIt;
 
 	//----------------------------- View Update Function ---------------------------
 	/**
-	 * method to perform all the actions 
+	 * method to perform all the actions.
+	 *
+	 * @param arg0 the arg 0
+	 * @param arg1 the arg 1
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
@@ -191,7 +267,7 @@ public class BoardView implements Observer {
 
 	//-------------------------- Board View Initializer ---------------------------------
 	/**
-	 * Method that loads up the GUI window
+	 * Method that loads up the GUI window.
 	 */
 	public void gameWindowLoad() {
 		frameGameWindow=  new JFrame("Risk Game");
@@ -214,7 +290,7 @@ public class BoardView implements Observer {
 
 	//------------------------ Map View initializing -----------------------------
 	/**
-	 * This method is initializing the jframe and importing the map file and country related data
+	 * This method is initializing the jframe and importing the map file and country related data.
 	 */
 	public void mapGenerator() {
 
@@ -255,7 +331,7 @@ public class BoardView implements Observer {
 
 	//-------------------------------  Game Phase details ---------------------------
 	/**
-	 * Method that updates the phase of the game
+	 * Method that updates the phase of the game.
 	 */
 	public void gamePhase() {
 		lab_gamePhase = new JLabel();
@@ -276,7 +352,7 @@ public class BoardView implements Observer {
 
 	//--------------------------- initial Phase Start -----------------------------
 	/**
-	 * Method for initialization of game view
+	 * Method for initialization of game view.
 	 */
 	public void view_initialisation() {
 		lab_initialisation = new JLabel();
@@ -306,7 +382,7 @@ public class BoardView implements Observer {
 
 	//------------------------------- Reinforcement Phase ------------------------------
 	/**
-	 * Method for reinforcement implementation
+	 * Method for reinforcement implementation.
 	 */
 	public void reinforcements() {
 
@@ -328,7 +404,7 @@ public class BoardView implements Observer {
 
 	//------------------------------------ Attack phase ---------------------------------
 	/**
-	 * Method used to perform Attack phase of game
+	 * Method used to perform Attack phase of game.
 	 */
 
 	
@@ -394,7 +470,7 @@ public class BoardView implements Observer {
 	 
 	//------------------------ Fortification View Initial ------------------------------
 	/**
-	 * Method for fortification implementation
+	 * Method for fortification implementation.
 	 */
 	public void fortification() {
 		lab_fortification= new JLabel();
@@ -441,7 +517,7 @@ public class BoardView implements Observer {
 
 	// ----------------------------- Player Domination Button Initialzed ------------------
 	/**
-	 * Method to display world domination view for each player
+	 * Method to display world domination view for each player.
 	 */
 	public void createPlayerWorldDominationView() {
 		button_playerWorldDominationView = new JButton("Player World Domination View");
@@ -451,13 +527,19 @@ public class BoardView implements Observer {
 	
 	}
 
+	/**
+	 * World domination view listener.
+	 *
+	 * @param listener the listener
+	 */
 	//--------------------------------- Listener Initialization -------------------------
 	public void worldDominationViewListener(ActionListener listener) {
 		button_playerWorldDominationView.addActionListener(listener);
 	}	
 	
 	/**
-	 * method to use for the mouse event for the map labels
+	 * method to use for the mouse event for the map labels.
+	 *
 	 * @param listener MouseListener
 	 */
 	public void addMapLabelsListener(MouseListener listener) {
@@ -469,7 +551,8 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * method to add a listener in the combobox of the source country
+	 * method to add a listener in the combobox of the source country.
+	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToSourceCountryList(ActionListener listener) {
@@ -477,7 +560,8 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * method to add a listener in the combobox of the attacker country
+	 * method to add a listener in the combobox of the attacker country.
+	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToAttackerCountryList(ActionListener listener) {
@@ -485,7 +569,8 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * method to add a listener in the combobox of the defender country
+	 * method to add a listener in the combobox of the defender country.
+	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToDefenderCountryList(ActionListener listener) {
@@ -493,7 +578,8 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * Method for performing action listener on move army button
+	 * Method for performing action listener on move army button.
+	 *
 	 * @param listener ActionListener
 	 */
 	public void moveArmyButtonListener(ActionListener listener) {
@@ -501,8 +587,8 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * Method for performing action listener on attack Button
-	 * 
+	 * Method for performing action listener on attack Button.
+	 *
 	 * @param listener  ActionListener
 	 */
 	public void addActionListenToAttackButton(ActionListener listener) {
@@ -510,8 +596,8 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * Method for performing action listener on End attack Button
-	 * 
+	 * Method for performing action listener on End attack Button.
+	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToEndAttackButton(ActionListener listener) {
@@ -519,8 +605,8 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * Method for performing action listener on End attack Button
-	 * 
+	 * Method for performing action listener on End attack Button.
+	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToAllOutButton(ActionListener listener) {
@@ -528,6 +614,11 @@ public class BoardView implements Observer {
 	}
 	
 
+	/**
+	 * Skip fortification action listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void skipFortificationActionListener(ActionListener listener) {
 		button_skip.addActionListener(listener);
 		
@@ -535,7 +626,8 @@ public class BoardView implements Observer {
 	//--------------------- General Functions for data gathering ---------------- 
 
 	/**
-	 * Static method to get selected source country
+	 * Static method to get selected source country.
+	 *
 	 * @return selectedCountry
 	 */
 	public static String getSourceCountry() {
@@ -545,7 +637,7 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * method to add countries to the source country combo box
+	 * method to add countries to the source country combo box.
 	 */
 	public void combo_sourceCountry(){
 		combo_countrySource.removeAllItems();
@@ -561,7 +653,8 @@ public class BoardView implements Observer {
 
 
 	/**
-	 * Static method to get selected attacker country
+	 * Static method to get selected attacker country.
+	 *
 	 * @return selectedCountry
 	 */
 	public static String getAttackerCountry() {
@@ -570,7 +663,7 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * method to add countries to the attacker country combo box
+	 * method to add countries to the attacker country combo box.
 	 */
 
 	public void combo_attackerCountry(){
@@ -585,7 +678,8 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * Static method to get selected attacker country
+	 * Static method to get selected attacker country.
+	 *
 	 * @return selectedCountry
 	 */
 	public  String getDefenderCountry() {
@@ -595,7 +689,8 @@ public class BoardView implements Observer {
 
 
 	/**
-	 * Method is populating value in the destination phase combobox 
+	 * Method is populating value in the destination phase combobox .
+	 *
 	 * @param defenderCountries ArrayList
 	 */	
 	public void combo_fillDefendersCountry(ArrayList<String> defenderCountries){   
@@ -607,7 +702,8 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * Method is populating value in the destination phase combobox 
+	 * Method is populating value in the destination phase combobox .
+	 *
 	 * @param destinationCountries ArrayList
 	 */	
 	public void combo_fillDestinationCountry(ArrayList<String> destinationCountries){   
@@ -619,7 +715,8 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * static method to get the selected item from destination combo
+	 * static method to get the selected item from destination combo.
+	 *
 	 * @return selectedCountry
 	 */
 	public static String getDestinationCountry() {
@@ -635,9 +732,9 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * Method to add the possible number of the army the player can move
+	 * Method to add the possible number of the army the player can move.
+	 *
 	 * @param NoOfArmies int
-	 * 
 	 */
 	public void combo_fillArmyToMove(int NoOfArmies){   
 		combo_armyToMove.removeAllItems();
@@ -647,7 +744,8 @@ public class BoardView implements Observer {
 
 
 	/**
-	 * Static method to get number of army the player wants to move
+	 * Static method to get number of army the player wants to move.
+	 *
 	 * @return NoOfArmies
 	 */
 	public static Integer combo_getArmyToMove() {
@@ -660,9 +758,9 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * Method used to populate value in the attacker dice
-	 * 
-	 * @param allowableDices
+	 * Method used to populate value in the attacker dice.
+	 *
+	 * @param allowableDices the new attacker dice combo box
 	 */
 	public void setAttackerDiceComboBox(int allowableDices) {
 		combo_attackerNoOfDice.removeAllItems();
@@ -672,7 +770,8 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * Static method to get selected attacker dice no
+	 * Static method to get selected attacker dice no.
+	 *
 	 * @return selectedCountry
 	 */
 	public static String getAttackerDiceNo() {
@@ -681,9 +780,9 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * Method used to populate value in the defender dice
-	 * 
-	 * @param allowableDices
+	 * Method used to populate value in the defender dice.
+	 *
+	 * @param allowableDices the new defender dice combo box
 	 */
 	public void setDefenderDiceComboBox(int allowableDices) {
 		combo_defenderNoOfDice.removeAllItems();
@@ -693,7 +792,8 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * Static method to get selected defender dice no
+	 * Static method to get selected defender dice no.
+	 *
 	 * @return selectedCountry
 	 */
 	public static String getDefenderDiceNo() {

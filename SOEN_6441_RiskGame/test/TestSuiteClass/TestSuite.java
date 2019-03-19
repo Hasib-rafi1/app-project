@@ -11,6 +11,9 @@ import model.CountryViewModelTest;
 import model.GameTest;
 import model.PlayerTest;
 
+/**
+ * The Class TestSuite.
+ */
 @RunWith(Suite.class)
 @SuiteClasses({GameControllerTest.class,MapControllerTest.class,ContinentTest.class,
 	CountryTest.class,CountryViewModelTest.class,GameTest.class,PlayerTest.class})

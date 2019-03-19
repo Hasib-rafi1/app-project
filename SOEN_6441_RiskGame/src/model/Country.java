@@ -2,21 +2,39 @@ package model;
 import helper.Colors;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
- * This is a main class to read and store different elements of the country
+ * This is a main class to read and store different elements of the country.
+ *
  * @author Zakiya Jafrin
  * @author Jaiganesh
  * @author Gargi
  * @version 1.0.0
  */
  public class Country {
+	
+	/** The country id. */
 	private int countryId;
+	
+	/** The country name. */
 	private String countryName;
+	
+	/** The continent ID. */
 	private int continentID;
+	
+	/** The x coordinate. */
 	private int xCoordinate;
+	
+	/** The y coordinate. */
 	private int yCoordinate;
+	
+	/** The player id. */
 	private int playerId;
+	
+	/** The army numbers. */
 	private int armyNumbers;
+	
+	/** The country color. */
 	private Colors countryColor;
 
 
@@ -38,7 +56,8 @@ import java.util.ArrayList;
 	}
 
 	/**
-	 * This method is used to get color of country
+	 * This method is used to get color of country.
+	 *
 	 * @return countryColor, get color of country
 	 */
 	public Colors getCountryColor() {
@@ -46,18 +65,23 @@ import java.util.ArrayList;
 	}
 
 	/**
-	 * This method is used to set color of country
-	 * @param countryColor, color of country
+	 * This method is used to set color of country.
+	 *
+	 * @param countryColor the new country color
 	 */
 	public void setCountryColor(Colors countryColor) {
 		this.countryColor = countryColor;
 	}
 
+	/** The neighbours string. */
 	private ArrayList<String> neighboursString = new ArrayList<>();
+	
+	/** The neighbours of country. */
 	private ArrayList<Country> neighboursOfCountry= new ArrayList<>();
 
 	/**
-	 * The Constructor is created to set the all parameters of the country Element
+	 * The Constructor is created to set the all parameters of the country Element.
+	 *
 	 * @param countryId ID of country
 	 * @param countryName name of country
 	 */
@@ -67,7 +91,8 @@ import java.util.ArrayList;
 	}
 
 	/**
-	 * The Constructor is created to set the all parameters of the country Element
+	 * The Constructor is created to set the all parameters of the country Element.
+	 *
 	 * @param countryId ID of country
 	 * @param countryName name of country
 	 * @param xCoordinate x coordinates  of country
@@ -81,7 +106,8 @@ import java.util.ArrayList;
 	}
 
 	/**
-	 * This method is used to get an integer value of the country which is set as Country ID
+	 * This method is used to get an integer value of the country which is set as Country ID.
+	 *
 	 * @return the country ID Integer
 	 */
 	public int getCountryId(){
@@ -113,7 +139,8 @@ import java.util.ArrayList;
 	}
 
 	/**
-	 * This method is used to get the X-coordinate of the corresponding Country
+	 * This method is used to get the X-coordinate of the corresponding Country.
+	 *
 	 * @return the integer value of x coordinate
 	 */
 	public int getxCoordinate(){
@@ -122,7 +149,8 @@ import java.util.ArrayList;
 
 
 	/**
-	 * This method is used to set x coordinates
+	 * This method is used to set x coordinates.
+	 *
 	 * @param xCoordinate x coordinates  of country
 	 */
 	public void setxCoordinate(int xCoordinate) {
@@ -130,7 +158,8 @@ import java.util.ArrayList;
 	}
 
 	/**
-	 * This method is used to get the Y-coordinate of the corresponding Country
+	 * This method is used to get the Y-coordinate of the corresponding Country.
+	 *
 	 * @return the integer value of y coordinate
 	 */
 	public int getyCoordinate() {
@@ -138,7 +167,8 @@ import java.util.ArrayList;
 	}
 
 	/**
-	 * This method is used to set y coordinates
+	 * This method is used to set y coordinates.
+	 *
 	 * @param yCoordinate y coordinates  of country
 	 */
 	public void setyCoordinate(int yCoordinate) {
@@ -146,7 +176,8 @@ import java.util.ArrayList;
 	}
 	
 	/**
-	 * This method is used to get an integer value of the continent which is set as Country ID
+	 * This method is used to get an integer value of the continent which is set as Country ID.
+	 *
 	 * @return the continent ID.
 	 */
 	public int getContinentID() {
@@ -154,15 +185,17 @@ import java.util.ArrayList;
 	}
 	
 	/**
-	 * This method is used to sets an integer value of the continent which is set as Country ID
-	 * @param continentID, ID of the continent
+	 * This method is used to sets an integer value of the continent which is set as Country ID.
+	 *
+	 * @param continentID the new continent ID
 	 */
 	public void setContinentID(int continentID) {
 		this.continentID = continentID;
 	}
 
 	/**
-	 * This method is used to get all the neighbours that a country has as an Array list
+	 * This method is used to get all the neighbours that a country has as an Array list.
+	 *
 	 * @return arrayList of the neighbouring country
 	 */
 	public ArrayList<Country> getNeighboursOfCountry() {
@@ -170,15 +203,16 @@ import java.util.ArrayList;
 	}
 
 	/**
-	 * From the country-neighbour HashMap adds the neighbours to the country individually
-	 * @param neighbour, add Neighbours to Countries
+	 * From the country-neighbour HashMap adds the neighbours to the country individually.
+	 *
+	 * @param neighbour the neighbour
 	 */
 	public void addNeighboursToTheCountries(Country neighbour){
 		neighboursOfCountry.add(neighbour);
 	}
 
 	/**
-	 * This method is used to get the list of neighbour Strings
+	 * This method is used to get the list of neighbour Strings.
 	 *
 	 * @return neighboursString
 	 */
@@ -187,10 +221,9 @@ import java.util.ArrayList;
 	}
 
 	/**
-	 * This method is used to add name for neighbour string
+	 * This method is used to add name for neighbour string.
 	 *
-	 * @param newNeighbour, String
-	 *
+	 * @param newNeighbour the new neighbour
 	 */
 	public void addNeighborString(String newNeighbour) {
 		if (this.neighboursString.contains(newNeighbour)) {
@@ -201,7 +234,8 @@ import java.util.ArrayList;
 	}
 
 	/**
-	 * This method is used to get number of armies
+	 * This method is used to get number of armies.
+	 *
 	 * @return armyNumbers number of armies
 	 */
 	public int getnoOfArmies() {

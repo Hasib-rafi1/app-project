@@ -1,9 +1,19 @@
 package helper;
+// TODO: Auto-generated Javadoc
+
 /**
- * This enum is containging the phases name of the game
- * @author Hasibul Huq
+ * This enum is containging the phases name of the game.
  *
+ * @author Hasibul Huq
  */
 public enum GamePhase {
-	Startup, Reinforcement, Attack, Fortification
+	
+	/** The Startup. */
+	Startup, 
+ /** The Reinforcement. */
+ Reinforcement, 
+ /** The Attack. */
+ Attack, 
+ /** The Fortification. */
+ Fortification
 }

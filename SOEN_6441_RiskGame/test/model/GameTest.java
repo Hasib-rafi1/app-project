@@ -6,19 +6,36 @@ import org.junit.Before;
 import org.junit.Test;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
+// TODO: Auto-generated Javadoc
 /**
  * This test Class is dealing with the game model class. It will check the game play by executing the game automatically . 
  * @author Hasibul Huq
  *
  */
 public class GameTest {
+	
+	/** The map model. */
 	MapModel mapModel;
+	
+	/** The game object. */
 	Game gameObject;
+	
+	/** The player 1. */
 	Player player1;
+	
+	/** The player 2. */
 	Player player2;
+	
+	/** The player 3. */
 	Player player3;
+	
+	/** The player 4. */
 	Player player4;
+	
+	/** The player 5. */
 	Player player5;
+	
+	/** The id. */
 	int id =0;
 
 	/**
@@ -56,7 +73,7 @@ public class GameTest {
 	}
 
 	/**
-	 * Test method for checking current phase
+	 * Test method for checking current phase.
 	 */
 	@Test
 	public void testCurrentPhaseIsReinforcement() {
@@ -64,7 +81,7 @@ public class GameTest {
 	}
 
 	/**
-	 * Test the calculation of the number of armies during the reinforcement phase 
+	 * Test the calculation of the number of armies during the reinforcement phase.
 	 */
 	@Test
 	public void testCalculationOfReinforcementArmies() {
@@ -74,7 +91,7 @@ public class GameTest {
 	}
 
 	/**
-	 * Test the current player object is same or not 
+	 * Test the current player object is same or not.
 	 */
 	@Test
 	public void testIsItPlayerObjectSame() {
@@ -83,7 +100,7 @@ public class GameTest {
 	}
 
 	/**
-	 * Test the current map file is same as get imported
+	 * Test the current map file is same as get imported.
 	 */
 	@Test
 	public void testIsItMapObjectSame() {

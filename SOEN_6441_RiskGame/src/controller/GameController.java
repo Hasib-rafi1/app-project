@@ -35,6 +35,7 @@ import model.MapModel;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 
+// TODO: Auto-generated Javadoc
 /**
  * Game Controller initializes the game by calling the game model.
  * It controls the view by actively listing to the view elements and performing the respective actions. 
@@ -44,15 +45,24 @@ import helper.PrintConsoleAndUserInput;
  */
 public class GameController {
 
+	/** The game. */
 	Game game;	
+	
+	/** The board view. */
 	BoardView boardView;
+	
+	/** The map model. */
 	MapModel mapModel = new MapModel();
+	
+	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	
+	/** The userinput. */
 	//	WorldDominationView worldDominationView = new WorldDominationView();
 	Scanner userinput = new Scanner(System.in);
 
 	/**
-	 * This function is going to initializing the map by taking user input
+	 * This function is going to initializing the map by taking user input.
 	 */
 	public void initializeMap() {
 		print.listofMapsinDirectory();
@@ -77,7 +87,7 @@ public class GameController {
 	/**
 	 * This method is setting up the board and game model
 	 * It is intializing the observer for the gui also
-	 * It is taking the the input from the user for creating number of players
+	 * It is taking the the input from the user for creating number of players.
 	 */
 	public void initializeGame(){
 		int j=1;
@@ -122,7 +132,7 @@ public class GameController {
 	}
 
 	/**
-	 *This method is going to assign armies to the specific countries in initial phase and in reinforcement phase
+	 * This method is going to assign armies to the specific countries in initial phase and in reinforcement phase.
 	 */
 	public void numberOfArmiesClickListener(){
 		boardView.addMapLabelsListener(new MouseAdapter() {
@@ -137,7 +147,7 @@ public class GameController {
 	}
 
 	/**
-	 * This method is going to populate destination combo box and the number of army combobox
+	 * This method is going to populate destination combo box and the number of army combobox.
 	 */
 	public void addSourceCountriesListener(){
 		boardView.addActionListenToSourceCountryList(new ActionListener() {
@@ -156,7 +166,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listeners on the attacker Country List
+	 * to add listeners on the attacker Country List.
 	 */
 	public void addAttackerCountryListener() {
 		boardView.addActionListenToAttackerCountryList(new ActionListener() {
@@ -175,7 +185,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listeners on the defender Country List
+	 * to add listeners on the defender Country List.
 	 */
 	public void addDefenderCountryListener() {
 		boardView.addActionListenToDefenderCountryList(new ActionListener() {
@@ -192,7 +202,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the Attack Button
+	 * to add listener on the Attack Button.
 	 */
 	public void addAttackButtonListener() {
 		boardView.addActionListenToAttackButton(new ActionListener() {
@@ -214,7 +224,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the END Attack Button
+	 * to add listener on the END Attack Button.
 	 */
 	public void addEndAttackButtonListener() {
 		boardView.addActionListenToEndAttackButton(new ActionListener() {
@@ -228,7 +238,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the END Attack Button
+	 * to add listener on the END Attack Button.
 	 */
 	public void addAllOutButtonListener() {
 		boardView.addActionListenToAllOutButton(new ActionListener() {
@@ -321,6 +331,9 @@ public class GameController {
 		});
 	}
 
+	/**
+	 * Adds the skip button listener.
+	 */
 	public void addSkipButtonListener() {
 		boardView.skipFortificationActionListener(new ActionListener() {
 

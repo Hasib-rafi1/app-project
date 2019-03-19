@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import helper.PrintConsoleAndUserInput;
+// TODO: Auto-generated Javadoc
 /**
  * This file test the test cases for the map controller class.
  * @author Gargi Sharma
@@ -19,13 +20,18 @@ import helper.PrintConsoleAndUserInput;
  */
 public class MapControllerTest {
 
+	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	
+	/** The expected map file list test. */
 	ArrayList<String> expectedMapFileListTest = new ArrayList<String>();
+	
+	/** The actual map file list. */
 	ArrayList<String> actualMapFileList = new ArrayList<String>();
 
 
 	/**
-	 * This is test Method which runs before each test case
+	 * This is test Method which runs before each test case.
 	 */
 	@Before
 	public void setUp() {
@@ -34,7 +40,7 @@ public class MapControllerTest {
 
 
 	/**
-	 * This is test Method which runs after each test case
+	 * This is test Method which runs after each test case.
 	 */
 	@After
 	public void tearDown() {

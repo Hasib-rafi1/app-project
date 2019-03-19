@@ -5,19 +5,22 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import helper.Colors;
+// TODO: Auto-generated Javadoc
 /**
  * Test class that tests the methods in CountryViewModel class in model package.
  * @author naren
  */
 public class CountryViewModelTest {
-	/**
-	 * Declaring objects
-	 */
+	
+	/** Declaring objects. */
 	CountryViewModel obj_CVM = new CountryViewModel();
+	
+	/** The neighbours. */
 	private ArrayList<String> neighbours = new ArrayList<>();
 
 	/**
-	 * Initializing objects and values for the test cases
+	 * Initializing objects and values for the test cases.
+	 *
 	 * @throws Exception if it is not setting the values at the starting
 	 */
 
@@ -37,7 +40,7 @@ public class CountryViewModelTest {
 	}
 
 	/**
-	 * test method to check if it returns correct country id
+	 * test method to check if it returns correct country id.
 	 */
 
 	@Test
@@ -46,7 +49,7 @@ public class CountryViewModelTest {
 	}
 
 	/**
-	 * test method to check if it returns correct country name
+	 * test method to check if it returns correct country name.
 	 */
 
 	@Test
@@ -55,7 +58,7 @@ public class CountryViewModelTest {
 	}
 
 	/**
-	 * test method to check if it returns correct xCoordinate value  
+	 * test method to check if it returns correct xCoordinate value.
 	 */
 
 	@Test
@@ -64,7 +67,7 @@ public class CountryViewModelTest {
 	}
 
 	/**
-	 * test method to check if it returns correct yCoordinate value
+	 * test method to check if it returns correct yCoordinate value.
 	 */
 
 	@Test
@@ -73,7 +76,7 @@ public class CountryViewModelTest {
 	}
 
 	/**
-	 * test method to check if it returns correct number of armies
+	 * test method to check if it returns correct number of armies.
 	 */
 
 	@Test
@@ -82,7 +85,7 @@ public class CountryViewModelTest {
 	}
 
 	/**
-	 * method that tests if it returns the correct value for the color of the country
+	 * method that tests if it returns the correct value for the color of the country.
 	 */
 
 	@Test
@@ -91,7 +94,7 @@ public class CountryViewModelTest {
 	}
 
 	/**
-	 * method that tests if it returns the correct value for the player id
+	 * method that tests if it returns the correct value for the player id.
 	 */
 
 	@Test
@@ -100,7 +103,7 @@ public class CountryViewModelTest {
 	}
 
 	/**
-	 * method that tests if it fetches the neighbours from the list
+	 * method that tests if it fetches the neighbours from the list.
 	 */
 
 

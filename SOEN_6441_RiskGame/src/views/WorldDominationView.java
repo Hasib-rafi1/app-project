@@ -24,8 +24,12 @@ import javax.swing.text.Position.Bias;
 import javax.swing.text.View;
 
 import helper.PrintConsoleAndUserInput;
+
+
+// TODO: Auto-generated Javadoc
 /**
- * 
+ *This class implements the Players world domination view. 
+ *
  * @author Gargi Sharma
  * @version 1.0.0
  */
@@ -33,11 +37,22 @@ public class WorldDominationView {
 
 
 
+	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	
+	/** The panel window for world domination view. */
 	JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
+	
+	/** The frame window for world domination view. */
 	JFrame frameWindowForWorldDominationView = new JFrame("Player World Domination View");
 
 
+	/**
+	 * Creates the jframe for world domination view.
+	 *
+	 * @param rowData the row data
+	 * @param playerNamesInTableColumns the player names in table columns
+	 */
 	public static void createJframeForWorldDominationView(String[][] rowData, String[] playerNamesInTableColumns) {	
 
 		

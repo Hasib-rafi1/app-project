@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class is used to take the input from from the console.
  * @author Zakiya Jafrin
@@ -11,10 +12,14 @@ import java.util.Scanner;
  */
 public class PrintConsoleAndUserInput {
 
+	/** The input. */
 	static Scanner input = new Scanner(System.in);
 	
+	/** The os. */
 	// Try with these directory path if code is not running
 	private static String OS = System.getProperty("os.name").toLowerCase();
+	
+	/** The map dir. */
 	private static String  mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
 	//private String mapDir = ".\\src\\mapFiles\\";
 	//private static String mapDir = "src/mapFiles/";
@@ -30,7 +35,8 @@ public class PrintConsoleAndUserInput {
 
 	/**
 	 *  This method is used to show the error in console.
-	 * @param error, prints the error in console
+	 *
+	 * @param error the error
 	 */
 	public void consoleErr(String error){
 		System.err.println(error);
@@ -66,8 +72,7 @@ public class PrintConsoleAndUserInput {
 	/**
 	 * This method is used to print and handle Exceptions.
 	 *
-	 * @param exception,object of exception class
-	 *
+	 * @param exception the exception
 	 */
 	public static void printException(Exception exception) {
 		System.out.println("Exception: " + exception.getMessage());
@@ -77,8 +82,9 @@ public class PrintConsoleAndUserInput {
 
 
 	/**
-	 * Method to convert the enum color into color object of swings
-	 * @param selectedColor,selected color from color enum
+	 * Method to convert the enum color into color object of swings.
+	 *
+	 * @param selectedColor the selected color
 	 * @return Color based on the objects
 	 */
 	public static Color getColor(Colors selectedColor) {
@@ -105,6 +111,11 @@ public class PrintConsoleAndUserInput {
 
 	}
 
+	/**
+	 * Listof mapsin directory.
+	 *
+	 * @return the array list
+	 */
 	public ArrayList<String> listofMapsinDirectory(){
 		ArrayList<String> mapFileList = new ArrayList<String>();
 		File folder = new File(getMapDir());

@@ -10,6 +10,7 @@ import model.Continent;
 import model.MapModel;
 import views.MapView;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class is used to handle the operations to generate, edit the map.
  * @author Gargi Sharma
@@ -18,12 +19,23 @@ import views.MapView;
  */
 
 public class MapController {
+	
+	/** The scanner. */
 	Scanner scanner = new Scanner(System.in);
+	
+	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	
+	/** The map view. */
 	MapView mapView = new MapView();
+	
+	/** The map model. */
 	MapModel mapModel = new MapModel();
+	
+	/** The maincontroller. */
 	MainController maincontroller = new MainController();
 
+	/** The continents list. */
 	// It stores all the continents of map File in this list
 	ArrayList<Continent> continentsList = new ArrayList<>();
 
@@ -93,7 +105,7 @@ public class MapController {
 	}
 
 	/**
-	 * This method is used to check if the entered map file name is exists in directory or not
+	 * This method is used to check if the entered map file name is exists in directory or not.
 	 */
 	public void checkMapFileExists() {
 		String mapPath = mapModel.getMapNameByUserInput();
@@ -109,6 +121,8 @@ public class MapController {
 
 
 	/**
+	 * Edits the existing map file.
+	 *
 	 * @author Gargi Sharma
 	 * @version 1.0.0
 	 * This method is used to edit the map.
@@ -233,7 +247,8 @@ public class MapController {
 	}
 
 	/**
-	 * This method is used to get The ContinentList form the map file
+	 * This method is used to get The ContinentList form the map file.
+	 *
 	 * @return the list of all map file
 	 */
 	public ArrayList<Continent> getContinentList() {

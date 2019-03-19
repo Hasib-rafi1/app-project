@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import helper.PrintConsoleAndUserInput;
 
+// TODO: Auto-generated Javadoc
 /**
  * This is the test class for game controller. methods from game controller is going to tested from here
  * @author Hasibul Huq
@@ -19,12 +20,18 @@ import helper.PrintConsoleAndUserInput;
  */
 public class GameControllerTest {
 
+	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	
+	/** The map file list test. */
 	ArrayList<String> mapFileListTest = new ArrayList<String>();
+	
+	/** The map file list. */
 	ArrayList<String> mapFileList = new ArrayList<String>();
 
 	/**
-	 * THis function is getting the map files and listing in an array list when starting the class
+	 * THis function is getting the map files and listing in an array list when starting the class.
+	 *
 	 * @throws Exception if there is no files in the directory
 	 */
 	@Before
@@ -35,7 +42,7 @@ public class GameControllerTest {
 	}
 
 	/**
-	 * Checking is the functions list is giving proper files name or not
+	 * Checking is the functions list is giving proper files name or not.
 	 */
 	@Test
 	public void testListofMapsinDirectory() {
@@ -44,7 +51,9 @@ public class GameControllerTest {
 	}
 
 	/**
-	 * This function is going to get the files from the specific folder
+	 * This function is going to get the files from the specific folder.
+	 *
+	 * @return the file list from folder
 	 */
 	@Ignore
 	public void getFileListFromFolder() {

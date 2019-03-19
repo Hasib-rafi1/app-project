@@ -9,14 +9,35 @@ import java.util.Collections;
 
 import static org.junit.Assert.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MapModelTest.
+ */
 public class MapModelTest {
+   
+   /** The string for valid. */
    private StringBuffer stringForValid;
+    
+    /** The string for in valid. */
     private StringBuffer stringForInValid;
+    
+    /** The continents list test. */
     private ArrayList<String> continentsListTest = new ArrayList<>();
+    
+    /** The territories list test. */
     private ArrayList<String> territoriesListTest = new ArrayList<>();
+    
+    /** The map model. */
     private MapModel mapModel;
+    
+    /** The in valid map. */
     private String inValidMap;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception the exception
+     */
     @Before
     public void setUp() throws Exception {
         stringForValid = new StringBuffer();
@@ -65,7 +86,8 @@ public class MapModelTest {
 
 
     /**
-     * This method runs at the end of each test case
+     * This method runs at the end of each test case.
+     *
      * @throws Exception if not
      */
     @After

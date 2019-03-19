@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import helper.PrintConsoleAndUserInput;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class is used to create a map. Also, this creates the window to show the map by using JFrame.
  * @author Gargi Sharma
@@ -14,12 +15,25 @@ import helper.PrintConsoleAndUserInput;
  */
 public class MapView {
 
+	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	
+	/** The panel window. */
 	JPanel panelWindow = new JPanel();
+	
+	/** The frame window. */
 	JFrame frameWindow = new JFrame(getClass().getSimpleName());
+	
+	/** The text field name. */
 	String textFieldName = "Enter file name you want to save?";
+	
+	/** The map name. */
 	JTextField mapName = new JTextField(textFieldName);
+	
+	/** The save button. */
 	public JButton saveButton = new JButton("Save Map File");
+	
+	/** The text parameters. */
 	JTextArea textParameters = new JTextArea("[Map]\n\n\n[Continents]\n\n\n[Territories]");
 
 	/**
@@ -56,7 +70,7 @@ public class MapView {
 	}
 
 	/**
-	 * This method is used to return content of file(like continents, territories etc)
+	 * This method is used to return content of file(like continents, territories etc).
 	 *
 	 * @return String mapContent
 	 */
@@ -65,7 +79,7 @@ public class MapView {
 	}
 
 	/**
-	 * This method is used to return name of the map
+	 * This method is used to return name of the map.
 	 *
 	 * @return String mapName
 	 */
@@ -120,7 +134,7 @@ public class MapView {
 
 
 	/**
-	 * This method is used to close the jFrame window
+	 * This method is used to close the jFrame window.
 	 */
 	public void closeFrameWindow() {
 		// TODO Auto-generated method stub
