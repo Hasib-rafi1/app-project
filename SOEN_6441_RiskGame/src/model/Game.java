@@ -862,15 +862,16 @@ public class Game extends Observable {
 	
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
 		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
+	
+		
 		for (Player player : this.playerList) {
+			int totalArmies=0;
 			for (Country country : player.getAssignedListOfCountries()) {
-				int totalArmies = country.getnoOfArmies();
-				if(returnMap.containsKey(player.getPlayerId())) 
-				{
-					totalArmies += returnMap.get(player.getPlayerId());
-				}
-				returnMap.put(player.getPlayerId(), totalArmies);
+				
+				 totalArmies += country.getnoOfArmies();
+				
 			}
+			returnMap.put(player.getPlayerId(), totalArmies);
 		}
 		return returnMap;
 	}

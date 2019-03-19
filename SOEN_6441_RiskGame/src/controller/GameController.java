@@ -377,6 +377,7 @@ public class GameController {
 			            int value = entry.getValue();
 			            numberOfArmies[i] = value;
 			            i++;
+			     
 			        }
 				 
 	                for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
