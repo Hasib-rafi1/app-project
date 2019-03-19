@@ -285,7 +285,8 @@ public class Player {
 			defenderCountry.increaseArmyCount(1);
 			
 			if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
-				// Jai just assign the defender cards in the attacker 
+
+			    // Jai just assign the defender cards in the attacker
 			}
 		}
 	}
@@ -314,7 +315,7 @@ public class Player {
 	
 	/**
 	 * This method calculates the corresponding reinforcement armies from a particular player from the number of countries owned by the layer.
-	 * @param player Player
+	 * @param playerCountry Player
 	 * @return total number of armies in reinforcement
 	 */
 	public int calculationForNumberOfArmiesInReinforcement(HashMap<Player, ArrayList<Country>> playerCountry,ArrayList<Continent> continents) {
@@ -368,11 +369,11 @@ public class Player {
 		return playerCards;
 	}
 
-	public void removeAllCardsFromPlayer() {
+	public void removeCards() {
 		playerCards.clear();
 	}
 
-	public void addCardToPlayer(Card card) {
+	public void addCard(Card card) {
 		playerCards.add(card);
 	}
 
