@@ -40,6 +40,9 @@ public class Player {
 	private Boolean isConquered = false;
 
 
+
+
+
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and
 	 * color.
