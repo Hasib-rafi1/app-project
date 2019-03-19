@@ -32,7 +32,6 @@ public class ContinentTest {
 		obj_continent = new Continent(1,"Asia",3);
 		obj_country = new Country(1, "India");
 		countriesOfTheContinent.add(obj_country);
-
 	}
 
 	/**

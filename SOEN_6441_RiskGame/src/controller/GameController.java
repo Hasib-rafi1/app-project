@@ -82,7 +82,7 @@ public class GameController {
 				initializeGame();
 			}
 		}else {
-			print.consoleErr("****File not found!!!. Please enter the coreect name of map.****");
+			print.consoleErr("****File not found!!!. Please enter the correct name of map.****");
 		}
 	}
 
