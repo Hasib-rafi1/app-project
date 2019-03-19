@@ -290,12 +290,12 @@ public class BoardView implements Observer {
 		Font font = new Font("Courier", Font.BOLD, 24);
 		lab_playersTurn.setFont(font);
 		lab_playersTurn.setBorder(new TitledBorder("Active Player Name"));
-		lab_playersTurn.setBounds(15, 25, 220, 40);
+		lab_playersTurn.setBounds(15, 25, 220, 50);
 
 		lab_armiesLeft = new JLabel("" + activePlayerUnassignedArmiesCount);
 		lab_armiesLeft.setBorder(new TitledBorder("Armies Left"));
 		lab_armiesLeft.setBounds(lab_playersTurn.getX() + 240,
-				lab_playersTurn.getY() - 40 + lab_playersTurn.getHeight(), lab_playersTurn.getWidth(),
+				lab_playersTurn.getY() - 50 + lab_playersTurn.getHeight(), lab_playersTurn.getWidth(),
 				lab_playersTurn.getHeight());
 
 		lab_initialisation.add(lab_playersTurn);
@@ -528,6 +528,10 @@ public class BoardView implements Observer {
 	}
 	
 
+	public void skipFortificationActionListener(ActionListener listener) {
+		button_skip.addActionListener(listener);
+		
+	}
 	//--------------------- General Functions for data gathering ---------------- 
 
 	/**

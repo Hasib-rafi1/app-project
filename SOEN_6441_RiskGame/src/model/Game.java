@@ -270,6 +270,7 @@ public class Game extends Observable {
 		}
 		else if (this.getGamePhase() == gamePhase.Fortification) {
 			this.setGamePhase(gamePhase.Reinforcement);
+			notifyObserverslocal(this);
 		}
 	}
 

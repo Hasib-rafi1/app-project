@@ -112,6 +112,9 @@ public class GameController {
 		addDefenderCountryListener();
 		addActionListenerForWorldDominationView();
 		addAttackButtonListener();
+
+		addSkipButtonListener();
+
 		addEndAttackButtonListener();
 		addAllOutButtonListener();
 	}
@@ -314,6 +317,21 @@ public class GameController {
 				frameWindowForWorldDominationView.pack();
 				frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
 			}
+		});
+	}
+	
+	public void addSkipButtonListener() {
+		boardView.skipFortificationActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.print("A");
+				if(game.getGamePhase()==GamePhase.Fortification) {
+					game.updateGame();
+					
+				}
+			}
+			
 		});
 	}
 
