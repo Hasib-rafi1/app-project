@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import java.util.Collections;
 
+import com.sun.org.apache.xpath.internal.functions.FuncFalse;
 import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
@@ -413,7 +414,20 @@ public class Game extends Observable {
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
 		// player class function
 		boolean sucesss = player.fortificationPhase(sourceCountry, destinationCountry, armies);
-		
+
+		if(player.getIsConqured()){
+
+			Card riskCard = getRiskCardFromDeck();
+
+			if(riskCard == null){
+				System.out.println("No Cards Available Right Now.");
+			} else {
+				player.addCard(riskCard);
+			}
+
+			player.setIsConqured(false);
+
+		}
 	
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
