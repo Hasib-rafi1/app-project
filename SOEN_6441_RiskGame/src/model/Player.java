@@ -45,6 +45,9 @@ public class Player {
 
 	/** The assigned Risk Card of the player. */
 	private ArrayList<Card> playerCards = new ArrayList<>();
+	
+	/** The Conquered continents */
+	private ArrayList<Continent> playerContinents = new ArrayList<>();
 
 
 
@@ -377,6 +380,27 @@ public class Player {
 		playerCards.add(card);
 	}
 
+	/**
+	 * set Conquer continents for the player
+	 * @param continents
+	 */
+	public void setConcuredContinents(ArrayList<Continent> continents) {
+		List<Integer> assignedCountryIds = this.getAssignedListOfCountries().stream().map(c -> c.getCountryId()).collect(Collectors.toList());
+		playerContinents.removeAll(continents);
+		for (Continent continent : continents) {
+			List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId()).collect(Collectors.toList());
+
+			boolean hasPlayerAllCountries = assignedCountryIds.containsAll(continentCountryIds);
+
+			if (hasPlayerAllCountries){
+				playerContinents.add(continent);
+			}
+		}
+	}
+	
+	public ArrayList<Continent> getConquerdContinents(){
+		return playerContinents;
+	}
 
 	/**
 	 * This returns the player color.
