@@ -8,7 +8,7 @@ import java.util.Collections;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
-import sun.awt.SunHints;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -767,8 +767,6 @@ public class Game extends Observable {
 		notifyObserverslocal(this);
 
 	}
-
-
 
 	/**
 	 * Gets the percentage of map controlled by every player.
