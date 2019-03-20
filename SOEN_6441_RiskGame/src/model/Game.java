@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import java.util.Collections;
 
-import com.sun.org.apache.xpath.internal.functions.FuncFalse;
 import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
@@ -239,7 +238,7 @@ public class Game extends Observable {
 	 */
 	public void reinforcementPhaseSetup() {
 		Player player = getCurrentPlayer();
-		
+		System.out.println("card:"+player.getCards().size());
 		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
 
 		countries_count = countries_count < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : countries_count;
@@ -440,6 +439,20 @@ public class Game extends Observable {
 	 * This function skip the fortification phase
 	 */
 	public void skipFortification() {
+		Player player = getCurrentPlayer();
+		if(player.getIsConqured()){
+
+			Card riskCard = getRiskCardFromDeck();
+
+			if(riskCard == null){
+				System.out.println("No Cards Available Right Now.");
+			} else {
+				player.addCard(riskCard);
+			}
+
+			player.setIsConqured(false);
+
+		}
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
