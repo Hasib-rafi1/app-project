@@ -107,4 +107,54 @@ public class GameTest {
 		MapModel mapTest = gameObject.getMap();
 		assertEquals(mapModel, mapTest);
 	}
+	
+	/**
+	 * Test the map is concured or not.
+	 */
+	@Test
+	public void isMapConcured() {
+		if(mapModel.getCountryList().size() == gameObject.playerCountry.get(gameObject.getCurrentPlayer()).size()) {
+			assertTrue(gameObject.isMapConcured());
+		}else {
+			assertFalse(gameObject.isMapConcured());
+		}
+	}
+	
+	/**
+	 * Test If attack is possible from the current player.
+	 */
+	@Test
+	public void isAttackPossible() {
+		if (gameObject.getAttackPossibleCountries().size() == 0) {
+			assertFalse(gameObject.checkAttackPossible());
+		}else {
+			assertFalse(gameObject.checkAttackPossible());
+		}
+	}
+	
+	/**
+	 * Test the fortification phase.
+	 */
+	@Test
+	public void checkFortification() {
+		Country selectedCountry;
+		Country destinationCountry;
+		GamePhase A = gameObject.getGamePhase();
+		gameObject.setGamePhase(GamePhase.Fortification);
+		if(gameObject.getCurrentPlayer().getAssignedListOfCountries().size()>1) {
+			selectedCountry = gameObject.getCurrentPlayer().getAssignedListOfCountries().get(0);
+			destinationCountry = gameObject.getCurrentPlayer().getAssignedListOfCountries().get(1);
+			if (selectedCountry.getnoOfArmies()<=1) {
+				selectedCountry.increaseArmyCount();
+			}
+			int a = selectedCountry.getnoOfArmies()-1;
+			int b = destinationCountry.getnoOfArmies()+1;
+			gameObject.fortificationPhase(selectedCountry.getCountryName(), destinationCountry.getCountryName(), 1);
+			assertEquals(selectedCountry.getnoOfArmies(), a);
+			assertEquals(destinationCountry.getnoOfArmies(), b);
+		}
+
+		gameObject.setGamePhase(A);
+		
+	}
 }

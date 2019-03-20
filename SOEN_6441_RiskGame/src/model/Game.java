@@ -1,14 +1,21 @@
 package model;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 
 
 import java.util.Collections;
+
+import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
-
 
 // TODO: Auto-generated Javadoc
 /**
@@ -24,19 +31,19 @@ public class Game extends Observable {
 
 	/** The map model. */
 	private MapModel mapModel;
-
+	
 	/** The game phase. */
 	private GamePhase gamePhase;
-
+	
 	/** The current player id. */
 	private int currentPlayerId;
-
+	
 	/** The MINIMU M REINFORCEMEN T pl AYERS. */
 	private int MINIMUM_REINFORCEMENT_PlAYERS = 3;
 
 	/** The connected own countries. */
 	private ArrayList<String> connectedOwnCountries = new ArrayList<String>();
-
+	
 	/** The initial source country. */
 	private String initialSourceCountry;
 
@@ -45,9 +52,12 @@ public class Game extends Observable {
 
 	/** The player list. */
 	private ArrayList<Player> playerList = new ArrayList<Player>();
-
+	
 	/** The player country. */
 	private HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
+
+	/** The Risk Cards. */
+	private ArrayList<Card> riskCards = new ArrayList<>();
 
 	/**
 	 * Instantiates a new game.
@@ -81,7 +91,6 @@ public class Game extends Observable {
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
 			System.out.println("Player ID: "+playerList.get(i).getPlayerId()+" Player Name: "+playerList.get(i).getPlayerName()+" Player's Army: "+playerList.get(i).getNumberOfInitialArmies()+" Player's Color"+playerList.get(i).getColor());
-			playerList.get(i).setConcuredContinents(mapModel.getContinentList());
 		}
 
 		int players_count = playerList.size();
@@ -115,7 +124,6 @@ public class Game extends Observable {
 				System.out.println(aString.getCountryName());
 			}
 		}
-
 		notifyObserverslocal(this);
 	}
 
@@ -229,7 +237,7 @@ public class Game extends Observable {
 	 */
 	public void reinforcementPhaseSetup() {
 		Player player = getCurrentPlayer();
-
+		
 		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
 
 		countries_count = countries_count < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : countries_count;
@@ -404,15 +412,15 @@ public class Game extends Observable {
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
 		// player class function
 		boolean sucesss = player.fortificationPhase(sourceCountry, destinationCountry, armies);
-
-
+		
+	
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 		return true;
 	}
-
+	
 	/**
 	 * This function skip the fortification phase
 	 */
@@ -513,7 +521,6 @@ public class Game extends Observable {
 	public ArrayList<Country> getPlayersCountry(Player currentPlayer) {
 		return playerCountry.get(currentPlayer);
 	}
-
 
 
 	/**
@@ -664,7 +671,6 @@ public class Game extends Observable {
 			updateGame();
 		}
 
-		getCurrentPlayer().setConcuredContinents(mapModel.getContinentList());
 		notifyObserverslocal(this);
 		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
 			return true;
@@ -672,7 +678,7 @@ public class Game extends Observable {
 
 		return false;
 	}
-
+	
 	/**
 	 * Checks if is map concured.
 	 *
@@ -724,8 +730,6 @@ public class Game extends Observable {
 	}
 
 
-
-
 	/**
 	 * Method for performing All out attack phase.
 	 *
@@ -765,8 +769,10 @@ public class Game extends Observable {
 		attackersCountry.decreaseArmyCount(attackerMoveArmies);
 		atteckersNewCountry.increaseArmyCount(attackerMoveArmies);
 		notifyObserverslocal(this);
-
+		
 	}
+	
+
 
 	/**
 	 * Gets the percentage of map controlled by every player.
@@ -800,68 +806,42 @@ public class Game extends Observable {
 
 	}
 
-
-	/**
-	 * Gets the number of continents and their name controlled of map by every player.
-	 * @return the continents number and their name
-	 */
-	public HashMap<Integer, String> getContinentsControlledByEachPlayer() {
-		HashMap<Integer, String> continentsOfPlayer = new HashMap<Integer, String>();
+	public HashMap<Integer, Integer> getNumberOfContinentsControlledForEachPlayer() {
+		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
 		ArrayList<Continent> allContinents = this.mapModel.getContinentList();
-		ArrayList<String> nameOfTheContinent = new ArrayList<>();
-		String pr = null;
-
 		for (Player player : this.playerList) {
-			ArrayList<String> playersCountries = countryListStringOfPlayer(playerCountry.get(player));
-//			ArrayList<String> playersCountries = new ArrayList<>();
-//			playersCountries.add("Eastern Australia");
-//			playersCountries.add("Indonesia");
-//			playersCountries.add("New Guinea");
-//			playersCountries.add("Western Australia");
-//			playersCountries.add("Congo");
-//			playersCountries.add("East Africa");
-//			playersCountries.add("Egypt");
-//			playersCountries.add("Madagascar");
-//			playersCountries.add("North Africa");
-//			playersCountries.add("South Africa");
-			Collections.sort(playersCountries);
-			int numberOfContinentsAcquired = 0;
+			boolean goToOuterLoop = false;
+			int numberOfContinentsAquired = 0;
 			for (Continent continent : allContinents) {
-				ArrayList<String> continentsCountryList = mapModel.countryListString(continent.getCountryList());
-				Collections.sort(continentsCountryList);
-				if(playersCountries.containsAll(continentsCountryList)){
-					numberOfContinentsAcquired++;
-					nameOfTheContinent.add(continent.getContinentName());
-					pr = "(" + numberOfContinentsAcquired + ") Continent: '"+
-							nameOfTheContinent+"'";
+				for (Country country : continent.getCountryList()) {
+					if (player.getAssignedListOfCountries().contains(country)) {
+					} else {
+						goToOuterLoop = true;
+						break;
+					}
 				}
+				if (goToOuterLoop) {
+					goToOuterLoop = false;
+					continue;
+				}
+				numberOfContinentsAquired++;
 			}
-			System.out.println(pr);
-			continentsOfPlayer.put(player.getPlayerId(),pr);
-			nameOfTheContinent.clear();
+			returnMap.put(player.getPlayerId(), numberOfContinentsAquired);
 		}
-		return continentsOfPlayer;
+		return returnMap;
 	}
-
-	public ArrayList<String> countryListStringOfPlayer(ArrayList<Country> countriesListOfPlayer) {
-		ArrayList<String> countriesListString = new ArrayList<>();
-		for(Country countryForAdding : countriesListOfPlayer){
-			countriesListString.add(countryForAdding.getCountryName());
-		}
-		return countriesListString;
-	}
-
+	
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
 		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
-
 		for (Player player : this.playerList) {
-			int totalArmies=0;
 			for (Country country : player.getAssignedListOfCountries()) {
-
-				 totalArmies += country.getnoOfArmies();
-
+				int totalArmies = country.getnoOfArmies();
+				if(returnMap.containsKey(player.getPlayerId())) 
+				{
+					totalArmies += returnMap.get(player.getPlayerId());
+				}
+				returnMap.put(player.getPlayerId(), totalArmies);
 			}
-			returnMap.put(player.getPlayerId(), totalArmies);
 		}
 		return returnMap;
 	}
