@@ -87,6 +87,7 @@ public class Game extends Observable {
 	 * It randomly assigns the countries to the players. 
 	 */
 	public void startGame() {
+        initializeRiskCards();
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
@@ -430,6 +431,37 @@ public class Game extends Observable {
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 	}
+
+	public void initializeRiskCards(){
+
+		int t=0;
+		riskCards.clear();
+		int countriesCount = mapModel.getCountryList().size();
+		for (int i = 0; i<countriesCount; i++) {
+			if (t==0) {
+				riskCards.add(Card.Infantry);
+			} else if (t==1) {
+				riskCards.add(Card.Cavalry);
+			} else if (t==2) {
+				riskCards.add(Card.Artillery);
+			}
+			t++;
+
+			if (t == 0) {
+				t=0;
+			}
+		}
+		Collections.shuffle(riskCards, new Random());
+	}
+
+	public Card getRiskCardFromDeck(){
+	    if(riskCards.size() > 0){
+	        Card riskCard = riskCards.get(0);
+	        riskCards.remove(riskCard);
+	        return riskCard;
+        }
+        return null;
+    }
 
 	//Functions called by other functions within the Game model.
 
