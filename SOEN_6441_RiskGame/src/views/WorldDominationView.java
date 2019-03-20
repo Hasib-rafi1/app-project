@@ -47,7 +47,6 @@ public class WorldDominationView {
 	 * @param playerNamesInTableColumns the player names in table columns
 	 */
 	public static void createJframeForWorldDominationView(String[][] rowData, String[] playerNamesInTableColumns) {	
-
 	
 		// TODO Auto-generated method stub		
 		JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
