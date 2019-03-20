@@ -288,8 +288,11 @@ public class Player {
 			defenderCountry.increaseArmyCount(1);
 			
 			if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
-
-			    // Jai just assign the defender cards in the attacker
+				ArrayList<Card> defendersCards = defenderPlayer.getCards();
+				defenderPlayer.removeCards();
+				for(Card card: defendersCards) {
+					this.addCard(card);
+				}
 			}
 		}
 	}
