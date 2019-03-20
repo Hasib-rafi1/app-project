@@ -87,6 +87,7 @@ public class Game extends Observable {
 	 * It randomly assigns the countries to the players. 
 	 */
 	public void startGame() {
+        initializeRiskCards();
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
@@ -452,6 +453,15 @@ public class Game extends Observable {
 		}
 		Collections.shuffle(riskCards, new Random());
 	}
+
+	public Card getRiskCardFromDeck(){
+	    if(riskCards.size() > 0){
+	        Card riskCard = riskCards.get(0);
+	        riskCards.remove(riskCard);
+	        return riskCard;
+        }
+        return null;
+    }
 
 	//Functions called by other functions within the Game model.
 
