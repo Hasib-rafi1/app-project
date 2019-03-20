@@ -365,13 +365,16 @@ public class Player {
 		sourceCountry.decreaseArmyCount(armies);
 		destinationCountry.increaseArmyCount(armies);
 		
-		if(isConquered) {
-			//Jai just write the logics to get a card. 
-			isConquered= false;
-		}
 		return true;
 	}
 
+	public boolean getIsConqured() {
+		return isConquered;
+	}
+	
+	public void setIsConqured(boolean isConqueredTemp) {
+		isConquered = isConqueredTemp;
+	}
 	public ArrayList<Card> getCards() {
 		return playerCards;
 	}
