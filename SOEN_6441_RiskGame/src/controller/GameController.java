@@ -9,10 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.text.DecimalFormat;
+import java.util.*;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JFrame;
@@ -48,19 +46,19 @@ import helper.PrintConsoleAndUserInput;
 public class GameController {
 
 	/** The game. */
-	Game game;	
-	
+	Game game;
+
 	/** The board view. */
 	BoardView boardView;
-	
+
 	Player player;
-	
+
 	/** The map model. */
 	MapModel mapModel = new MapModel();
-	
+
 	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
-	
+
 	/** The userinput. */
 	//	WorldDominationView worldDominationView = new WorldDominationView();
 	Scanner userinput = new Scanner(System.in);
@@ -311,11 +309,12 @@ public class GameController {
 
 	/**
 	 * Add action listener for the world domination view.
-	 * 
+	 *
 	 */
-	public void addActionListenerForWorldDominationView() {		
-		boardView.worldDominationViewListener(new ActionListener() {			
+	public void addActionListenerForWorldDominationView() {
+		boardView.worldDominationViewListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DecimalFormat countryPercentFormat = new DecimalFormat(".####");
 				ArrayList<Player> playerList = game.getAllPlayers();
 
 				// Get players from the above arraylist and add in the other arraylist.
@@ -332,7 +331,7 @@ public class GameController {
 				int y=0;				
 				for ( String nameOfPlayer : newPlayerNameList ) {				
 					//playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
-					
+
 					if(player.getPlayerColor(y)==Colors.BLACK)
 						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
 					else if(player.getPlayerColor(y)==Colors.BLUE)
@@ -349,11 +348,9 @@ public class GameController {
 						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
 					y++;
 				}
-				
 				int size = newPlayerNameList.size();
 
 				// Get the Percentage of the map controlled by every player
-				
 				Float[] mapPercentage = new Float[size];
 				HashMap<Integer,Float> findPercentageOfMap =  game.getPercentageOfMapControlledByEveryPlayer();
 				int z=0;
@@ -363,48 +360,42 @@ public class GameController {
 					mapPercentage[z] = value;
 					z++;
 				}
-				
-				
-				
+
+				//Get the continents controlled by every player
+				String[] continentsAcquired = new String[size];
+				HashMap<Integer,String> findContinentsAcquired =  game.getContinentsControlledByEachPlayer();
+				int l=0;
+				for (Map.Entry<Integer, String> entry : findContinentsAcquired.entrySet()) {
+					String value = entry.getValue();
+					continentsAcquired[l] = value;
+					l++;
+				}
+
+				int[] numberOfArmies = new int[size];
+				HashMap<Integer, Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
+				int i=0;
+				for (Map.Entry<Integer, Integer> entry : armiesMap.entrySet()) {
+					int value = entry.getValue();
+					numberOfArmies[i] = value;
+					i++;
+				}
+
 				// To print data in a table
 				String[][] dataInTableRows = new String[3][size];
 				for (int percentColumn = 0; percentColumn < dataInTableRows[0].length; percentColumn++) {
-					dataInTableRows[0][percentColumn] = Float.toString(mapPercentage[percentColumn]) + " %";
+					String formattedPercent = countryPercentFormat.format(mapPercentage[percentColumn]);
+					dataInTableRows[0][percentColumn] = formattedPercent + " %";
 				}
-				
-				
-				//Get the continents controlled by every player 
-				 int[] continentsControlledByPlayer = new int[size];
-				 HashMap<Integer,Integer> continentsMap = game.getNumberOfContinentsControlledForEachPlayer();
-	                int j=0;
-	                for (Map.Entry<Integer, Integer> entry : continentsMap.entrySet()) {
-	                    int value = entry.getValue();
-	                    continentsControlledByPlayer[j] = value;
-	                    j++;
-	                }
-				 for (int continentColumn = 0; continentColumn < dataInTableRows[0].length ; continentColumn++) {
-					 dataInTableRows[1][continentColumn] = Integer.toString(continentsControlledByPlayer[continentColumn]) + " (continents)";
-					 
-	                }
-				 
-				 
-				 int[] numberOfArmies = new int[size];
-			        HashMap<Integer, Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
-			        int i=0;
-			        for (Map.Entry<Integer, Integer> entry : armiesMap.entrySet()) {
-			            int value = entry.getValue();
-			            numberOfArmies[i] = value;
-			            i++;
-			     
-			        }
-				 
-	                for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
-	                	dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]) + " (armies)";
-	                }
+				for (int continentColumn = 0; continentColumn < dataInTableRows[0].length; continentColumn++) {
+					dataInTableRows[1][continentColumn] = continentsAcquired[continentColumn];
+				}
+				for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
+					dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
+				}
 
 				WorldDominationView.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 
-				
+
 			}
 		});
 	}
@@ -426,5 +417,4 @@ public class GameController {
 
 		});
 	}
-
 }
