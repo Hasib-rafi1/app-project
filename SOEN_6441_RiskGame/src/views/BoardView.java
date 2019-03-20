@@ -838,7 +838,7 @@ public class BoardView implements Observer {
 	
 	/**
 	 * A method to set visible to move after attack
-	 * @return selectedCountry
+	 * 
 	 */
 	public void setVisibalityOfMoveAfterConcure() {
 		combo_attackMoveArmies.setVisible(true);
@@ -847,7 +847,7 @@ public class BoardView implements Observer {
 	
 	/**
 	 * A method to set visible to move after move
-	 * @return selectedCountry
+	 * 
 	 */
 	public void setVisibalityOfMoveAfterMove() {
 		combo_attackMoveArmies.setVisible(false);
@@ -857,7 +857,7 @@ public class BoardView implements Observer {
 	/**
 	 * Method used to populate value in the move
 	 * 
-	 * @param movePossible
+	 * @param movePossible possible move
 	 */
 	public void setMoveComboBox(int movePossible) {
 		combo_attackMoveArmies.removeAllItems();

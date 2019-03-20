@@ -113,7 +113,7 @@ public class MapModel {
 						k++;
 					}
 
-					//To list the countries depending on their continentName
+					//To list the countries depending on their continent name
 					//ex: NorthAmerica: Alaska, Canada etc
 					for (int i = 0; i < continentsList.size(); i++) {
 						if (continentsList.get(i).getContinentName().equals(belongsToContinent)) {
