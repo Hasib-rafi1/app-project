@@ -2,15 +2,22 @@ package views;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+
 import model.Game;
 import helper.Card;
 
@@ -26,10 +33,11 @@ public class CardView {
 	private static JPanel panel_cardExchange;
 	private static JLabel lab_cardExchange;
 	private static JLabel lab_forPlayerTurn;
+	DefaultListModel dlm = new DefaultListModel();
 	private static JList<String> list_cardsOwnedByThePlayer;
 	private static JLabel lab_totalNewArmies;
 	private static JButton button_cardExchange = new JButton("Exchange Cards");
-	private static JButton button_exit = new JButton("No Exchange And Exit");
+	private static JButton button_exit = new JButton("Skip Exchange");
 	Game game;
 	
 	public void Exchange() {
@@ -37,11 +45,13 @@ public class CardView {
 		panel_cardExchange = new JPanel(null);
 		frame_cardExchange.setSize(800, 600);
 
-		frame_cardExchange.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame_cardExchange.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		lab_cardExchange = new JLabel();
-		lab_cardExchange
-				.setBorder(BorderFactory.createTitledBorder(null, "Exchange Card", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLACK));
+		TitledBorder tb = BorderFactory.createTitledBorder(null, "Exchange Card", TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.blue);
+		lab_cardExchange.setBorder(tb);
+		String nm="#6600cc";
+		tb.setBorder(new LineBorder(Color.decode(nm)));
 		lab_cardExchange.setBounds(100, 100, 600, 400);
 		lab_forPlayerTurn = new JLabel(game.getCurrentPlayer().getPlayerName());
 		Font font = new Font("Courier", Font.BOLD, 24);
@@ -67,9 +77,18 @@ public class CardView {
 		lab_cardExchange.add(lab_forPlayerTurn);
 		lab_cardExchange.add(button_cardExchange);
 		lab_cardExchange.add(button_exit);
-		panel_cardExchange.add(lab_cardExchange);
+		panel_cardExchange.add(new JScrollPane (lab_cardExchange));
 		frame_cardExchange.add(panel_cardExchange);
 		frame_cardExchange.setVisible(true);
 	}
 
+	
+	public void exchange_actionListener(ActionListener listener) {
+		button_cardExchange.addActionListener(listener);
+	}
+	public void exit_actionListener(ActionListener listener) {
+		button_exit.addActionListener(listener);
+	}
+	
+	
 }
