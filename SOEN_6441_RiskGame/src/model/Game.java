@@ -47,7 +47,7 @@ public class Game extends Observable {
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 
 	/** The player country. */
-	private HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
+	public HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
 
 	/**
 	 * Instantiates a new game.
@@ -725,7 +725,6 @@ public class Game extends Observable {
 
 
 
-
 	/**
 	 * Method for performing All out attack phase.
 	 *
@@ -805,41 +804,16 @@ public class Game extends Observable {
 	 * Gets the number of continents and their name controlled of map by every player.
 	 * @return the continents number and their name
 	 */
-	public HashMap<Integer, String> getContinentsControlledByEachPlayer() {
-		HashMap<Integer, String> continentsOfPlayer = new HashMap<Integer, String>();
-		ArrayList<Continent> allContinents = this.mapModel.getContinentList();
-		ArrayList<String> nameOfTheContinent = new ArrayList<>();
-		String pr = null;
+	public HashMap<Integer, Integer> getContinentsControlledByEachPlayer() {
+		HashMap<Integer, Integer> continentsOfPlayer = new HashMap<Integer, Integer>();
+		int index =0;
 
 		for (Player player : this.playerList) {
-			ArrayList<String> playersCountries = countryListStringOfPlayer(playerCountry.get(player));
-//			ArrayList<String> playersCountries = new ArrayList<>();
-//			playersCountries.add("Eastern Australia");
-//			playersCountries.add("Indonesia");
-//			playersCountries.add("New Guinea");
-//			playersCountries.add("Western Australia");
-//			playersCountries.add("Congo");
-//			playersCountries.add("East Africa");
-//			playersCountries.add("Egypt");
-//			playersCountries.add("Madagascar");
-//			playersCountries.add("North Africa");
-//			playersCountries.add("South Africa");
-			Collections.sort(playersCountries);
-			int numberOfContinentsAcquired = 0;
-			for (Continent continent : allContinents) {
-				ArrayList<String> continentsCountryList = mapModel.countryListString(continent.getCountryList());
-				Collections.sort(continentsCountryList);
-				if(playersCountries.containsAll(continentsCountryList)){
-					numberOfContinentsAcquired++;
-					nameOfTheContinent.add(continent.getContinentName());
-					pr = "(" + numberOfContinentsAcquired + ") Continent: '"+
-							nameOfTheContinent+"'";
-				}
-			}
-			System.out.println(pr);
-			continentsOfPlayer.put(player.getPlayerId(),pr);
-			nameOfTheContinent.clear();
+			
+			continentsOfPlayer.put(index, player.getConquerdContinents().size());
+			index++;
 		}
+		index = 0;
 		return continentsOfPlayer;
 	}
 
