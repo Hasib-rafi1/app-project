@@ -23,7 +23,9 @@ import javax.swing.text.Element;
 import javax.swing.text.Position.Bias;
 import javax.swing.text.View;
 
+import helper.Colors;
 import helper.PrintConsoleAndUserInput;
+
 
 
 // TODO: Auto-generated Javadoc
@@ -46,7 +48,6 @@ public class WorldDominationView {
 	/** The frame window for world domination view. */
 	JFrame frameWindowForWorldDominationView = new JFrame("Player World Domination View");
 
-
 	/**
 	 * Creates the jframe for world domination view.
 	 *
@@ -67,6 +68,8 @@ public class WorldDominationView {
 		// Putting the data in a table
 
 		JTable table = new JTable(rowData, playerNamesInTableColumns);
+		table.setEnabled(false);
+		table.getTableHeader().setBackground(Color.orange);
 		frameWindowForWorldDominationView.getContentPane( ).add(new JScrollPane(table));
 		frameWindowForWorldDominationView.setSize(600, 300);
 		frameWindowForWorldDominationView.setLocationRelativeTo(null);

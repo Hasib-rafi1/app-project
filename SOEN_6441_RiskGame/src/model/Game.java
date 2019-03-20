@@ -807,21 +807,20 @@ public class Game extends Observable {
 		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
 		ArrayList<Continent> allContinents = this.mapModel.getContinentList();
 		for (Player player : this.playerList) {
-			boolean goToOuterLoop = false;
 			int numberOfContinentsAquired = 0;
+			
 			for (Continent continent : allContinents) {
+				int i=0,j=0;
 				for (Country country : continent.getCountryList()) {
-					if (player.getAssignedListOfCountries().contains(country)) {
-					} else {
-						goToOuterLoop = true;
+					j++;
+					if (player.getAssignedListOfCountries().contains(country)) 
+						i++;
+					else
 						break;
-					}
 				}
-				if (goToOuterLoop) {
-					goToOuterLoop = false;
-					continue;
-				}
-				numberOfContinentsAquired++;
+				if(i==j)
+					numberOfContinentsAquired++;
+					
 			}
 			returnMap.put(player.getPlayerId(), numberOfContinentsAquired);
 		}

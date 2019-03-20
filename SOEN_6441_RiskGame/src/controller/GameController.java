@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextPane;
 import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -33,9 +34,9 @@ import views.BoardView;
 import views.WorldDominationView;
 //import views.WorldDominationView;
 import model.MapModel;
+import helper.Colors;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
-
 // TODO: Auto-generated Javadoc
 /**
  * Game Controller initializes the game by calling the game model.
@@ -51,6 +52,8 @@ public class GameController {
 	
 	/** The board view. */
 	BoardView boardView;
+	
+	Player player;
 	
 	/** The map model. */
 	MapModel mapModel = new MapModel();
@@ -328,7 +331,22 @@ public class GameController {
 				String[] playerNamesInTableColumns = new String[newPlayerNameList.size()];
 				int y=0;				
 				for ( String nameOfPlayer : newPlayerNameList ) {				
-					playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+					//playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+					
+					if(player.getPlayerColor(y)==Colors.BLACK)
+						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+					else if(player.getPlayerColor(y)==Colors.BLUE)
+						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+					else if(player.getPlayerColor(y)==Colors.GREEN)
+						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+					else if(player.getPlayerColor(y)==Colors.RED)
+						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+					else if(player.getPlayerColor(y)==Colors.ORANGE)
+						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+					else if(player.getPlayerColor(y)==Colors.MAGENTA)
+						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+					else
+						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
 					y++;
 				}
 				
