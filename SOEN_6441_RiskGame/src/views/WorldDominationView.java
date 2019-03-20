@@ -68,6 +68,8 @@ public class WorldDominationView {
 		table.setEnabled(false);
 		table.getTableHeader().setBackground(Color.orange);
 //		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		
 
 		JList rowHeader = new JList(lm);
 		rowHeader.setFixedCellWidth(150);

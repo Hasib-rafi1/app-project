@@ -2,8 +2,9 @@ package controller;
 
 import controller.MapController;
 import helper.PrintConsoleAndUserInput;
-
-
+import views.CardView;
+import views.CardView;
+import views.CardView;
 // TODO: Auto-generated Javadoc
 /**
  * This is a main class to run the game.
@@ -26,6 +27,7 @@ public class MainController {
 		MapController mapController = new MapController();
 		PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 		GameController gameController = new GameController();
+		
 
 		int selectMainMenuOption = 0;
 		boolean checkMapStatus = false;
