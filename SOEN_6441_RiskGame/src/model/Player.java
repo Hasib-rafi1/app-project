@@ -319,6 +319,7 @@ public class Player {
 	/**
 	 * This method calculates the corresponding reinforcement armies from a particular player from the number of countries owned by the layer.
 	 * @param playerCountry Player
+	 * @param continents Continents
 	 * @return total number of armies in reinforcement
 	 */
 	public int calculationForNumberOfArmiesInReinforcement(HashMap<Player, ArrayList<Country>> playerCountry,ArrayList<Continent> continents) {
@@ -382,7 +383,7 @@ public class Player {
 
 	/**
 	 * set Conquer continents for the player
-	 * @param continents
+	 * @param continents Continents
 	 */
 	public void setConcuredContinents(ArrayList<Continent> continents) {
 		List<Integer> assignedCountryIds = this.getAssignedListOfCountries().stream().map(c -> c.getCountryId()).collect(Collectors.toList());

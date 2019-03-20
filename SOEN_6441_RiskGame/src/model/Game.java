@@ -335,7 +335,7 @@ public class Game extends Observable {
 	 *
 	 * @param source source countries
 	 * @param countryList list of countries
-	 * @return the connected countries
+	 * 
 	 */
 	public void getConnectedCountries(String source, ArrayList<Country> countryList) {
 		System.out.println("source Country Name :" + source);
@@ -542,7 +542,7 @@ public class Game extends Observable {
 	 * Function the returns the armies of the country of the current player.
 	 *
 	 * @param countryName anme of the country
-	 * @return the country armies
+	 *
 	 */
 	public void getCountryArmies(String countryName) {
 		int armies_number = 0;
@@ -695,7 +695,7 @@ public class Game extends Observable {
 	/**
 	 * method to get countries from the attackers country where number of armies are getter than 1.
 	 *
-	 * @return ArrayList<String>
+	 * @return attackerCountry arraylist of attacker country
 	 */
 	public ArrayList<String> getAttackPossibleCountries() {
 		ArrayList<String> attackerCountry = new ArrayList<String>();
@@ -761,15 +761,16 @@ public class Game extends Observable {
 	}
 	/**
 	 * move Armies after attack
-	 * @param attackersCountry
-	 * @param atteckersNewCountry
-	 * @param attackerMoveArmies
+	 * @param attackersCountry Attacker country
+	 * @param atteckersNewCountry Attacker new country
+	 * @param attackerMoveArmies Attacker move armies
+	 * 
 	 */
 	public void moveArmies(Country attackersCountry, Country atteckersNewCountry, int attackerMoveArmies) {
 		attackersCountry.decreaseArmyCount(attackerMoveArmies);
 		atteckersNewCountry.increaseArmyCount(attackerMoveArmies);
 		notifyObserverslocal(this);
-		
+
 	}
 	
 
@@ -834,8 +835,8 @@ public class Game extends Observable {
 
 	/**
 	 * Gets list of players
-	 * @param countriesListOfPlayer
-	 * @return
+	 * @param countriesListOfPlayer Countries list of players
+	 * @return countriesListString Countries list 
 	 */
 	public ArrayList<String> countryListStringOfPlayer(ArrayList<Country> countriesListOfPlayer) {
 		ArrayList<String> countriesListString = new ArrayList<>();
@@ -846,27 +847,29 @@ public class Game extends Observable {
 	}
 	
 
+	
 	/**
-	 * @return
+	 * This method is used to get the number of armies for each player
+	 * @return numberOfArmies Number of armies
 	 */
-
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
-		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> numberOfArmies = new HashMap<Integer, Integer>();
 		for (Player player : this.playerList) {
 			for (Country country : player.getAssignedListOfCountries()) {
 				int totalArmies = country.getnoOfArmies();
-				if(returnMap.containsKey(player.getPlayerId())) 
+				if(numberOfArmies.containsKey(player.getPlayerId())) 
 				{
-					totalArmies += returnMap.get(player.getPlayerId());
+					totalArmies += numberOfArmies.get(player.getPlayerId());
 				}
-				returnMap.put(player.getPlayerId(), totalArmies);
+				numberOfArmies.put(player.getPlayerId(), totalArmies);
 			}
 		}
-		return returnMap;
+		return numberOfArmies;
 	}
 
 	/**
-	 * get all the players and countries
+	 * Get all the players and countries
+	 * @return playerCountry Player country
 	 */
 	public HashMap<Player, ArrayList<Country>> playerandCountries(){
 		return playerCountry;
