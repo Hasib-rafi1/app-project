@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
-// TODO: Auto-generated Javadoc
+
 /**
  * This test Class is dealing with the game model class. It will check the game play by executing the game automatically . 
  * @author Hasibul Huq
@@ -86,7 +86,7 @@ public class GameTest {
 	@Test
 	public void testCalculationOfReinforcementArmies() {
 		Player player = gameObject.getCurrentPlayer();
-		int a = gameObject.getCurrentPlayer().calculationForNumberOfArmiesInReinforcement(gameObject.playerandCountries(),mapModel.getContinentList());
+		int a = player.calculationForNumberOfArmiesInReinforcement(gameObject.playerandCountries(),mapModel.getContinentList());
 		assertEquals(3, a);
 	}
 

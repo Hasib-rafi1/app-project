@@ -53,7 +53,7 @@ public class GameControllerTest {
 	/**
 	 * This function is going to get the files from the specific folder.
 	 *
-	 * @return the file list from folder
+	 * 
 	 */
 	@Ignore
 	public void getFileListFromFolder() {

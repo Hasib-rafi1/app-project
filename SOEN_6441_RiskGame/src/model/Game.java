@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import java.util.Collections;
 
+import com.sun.org.apache.xpath.internal.functions.FuncFalse;
 import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
@@ -54,7 +55,7 @@ public class Game extends Observable {
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	
 	/** The player country. */
-	private HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
+	HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
 
 	/** The Risk Cards. */
 	private ArrayList<Card> riskCards = new ArrayList<>();
@@ -87,6 +88,7 @@ public class Game extends Observable {
 	 * It randomly assigns the countries to the players. 
 	 */
 	public void startGame() {
+        initializeRiskCards();
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
@@ -335,7 +337,7 @@ public class Game extends Observable {
 	 *
 	 * @param source source countries
 	 * @param countryList list of countries
-	 * @return the connected countries
+	 * 
 	 */
 	public void getConnectedCountries(String source, ArrayList<Country> countryList) {
 		System.out.println("source Country Name :" + source);
@@ -412,7 +414,20 @@ public class Game extends Observable {
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
 		// player class function
 		boolean sucesss = player.fortificationPhase(sourceCountry, destinationCountry, armies);
-		
+
+		if(player.getIsConqured()){
+
+			Card riskCard = getRiskCardFromDeck();
+
+			if(riskCard == null){
+				System.out.println("No Cards Available Right Now.");
+			} else {
+				player.addCard(riskCard);
+			}
+
+			player.setIsConqured(false);
+
+		}
 	
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
@@ -430,6 +445,37 @@ public class Game extends Observable {
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 	}
+
+	public void initializeRiskCards(){
+
+		int t=0;
+		riskCards.clear();
+		int countriesCount = mapModel.getCountryList().size();
+		for (int i = 0; i<countriesCount; i++) {
+			if (t==0) {
+				riskCards.add(Card.Infantry);
+			} else if (t==1) {
+				riskCards.add(Card.Cavalry);
+			} else if (t==2) {
+				riskCards.add(Card.Artillery);
+			}
+			t++;
+
+			if (t == 0) {
+				t=0;
+			}
+		}
+		Collections.shuffle(riskCards, new Random());
+	}
+
+	public Card getRiskCardFromDeck(){
+	    if(riskCards.size() > 0){
+	        Card riskCard = riskCards.get(0);
+	        riskCards.remove(riskCard);
+	        return riskCard;
+        }
+        return null;
+    }
 
 	//Functions called by other functions within the Game model.
 
@@ -542,7 +588,7 @@ public class Game extends Observable {
 	 * Function the returns the armies of the country of the current player.
 	 *
 	 * @param countryName anme of the country
-	 * @return the country armies
+	 *
 	 */
 	public void getCountryArmies(String countryName) {
 		int armies_number = 0;
@@ -695,7 +741,7 @@ public class Game extends Observable {
 	/**
 	 * method to get countries from the attackers country where number of armies are getter than 1.
 	 *
-	 * @return ArrayList<String>
+	 * @return attackerCountry arraylist of attacker country
 	 */
 	public ArrayList<String> getAttackPossibleCountries() {
 		ArrayList<String> attackerCountry = new ArrayList<String>();
@@ -761,15 +807,16 @@ public class Game extends Observable {
 	}
 	/**
 	 * move Armies after attack
-	 * @param attackersCountry
-	 * @param atteckersNewCountry
-	 * @param attackerMoveArmies
+	 * @param attackersCountry Attacker country
+	 * @param atteckersNewCountry Attacker new country
+	 * @param attackerMoveArmies Attacker move armies
+	 * 
 	 */
 	public void moveArmies(Country attackersCountry, Country atteckersNewCountry, int attackerMoveArmies) {
 		attackersCountry.decreaseArmyCount(attackerMoveArmies);
 		atteckersNewCountry.increaseArmyCount(attackerMoveArmies);
 		notifyObserverslocal(this);
-		
+
 	}
 	
 
@@ -830,24 +877,45 @@ public class Game extends Observable {
 		}
 		return returnMap;
 	}
+
+
+	/**
+	 * Gets list of players
+	 * @param countriesListOfPlayer Countries list of players
+	 * @return countriesListString Countries list 
+	 */
+	public ArrayList<String> countryListStringOfPlayer(ArrayList<Country> countriesListOfPlayer) {
+		ArrayList<String> countriesListString = new ArrayList<>();
+		for(Country countryForAdding : countriesListOfPlayer){
+			countriesListString.add(countryForAdding.getCountryName());
+		}
+		return countriesListString;
+	}
 	
+
+	
+	/**
+	 * This method is used to get the number of armies for each player
+	 * @return numberOfArmies Number of armies
+	 */
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
-		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> numberOfArmies = new HashMap<Integer, Integer>();
 		for (Player player : this.playerList) {
 			for (Country country : player.getAssignedListOfCountries()) {
 				int totalArmies = country.getnoOfArmies();
-				if(returnMap.containsKey(player.getPlayerId())) 
+				if(numberOfArmies.containsKey(player.getPlayerId())) 
 				{
-					totalArmies += returnMap.get(player.getPlayerId());
+					totalArmies += numberOfArmies.get(player.getPlayerId());
 				}
-				returnMap.put(player.getPlayerId(), totalArmies);
+				numberOfArmies.put(player.getPlayerId(), totalArmies);
 			}
 		}
-		return returnMap;
+		return numberOfArmies;
 	}
 
 	/**
-	 * get all the players and countries
+	 * Get all the players and countries
+	 * @return playerCountry Player country
 	 */
 	public HashMap<Player, ArrayList<Country>> playerandCountries(){
 		return playerCountry;
