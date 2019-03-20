@@ -19,19 +19,20 @@ import views.MapView;
  */
 
 public class MapController {
-	
+
 	/** The scanner. */
 	Scanner scanner = new Scanner(System.in);
-	
+
 	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
-	
+
 	/** The map view. */
 	MapView mapView = new MapView();
-	
+
 	/** The map model. */
-	MapModel mapModel = new MapModel();
-	
+	//	MapModel mapModel = new MapModel();
+	MapModel mapModel ;
+
 	/** The maincontroller. */
 	MainController maincontroller = new MainController();
 
@@ -84,6 +85,7 @@ public class MapController {
 	 *
 	 */
 	public void createAndSaveUserMap() {
+		mapModel = new MapModel();//----refresh----
 		mapView.createJframe();
 		mapView.saveButton.addActionListener(new ActionListener() {
 			@Override
@@ -108,6 +110,7 @@ public class MapController {
 	 * This method is used to check if the entered map file name is exists in directory or not.
 	 */
 	public void checkMapFileExists() {
+		mapModel = new MapModel(); //----refresh----
 		String mapPath = mapModel.getMapNameByUserInput();
 		File tempFile = new File(mapPath);
 		boolean exists = tempFile.exists();
@@ -142,6 +145,7 @@ public class MapController {
 
 		File tempFile = new File(mapPath);
 		boolean exists = tempFile.exists();
+		mapModel = new MapModel(); //----refresh----
 		if (exists) {
 			mapModel.readMapFile(mapPath);
 			mapModel.printMapValidOrNot();
