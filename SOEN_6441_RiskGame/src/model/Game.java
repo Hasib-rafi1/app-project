@@ -769,8 +769,6 @@ public class Game extends Observable {
 		notifyObserverslocal(this);
 		
 	}
-	
-
 
 	/**
 	 * Gets the percentage of map controlled by every player.

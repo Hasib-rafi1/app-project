@@ -28,8 +28,10 @@ import helper.PrintConsoleAndUserInput;
 
 // TODO: Auto-generated Javadoc
 /**
- *This class implements the Players world domination view. 
- *
+ *	This class shows the updated view of the Players world domination which includes
+ * (1) The percentage of the map controlled by every player 
+ * (2) The continents controlled by every player
+ * (3) The total number of armies owned by every player.
  * @author Gargi Sharma
  * @version 1.0.0
  */
