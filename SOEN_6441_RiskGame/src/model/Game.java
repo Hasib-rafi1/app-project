@@ -431,6 +431,28 @@ public class Game extends Observable {
 		notifyObserverslocal(this);
 	}
 
+	public void initializeRiskCards(){
+
+		int t=0;
+		riskCards.clear();
+		int countriesCount = mapModel.getCountryList().size();
+		for (int i = 0; i<countriesCount; i++) {
+			if (t==0) {
+				riskCards.add(Card.Infantry);
+			} else if (t==1) {
+				riskCards.add(Card.Cavalry);
+			} else if (t==2) {
+				riskCards.add(Card.Artillery);
+			}
+			t++;
+
+			if (t == 0) {
+				t=0;
+			}
+		}
+		Collections.shuffle(riskCards, new Random());
+	}
+
 	//Functions called by other functions within the Game model.
 
 	//Getter and Setter functions of Map. 
