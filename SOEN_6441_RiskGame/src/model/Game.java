@@ -843,6 +843,11 @@ public class Game extends Observable {
 		return continentsOfPlayer;
 	}
 
+	/**
+	 * Gets list of players
+	 * @param countriesListOfPlayer
+	 * @return
+	 */
 	public ArrayList<String> countryListStringOfPlayer(ArrayList<Country> countriesListOfPlayer) {
 		ArrayList<String> countriesListString = new ArrayList<>();
 		for(Country countryForAdding : countriesListOfPlayer){
@@ -850,7 +855,11 @@ public class Game extends Observable {
 		}
 		return countriesListString;
 	}
+	
 
+	/**
+	 * @return
+	 */
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
 		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
 
