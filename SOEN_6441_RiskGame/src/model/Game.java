@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import java.util.Collections;
 
-import com.sun.org.apache.xpath.internal.functions.FuncFalse;
 import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
