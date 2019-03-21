@@ -29,6 +29,7 @@ import model.Country;
 import model.Game;
 import model.Player;
 import views.BoardView;
+import views.CardView;
 import views.WorldDominationView;
 //import views.WorldDominationView;
 import model.MapModel;
@@ -330,21 +331,7 @@ public class GameController {
 				String[] playerNamesInTableColumns = new String[newPlayerNameList.size()];
 				int y=0;				
 				for ( String nameOfPlayer : newPlayerNameList ) {				
-					//playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
-
-					if(player.getPlayerColor(y)==Colors.BLACK)
-						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
-					else if(player.getPlayerColor(y)==Colors.BLUE)
-						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
-					else if(player.getPlayerColor(y)==Colors.GREEN)
-						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
-					else if(player.getPlayerColor(y)==Colors.RED)
-						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
-					else if(player.getPlayerColor(y)==Colors.ORANGE)
-						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
-					else if(player.getPlayerColor(y)==Colors.MAGENTA)
-						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
-					else
+			
 						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
 					y++;
 				}
@@ -417,4 +404,25 @@ public class GameController {
 
 		});
 	}
+	public void exchangeButtonListener() {
+		CardView.exchange_actionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+	}
+	
+	public void skipExchangeListener() {
+		CardView.exit_actionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+
+		});
+	}
+
+	
 }

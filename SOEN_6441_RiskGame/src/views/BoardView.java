@@ -342,7 +342,7 @@ public class BoardView implements Observer {
 		lab_gamePhase.setBorder(
 				tb);
 		String nm="#6600cc";
-//		tb.setBorder(new LineBorder(Color.decode(nm)));
+	//	tb.setBorder(new LineBorder(Color.decode(nm)));
 		
 		
 		lab_gamePhase.setBounds(pane_mapScrollPane.getWidth()+10, pane_mapScrollPane.getY()+55, 490, 60);
@@ -368,7 +368,7 @@ public class BoardView implements Observer {
 				TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.blue);
 		lab_initialisation.setBorder(tb);
 		String nm="#6600cc";
-//		tb.setBorder(new LineBorder(Color.decode(nm)));
+	//	tb.setBorder(new LineBorder(Color.decode(nm)));
 		
 		lab_initialisation.setBounds(lab_gamePhase.getX(), lab_gamePhase.getY()+ lab_gamePhase.getHeight()+20, 490, 80);
 
@@ -404,7 +404,7 @@ public class BoardView implements Observer {
 				TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.blue);
 		lab_reinforcement.setBorder(tb);
 		String nm="#6600cc";
-//		tb.setBorder(new LineBorder(Color.decode(nm)));
+		//tb.setBorder(new LineBorder(Color.decode(nm)));
 		
 		lab_reinforcement.setBounds(lab_initialisation.getX(),
 				lab_initialisation.getY() +20 + lab_initialisation.getHeight(), lab_initialisation.getWidth(),
@@ -432,14 +432,14 @@ public class BoardView implements Observer {
 				TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.blue);
 		lab_attack.setBorder(tb);
 		String nm="#6600cc";
-//		tb.setBorder(new LineBorder(Color.decode(nm)));
+	//	tb.setBorder(new LineBorder(Color.decode(nm)));
 	  lab_attack.setBounds(lab_reinforcement.getX(), lab_reinforcement.getY() + 25
 	  + lab_reinforcement.getHeight(), lab_reinforcement.getWidth(), 250);
 	  
 	  combo_attackerCountry = new JComboBox();
 	  combo_attackerCountry.setBorder(new
 	  TitledBorder("Attack From"));
-//	  combo_attackerCountry.setBorder(new LineBorder(Color.decode(nm)));
+	//  combo_attackerCountry.setBorder(new LineBorder(Color.decode(nm)));
 	  combo_attackerCountry.setBounds(15, 15, 220,50);
 	  
 	  
@@ -502,7 +502,7 @@ public class BoardView implements Observer {
 				TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.blue);
 		lab_fortification.setBorder(tb);
 		String nm="#6600cc";
-//		tb.setBorder(new LineBorder(Color.decode(nm)));
+	//	tb.setBorder(new LineBorder(Color.decode(nm)));
 		lab_fortification.setBounds(lab_reinforcement.getX(),
 				lab_reinforcement.getY() + 25 + lab_reinforcement.getHeight(), lab_reinforcement.getWidth(),
 				140);

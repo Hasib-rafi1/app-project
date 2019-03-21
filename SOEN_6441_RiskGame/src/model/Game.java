@@ -8,7 +8,7 @@ import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-
+import javax.swing.SwingUtilities;
 
 import java.util.Collections;
 
@@ -16,6 +16,7 @@ import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
+import views.CardView;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -237,6 +238,11 @@ public class Game extends Observable {
 	 * This method initializes the reinforcement phase for each player by adding corresponding number of armies. 
 	 */
 	public void reinforcementPhaseSetup() {
+		
+				CardView cv = new CardView(this);
+				cv.Exchange();
+			
+		
 		Player player = getCurrentPlayer();
 		System.out.println("card:"+player.getCards().size());
 		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
