@@ -16,6 +16,7 @@ import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
+import views.BoardView;
 import views.CardView;
 
 import views.FinishView;
@@ -62,6 +63,8 @@ public class Game extends Observable {
 
 	/** The Risk Cards. */
 	private ArrayList<Card> riskCards = new ArrayList<>();
+	
+	private BoardView boardview;
 
 	/**
 	 * Instantiates a new game.
@@ -241,12 +244,12 @@ public class Game extends Observable {
 	 * This method initializes the reinforcement phase for each player by adding corresponding number of armies. 
 	 */
 	public void reinforcementPhaseSetup() {
-		
-				CardView cv = new CardView(this);
-				cv.Exchange();
-			
-		
 		Player player = getCurrentPlayer();
+		if(player.getCards().size()>1) {
+			CardView cv = new CardView(this);
+			cv.Exchange();
+			this.getBoardView().getFrameGameWindow().setEnabled(false);
+		}
 		System.out.println("card:"+player.getCards().size());
 		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
 
@@ -942,5 +945,21 @@ public class Game extends Observable {
 	 */
 	public HashMap<Player, ArrayList<Country>> playerandCountries(){
 		return playerCountry;
+	}
+	
+	/**
+	 * get the board view
+	 * @return boardView
+	 */
+	public BoardView getBoardView() {
+		return boardview;
+	}
+	
+	/**
+	 * get the board view
+	 * @return boardView
+	 */
+	public void setBoardView(BoardView a) {
+		 boardview  =a;
 	}
 }

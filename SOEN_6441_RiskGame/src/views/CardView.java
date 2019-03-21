@@ -23,6 +23,7 @@ import javax.swing.border.TitledBorder;
 
 import model.Game;
 import helper.Card;
+import helper.PrintConsoleAndUserInput;
 
 /**
  *
@@ -60,7 +61,7 @@ public  class CardView {
 		lab_forPlayerTurn = new JLabel(game.getCurrentPlayer().getPlayerName());
 		Font font = new Font("Courier", Font.BOLD, 24);
 		lab_forPlayerTurn.setFont(font);
-		lab_forPlayerTurn.setForeground(Color.RED);
+		lab_forPlayerTurn.setForeground(PrintConsoleAndUserInput.getColor(game.getCurrentPlayer().getColor()));
 		lab_forPlayerTurn.setBorder(new TitledBorder("Active Player"));
 		lab_forPlayerTurn.setBounds(30, 45, 250, 70);
 		ArrayList<Card> typeOfCards = game.getCurrentPlayer().getCards();
@@ -92,6 +93,8 @@ public  class CardView {
 		panel_cardExchange.add(lab_cardExchange);
 		frame_cardExchange.add(panel_cardExchange);
 		frame_cardExchange.setVisible(true);
+		
+		
 		
 	}
 

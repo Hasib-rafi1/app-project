@@ -874,4 +874,11 @@ public class BoardView implements Observer {
 		return (String)combo_attackMoveArmies.getSelectedItem();
 
 	}
+	
+	/**
+	 * get the frame to control the card conditions
+	 */
+	public JFrame getFrameGameWindow() {
+		return frameGameWindow;
+	}
 }

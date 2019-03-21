@@ -142,6 +142,7 @@ public class GameController {
 		addSkipButtonListener();
 		skipExchangeListener();
 		exchangeButtonListener();
+		setBoardView();
 		
 	}
 
@@ -445,5 +446,8 @@ public class GameController {
 	});
 	}
 
+	public void setBoardView() {
+		game.setBoardView(boardView);
+	}
 	
 }
