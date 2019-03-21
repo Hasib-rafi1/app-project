@@ -430,15 +430,7 @@ public class GameController {
 	
 	public void skipExchangeListener() {
 		
-		CardView.exit_actionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int temp_forNumberOfCardsPlayerHolds=(game.getCurrentPlayer().getCards()).size();
-				if(temp_forNumberOfCardsPlayerHolds>5)
-					JOptionPane.showMessageDialog(null, "Cannot skip Exchange. Perform the Exchange operation!");
-				
-			}
+		
 
 		
 		

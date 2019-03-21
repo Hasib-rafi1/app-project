@@ -32,7 +32,7 @@ import helper.Card;
  */
 
 public  class CardView {
-	private static JFrame frame_cardExchange = null;
+	public static JFrame frame_cardExchange = null;
 	private static JPanel panel_cardExchange;
 	private static JLabel lab_cardExchange;
 	private static JLabel lab_forPlayerTurn;
@@ -92,6 +92,8 @@ public  class CardView {
 		panel_cardExchange.add(lab_cardExchange);
 		frame_cardExchange.add(panel_cardExchange);
 		frame_cardExchange.setVisible(true);
+		//default close button to not work
+		//frame_cardExchange.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 	}
 
