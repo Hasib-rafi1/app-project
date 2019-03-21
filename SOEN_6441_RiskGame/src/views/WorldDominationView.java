@@ -38,7 +38,7 @@ public class WorldDominationView {
 	JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
 
 	/** The frame window for world domination view. */
-	JFrame frameWindowForWorldDominationView = new JFrame("Player World Domination View");
+	public static JFrame frameWindowForWorldDominationView = new JFrame("Player World Domination View");
 
 	/**
 	 * Creates the jframe for world domination view.
@@ -68,6 +68,8 @@ public class WorldDominationView {
 		table.setEnabled(false);
 		table.getTableHeader().setBackground(Color.orange);
 //		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		
 
 		JList rowHeader = new JList(lm);
 		rowHeader.setFixedCellWidth(150);

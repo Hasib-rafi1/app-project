@@ -8,7 +8,7 @@ import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-
+import javax.swing.SwingUtilities;
 
 import java.util.Collections;
 
@@ -16,6 +16,10 @@ import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
+import views.CardView;
+
+import views.FinishView;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -87,6 +91,7 @@ public class Game extends Observable {
 	 * It randomly assigns the countries to the players. 
 	 */
 	public void startGame() {
+        initializeRiskCards();
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
@@ -236,8 +241,13 @@ public class Game extends Observable {
 	 * This method initializes the reinforcement phase for each player by adding corresponding number of armies. 
 	 */
 	public void reinforcementPhaseSetup() {
-		Player player = getCurrentPlayer();
 		
+				CardView cv = new CardView(this);
+				cv.Exchange();
+			
+		
+		Player player = getCurrentPlayer();
+		System.out.println("card:"+player.getCards().size());
 		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
 
 		countries_count = countries_count < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : countries_count;
@@ -412,7 +422,20 @@ public class Game extends Observable {
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
 		// player class function
 		boolean sucesss = player.fortificationPhase(sourceCountry, destinationCountry, armies);
-		
+
+		if(player.getIsConqured()){
+
+			Card riskCard = getRiskCardFromDeck();
+
+			if(riskCard == null){
+				System.out.println("No Cards Available Right Now.");
+			} else {
+				player.addCard(riskCard);
+			}
+
+			player.setIsConqured(false);
+
+		}
 	
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
@@ -425,11 +448,56 @@ public class Game extends Observable {
 	 * This function skip the fortification phase
 	 */
 	public void skipFortification() {
+		Player player = getCurrentPlayer();
+		if(player.getIsConqured()){
+
+			Card riskCard = getRiskCardFromDeck();
+
+			if(riskCard == null){
+				System.out.println("No Cards Available Right Now.");
+			} else {
+				player.addCard(riskCard);
+			}
+
+			player.setIsConqured(false);
+
+		}
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 	}
+
+	public void initializeRiskCards(){
+
+		int t=0;
+		riskCards.clear();
+		int countriesCount = mapModel.getCountryList().size();
+		for (int i = 0; i<countriesCount; i++) {
+			if (t==0) {
+				riskCards.add(Card.Infantry);
+			} else if (t==1) {
+				riskCards.add(Card.Cavalry);
+			} else if (t==2) {
+				riskCards.add(Card.Artillery);
+			}
+			t++;
+
+			if (t == 0) {
+				t=0;
+			}
+		}
+		Collections.shuffle(riskCards, new Random());
+	}
+
+	public Card getRiskCardFromDeck(){
+	    if(riskCards.size() > 0){
+	        Card riskCard = riskCards.get(0);
+	        riskCards.remove(riskCard);
+	        return riskCard;
+        }
+        return null;
+    }
 
 	//Functions called by other functions within the Game model.
 
@@ -666,11 +734,12 @@ public class Game extends Observable {
 
 		//playerCountry;
 		if (isMapConcured()) {
+			FinishView finish = new FinishView();
+			finish.Exchange(getCurrentPlayer().getPlayerName());
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
 			updateGame();
 		}
-
 		notifyObserverslocal(this);
 		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
 			return true;

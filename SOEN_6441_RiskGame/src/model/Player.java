@@ -288,8 +288,11 @@ public class Player {
 			defenderCountry.increaseArmyCount(1);
 			
 			if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
-
-			    // Jai just assign the defender cards in the attacker
+				ArrayList<Card> defendersCards = defenderPlayer.getCards();
+				defenderPlayer.removeCards();
+				for(Card card: defendersCards) {
+					this.addCard(card);
+				}
 			}
 		}
 	}
@@ -362,13 +365,16 @@ public class Player {
 		sourceCountry.decreaseArmyCount(armies);
 		destinationCountry.increaseArmyCount(armies);
 		
-		if(isConquered) {
-			//Jai just write the logics to get a card. 
-			isConquered= false;
-		}
 		return true;
 	}
 
+	public boolean getIsConqured() {
+		return isConquered;
+	}
+	
+	public void setIsConqured(boolean isConqueredTemp) {
+		isConquered = isConqueredTemp;
+	}
 	public ArrayList<Card> getCards() {
 		return playerCards;
 	}
