@@ -55,7 +55,7 @@ public class MapController {
 				print.listofMapsinDirectory();
 
 				// Check if the entered map file name is exists in directory or not
-				checkMapFileExists();
+				checkMapFileExistsOrNot();
 				break;
 
 			case 2:	// Create and save user Map
@@ -109,7 +109,7 @@ public class MapController {
 	/**
 	 * This method is used to check if the entered map file name is exists in directory or not.
 	 */
-	public void checkMapFileExists() {
+	public void checkMapFileExistsOrNot() {
 		mapModel = new MapModel(); //----refresh----
 		String mapPath = mapModel.getMapNameByUserInput();
 		File tempFile = new File(mapPath);
@@ -124,11 +124,9 @@ public class MapController {
 
 
 	/**
-	 * Edits the existing map file.
-	 *
+	 * This method is used to edit the map.
 	 * @author Gargi Sharma
 	 * @version 1.0.0
-	 * This method is used to edit the map.
 	 */
 	public void editExistingMapFile() {
 		

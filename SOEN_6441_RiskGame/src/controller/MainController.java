@@ -1,5 +1,7 @@
 package controller;
 
+
+
 import controller.MapController;
 import helper.PrintConsoleAndUserInput;
 
@@ -12,7 +14,7 @@ import helper.PrintConsoleAndUserInput;
  * @version 1.0.0
  */
 public class MainController {
-	
+		
 	/**
 	 * This is a main method to run the game.
 	 * This function is used to enter the user input and call the functions to create or edit the map, start, load the game
@@ -22,11 +24,17 @@ public class MainController {
 	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
-
+		startMenu();	
+	}
+	
+	
+	/**
+	 * This method is used to choose an option for the start menu
+	 */
+	public static void startMenu() {
 		MapController mapController = new MapController();
 		PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 		GameController gameController = new GameController();
-
 		int selectMainMenuOption = 0;
 		boolean checkMapStatus = false;
 		do {
@@ -49,7 +57,7 @@ public class MainController {
 
 		}
 		while (selectMainMenuOption != 5);
-		System.exit(0);
+		System.exit(0);		
 	}
 	
 	/**
