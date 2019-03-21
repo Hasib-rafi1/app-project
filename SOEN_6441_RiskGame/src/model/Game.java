@@ -245,7 +245,7 @@ public class Game extends Observable {
 	 */
 	public void reinforcementPhaseSetup() {
 		Player player = getCurrentPlayer();
-		if(player.getCards().size()>1) {
+		if(player.getCards().size()>2) {
 			CardView cv = new CardView(this);
 			cv.Exchange();
 			this.getBoardView().getFrameGameWindow().setEnabled(false);

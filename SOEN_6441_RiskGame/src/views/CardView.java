@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -32,7 +34,7 @@ import helper.PrintConsoleAndUserInput;
  * @author Jaiganesh
  */
 
-public  class CardView {
+public  class CardView implements Observer {
 	private static JFrame frame_cardExchange = null;
 	private static JPanel panel_cardExchange;
 	private static JLabel lab_cardExchange;
@@ -46,6 +48,23 @@ public  class CardView {
 	 Game game;
 	public CardView(Game gameTemp){
 		game = gameTemp;
+	}
+	/**
+	 * method to perform all the actions.
+	 *
+	 * @param arg0 the arg 0
+	 * @param arg1 the arg 1
+	 */
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		 game = ((Game)arg0);
+		 ArrayList<Card> typeOfCards = game.getCurrentPlayer().getCards();
+			String cards[] = new String[typeOfCards.size()];
+			for (int i = 0; i < typeOfCards.size(); i++) {
+				cards[i] = typeOfCards.get(i).toString();
+			}
+			list_cardsOwnedByThePlayer = new JList<>(cards);
 	}
 	public  void Exchange() {
 		frame_cardExchange = new JFrame("Card Exchange View");
@@ -103,5 +122,9 @@ public  class CardView {
 	}
 	public static void exit_actionListener(ActionListener listener) {
 		button_exit.addActionListener(listener);
+	}
+	
+	public static void closeTheWindow() {
+		frame_cardExchange.dispatchEvent(new WindowEvent(frame_cardExchange, WindowEvent.WINDOW_CLOSING));
 	}
 }
