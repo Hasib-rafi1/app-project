@@ -499,6 +499,12 @@ public class Game extends Observable {
         return null;
     }
 
+    public void addRiskCardToDeck(Card riskCard){
+		if(riskCards.size()>0){
+			riskCards.add(riskCards.size() +1,riskCard);
+		}
+	}
+
 	//Functions called by other functions within the Game model.
 
 	//Getter and Setter functions of Map. 
