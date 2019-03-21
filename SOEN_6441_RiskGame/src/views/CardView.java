@@ -104,7 +104,4 @@ public  class CardView {
 	public static void exit_actionListener(ActionListener listener) {
 		button_exit.addActionListener(listener);
 	}
-	
-	
-	
 }

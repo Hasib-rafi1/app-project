@@ -502,6 +502,41 @@ public class Game extends Observable {
         return null;
     }
 
+    public void addRiskCardToDeck(Card riskCard){
+		if(riskCards.size()>0){
+			riskCards.add(riskCards.size() +1,riskCard);
+		}
+	}
+	public void exchangeRiskCards(ArrayList<String> selectedRiskCards){
+
+		if(selectedRiskCards.size() == 3){
+
+			Card firstCard = getCurrentPlayer().getCards().stream().filter( x -> x == Card.valueOf(selectedRiskCards.get(0))).findFirst().orElse(null);
+
+			Card secondCard = getCurrentPlayer().getCards().stream().filter( x -> x == Card.valueOf(selectedRiskCards.get(1))).findFirst().orElse(null);
+
+			Card thirdCard = getCurrentPlayer().getCards().stream().filter( x -> x == Card.valueOf(selectedRiskCards.get(2))).findFirst().orElse(null);
+
+			if(firstCard == null || secondCard == null || thirdCard == null){
+				System.out.println(" Some Cards doesn't belong to the player.");
+			}
+
+			boolean sameRiskCards = (firstCard == secondCard) && (secondCard == thirdCard);
+			boolean differentRiskCards = (firstCard != secondCard) && (secondCard != thirdCard) && (firstCard != thirdCard);
+
+			if(sameRiskCards || differentRiskCards){
+
+				getCurrentPlayer().getCards().remove(firstCard);
+				getCurrentPlayer().getCards().remove(secondCard);
+				getCurrentPlayer().getCards().remove(thirdCard);
+
+				addRiskCardToDeck(firstCard);
+				addRiskCardToDeck(secondCard);
+				addRiskCardToDeck(thirdCard);
+
+			} else { System.out.println("Choose the correct combination of the cards."); }
+		} else { System.out.println("Choose atlest three cards for the exchange."); }
+	}
 	//Functions called by other functions within the Game model.
 
 	//Getter and Setter functions of Map. 

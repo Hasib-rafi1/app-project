@@ -94,6 +94,7 @@ public class GameController {
 	}
 
 
+
 	/**
 	 * This method is setting up the board and game model
 	 * It is intializing the observer for the gui also
