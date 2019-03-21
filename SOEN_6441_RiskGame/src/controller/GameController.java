@@ -144,7 +144,8 @@ public class GameController {
 		addSkipButtonListener();
 		skipExchangeListener();
 		exchangeButtonListener();
-		
+		setBoardView();
+
 	}
 
 	/**
@@ -344,8 +345,8 @@ public class GameController {
 				String[] playerNamesInTableColumns = new String[newPlayerNameList.size()];
 				int y=0;				
 				for ( String nameOfPlayer : newPlayerNameList ) {				
-			
-						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+
+					playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
 					y++;
 				}
 				int size = newPlayerNameList.size();
@@ -424,28 +425,37 @@ public class GameController {
 				if (CardView.list_cardsOwnedByThePlayer.getSelectedValuesList() != null &&  CardView.list_cardsOwnedByThePlayer.getSelectedValuesList().size() > 0) {
 					ArrayList<String> selectedCards = (ArrayList<String>) CardView.list_cardsOwnedByThePlayer.getSelectedValuesList();
 					// this arraylist holds the cards selected by the user
+					game.exchangeRiskCards(selectedCards);
 				}
 			}
 		});
 	}
-	
+
+	/**
+	 * This function is going to close/skip if number of card is less than 5
+	 */
 	public void skipExchangeListener() {
-		
+
 		CardView.exit_actionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int temp_forNumberOfCardsPlayerHolds=(game.getCurrentPlayer().getCards()).size();
-				if(temp_forNumberOfCardsPlayerHolds>5)
+				if(temp_forNumberOfCardsPlayerHolds>5) {
 					JOptionPane.showMessageDialog(null, "Cannot skip Exchange. Perform the Exchange operation!");
-				
+				}else {
+					boardView.getFrameGameWindow().setEnabled(true);
+					CardView.closeTheWindow();
+				}
 			}
-
-		
-		
-
-	});
+		});
 	}
 
-	
+	/**
+	 * this function is gooing to set the boardviw in the game model
+	 */
+	public void setBoardView() {
+		game.setBoardView(boardView);
+	}
+
 }

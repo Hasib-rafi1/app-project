@@ -16,6 +16,7 @@ import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
+import views.BoardView;
 import views.CardView;
 
 import views.FinishView;
@@ -62,6 +63,8 @@ public class Game extends Observable {
 
 	/** The Risk Cards. */
 	private ArrayList<Card> riskCards = new ArrayList<>();
+	
+	private BoardView boardview;
 
 	/**
 	 * Instantiates a new game.
@@ -240,12 +243,12 @@ public class Game extends Observable {
 	 * This method initializes the reinforcement phase for each player by adding corresponding number of armies. 
 	 */
 	public void reinforcementPhaseSetup() {
-		
-				CardView cv = new CardView(this);
-				cv.Exchange();
-			
-		
 		Player player = getCurrentPlayer();
+		if(player.getCards().size()>0) {
+			CardView cv = new CardView(this);
+			cv.Exchange();
+			this.getBoardView().getFrameGameWindow().setEnabled(false);
+		}
 		System.out.println("card:"+player.getCards().size());
 		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
 
@@ -423,9 +426,9 @@ public class Game extends Observable {
 		boolean sucesss = player.fortificationPhase(sourceCountry, destinationCountry, armies);
 
 		if(player.getIsConqured()){
-
+			System.out.println("Conqured");
 			Card riskCard = getRiskCardFromDeck();
-
+			
 			if(riskCard == null){
 				System.out.println("No Cards Available Right Now.");
 			} else {
@@ -449,7 +452,7 @@ public class Game extends Observable {
 	public void skipFortification() {
 		Player player = getCurrentPlayer();
 		if(player.getIsConqured()){
-
+			System.out.println("Conqured");
 			Card riskCard = getRiskCardFromDeck();
 
 			if(riskCard == null){
@@ -551,7 +554,7 @@ public class Game extends Observable {
 
 			} else { System.out.println("Choose the correct combination of the cards."); }
 		} else { System.out.println("Choose at least three cards for the exchange."); }
-		this.notifyObservers();
+		notifyObserverslocal(this);
 	}
 
 	//Functions called by other functions within the Game model.
@@ -997,5 +1000,21 @@ public class Game extends Observable {
 	 */
 	public HashMap<Player, ArrayList<Country>> playerandCountries(){
 		return playerCountry;
+	}
+	
+	/**
+	 * get the board view
+	 * @return boardView
+	 */
+	public BoardView getBoardView() {
+		return boardview;
+	}
+	
+	/**
+	 * get the board view
+	 * @return boardView
+	 */
+	public void setBoardView(BoardView a) {
+		 boardview  =a;
 	}
 }
