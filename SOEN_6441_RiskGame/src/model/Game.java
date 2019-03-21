@@ -16,6 +16,7 @@ import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
+import views.FinishView;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -725,11 +726,12 @@ public class Game extends Observable {
 
 		//playerCountry;
 		if (isMapConcured()) {
+			FinishView finish = new FinishView();
+			finish.Exchange(getCurrentPlayer().getPlayerName());
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
 			updateGame();
 		}
-
 		notifyObserverslocal(this);
 		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
 			return true;

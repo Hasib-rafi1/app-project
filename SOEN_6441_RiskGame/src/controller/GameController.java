@@ -215,6 +215,9 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String attackerCountry = boardView.getAttackerCountry();
 				String defenderCountry = boardView.getDefenderCountry();
+				attCountry = mapModel.getCountryFromName(attackerCountry);
+				defCountry = mapModel.getCountryFromName(defenderCountry);
+				boardView.setVisibalityOfMoveAfterMove();
 				if (attackerCountry != null && defenderCountry != null) {
 					if (game.getGamePhase() == GamePhase.Attack) {
 						Integer attackerDiceCount = Integer.parseInt(boardView.getAttackerDiceNo());
