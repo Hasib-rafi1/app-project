@@ -553,7 +553,9 @@ public class Game extends Observable {
 
 			} else { System.out.println("Choose the correct combination of the cards."); }
 		} else { System.out.println("Choose at least three cards for the exchange."); }
+		this.notifyObservers();
 	}
+
 	//Functions called by other functions within the Game model.
 
 	//Getter and Setter functions of Map. 
