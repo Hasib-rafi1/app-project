@@ -471,6 +471,10 @@ public class Game extends Observable {
 		notifyObserverslocal(this);
 	}
 
+    /**
+     * This function initialises the Risk Cards during the startup of the game.
+     */
+
 	public void initializeRiskCards(){
 
 		int t=0;
@@ -493,6 +497,10 @@ public class Game extends Observable {
 		Collections.shuffle(riskCards, new Random());
 	}
 
+    /**
+     * This function returns a risk card from the deck when called.
+     * @return riskCard
+     */
 	public Card getRiskCardFromDeck(){
 	    if(riskCards.size() > 0){
 	        Card riskCard = riskCards.get(0);
@@ -502,11 +510,20 @@ public class Game extends Observable {
         return null;
     }
 
+    /**
+     * This function adds the risk card back to the deck when called.
+     * @param riskCard
+     */
     public void addRiskCardToDeck(Card riskCard){
 		if(riskCards.size()>0){
 			riskCards.add(riskCards.size() +1,riskCard);
 		}
 	}
+
+    /**
+     * This function performs the exchange operations for the risk cards by assigning armies to the player.
+     * @param selectedRiskCards
+     */
 	public void exchangeRiskCards(ArrayList<String> selectedRiskCards){
 
 		if(selectedRiskCards.size() == 3){
@@ -518,7 +535,7 @@ public class Game extends Observable {
 			Card thirdCard = getCurrentPlayer().getCards().stream().filter( x -> x == Card.valueOf(selectedRiskCards.get(2))).findFirst().orElse(null);
 
 			if(firstCard == null || secondCard == null || thirdCard == null){
-				System.out.println(" Some Cards doesn't belong to the player.");
+				System.out.println("Some Cards doesn't belong to the player.");
 			}
 
 			boolean sameRiskCards = (firstCard == secondCard) && (secondCard == thirdCard);
@@ -535,7 +552,7 @@ public class Game extends Observable {
 				addRiskCardToDeck(thirdCard);
 
 			} else { System.out.println("Choose the correct combination of the cards."); }
-		} else { System.out.println("Choose atlest three cards for the exchange."); }
+		} else { System.out.println("Choose at least three cards for the exchange."); }
 	}
 	//Functions called by other functions within the Game model.
 
