@@ -18,6 +18,9 @@ import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 import views.CardView;
 
+import views.FinishView;
+
+
 // TODO: Auto-generated Javadoc
 /**
  * Game model contains the class to create a model for the game. 
@@ -731,11 +734,12 @@ public class Game extends Observable {
 
 		//playerCountry;
 		if (isMapConcured()) {
+			FinishView finish = new FinishView();
+			finish.Exchange(getCurrentPlayer().getPlayerName());
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
 			updateGame();
 		}
-
 		notifyObserverslocal(this);
 		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
 			return true;
