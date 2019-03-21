@@ -245,7 +245,7 @@ public class Game extends Observable {
 	 */
 	public void reinforcementPhaseSetup() {
 		Player player = getCurrentPlayer();
-		if(player.getCards().size()>2) {
+		if(player.getCards().size()>0) {
 			CardView cv = new CardView(this);
 			cv.Exchange();
 			this.getBoardView().getFrameGameWindow().setEnabled(false);
@@ -427,9 +427,9 @@ public class Game extends Observable {
 		boolean sucesss = player.fortificationPhase(sourceCountry, destinationCountry, armies);
 
 		if(player.getIsConqured()){
-
+			System.out.println("Conqured");
 			Card riskCard = getRiskCardFromDeck();
-
+			
 			if(riskCard == null){
 				System.out.println("No Cards Available Right Now.");
 			} else {
@@ -453,7 +453,7 @@ public class Game extends Observable {
 	public void skipFortification() {
 		Player player = getCurrentPlayer();
 		if(player.getIsConqured()){
-
+			System.out.println("Conqured");
 			Card riskCard = getRiskCardFromDeck();
 
 			if(riskCard == null){
@@ -553,7 +553,7 @@ public class Game extends Observable {
 
 			} else { System.out.println("Choose the correct combination of the cards."); }
 		} else { System.out.println("Choose at least three cards for the exchange."); }
-		this.notifyObservers();
+		notifyObserverslocal(this);
 	}
 
 	//Functions called by other functions within the Game model.
