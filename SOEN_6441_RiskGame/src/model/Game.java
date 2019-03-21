@@ -504,7 +504,7 @@ public class Game extends Observable {
 	public Card getRiskCardFromDeck(){
 	    if(riskCards.size() > 0){
 	        Card riskCard = riskCards.get(0);
-	        riskCards.remove(riskCard);
+	        riskCards.remove(0);
 	        return riskCard;
         }
         return null;
