@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -23,6 +25,7 @@ import javax.swing.border.TitledBorder;
 
 import model.Game;
 import helper.Card;
+import helper.PrintConsoleAndUserInput;
 
 /**
  *
@@ -31,12 +34,12 @@ import helper.Card;
  * @author Jaiganesh
  */
 
-public  class CardView {
+
+public  class CardView implements Observer {
 	public static JFrame frame_cardExchange = null;
 	private static JPanel panel_cardExchange;
 	private static JLabel lab_cardExchange;
 	private static JLabel lab_forPlayerTurn;
-	//DefaultListModel dlm = new DefaultListModel();
 	public static JList<String> list_cardsOwnedByThePlayer;
 	private static JLabel lab_totalNewArmies;
 	private static JButton button_cardExchange = new JButton("Exchange Cards");
@@ -45,6 +48,23 @@ public  class CardView {
 	 Game game;
 	public CardView(Game gameTemp){
 		game = gameTemp;
+	}
+	/**
+	 * method to perform all the actions.
+	 *
+	 * @param arg0 the arg 0
+	 * @param arg1 the arg 1
+	 */
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		 game = ((Game)arg0);
+		 ArrayList<Card> typeOfCards = game.getCurrentPlayer().getCards();
+			String cards[] = new String[typeOfCards.size()];
+			for (int i = 0; i < typeOfCards.size(); i++) {
+				cards[i] = typeOfCards.get(i).toString();
+			}
+			list_cardsOwnedByThePlayer = new JList<>(cards);
 	}
 	public  void Exchange() {
 		frame_cardExchange = new JFrame("Card Exchange View");
@@ -60,7 +80,7 @@ public  class CardView {
 		lab_forPlayerTurn = new JLabel(game.getCurrentPlayer().getPlayerName());
 		Font font = new Font("Courier", Font.BOLD, 24);
 		lab_forPlayerTurn.setFont(font);
-		lab_forPlayerTurn.setForeground(Color.RED);
+		lab_forPlayerTurn.setForeground(PrintConsoleAndUserInput.getColor(game.getCurrentPlayer().getColor()));
 		lab_forPlayerTurn.setBorder(new TitledBorder("Active Player"));
 		lab_forPlayerTurn.setBounds(30, 45, 250, 70);
 		ArrayList<Card> typeOfCards = game.getCurrentPlayer().getCards();
@@ -93,7 +113,9 @@ public  class CardView {
 		frame_cardExchange.add(panel_cardExchange);
 		frame_cardExchange.setVisible(true);
 		//default close button to not work
-		//frame_cardExchange.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame_cardExchange.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		
 		
 	}
 
@@ -102,5 +124,9 @@ public  class CardView {
 	}
 	public static void exit_actionListener(ActionListener listener) {
 		button_exit.addActionListener(listener);
+	}
+	
+	public static void closeTheWindow() {
+		frame_cardExchange.dispose();
 	}
 }

@@ -1,32 +1,16 @@
 package controller;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.*;
 
-import javax.swing.AbstractListModel;
-import javax.swing.JFrame;
+
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextPane;
-import javax.swing.ListModel;
-import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 
 
 import model.Country;
@@ -37,11 +21,10 @@ import views.CardView;
 import views.WorldDominationView;
 //import views.WorldDominationView;
 import model.MapModel;
-import helper.Colors;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Game Controller initializes the game by calling the game model.
  * It controls the view by actively listing to the view elements and performing the respective actions. 
@@ -104,8 +87,9 @@ public class GameController {
 		int j=1;
 		game = new Game(mapModel);
 		boardView=new BoardView();
+		
 		game.addObserver(boardView);
-
+		//game.addObserver(cardView);
 		print.consoleOut("\nEnter the number of Players between 3-5:");
 		int playerCount = Integer.parseInt(userinput.nextLine());
 
@@ -143,7 +127,8 @@ public class GameController {
 		addSkipButtonListener();
 		skipExchangeListener();
 		exchangeButtonListener();
-		
+		setBoardView();
+
 	}
 
 	/**
@@ -327,6 +312,7 @@ public class GameController {
 	public void addActionListenerForWorldDominationView() {
 		boardView.worldDominationViewListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				WorldDominationView.frameWindowForWorldDominationView.toFront();
 				DecimalFormat countryPercentFormat = new DecimalFormat(".####");
 				ArrayList<Player> playerList = game.getAllPlayers();
 
@@ -343,8 +329,8 @@ public class GameController {
 				String[] playerNamesInTableColumns = new String[newPlayerNameList.size()];
 				int y=0;				
 				for ( String nameOfPlayer : newPlayerNameList ) {				
-			
-						playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+
+					playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
 					y++;
 				}
 				int size = newPlayerNameList.size();
@@ -423,20 +409,37 @@ public class GameController {
 				if (CardView.list_cardsOwnedByThePlayer.getSelectedValuesList() != null &&  CardView.list_cardsOwnedByThePlayer.getSelectedValuesList().size() > 0) {
 					ArrayList<String> selectedCards = (ArrayList<String>) CardView.list_cardsOwnedByThePlayer.getSelectedValuesList();
 					// this arraylist holds the cards selected by the user
+					game.exchangeRiskCards(selectedCards);
 				}
 			}
 		});
 	}
-	
+
+	/**
+	 * This function is going to close/skip if number of card is less than 5
+	 */
 	public void skipExchangeListener() {
-		
-		
 
-		
-		
+		CardView.exit_actionListener(new ActionListener() {
 
-	});
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int temp_forNumberOfCardsPlayerHolds=(game.getCurrentPlayer().getCards()).size();
+				if(temp_forNumberOfCardsPlayerHolds>5) {
+					JOptionPane.showMessageDialog(null, "Cannot skip Exchange. Perform the Exchange operation!");
+				}else {
+					boardView.getFrameGameWindow().setEnabled(true);
+					CardView.closeTheWindow();
+				}
+			}
+		});
 	}
 
-	
+	/**
+	 * this function is going to set the boardview in the game model
+	 */
+	public void setBoardView() {
+		game.setBoardView(boardView);
+	}
+
 }
