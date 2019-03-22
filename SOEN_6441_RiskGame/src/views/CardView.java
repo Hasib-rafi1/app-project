@@ -30,8 +30,7 @@ import helper.PrintConsoleAndUserInput;
 // TODO: Auto-generated Javadoc
 /**
  *
- * Card View lets the player to chose the cards during the
- * Reinforcement phase of the game to obtain new armies.
+ * This class is used to chose the cards by the player during the Reinforcement phase of the game to obtain new armies.
  * @author Jaiganesh
  */
 

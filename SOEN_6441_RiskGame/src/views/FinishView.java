@@ -1,52 +1,37 @@
 package views;
-
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
-
-import model.Game;
-import helper.Card;
 
 // TODO: Auto-generated Javadoc
 /**
  *
- * Card View lets the player to chose the cards during the
- * Reinforcement phase of the game to obtain new armies.
+ *This class is used to display the Congratulation message to the player who wins the game.
  * @author Jaiganesh
  */
 
 public class FinishView {
-	
+
 	/** The frame congratulation. */
 	private static JFrame frame_congratulation = null;
-	
+
 	/** The panel congratulation. */
 	private static JPanel panel_congratulation;
-	
+
 	/** The lab congratulation. */
 	private static JLabel lab_congratulation;
-	
+
 	/**
 	 * Exchange.
 	 *
 	 * @param playerName the player name
 	 */
 	public void Exchange(String playerName) {
-		frame_congratulation = new JFrame("Congratulation");
+		frame_congratulation = new JFrame("Congratulations");
 		panel_congratulation = new JPanel();
 		frame_congratulation.setSize(800, 300);
 
@@ -58,6 +43,6 @@ public class FinishView {
 		panel_congratulation.add(lab_congratulation);
 		frame_congratulation.add(panel_congratulation);
 		frame_congratulation.setVisible(true);
-		
+
 	}
 }
