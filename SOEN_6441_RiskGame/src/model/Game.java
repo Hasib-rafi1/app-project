@@ -59,10 +59,13 @@ public class Game extends Observable {
 	/** The Risk Cards. */
 	private ArrayList<Card> riskCards = new ArrayList<>();
 	
+	/** The boardview. */
 	private BoardView boardview;
 	
+	/** The game phase details. */
 	private ArrayList<String> gamePhaseDetails = new ArrayList<>();
 	
+	/** The exchange number. */
 	private Integer exchangeNumber= 5;
 
 	/**
@@ -252,7 +255,7 @@ public class Game extends Observable {
 	public void reinforcementPhaseSetup() {
 		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
-		if(player.getCards().size()>0) {
+		if(player.getCards().size()>2) {
 			CardView cv = new CardView(this);
 			cv.Exchange();
 			cv.frame_cardExchange.toFront();
@@ -357,7 +360,7 @@ public class Game extends Observable {
 	 *
 	 * @param source source countries
 	 * @param countryList list of countries
-	 * 
+	 *
 	 */
 	public void getConnectedCountries(String source, ArrayList<Country> countryList) {
 		System.out.println("source Country Name :" + source);
@@ -459,7 +462,7 @@ public class Game extends Observable {
 	}
 	
 	/**
-	 * This function skip the fortification phase
+	 * This function skip the fortification phase.
 	 */
 	public void skipFortification() {
 		Player player = getCurrentPlayer();
@@ -526,7 +529,7 @@ public class Game extends Observable {
 
     /**
      * This function adds the risk card back to the deck when called.
-     * @param riskCard
+     * @param riskCard Card
      */
     public void addRiskCardToDeck(Card riskCard){
 		if(riskCards.size()>0){
@@ -534,10 +537,12 @@ public class Game extends Observable {
 		}
 	}
 
-    /**
-     * This function performs the exchange operations for the risk cards by assigning armies to the player.
-     * @param selectedRiskCards
-     */
+
+	/**
+	 * This function performs the exchange operations for the risk cards by assigning armies to the player.
+     * @param selectedRiskCards arraylist which contains selected risk cards
+	 * @return true if cards exchanges otherwise false
+	 */
 	public boolean exchangeRiskCards(ArrayList<String> selectedRiskCards){
 
 		if(selectedRiskCards.size() == 3){
@@ -554,8 +559,8 @@ public class Game extends Observable {
 
 			boolean sameRiskCards = (firstCard == secondCard) && (secondCard == thirdCard);
 			boolean differentRiskCards = (firstCard != secondCard) && (secondCard != thirdCard) && (firstCard != thirdCard);
-
-			if(sameRiskCards || differentRiskCards){
+			boolean sameAndDifferent = (firstCard != secondCard) || (secondCard != thirdCard) || (firstCard != thirdCard);
+			if(sameRiskCards || differentRiskCards || sameAndDifferent){
 
 				getCurrentPlayer().getCards().remove(firstCard);
 				getCurrentPlayer().getCards().remove(secondCard);
@@ -681,10 +686,8 @@ public class Game extends Observable {
 
 
 	/**
-	 * Function the returns the armies of the country of the current player.
-	 *
+	 * Function the returns the armies of the country of the current player.	 *
 	 * @param countryName anme of the country
-	 *
 	 */
 	public void getCountryArmies(String countryName) {
 		int armies_number = 0;
@@ -906,12 +909,13 @@ public class Game extends Observable {
 		}
 		return false;
 	}
+
 	/**
-	 * move Armies after attack
+	 * move Armies after attack.
+	 *
 	 * @param attackersCountry Attacker country
 	 * @param atteckersNewCountry Attacker new country
 	 * @param attackerMoveArmies Attacker move armies
-	 * 
 	 */
 	public void moveArmies(Country attackersCountry, Country atteckersNewCountry, int attackerMoveArmies) {
 		attackersCountry.decreaseArmyCount(attackerMoveArmies);
@@ -976,9 +980,10 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * Gets list of players
+	 * Gets list of players.
+	 *
 	 * @param countriesListOfPlayer Countries list of players
-	 * @return countriesListString Countries list 
+	 * @return countriesListString Countries list
 	 */
 	public ArrayList<String> countryListStringOfPlayer(ArrayList<Country> countriesListOfPlayer) {
 		ArrayList<String> countriesListString = new ArrayList<>();
@@ -991,7 +996,8 @@ public class Game extends Observable {
 
 	
 	/**
-	 * This method is used to get the number of armies for each player
+	 * This method is used to get the number of armies for each player.
+	 *
 	 * @return numberOfArmies Number of armies
 	 */
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
@@ -1010,7 +1016,8 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * Get all the players and countries
+	 * Get all the players and countries.
+	 *
 	 * @return playerCountry Player country
 	 */
 	public HashMap<Player, ArrayList<Country>> playerandCountries(){
@@ -1018,23 +1025,26 @@ public class Game extends Observable {
 	}
 	
 	/**
-	 * get the board view
+	 * get the board view.
+	 *
 	 * @return boardView
 	 */
 	public BoardView getBoardView() {
 		return boardview;
 	}
 	
+
 	/**
-	 * get the board view
+	 * Get the board view of a game.
+	 *
+	 * @param viewOfBoard the board view
 	 */
-	public void setBoardView(BoardView a) {
-		 boardview  =a;
+	public void setBoardView(BoardView viewOfBoard) {
+		 boardview  = viewOfBoard;
 	}
 	
 	/**
-	 * update the reinforcement value
-	 * 
+	 * update the reinforcement value.
 	 */
 	public void updateReinforcementValue() {
 		reinforcementPhaseSetup();

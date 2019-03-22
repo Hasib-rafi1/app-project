@@ -30,7 +30,7 @@ public class MainController {
 	
 	
 	/**
-	 * This method is used to choose an option for the start menu
+	 * This method is used to choose an option for the start menu.
 	 */
 	public static void startMenu() {
 		MapController mapController = new MapController();
