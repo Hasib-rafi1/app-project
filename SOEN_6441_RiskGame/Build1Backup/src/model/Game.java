@@ -329,7 +329,7 @@ public class Game extends Observable {
 	 * @param countryList list of countries
 	 */
 	public void getConnectedCountries(String source, ArrayList<Country> countryList) {
-		System.out.println("source Country Name :" + source);
+		System.out.println("Source Country Name :" + source);
 
 		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
 		ArrayList<String> neighborCountriesName = new ArrayList<String>();

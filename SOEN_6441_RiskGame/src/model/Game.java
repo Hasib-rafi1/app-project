@@ -436,17 +436,16 @@ public class Game extends Observable {
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
 		
 		// player class function
-		boolean sucesss = player.fortificationPhase(sourceCountry, destinationCountry, armies);
+		boolean success = player.fortificationPhase(sourceCountry, destinationCountry, armies);
 		gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
 		if(player.getIsConqured()){
-			System.out.println("Conqured");
+			System.out.println("Conquered");
 			Card riskCard = getRiskCardFromDeck();
 			
 			if(riskCard == null){
 				System.out.println("No Cards Available Right Now.");
 			} else {
-				player.addCard(riskCard);
-				
+				player.addCard(riskCard);				
 			}
 
 			player.setIsConqured(false);

@@ -86,10 +86,11 @@ public class MapController {
 
 				if (checkMapIsCreated) {
 					print.consoleOut(" ****Map has been created successfully in "+print.getMapDir()+ " as " +mapName+".map ****");
+					mapView.closeFrameWindow();
 				} else {
 					print.consoleErr("**** Error!!!! Map has not been created successfully! ****");
+					mapView.closeFrameWindow();
 				}
-				mapView.closeFrameWindow();
 			}
 		});
 	}
