@@ -21,6 +21,7 @@ import javax.swing.border.TitledBorder;
 import model.Game;
 import helper.Card;
 
+// TODO: Auto-generated Javadoc
 /**
  *
  * Card View lets the player to chose the cards during the
@@ -29,10 +30,21 @@ import helper.Card;
  */
 
 public class FinishView {
+	
+	/** The frame congratulation. */
 	private static JFrame frame_congratulation = null;
+	
+	/** The panel congratulation. */
 	private static JPanel panel_congratulation;
+	
+	/** The lab congratulation. */
 	private static JLabel lab_congratulation;
 	
+	/**
+	 * Exchange.
+	 *
+	 * @param playerName the player name
+	 */
 	public void Exchange(String playerName) {
 		frame_congratulation = new JFrame("Congratulation");
 		panel_congratulation = new JPanel();

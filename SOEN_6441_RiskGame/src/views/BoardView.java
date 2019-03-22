@@ -644,8 +644,8 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * Method for performing action listener on move armies after concuring Button
-	 * 
+	 * Method for performing action listener on move armies after concuring Button.
+	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToMoveButton(ActionListener listener) {
@@ -653,7 +653,8 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * Skip the fortification round
+	 * Skip the fortification round.
+	 *
 	 * @param listener ActionListener
 	 */
 	public void skipFortificationActionListener(ActionListener listener) {
@@ -839,8 +840,7 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * A method to set visible to move after attack
-	 * 
+	 * A method to set visible to move after attack.
 	 */
 	public void setVisibalityOfMoveAfterConcure() {
 		combo_attackMoveArmies.setVisible(true);
@@ -848,8 +848,7 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * A method to set visible to move after move
-	 * 
+	 * A method to set visible to move after move.
 	 */
 	public void setVisibalityOfMoveAfterMove() {
 		combo_attackMoveArmies.setVisible(false);
@@ -857,8 +856,8 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * Method used to populate value in the move
-	 * 
+	 * Method used to populate value in the move.
+	 *
 	 * @param movePossible possible move
 	 */
 	public void setMoveComboBox(int movePossible) {
@@ -869,7 +868,8 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * Static method to get selected move possible
+	 * Static method to get selected move possible.
+	 *
 	 * @return selectedCountry
 	 */
 	public  String getMoveComboBox() {
@@ -877,8 +877,11 @@ public class BoardView implements Observer {
 
 	}
 	
+
 	/**
-	 * get the frame to control the card conditions
+	 * get the frame to control the card conditions.
+	 *
+	 * @return frameGameWindow jframe for the card window
 	 */
 	public JFrame getFrameGameWindow() {
 		return frameGameWindow;

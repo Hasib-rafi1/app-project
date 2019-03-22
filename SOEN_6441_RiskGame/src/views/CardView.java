@@ -27,6 +27,7 @@ import model.Game;
 import helper.Card;
 import helper.PrintConsoleAndUserInput;
 
+// TODO: Auto-generated Javadoc
 /**
  *
  * Card View lets the player to chose the cards during the
@@ -36,20 +37,47 @@ import helper.PrintConsoleAndUserInput;
 
 
 public  class CardView{
+	
+	/** The frame card exchange. */
 	public static JFrame frame_cardExchange = null;
+	
+	/** The panel card exchange. */
 	private static JPanel panel_cardExchange;
+	
+	/** The lab card exchange. */
 	private static JLabel lab_cardExchange;
+	
+	/** The lab for player turn. */
 	private static JLabel lab_forPlayerTurn;
+	
+	/** The list cards owned by the player. */
 	public static JList<String> list_cardsOwnedByThePlayer;
+	
+	/** The lab total new armies. */
 	private static JLabel lab_totalNewArmies;
+	
+	/** The button card exchange. */
 	private static JButton button_cardExchange = new JButton("Exchange Cards");
+	
+	/** The button exit. */
 	private static JButton button_exit = new JButton("Skip Exchange");
+	
+	/** The game. */
 	//Instantiate game object
 	 Game game;
+	
+	/**
+	 * Instantiates a new card view.
+	 *
+	 * @param gameTemp the game temp
+	 */
 	public CardView(Game gameTemp){
 		game = gameTemp;
 	}
 	
+	/**
+	 * Exchange.
+	 */
 	public  void Exchange() {
 		frame_cardExchange = new JFrame("Card Exchange View");
 		panel_cardExchange = new JPanel(null);
@@ -103,13 +131,27 @@ public  class CardView{
 		
 	}
 
+	/**
+	 * Exchange action listener.
+	 *
+	 * @param listener the listener
+	 */
 	public static void exchange_actionListener(ActionListener listener) {
 		button_cardExchange.addActionListener(listener);
 	}
+	
+	/**
+	 * Exit action listener.
+	 *
+	 * @param listener the listener
+	 */
 	public static void exit_actionListener(ActionListener listener) {
 		button_exit.addActionListener(listener);
 	}
 	
+	/**
+	 * Close the window.
+	 */
 	public static void closeTheWindow() {
 		frame_cardExchange.dispose();
 	}

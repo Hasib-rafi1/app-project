@@ -25,6 +25,7 @@ import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Game Controller initializes the game by calling the game model.
  * It controls the view by actively listing to the view elements and performing the respective actions. 
@@ -40,6 +41,8 @@ public class GameController {
 	/** The board view. */
 	BoardView boardView;
 
+	
+	/** The player. */
 	Player player;
 
 	/** The map model. */
@@ -51,7 +54,11 @@ public class GameController {
 	/** The userinput. */
 	//	WorldDominationView worldDominationView = new WorldDominationView();
 	Scanner userinput = new Scanner(System.in);
+	
+	/** The att country. */
 	Country attCountry;
+	
+	/** The def country. */
 	Country defCountry;
 
 	/**
@@ -274,7 +281,7 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the move army Button
+	 * to add listener on the move army Button.
 	 */
 	public void addAttackMoveArmyButtonListener() {
 		boardView.addActionListenToMoveButton(new ActionListener() {
@@ -403,6 +410,10 @@ public class GameController {
 
 		});
 	}
+	
+	/**
+	 * Exchange button listener.
+	 */
 	public void exchangeButtonListener() {
 		CardView.exchange_actionListener(new ActionListener(){
 			@Override
@@ -422,7 +433,7 @@ public class GameController {
 	}
 
 	/**
-	 * This function is going to close/skip if number of card is less than 5
+	 * This function is going to close/skip if number of card is less than 5.
 	 */
 	public void skipExchangeListener() {
 
@@ -442,7 +453,7 @@ public class GameController {
 	}
 
 	/**
-	 * this function is going to set the boardview in the game model
+	 * this function is going to set the boardview in the game model.
 	 */
 	public void setBoardView() {
 		game.setBoardView(boardView);

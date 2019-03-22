@@ -46,9 +46,10 @@ public class Player {
 	/** The assigned Risk Card of the player. */
 	private ArrayList<Card> playerCards = new ArrayList<>();
 	
-	/** The Conquered continents */
+	/**  The Conquered continents. */
 	private ArrayList<Continent> playerContinents = new ArrayList<>();
 
+	/** The initial armiesafter exchange. */
 	private Integer initialArmiesafterExchange = 0;
 
 	/**
@@ -369,27 +370,52 @@ public class Player {
 		return true;
 	}
 
+	/**
+	 * Gets the checks if is conqured.
+	 *
+	 * @return the checks if is conqured
+	 */
 	public boolean getIsConqured() {
 		return isConquered;
 	}
 	
+	/**
+	 * Sets the checks if is conqured.
+	 *
+	 * @param isConqueredTemp the new checks if is conqured
+	 */
 	public void setIsConqured(boolean isConqueredTemp) {
 		isConquered = isConqueredTemp;
 	}
+	
+	/**
+	 * Gets the cards.
+	 *
+	 * @return the cards
+	 */
 	public ArrayList<Card> getCards() {
 		return playerCards;
 	}
 
+	/**
+	 * Removes the cards.
+	 */
 	public void removeCards() {
 		playerCards.clear();
 	}
 
+	/**
+	 * Adds the card.
+	 *
+	 * @param card the card
+	 */
 	public void addCard(Card card) {
 		playerCards.add(card);
 	}
 
 	/**
-	 * set Conquer continents for the player
+	 * set Conquer continents for the player.
+	 *
 	 * @param continents Continents
 	 */
 	public void setConcuredContinents(ArrayList<Continent> continents) {
@@ -406,10 +432,20 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * Gets the conquerd continents.
+	 *
+	 * @return the conquerd continents
+	 */
 	public ArrayList<Continent> getConquerdContinents(){
 		return playerContinents;
 	}
 	
+	/**
+	 * Sets the initial armiesafter exchange.
+	 *
+	 * @param armies the new initial armiesafter exchange
+	 */
 	public void setInitialArmiesafterExchange(int armies) {
 		initialArmiesafterExchange = armies;
 	}
