@@ -255,7 +255,7 @@ public class Game extends Observable {
 	public void reinforcementPhaseSetup() {
 		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
-		if(player.getCards().size()>2) {
+		if(player.getCards().size()>-1) {
 			CardView cv = new CardView(this);
 			cv.Exchange();
 			cv.frame_cardExchange.toFront();

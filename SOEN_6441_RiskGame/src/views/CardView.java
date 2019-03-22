@@ -93,7 +93,9 @@ public  class CardView{
 		lab_forPlayerTurn.setFont(font);
 		lab_forPlayerTurn.setForeground(PrintConsoleAndUserInput.getColor(game.getCurrentPlayer().getColor()));
 		lab_forPlayerTurn.setBorder(new TitledBorder("Active Player"));
-		lab_forPlayerTurn.setBounds(30, 45, 250, 70);
+		lab_forPlayerTurn.setBounds(30, 45, 250, 150);
+		lab_forPlayerTurn.setHorizontalAlignment(lab_forPlayerTurn.CENTER);
+		lab_forPlayerTurn.setVerticalAlignment(lab_forPlayerTurn.CENTER);
 		ArrayList<Card> typeOfCards = game.getCurrentPlayer().getCards();
 		String cards[] = new String[typeOfCards.size()];
 		for (int i = 0; i < typeOfCards.size(); i++) {
@@ -104,14 +106,14 @@ public  class CardView{
 	   // s.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 	    s.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		list_cardsOwnedByThePlayer.setBorder(new TitledBorder("Cards Owned"));
-		list_cardsOwnedByThePlayer.setBounds(310, 45, 250, 70);
+		list_cardsOwnedByThePlayer.setBounds(310, 45, 250, 150);
 
-		lab_totalNewArmies = new JLabel("" + game.getCurrentPlayer().getCards());
+		lab_totalNewArmies = new JLabel("" + game.getCurrentPlayer().getNumberOfReinforcedArmies());
 		
-		lab_totalNewArmies.setBorder(new TitledBorder("New  Armies Assigned"));
-		lab_totalNewArmies.setBounds(180, 150, 250, 70);
-		button_cardExchange.setBounds(120, 255, 160, 40);
-		button_exit.setBounds(310, 255, 160, 40);
+		lab_totalNewArmies.setBorder(new TitledBorder("Reinforced Number Army"));
+		lab_totalNewArmies.setBounds(180, 200, 250, 70);
+		button_cardExchange.setBounds(120, 280, 160, 40);
+		button_exit.setBounds(310, 280, 160, 40);
 		
 		lab_cardExchange.add(lab_totalNewArmies);
 		lab_cardExchange.add(list_cardsOwnedByThePlayer);
