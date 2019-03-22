@@ -104,6 +104,7 @@ public class GameController {
 				j++;
 			}	
 			game.startGame();
+			game.initializeRiskCards();
 			boardView.gameWindowLoad();	
 			callListenerOnView();
 		}
