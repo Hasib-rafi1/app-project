@@ -959,7 +959,11 @@ public class Game extends Observable {
 	}
 
 
-	public HashMap<Integer, String> getContinentsControlledByEachPlayer() {
+    /**
+     * Get the number of continents and their name by each player
+     * @return hashMap for a player and continent
+     */
+    public HashMap<Integer, String> getContinentsControlledByEachPlayer() {
 		HashMap<Integer, String> continentsOfPlayer = new HashMap<Integer, String>();
 		ArrayList<String> nameOfTheContinent = new ArrayList<>();
 		String numberAndName= null;
