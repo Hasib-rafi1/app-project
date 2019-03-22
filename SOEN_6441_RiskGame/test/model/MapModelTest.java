@@ -18,7 +18,7 @@ public class MapModelTest {
    /** The string for valid. */
    private StringBuffer stringForValid;
     
-    /** The string for in valid. */
+    /** The string for inValid. */
     private StringBuffer stringForInValid;
     
     /** The continents list test. */
@@ -29,9 +29,6 @@ public class MapModelTest {
     
     /** The map model. */
     private MapModel mapModel;
-    
-    /** The in valid map. */
-    private String inValidMap;
 
     /**
      * Sets the up.
@@ -79,8 +76,6 @@ public class MapModelTest {
 
         Collections.sort(continentsListTest);
         Collections.sort(territoriesListTest);
-
-        inValidMap = inValidMapString;
 
     }
 
@@ -148,7 +143,17 @@ public class MapModelTest {
      */
     @Test
     public void checkMapIsValidTest() throws Exception {
-        mapModel.readMapFile(inValidMap);
+        mapModel.readMapFile("src/mapFiles/inValidContinentNoCountry.map");
+        assertFalse(mapModel.checkMapIsValid());
+    }
+
+    /**
+     * This method tests the invalid map can be loaded or not.
+     * @throws Exception if not
+     */
+    @Test
+    public void checkContinentSubGraph() throws Exception {
+        mapModel.readMapFile("src/mapFiles/inValidDisconnectedContinentTestCase.map");
         assertFalse(mapModel.checkMapIsValid());
     }
 
