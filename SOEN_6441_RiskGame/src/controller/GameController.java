@@ -356,11 +356,11 @@ public class GameController {
 
 				//Get the continents controlled by every player
 				String[] continentsAcquired = new String[size];
-				HashMap<Integer,Integer> findContinentsAcquired =  game.getNumberOfContinentsControlledForEachPlayer();
+				HashMap<Integer,String> findContinentsAcquired =  game.getContinentsControlledByEachPlayer();
 				int l=0;
-				for (Map.Entry<Integer, Integer> entry : findContinentsAcquired.entrySet()) {
-					Integer value = entry.getValue();
-					continentsAcquired[l] = value.toString();
+				for (Map.Entry<Integer, String> entry : findContinentsAcquired.entrySet()) {
+					String value = entry.getValue();
+					continentsAcquired[l] = value;
 					l++;
 				}
 
