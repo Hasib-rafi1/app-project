@@ -98,6 +98,7 @@ public class Game extends Observable {
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
 			System.out.println("Player ID: "+playerList.get(i).getPlayerId()+" Player Name: "+playerList.get(i).getPlayerName()+" Player's Army: "+playerList.get(i).getNumberOfInitialArmies()+" Player's Color"+playerList.get(i).getColor());
+			playerList.get(i).setConcuredContinents(mapModel.getContinentList());
 			gamePhaseDetails.add("Player ID: "+playerList.get(i).getPlayerId());
 			gamePhaseDetails.add("Player Name: "+playerList.get(i).getPlayerName());
 			gamePhaseDetails.add("Player's Army: "+playerList.get(i).getNumberOfInitialArmies());
@@ -816,6 +817,7 @@ public class Game extends Observable {
 			gamePhaseDetails.add("Attack not possible.");
 			updateGame();
 		}
+		getCurrentPlayer().setConcuredContinents(mapModel.getContinentList());
 		notifyObserverslocal(this);
 		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
 			return true;
@@ -952,31 +954,26 @@ public class Game extends Observable {
 
 	}
 
-	public HashMap<Integer, Integer> getNumberOfContinentsControlledForEachPlayer() {
-		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
-		ArrayList<Continent> allContinents = this.mapModel.getContinentList();
-		for (Player player : this.playerList) {
-			boolean goToOuterLoop = false;
-			int numberOfContinentsAquired = 0;
-			for (Continent continent : allContinents) {
-				for (Country country : continent.getCountryList()) {
-					if (player.getAssignedListOfCountries().contains(country)) {
-					} else {
-						goToOuterLoop = true;
-						break;
-					}
-				}
-				if (goToOuterLoop) {
-					goToOuterLoop = false;
-					continue;
-				}
-				numberOfContinentsAquired++;
-			}
-			returnMap.put(player.getPlayerId(), numberOfContinentsAquired);
-		}
-		return returnMap;
-	}
 
+	public HashMap<Integer, String> getContinentsControlledByEachPlayer() {
+		HashMap<Integer, String> continentsOfPlayer = new HashMap<Integer, String>();
+		ArrayList<String> nameOfTheContinent = new ArrayList<>();
+		String numberAndName= null;
+
+		for (Player player : this.playerList) {
+			int numberOfContinents = player.getConquerdContinents().size();
+			System.out.println(numberOfContinents);
+			for (Continent continentName: player.getConquerdContinents()) {
+				nameOfTheContinent.add(continentName.getContinentName());
+				numberAndName = "(" + numberOfContinents + "): "+nameOfTheContinent;
+			}
+			print.consoleErr(numberAndName);
+			continentsOfPlayer.put(player.getPlayerId(), numberAndName);
+			numberAndName="";
+			nameOfTheContinent.clear();
+		}
+		return continentsOfPlayer;
+	}
 
 	/**
 	 * Gets list of players
