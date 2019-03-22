@@ -331,9 +331,10 @@ public class MapModel {
 					return false;
 				}
 			} else {
-				print.consoleErr("\n *** This Map is NOT Connected. ***\n" );
+				print.consoleErr("\n *** This Map is NOT Connected. ***\n");
+//						"The Disconnected Countries are Given Below: ");
 //				for (String list : visitedList) {
-//					print.consoleErr(list + " ");
+//					System.out.print(list + " ");
 //				}
 				return false;
 			}
@@ -343,11 +344,20 @@ public class MapModel {
 			return false;
 		}
 	}
+//    boolean checkConnectedGraphOnContinentLevel() {
+//        for (Continent cont : this.continentsList) {
+//            if (!checkIfContinentConnected(cont)) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
 	public boolean continentSubGraphConnected(){
 		ArrayList<String> countryListForThisContinent = new ArrayList<>();
 		for (Continent forEachContinent: this.continentsList) {
-
+			countryListForThisContinent.clear();
+			countryListForOneContinent.clear();
 			for (Country country : forEachContinent.getCountryList()) {
 				countryListForThisContinent.add(country.getCountryName());
 				countryListForOneContinent.add(country);
@@ -358,6 +368,9 @@ public class MapModel {
 			visitedListForContinent.clear();
 			depthFirstSearchForContinent(startingVertex);
 			Collections.sort(visitedListForContinent);
+			if(!visitedAndAllCountryListCheck(visitedListForContinent,countryListForThisContinent)){
+			    return false;
+            }
 		}
 		return(visitedAndAllCountryListCheck(visitedListForContinent,countryListForThisContinent));
 	}
