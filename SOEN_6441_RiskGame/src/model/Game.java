@@ -251,7 +251,7 @@ public class Game extends Observable {
 	public void reinforcementPhaseSetup() {
 		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
-		if(player.getCards().size()>0) {
+		if(player.getCards().size()>2) {
 			CardView cv = new CardView(this);
 			cv.Exchange();
 			cv.frame_cardExchange.toFront();
@@ -553,8 +553,8 @@ public class Game extends Observable {
 
 			boolean sameRiskCards = (firstCard == secondCard) && (secondCard == thirdCard);
 			boolean differentRiskCards = (firstCard != secondCard) && (secondCard != thirdCard) && (firstCard != thirdCard);
-
-			if(sameRiskCards || differentRiskCards){
+			boolean sameAndDifferent = (firstCard != secondCard) || (secondCard != thirdCard) || (firstCard != thirdCard);
+			if(sameRiskCards || differentRiskCards || sameAndDifferent){
 
 				getCurrentPlayer().getCards().remove(firstCard);
 				getCurrentPlayer().getCards().remove(secondCard);
