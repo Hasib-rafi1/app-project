@@ -2,13 +2,8 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Observable;
 import java.util.Random;
-import java.util.stream.Collectors;
-
-import javax.swing.SwingUtilities;
 
 import java.util.Collections;
 
@@ -16,10 +11,11 @@ import helper.Card;
 import helper.InitialPlayerArmy;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
+import views.BoardView;
 import views.CardView;
 
 import views.FinishView;
-
+import java.util.Observable;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -62,6 +58,12 @@ public class Game extends Observable {
 
 	/** The Risk Cards. */
 	private ArrayList<Card> riskCards = new ArrayList<>();
+	
+	private BoardView boardview;
+	
+	private ArrayList<String> gamePhaseDetails = new ArrayList<>();
+	
+	private Integer exchangeNumber= 5;
 
 	/**
 	 * Instantiates a new game.
@@ -91,11 +93,16 @@ public class Game extends Observable {
 	 * It randomly assigns the countries to the players. 
 	 */
 	public void startGame() {
-        initializeRiskCards();
+        gamePhaseDetails.removeAll(gamePhaseDetails);
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
 			System.out.println("Player ID: "+playerList.get(i).getPlayerId()+" Player Name: "+playerList.get(i).getPlayerName()+" Player's Army: "+playerList.get(i).getNumberOfInitialArmies()+" Player's Color"+playerList.get(i).getColor());
+			gamePhaseDetails.add("Player ID: "+playerList.get(i).getPlayerId());
+			gamePhaseDetails.add("Player Name: "+playerList.get(i).getPlayerName());
+			gamePhaseDetails.add("Player's Army: "+playerList.get(i).getNumberOfInitialArmies());
+			gamePhaseDetails.add("Player's Color"+playerList.get(i).getColor());
+			
 		}
 
 		int players_count = playerList.size();
@@ -118,6 +125,7 @@ public class Game extends Observable {
 			assignPlayerCountry(playerList.get(players_id),assign_country);
 			assignUnassigned(playerList.get(players_id),assign_country);
 			playerList.get(players_id).assignCountryToPlayer(assign_country);
+			gamePhaseDetails.add(assign_country.getCountryName()+"added for the player: "+players_id);
 			players_id++;
 		}
 
@@ -241,15 +249,18 @@ public class Game extends Observable {
 	 * This method initializes the reinforcement phase for each player by adding corresponding number of armies. 
 	 */
 	public void reinforcementPhaseSetup() {
-		
-				CardView cv = new CardView(this);
-				cv.Exchange();
-			
-		
+		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
+		if(player.getCards().size()>0) {
+			CardView cv = new CardView(this);
+			cv.Exchange();
+			cv.frame_cardExchange.toFront();
+			this.getBoardView().getFrameGameWindow().setEnabled(false);
+		}
+		gamePhaseDetails.add("card:"+player.getCards().size());
 		System.out.println("card:"+player.getCards().size());
 		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
-
+		gamePhaseDetails.add("Calculating reinforcement");
 		countries_count = countries_count < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : countries_count;
 		System.out.println("Countries Count:" + countries_count);
 		player.setNumberOfReinforcedArmies(countries_count);
@@ -414,29 +425,31 @@ public class Game extends Observable {
 	 */
 	public boolean fortificationPhase(String source, String destination, int armies){
 		Player player = getCurrentPlayer();
-
+		gamePhaseDetails.remove(gamePhaseDetails);
 		Country sourceCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(source)).findAny().orElse(null);
 
 		Country destinationCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
+		
 		// player class function
 		boolean sucesss = player.fortificationPhase(sourceCountry, destinationCountry, armies);
-
+		gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
 		if(player.getIsConqured()){
-
+			System.out.println("Conqured");
 			Card riskCard = getRiskCardFromDeck();
-
+			
 			if(riskCard == null){
 				System.out.println("No Cards Available Right Now.");
 			} else {
 				player.addCard(riskCard);
+				
 			}
 
 			player.setIsConqured(false);
 
 		}
-	
+		notifyObserverslocal(this);
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
@@ -450,7 +463,7 @@ public class Game extends Observable {
 	public void skipFortification() {
 		Player player = getCurrentPlayer();
 		if(player.getIsConqured()){
-
+			System.out.println("Conqured");
 			Card riskCard = getRiskCardFromDeck();
 
 			if(riskCard == null){
@@ -462,11 +475,16 @@ public class Game extends Observable {
 			player.setIsConqured(false);
 
 		}
+		
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 	}
+
+    /**
+     * This function initialises the Risk Cards during the startup of the game.
+     */
 
 	public void initializeRiskCards(){
 
@@ -483,21 +501,76 @@ public class Game extends Observable {
 			}
 			t++;
 
-			if (t == 0) {
+			if (t == 3) {
 				t=0;
 			}
 		}
 		Collections.shuffle(riskCards, new Random());
+		System.out.println(riskCards.toString());
 	}
 
+    /**
+     * This function returns a risk card from the deck when called.
+     * @return riskCard
+     */
 	public Card getRiskCardFromDeck(){
-	    if(riskCards.size() > 0){
+        System.out.println(riskCards.toString());
+        if(riskCards.size() > 0){
 	        Card riskCard = riskCards.get(0);
-	        riskCards.remove(riskCard);
+	        riskCards.remove(0);
 	        return riskCard;
         }
         return null;
     }
+
+    /**
+     * This function adds the risk card back to the deck when called.
+     * @param riskCard
+     */
+    public void addRiskCardToDeck(Card riskCard){
+		if(riskCards.size()>0){
+			riskCards.add(riskCard);
+		}
+	}
+
+    /**
+     * This function performs the exchange operations for the risk cards by assigning armies to the player.
+     * @param selectedRiskCards
+     */
+	public boolean exchangeRiskCards(ArrayList<String> selectedRiskCards){
+
+		if(selectedRiskCards.size() == 3){
+
+			Card firstCard = getCurrentPlayer().getCards().stream().filter( x -> x == Card.valueOf(selectedRiskCards.get(0))).findFirst().orElse(null);
+
+			Card secondCard = getCurrentPlayer().getCards().stream().filter( x -> x == Card.valueOf(selectedRiskCards.get(1))).findFirst().orElse(null);
+
+			Card thirdCard = getCurrentPlayer().getCards().stream().filter( x -> x == Card.valueOf(selectedRiskCards.get(2))).findFirst().orElse(null);
+
+			if(firstCard == null || secondCard == null || thirdCard == null){
+				System.out.println("Some Cards doesn't belong to the player.");
+			}
+
+			boolean sameRiskCards = (firstCard == secondCard) && (secondCard == thirdCard);
+			boolean differentRiskCards = (firstCard != secondCard) && (secondCard != thirdCard) && (firstCard != thirdCard);
+
+			if(sameRiskCards || differentRiskCards){
+
+				getCurrentPlayer().getCards().remove(firstCard);
+				getCurrentPlayer().getCards().remove(secondCard);
+				getCurrentPlayer().getCards().remove(thirdCard);
+				getCurrentPlayer().setInitialArmiesafterExchange(exchangeNumber);
+				exchangeNumber= exchangeNumber+5;
+				addRiskCardToDeck(firstCard);
+				addRiskCardToDeck(secondCard);
+				addRiskCardToDeck(thirdCard);
+				notifyObserverslocal(this);
+				return true;
+			} else { System.out.println("Choose the correct combination of the cards."); }
+		} else { System.out.println("Choose at least three cards for the exchange."); }
+		notifyObserverslocal(this);
+		return false;
+	}
 
 	//Functions called by other functions within the Game model.
 
@@ -712,15 +785,16 @@ public class Game extends Observable {
 	 * @return true, if attack done
 	 */
 	public Boolean attackPhase(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
-
+		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Country attCountry = mapModel.getCountryFromName(attackerCountry);
 		Country defCountry = mapModel.getCountryFromName(defenderCountry);
-
+		gamePhaseDetails.add(attackerCountry+" is attacking the "+ defenderCountry);
 		if (attCountry == null || defCountry == null) {
 			return false;
 		}
 
 		if (defCountry.getnoOfArmies() < defendergDiceCount) {
+			gamePhaseDetails.add("Defender doesn't have sufficiant armies");
 			return false;
 		}
 		Player defenderPlayer = playerList.stream().filter(p -> p.getPlayerId()==defCountry.getPlayerId())
@@ -737,7 +811,9 @@ public class Game extends Observable {
 			FinishView finish = new FinishView();
 			finish.Exchange(getCurrentPlayer().getPlayerName());
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
+			gamePhaseDetails.add("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
+			gamePhaseDetails.add("Attack not possible.");
 			updateGame();
 		}
 		notifyObserverslocal(this);
@@ -942,5 +1018,29 @@ public class Game extends Observable {
 	 */
 	public HashMap<Player, ArrayList<Country>> playerandCountries(){
 		return playerCountry;
+	}
+	
+	/**
+	 * get the board view
+	 * @return boardView
+	 */
+	public BoardView getBoardView() {
+		return boardview;
+	}
+	
+	/**
+	 * get the board view
+	 */
+	public void setBoardView(BoardView a) {
+		 boardview  =a;
+	}
+	
+	/**
+	 * update the reinforcement value
+	 * 
+	 */
+	public void updateReinforcementValue() {
+		reinforcementPhaseSetup();
+		notifyObserverslocal(this);
 	}
 }

@@ -10,10 +10,10 @@ public enum GamePhase {
 	
 	/** The Startup. */
 	Startup, 
- /** The Reinforcement. */
- Reinforcement, 
- /** The Attack. */
- Attack, 
- /** The Fortification. */
- Fortification
+    /** The Reinforcement. */
+    Reinforcement,
+    /** The Attack. */
+    Attack,
+    /** The Fortification. */
+    Fortification
 }

@@ -272,7 +272,9 @@ public class BoardView implements Observer {
 	 * Method that loads up the GUI window.
 	 */
 	public void gameWindowLoad() {
+		
 		frameGameWindow=  new JFrame("Risk Game");
+		frameGameWindow.toFront();
 		panel_gameAction=new JPanel(null);
 
 		mapGenerator();
@@ -873,5 +875,12 @@ public class BoardView implements Observer {
 	public  String getMoveComboBox() {
 		return (String)combo_attackMoveArmies.getSelectedItem();
 
+	}
+	
+	/**
+	 * get the frame to control the card conditions
+	 */
+	public JFrame getFrameGameWindow() {
+		return frameGameWindow;
 	}
 }
