@@ -529,7 +529,7 @@ public class Game extends Observable {
      */
     public void addRiskCardToDeck(Card riskCard){
 		if(riskCards.size()>0){
-			riskCards.add(riskCards.size() +1,riskCard);
+			riskCards.add(riskCard);
 		}
 	}
 
