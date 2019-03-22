@@ -353,7 +353,12 @@ public class MapModel {
 //        return true;
 //    }
 
-	public boolean continentSubGraphConnected(){
+    /**
+     * this function is to check even if the graph is connected the subGraph(Continents) are connected or not
+     * returns true individual continents are a connected subGraph
+     * @return
+     */
+    public boolean continentSubGraphConnected(){
 		ArrayList<String> countryListForThisContinent = new ArrayList<>();
 		for (Continent forEachContinent: this.continentsList) {
 			countryListForThisContinent.clear();
@@ -368,11 +373,12 @@ public class MapModel {
 			visitedListForContinent.clear();
 			depthFirstSearchForContinent(startingVertex);
 			Collections.sort(visitedListForContinent);
+
 			if(!visitedAndAllCountryListCheck(visitedListForContinent,countryListForThisContinent)){
 			    return false;
-            }
+            }//return false if the visitedList and the countryList for the continent are not same
 		}
-		return(visitedAndAllCountryListCheck(visitedListForContinent,countryListForThisContinent));
+		return true;
 	}
 
 	/**
@@ -412,6 +418,12 @@ public class MapModel {
 		}
 	}
 
+    /**
+     * This is a recursive function which implements DFS algorithm to visit ALL the vertices(countries) one
+     * by one starting from the first one in One continent.
+     * store all the visited vertices(countries) in an arrayList 'visitedListForContinent'
+     * @param startingVertex check from the starting point
+     */
 	public void depthFirstSearchForContinent(Country startingVertex){
 		visitedListForContinent.add(startingVertex.getCountryName());
 		for (String neighbourVertex: startingVertex.getNeighboursString()) {
