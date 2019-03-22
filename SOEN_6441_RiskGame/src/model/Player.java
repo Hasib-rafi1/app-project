@@ -355,18 +355,33 @@ public class Player {
 	 * @return true
 	 */
 	public boolean fortificationPhase(Country sourceCountry, Country destinationCountry, int armies){
+		
+		if(!checkFortificationCondition(sourceCountry, destinationCountry,armies)) {
+			return false;
+		}
+		
+		sourceCountry.decreaseArmyCount(armies);
+		destinationCountry.increaseArmyCount(armies);
+		
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @param sourceCountry
+	 * @param destinationCountry
+	 * @param armies
+	 * @return boolean result based on condition passes
+	 */
+	public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
 		if (sourceCountry == null || destinationCountry == null) {
 			System.out.println("Source or destination country is invalid!");
 			return false;
 		}
-
 		if (armies == 0) {
 			System.out.println("No armies to move");
 			return false;
 		}
-		sourceCountry.decreaseArmyCount(armies);
-		destinationCountry.increaseArmyCount(armies);
-		
 		return true;
 	}
 

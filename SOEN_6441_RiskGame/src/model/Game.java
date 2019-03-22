@@ -61,7 +61,7 @@ public class Game extends Observable {
 	
 	/** The boardview. */
 	private BoardView boardview;
-	
+
 	/** The game phase details. */
 	private ArrayList<String> gamePhaseDetails = new ArrayList<>();
 	
@@ -1034,6 +1034,14 @@ public class Game extends Observable {
 	 */
 	public BoardView getBoardView() {
 		return boardview;
+	}
+
+	/**
+	 * the method is used to get the updated phase while the game is being played
+	 * @return gamePhaseDetail
+	 */
+	public ArrayList<String> getGamePhaseDetails() {
+		return gamePhaseDetails;
 	}
 	
 
