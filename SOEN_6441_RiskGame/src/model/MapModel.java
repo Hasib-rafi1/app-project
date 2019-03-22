@@ -19,31 +19,52 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
 /**
- * This Class is to read and Validate the created or existing Map file according to the requirement
+ * This Class is to read and Validate the created or existing Map file according to the requirement.
+ *
  * @author Zakiya Jafrin
  * @version 1.0.0
  */
 public class MapModel {
+	
+	/** The scanner. */
 	Scanner scanner = new Scanner(System.in);
 
 
+	/** The print. */
 	//Making the objects of classes
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	
+	/** The map view. */
 	MapView mapView = new MapView();
 
+	/** The continents list. */
 	// Arraylist of countries, continents
 	ArrayList<Continent> continentsList = new ArrayList<>();
+	
+	/** The visited list. */
 	ArrayList<String> visitedList = new ArrayList<>();
 
+	/** The visited list for continent. */
+	//ContinentLevel disconnection Finding
+	private ArrayList<String> visitedListForContinent = new ArrayList<>();
+	
+	/** The country list for one continent. */
+	private ArrayList<Country> countryListForOneContinent = new ArrayList<>();
 
+
+	/** The map name. */
 	public String mapName;
+	
+	/** The map path. */
 	public String mapPath;
 
 	/**
 	 * This method is used to import the existing file from the directory. It reads the map file and stores the
 	 * corresponding values for countries and continents.
-	 * @param mapPath, map directory path
+	 *
+	 * @param mapPath the map path
 	 * @return map
 	 */
 	public MapModel readMapFile(String mapPath) {
@@ -158,9 +179,10 @@ public class MapModel {
 
 	/**
 	 * This method is used to read the content of map file while creating a map from scratch and saved in the directory.
-	 * @param mapContent,
-	 * @param nameOfMap
-	 * @return
+	 *
+	 * @param mapContent the map content
+	 * @param nameOfMap the name of map
+	 * @return true, if successful
 	 */
 	private boolean readMapContentSaveInDirectory(StringBuffer mapContent, String nameOfMap) {
 		String mapDir = getMapDir();
@@ -183,8 +205,9 @@ public class MapModel {
 
 	/**
 	 * This method is used to create and validate map.
-	 * @param mapContent, content of map file
-	 * @param mapName, map name
+	 *
+	 * @param mapContent the map content
+	 * @param mapName the map name
 	 * @return true if the map is valid and false if it is not valid
 	 */
 	public boolean createValidateAndSaveMap(StringBuffer mapContent, String mapName) {
@@ -209,7 +232,8 @@ public class MapModel {
 	/**
 	 * This method is used to check if the map is valid or not
 	 * checks connectivity, the coordinates, one country does not belong to two Continents, there is at least one
-	 * country in each Continent
+	 * country in each Continent.
+	 *
 	 * @return false
 	 */
 	public boolean checkMapIsValid() {
@@ -320,9 +344,18 @@ public class MapModel {
 			}
 
 			if (visitedAndAllCountryListCheck(visitedList, countriesForSorting)) {
-				return true;
+				if (continentSubGraphConnected()) {
+					return true;
+				} else {
+					print.consoleErr("\n*** The Continent subGraph is not Connected. ***\n");
+					return false;
+				}
 			} else {
 				print.consoleErr("\n *** This Map is NOT Connected. ***\n");
+//						"The Disconnected Countries are Given Below: ");
+//				for (String list : visitedList) {
+//					System.out.print(list + " ");
+//				}
 				return false;
 			}
 
@@ -330,6 +363,43 @@ public class MapModel {
 			print.printException(e);
 			return false;
 		}
+	}
+//    boolean checkConnectedGraphOnContinentLevel() {
+//        for (Continent cont : this.continentsList) {
+//            if (!checkIfContinentConnected(cont)) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
+    /**
+ * this function is to check even if the graph is connected the subGraph(Continents) are connected or not
+ * returns true individual continents are a connected subGraph.
+ *
+ * @return true individual continents are a connected subGraph
+ */
+    public boolean continentSubGraphConnected(){
+		ArrayList<String> countryListForThisContinent = new ArrayList<>();
+		for (Continent forEachContinent: this.continentsList) {
+			countryListForThisContinent.clear();
+			countryListForOneContinent.clear();
+			for (Country country : forEachContinent.getCountryList()) {
+				countryListForThisContinent.add(country.getCountryName());
+				countryListForOneContinent.add(country);
+			}
+			Collections.sort(countryListForThisContinent);
+
+			Country startingVertex = forEachContinent.getCountryList().get(0);
+			visitedListForContinent.clear();
+			depthFirstSearchForContinent(startingVertex);
+			Collections.sort(visitedListForContinent);
+
+			if(!visitedAndAllCountryListCheck(visitedListForContinent,countryListForThisContinent)){
+			    return false;
+            }//return false if the visitedList and the countryList for the continent are not same
+		}
+		return true;
 	}
 
 	/**
@@ -346,7 +416,8 @@ public class MapModel {
 	/**
 	 * This is a recursive function which implements DFS algorithm to visit ALL the vertices(countries) one
 	 * by one starting from the first one = this is only possible if all the vertices are inter-connected
-	 * store all the visited vertices(countries) in an arrayList 'visitedList'
+	 * store all the visited vertices(countries) in an arrayList 'visitedList'.
+	 *
 	 * @param startingVertex check from the starting point
 	 */
 	public void depthFirstSearch(Country startingVertex){
@@ -368,6 +439,30 @@ public class MapModel {
 			}
 		}
 	}
+
+    /**
+     * This is a recursive function which implements DFS algorithm to visit ALL the vertices(countries) one
+     * by one starting from the first one in One continent.
+     * store all the visited vertices(countries) in an arrayList 'visitedListForContinent'
+     * @param startingVertex check from the starting point
+     */
+	public void depthFirstSearchForContinent(Country startingVertex){
+		visitedListForContinent.add(startingVertex.getCountryName());
+		for (String neighbourVertex: startingVertex.getNeighboursString()) {
+			Country newVertex = null;
+			if(!(visitedListForContinent.contains(neighbourVertex))){	//if the vertex is not visited then visit it
+				for (Country country : countryListForOneContinent) {
+					if (country.getCountryName().equals(neighbourVertex)) {
+						newVertex = country;
+					}
+				}
+			}
+			if (newVertex != null) {
+				depthFirstSearchForContinent(newVertex);
+			}
+		}
+	}
+
 
 
 	/**
@@ -395,7 +490,8 @@ public class MapModel {
 
 
 	/**
-	 * This function is used to return the list of countries
+	 * This function is used to return the list of countries.
+	 *
 	 * @return countriesList , list of countries
 	 */
 	public ArrayList<Country> getCountryList() {
@@ -407,8 +503,9 @@ public class MapModel {
 	}
 
 	/**
-	 * Get country object from country name
-	 * @param countryName, String
+	 * Get country object from country name.
+	 *
+	 * @param countryName the country name
 	 * @return Country
 	 */
 	public Country getCountryFromName(String countryName) {
@@ -417,11 +514,12 @@ public class MapModel {
 
 		return country;
 	}
+	
 	/**
-	 * This function is used to return the list of country names as ArrayList string type
-	 * @return countriesListString , list of countries
+	 * This function is used to return the list of country names as ArrayList string type.
+	 *
 	 * @param countriesList list of countries
-	 * 
+	 * @return countriesListString , list of countries
 	 */
 	public ArrayList<String> countryListString(ArrayList<Country> countriesList) {
 		//		ArrayList<String> countriesListString = new ArrayList<>(countriesList.size());
@@ -440,8 +538,8 @@ public class MapModel {
 
 	/**
 	 * This method is used to add the continent to the continent list.
-	 * @param continent,  object of the continent
 	 *
+	 * @param continent the continent
 	 */
 	public void addContinent(Continent continent) {
 		continentsList.add(continent);
@@ -524,10 +622,10 @@ public class MapModel {
 
 	/**
 	 * This method is used to add country name to the continent.
-	 * @param continentID ID of the continent
-	 * @param continentName name of the continent
-	 * @return true if country is added
 	 *
+	 * @param continentName name of the continent
+	 * @param continentID ID of the continent
+	 * @return true if country is added
 	 */
 	public boolean addCountryToContinentInMap(String continentName, int continentID) {
 		Continent listOfCurrentContinents  = continentsList.stream()
@@ -579,10 +677,12 @@ public class MapModel {
 	}
 
 	/**
+	 * Delete continent from map.
+	 *
 	 * @author Gargi Sharma
 	 * @version 1.0.0
 	 * This method is used to delete the continent.
-	 * @param deleteContinentEnteredByUser, name of the continent
+	 * @param deleteContinentEnteredByUser the delete continent entered by user
 	 * @return true
 	 */
 	public boolean deleteContinentFromMap(String deleteContinentEnteredByUser) {
@@ -617,7 +717,8 @@ public class MapModel {
 
 	/**
 	 * This method is used to delete country from map file.
-	 * @param deleteCountryByUser, name of the country to delete
+	 *
+	 * @param deleteCountryByUser the delete country by user
 	 * @return true if the country is deleted
 	 */
 	public boolean deleteCountryFromMap(String deleteCountryByUser) {
@@ -649,8 +750,9 @@ public class MapModel {
 
 	/**
 	 * This method is used to save the user map into mapFiles folder.
-	 * @param mapContent, content of the map file
-	 * @param mapName, name of the map
+	 *
+	 * @param mapContent the map content
+	 * @param mapName the map name
 	 * @return true if file is created
 	 */
 	public boolean saveUserMapIntoDirectory(StringBuffer mapContent, String mapName) {
@@ -694,7 +796,8 @@ public class MapModel {
 	}
 
 	/**
-	 * This method is used to take the user input of map name
+	 * This method is used to take the user input of map name.
+	 *
 	 * @return mapNameByUserInput, map name entered by the user
 	 */
 	public String getMapNameFromUser() {
@@ -703,14 +806,17 @@ public class MapModel {
 	}
 
 	/**
-	 * This method is used to take the user input of map name
+	 * This method is used to take the user input of map name.
+	 *
 	 * @return mapName, map name entered by the user
 	 */
 	public String getMapName() {
 		return mapName;
 	}
+	
 	/**
-	 * Gets The ContinentList form the map file
+	 * Gets The ContinentList form the map file.
+	 *
 	 * @return the list of all map file
 	 */
 	public ArrayList<Continent> getContinentList() {
@@ -814,8 +920,7 @@ public class MapModel {
 
 
 	/**
-	 *
-	 * This method prints the Neighboring country names when user puts the name of the country
+	 * This method prints the Neighboring country names when user puts the name of the country.
 	 */
 	public void printNeighboursGivenContry() {
 		print.consoleOut("\n Write down the Country Name for the Neighbour: ");
@@ -835,7 +940,7 @@ public class MapModel {
 	}
 
 	/**
-	 * This method is used to print Countries of the map file
+	 * This method is used to print Countries of the map file.
 	 */
 	public void printCountriesFromMap() {
 		ArrayList<Country> countryList = getCountryList();
@@ -858,7 +963,8 @@ public class MapModel {
 
 	/**
 	 * This function sets the map name.
-	 * @param mapName, name of the map
+	 *
+	 * @param mapName the new map name
 	 */
 	public void setMapName(String mapName) {
 		this.mapName = mapName;
