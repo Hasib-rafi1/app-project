@@ -2,13 +2,8 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Observable;
 import java.util.Random;
-import java.util.stream.Collectors;
-
-import javax.swing.SwingUtilities;
 
 import java.util.Collections;
 
@@ -20,7 +15,7 @@ import views.BoardView;
 import views.CardView;
 
 import views.FinishView;
-
+import java.util.Observable;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -98,7 +93,6 @@ public class Game extends Observable {
 	 * It randomly assigns the countries to the players. 
 	 */
 	public void startGame() {
-        initializeRiskCards();
         gamePhaseDetails.removeAll(gamePhaseDetails);
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
@@ -260,6 +254,7 @@ public class Game extends Observable {
 		if(player.getCards().size()>0) {
 			CardView cv = new CardView(this);
 			cv.Exchange();
+			cv.frame_cardExchange.toFront();
 			this.getBoardView().getFrameGameWindow().setEnabled(false);
 		}
 		gamePhaseDetails.add("card:"+player.getCards().size());
@@ -506,11 +501,12 @@ public class Game extends Observable {
 			}
 			t++;
 
-			if (t == 0) {
+			if (t == 3) {
 				t=0;
 			}
 		}
 		Collections.shuffle(riskCards, new Random());
+		System.out.println(riskCards.toString());
 	}
 
     /**
@@ -518,7 +514,8 @@ public class Game extends Observable {
      * @return riskCard
      */
 	public Card getRiskCardFromDeck(){
-	    if(riskCards.size() > 0){
+        System.out.println(riskCards.toString());
+        if(riskCards.size() > 0){
 	        Card riskCard = riskCards.get(0);
 	        riskCards.remove(0);
 	        return riskCard;

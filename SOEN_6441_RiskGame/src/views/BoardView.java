@@ -272,7 +272,9 @@ public class BoardView implements Observer {
 	 * Method that loads up the GUI window.
 	 */
 	public void gameWindowLoad() {
+		
 		frameGameWindow=  new JFrame("Risk Game");
+		frameGameWindow.toFront();
 		panel_gameAction=new JPanel(null);
 
 		mapGenerator();

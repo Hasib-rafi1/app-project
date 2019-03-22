@@ -34,12 +34,12 @@ import helper.PrintConsoleAndUserInput;
  * @author Jaiganesh
  */
 
+
 public  class CardView implements Observer {
-	private static JFrame frame_cardExchange = null;
+	public static JFrame frame_cardExchange = null;
 	private static JPanel panel_cardExchange;
 	private static JLabel lab_cardExchange;
 	private static JLabel lab_forPlayerTurn;
-	//DefaultListModel dlm = new DefaultListModel();
 	public static JList<String> list_cardsOwnedByThePlayer;
 	private static JLabel lab_totalNewArmies;
 	private static JButton button_cardExchange = new JButton("Exchange Cards");
@@ -112,6 +112,8 @@ public  class CardView implements Observer {
 		panel_cardExchange.add(lab_cardExchange);
 		frame_cardExchange.add(panel_cardExchange);
 		frame_cardExchange.setVisible(true);
+		//default close button to not work
+		frame_cardExchange.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		
 		
@@ -125,6 +127,6 @@ public  class CardView implements Observer {
 	}
 	
 	public static void closeTheWindow() {
-		frame_cardExchange.dispatchEvent(new WindowEvent(frame_cardExchange, WindowEvent.WINDOW_CLOSING));
+		frame_cardExchange.dispose();
 	}
 }
