@@ -35,7 +35,7 @@ import helper.PrintConsoleAndUserInput;
  */
 
 
-public  class CardView implements Observer {
+public  class CardView{
 	public static JFrame frame_cardExchange = null;
 	private static JPanel panel_cardExchange;
 	private static JLabel lab_cardExchange;
@@ -49,23 +49,7 @@ public  class CardView implements Observer {
 	public CardView(Game gameTemp){
 		game = gameTemp;
 	}
-	/**
-	 * method to perform all the actions.
-	 *
-	 * @param arg0 the arg 0
-	 * @param arg1 the arg 1
-	 */
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		 game = ((Game)arg0);
-		 ArrayList<Card> typeOfCards = game.getCurrentPlayer().getCards();
-			String cards[] = new String[typeOfCards.size()];
-			for (int i = 0; i < typeOfCards.size(); i++) {
-				cards[i] = typeOfCards.get(i).toString();
-			}
-			list_cardsOwnedByThePlayer = new JList<>(cards);
-	}
+	
 	public  void Exchange() {
 		frame_cardExchange = new JFrame("Card Exchange View");
 		panel_cardExchange = new JPanel(null);

@@ -537,7 +537,7 @@ public class Game extends Observable {
      * This function performs the exchange operations for the risk cards by assigning armies to the player.
      * @param selectedRiskCards
      */
-	public void exchangeRiskCards(ArrayList<String> selectedRiskCards){
+	public boolean exchangeRiskCards(ArrayList<String> selectedRiskCards){
 
 		if(selectedRiskCards.size() == 3){
 
@@ -564,10 +564,12 @@ public class Game extends Observable {
 				addRiskCardToDeck(firstCard);
 				addRiskCardToDeck(secondCard);
 				addRiskCardToDeck(thirdCard);
-
+				notifyObserverslocal(this);
+				return true;
 			} else { System.out.println("Choose the correct combination of the cards."); }
 		} else { System.out.println("Choose at least three cards for the exchange."); }
 		notifyObserverslocal(this);
+		return false;
 	}
 
 	//Functions called by other functions within the Game model.

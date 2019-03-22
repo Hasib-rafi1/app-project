@@ -410,8 +410,12 @@ public class GameController {
 				if (CardView.list_cardsOwnedByThePlayer.getSelectedValuesList() != null &&  CardView.list_cardsOwnedByThePlayer.getSelectedValuesList().size() > 0) {
 					ArrayList<String> selectedCards = (ArrayList<String>) CardView.list_cardsOwnedByThePlayer.getSelectedValuesList();
 					// this arraylist holds the cards selected by the user
-					game.exchangeRiskCards(selectedCards);
-					game.updateReinforcementValue();
+					boolean success = game.exchangeRiskCards(selectedCards);
+					if(success) {
+						CardView.closeTheWindow();
+						game.updateReinforcementValue();
+						
+					}
 				}
 			}
 		});
