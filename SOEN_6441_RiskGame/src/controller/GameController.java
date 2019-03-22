@@ -425,6 +425,7 @@ public class GameController {
 					ArrayList<String> selectedCards = (ArrayList<String>) CardView.list_cardsOwnedByThePlayer.getSelectedValuesList();
 					// this arraylist holds the cards selected by the user
 					game.exchangeRiskCards(selectedCards);
+					game.updateReinforcementValue();
 				}
 			}
 		});

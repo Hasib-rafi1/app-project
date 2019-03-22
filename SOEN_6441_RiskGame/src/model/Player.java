@@ -49,7 +49,7 @@ public class Player {
 	/** The Conquered continents */
 	private ArrayList<Continent> playerContinents = new ArrayList<>();
 
-
+	private Integer initialArmiesafterExchange = 0;
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and
@@ -342,6 +342,7 @@ public class Player {
 				}
 			}
 		}
+		countries_count = countries_count+ initialArmiesafterExchange;
 		return countries_count;
 	}
 	
@@ -407,6 +408,10 @@ public class Player {
 	
 	public ArrayList<Continent> getConquerdContinents(){
 		return playerContinents;
+	}
+	
+	public void setInitialArmiesafterExchange(int armies) {
+		initialArmiesafterExchange = armies;
 	}
 
 	/**

@@ -65,6 +65,10 @@ public class Game extends Observable {
 	private ArrayList<Card> riskCards = new ArrayList<>();
 	
 	private BoardView boardview;
+	
+	private ArrayList<String> gamePhaseDetails = new ArrayList<>();
+	
+	private Integer exchangeNumber= 5;
 
 	/**
 	 * Instantiates a new game.
@@ -95,10 +99,16 @@ public class Game extends Observable {
 	 */
 	public void startGame() {
         initializeRiskCards();
+        gamePhaseDetails.removeAll(gamePhaseDetails);
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
 			System.out.println("Player ID: "+playerList.get(i).getPlayerId()+" Player Name: "+playerList.get(i).getPlayerName()+" Player's Army: "+playerList.get(i).getNumberOfInitialArmies()+" Player's Color"+playerList.get(i).getColor());
+			gamePhaseDetails.add("Player ID: "+playerList.get(i).getPlayerId());
+			gamePhaseDetails.add("Player Name: "+playerList.get(i).getPlayerName());
+			gamePhaseDetails.add("Player's Army: "+playerList.get(i).getNumberOfInitialArmies());
+			gamePhaseDetails.add("Player's Color"+playerList.get(i).getColor());
+			
 		}
 
 		int players_count = playerList.size();
@@ -121,6 +131,7 @@ public class Game extends Observable {
 			assignPlayerCountry(playerList.get(players_id),assign_country);
 			assignUnassigned(playerList.get(players_id),assign_country);
 			playerList.get(players_id).assignCountryToPlayer(assign_country);
+			gamePhaseDetails.add(assign_country.getCountryName()+"added for the player: "+players_id);
 			players_id++;
 		}
 
@@ -244,15 +255,17 @@ public class Game extends Observable {
 	 * This method initializes the reinforcement phase for each player by adding corresponding number of armies. 
 	 */
 	public void reinforcementPhaseSetup() {
+		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
 		if(player.getCards().size()>0) {
 			CardView cv = new CardView(this);
 			cv.Exchange();
 			this.getBoardView().getFrameGameWindow().setEnabled(false);
 		}
+		gamePhaseDetails.add("card:"+player.getCards().size());
 		System.out.println("card:"+player.getCards().size());
 		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
-
+		gamePhaseDetails.add("Calculating reinforcement");
 		countries_count = countries_count < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : countries_count;
 		System.out.println("Countries Count:" + countries_count);
 		player.setNumberOfReinforcedArmies(countries_count);
@@ -417,15 +430,16 @@ public class Game extends Observable {
 	 */
 	public boolean fortificationPhase(String source, String destination, int armies){
 		Player player = getCurrentPlayer();
-
+		gamePhaseDetails.remove(gamePhaseDetails);
 		Country sourceCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(source)).findAny().orElse(null);
 
 		Country destinationCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
+		
 		// player class function
 		boolean sucesss = player.fortificationPhase(sourceCountry, destinationCountry, armies);
-
+		gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
 		if(player.getIsConqured()){
 			System.out.println("Conqured");
 			Card riskCard = getRiskCardFromDeck();
@@ -434,12 +448,13 @@ public class Game extends Observable {
 				System.out.println("No Cards Available Right Now.");
 			} else {
 				player.addCard(riskCard);
+				
 			}
 
 			player.setIsConqured(false);
 
 		}
-	
+		notifyObserverslocal(this);
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
@@ -465,6 +480,7 @@ public class Game extends Observable {
 			player.setIsConqured(false);
 
 		}
+		
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
@@ -546,7 +562,8 @@ public class Game extends Observable {
 				getCurrentPlayer().getCards().remove(firstCard);
 				getCurrentPlayer().getCards().remove(secondCard);
 				getCurrentPlayer().getCards().remove(thirdCard);
-
+				getCurrentPlayer().setInitialArmiesafterExchange(exchangeNumber);
+				exchangeNumber= exchangeNumber+5;
 				addRiskCardToDeck(firstCard);
 				addRiskCardToDeck(secondCard);
 				addRiskCardToDeck(thirdCard);
@@ -769,15 +786,16 @@ public class Game extends Observable {
 	 * @return true, if attack done
 	 */
 	public Boolean attackPhase(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
-
+		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Country attCountry = mapModel.getCountryFromName(attackerCountry);
 		Country defCountry = mapModel.getCountryFromName(defenderCountry);
-
+		gamePhaseDetails.add(attackerCountry+" is attacking the "+ defenderCountry);
 		if (attCountry == null || defCountry == null) {
 			return false;
 		}
 
 		if (defCountry.getnoOfArmies() < defendergDiceCount) {
+			gamePhaseDetails.add("Defender doesn't have sufficiant armies");
 			return false;
 		}
 		Player defenderPlayer = playerList.stream().filter(p -> p.getPlayerId()==defCountry.getPlayerId())
@@ -794,7 +812,9 @@ public class Game extends Observable {
 			FinishView finish = new FinishView();
 			finish.Exchange(getCurrentPlayer().getPlayerName());
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
+			gamePhaseDetails.add("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
+			gamePhaseDetails.add("Attack not possible.");
 			updateGame();
 		}
 		notifyObserverslocal(this);
@@ -1011,9 +1031,17 @@ public class Game extends Observable {
 	
 	/**
 	 * get the board view
-	 * @return boardView
 	 */
 	public void setBoardView(BoardView a) {
 		 boardview  =a;
+	}
+	
+	/**
+	 * update the reinforcement value
+	 * 
+	 */
+	public void updateReinforcementValue() {
+		reinforcementPhaseSetup();
+		notifyObserverslocal(this);
 	}
 }
