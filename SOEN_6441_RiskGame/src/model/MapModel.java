@@ -36,6 +36,10 @@ public class MapModel {
 	ArrayList<Continent> continentsList = new ArrayList<>();
 	ArrayList<String> visitedList = new ArrayList<>();
 
+	//ContinentLevel disconnection Finding
+	private ArrayList<String> visitedListForContinent = new ArrayList<>();
+	private ArrayList<Country> countryListForOneContinent = new ArrayList<>();
+
 
 	public String mapName;
 	public String mapPath;
@@ -320,9 +324,17 @@ public class MapModel {
 			}
 
 			if (visitedAndAllCountryListCheck(visitedList, countriesForSorting)) {
-				return true;
+				if (continentSubGraphConnected()) {
+					return true;
+				} else {
+					print.consoleErr("\n*** The Continent subGraph is not Connected. ***\n");
+					return false;
+				}
 			} else {
-				print.consoleErr("\n *** This Map is NOT Connected. ***\n");
+				print.consoleErr("\n *** This Map is NOT Connected. ***\n" );
+//				for (String list : visitedList) {
+//					print.consoleErr(list + " ");
+//				}
 				return false;
 			}
 
@@ -330,6 +342,24 @@ public class MapModel {
 			print.printException(e);
 			return false;
 		}
+	}
+
+	public boolean continentSubGraphConnected(){
+		ArrayList<String> countryListForThisContinent = new ArrayList<>();
+		for (Continent forEachContinent: this.continentsList) {
+
+			for (Country country : forEachContinent.getCountryList()) {
+				countryListForThisContinent.add(country.getCountryName());
+				countryListForOneContinent.add(country);
+			}
+			Collections.sort(countryListForThisContinent);
+
+			Country startingVertex = forEachContinent.getCountryList().get(0);
+			visitedListForContinent.clear();
+			depthFirstSearchForContinent(startingVertex);
+			Collections.sort(visitedListForContinent);
+		}
+		return(visitedAndAllCountryListCheck(visitedListForContinent,countryListForThisContinent));
 	}
 
 	/**
@@ -368,6 +398,24 @@ public class MapModel {
 			}
 		}
 	}
+
+	public void depthFirstSearchForContinent(Country startingVertex){
+		visitedListForContinent.add(startingVertex.getCountryName());
+		for (String neighbourVertex: startingVertex.getNeighboursString()) {
+			Country newVertex = null;
+			if(!(visitedListForContinent.contains(neighbourVertex))){	//if the vertex is not visited then visit it
+				for (Country country : countryListForOneContinent) {
+					if (country.getCountryName().equals(neighbourVertex)) {
+						newVertex = country;
+					}
+				}
+			}
+			if (newVertex != null) {
+				depthFirstSearchForContinent(newVertex);
+			}
+		}
+	}
+
 
 
 	/**
