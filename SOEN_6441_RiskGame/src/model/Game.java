@@ -129,7 +129,7 @@ public class Game extends Observable {
 			assignPlayerCountry(playerList.get(players_id),assign_country);
 			assignUnassigned(playerList.get(players_id),assign_country);
 			playerList.get(players_id).assignCountryToPlayer(assign_country);
-			gamePhaseDetails.add(assign_country.getCountryName()+"added for the player: "+players_id);
+			gamePhaseDetails.add(assign_country.getCountryName()+" added for the player: "+players_id);
 			players_id++;
 		}
 
