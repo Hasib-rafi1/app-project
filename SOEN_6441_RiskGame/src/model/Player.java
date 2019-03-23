@@ -239,7 +239,7 @@ public class Player {
 	 * @param defenderDiceCount the defender dice count
 	 * @param playerCountry the player country
 	 */
-	public void attackPhaseActions(Player defenderPlayer, Country attackerCountry, Country defenderCountry, int attackerDiceCount, int defenderDiceCount,HashMap<Player, ArrayList<Country>> playerCountry) {
+	public void attackPhaseActions(Player defenderPlayer, Country attackerCountry, Country defenderCountry, int attackerDiceCount, int defenderDiceCount,HashMap<Player, ArrayList<Country>> playerCountry,ArrayList<String> gamePhaseDetails) {
 		diceRoller(attackerDiceCount);
 		defenderPlayer.diceRoller(defenderDiceCount);
 
@@ -255,22 +255,26 @@ public class Player {
 			int defencerDice = defendingDices.get(i);
 
 			System.out.print("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
-
+			gamePhaseDetails.add("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
 			if (attackerDice > defencerDice) {
 				System.out.println("Attacker wins for dice " + (i + 1));
+				gamePhaseDetails.add("Attacker wins for dice " + (i + 1));
 				defenderCountry.decreaseArmyCount(1);
 
 			} else {
 				System.out.println("Defender wins for dice " + (i + 1));
+				gamePhaseDetails.add("Defender wins for dice " + (i + 1));
 				attackerCountry.decreaseArmyCount(1);
 			}
 
 			if (attackerCountry.getnoOfArmies() == 1) {
 				System.out.println("Attacker not able to Attack ");
+				gamePhaseDetails.add("Attacker not able to Attack ");
 				break;
 			} 
 			if (defenderCountry.getnoOfArmies() == 0) {
 				System.out.println("Defender lost all armies in " + (i + 1) + " dice roll");
+				gamePhaseDetails.add("Defender lost all armies in " + (i + 1) + " dice roll");
 				break;
 			}
 
@@ -284,6 +288,7 @@ public class Player {
 			playerCountry.get(this).add(defenderCountry);
 			playerCountry.get(defenderPlayer).remove(defenderCountry);
 			isConquered =true;
+			gamePhaseDetails.add(defenderCountry.getCountryName()+" is Conquered");
 			// attacker has to put minimum one army defending country (By Game rules)
 			attackerCountry.decreaseArmyCount(1);
 			defenderCountry.increaseArmyCount(1);

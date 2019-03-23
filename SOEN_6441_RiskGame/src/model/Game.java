@@ -96,7 +96,6 @@ public class Game extends Observable {
 	 * It randomly assigns the countries to the players. 
 	 */
 	public void startGame() {
-        gamePhaseDetails.removeAll(gamePhaseDetails);
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
@@ -224,6 +223,7 @@ public class Game extends Observable {
 	 * @return true
 	 */
 	public boolean addingReinforcementCountryArmy(String countryName){
+		
 		if(this.gamePhase != gamePhase.Reinforcement){
 			print.consoleOut("Not a Valid Phase");
 			return false;
@@ -246,6 +246,7 @@ public class Game extends Observable {
 			return false;
 		}
 		assignReinforcement(player,country);
+		gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
 		return true;
 	}
 
@@ -253,9 +254,8 @@ public class Game extends Observable {
 	 * This method initializes the reinforcement phase for each player by adding corresponding number of armies. 
 	 */
 	public void reinforcementPhaseSetup() {
-		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
-		if(player.getCards().size()>-1) {
+		if(player.getCards().size()>2) {
 			CardView cv = new CardView(this);
 			cv.Exchange();
 			cv.frame_cardExchange.toFront();
@@ -267,6 +267,7 @@ public class Game extends Observable {
 		gamePhaseDetails.add("Calculating reinforcement");
 		countries_count = countries_count < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : countries_count;
 		System.out.println("Countries Count:" + countries_count);
+		gamePhaseDetails.add("Number of armies get from reinforcement:"+countries_count);
 		player.setNumberOfReinforcedArmies(countries_count);
 	}
 
@@ -275,6 +276,8 @@ public class Game extends Observable {
 	 */
 	public void updateGame() {
 		if (this.getGamePhase() == gamePhase.Startup) {
+
+			gamePhaseDetails.removeAll(gamePhaseDetails);
 			long pendingPlayersCount = playerList.stream().filter(p -> p.getNumberOfInitialArmies() > 0).count();
 			System.out.println(pendingPlayersCount);
 
@@ -285,16 +288,19 @@ public class Game extends Observable {
 			}
 		} 
 		else if (this.getGamePhase() == gamePhase.Reinforcement) {	
+			gamePhaseDetails.removeAll(gamePhaseDetails);
 			if (getCurrentPlayer().getNumberOfReinforcedArmies() == 0) {
 				this.setGamePhase(gamePhase.Attack);
 			}
 
 		} 
 		else if (this.getGamePhase() ==  gamePhase.Attack) {
+			gamePhaseDetails.removeAll(gamePhaseDetails);
 			this.setGamePhase(gamePhase.Fortification);
 			notifyObserverslocal(this);
 		}
 		else if (this.getGamePhase() == gamePhase.Fortification) {
+			gamePhaseDetails.removeAll(gamePhaseDetails);
 			this.setGamePhase(gamePhase.Reinforcement);
 			notifyObserverslocal(this);
 		}
@@ -307,7 +313,9 @@ public class Game extends Observable {
 	 * @return finalCOuntries countries
 	 */
 	public ArrayList<String> getNeighbouringCountries(String source) {
+
 		System.out.println("source Country Name :" + source);
+		gamePhaseDetails.add("source Country Name :" + source);
 		System.out.print(connectedOwnCountries.toString());
 		Player currentPlayer = this.getCurrentPlayer();
 		initialSourceCountry = source;
@@ -346,11 +354,12 @@ public class Game extends Observable {
 			String country = rec.next();
 			getConnectedCountries(country, countryList);
 		}
-
+		
 		System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
 		System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 		finalCOuntries.addAll(connectedOwnCountries);
 		connectedOwnCountries.clear();
+		gamePhaseDetails.add("Connected Countries: "+ finalCOuntries.toString());
 		return finalCOuntries;
 	}
 
@@ -788,7 +797,7 @@ public class Game extends Observable {
 	 * @return true, if attack done
 	 */
 	public Boolean attackPhase(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
-		gamePhaseDetails.removeAll(gamePhaseDetails);
+		
 		Country attCountry = mapModel.getCountryFromName(attackerCountry);
 		Country defCountry = mapModel.getCountryFromName(defenderCountry);
 		gamePhaseDetails.add(attackerCountry+" is attacking the "+ defenderCountry);
@@ -807,7 +816,7 @@ public class Game extends Observable {
 			return false;
 		}
 
-		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount,playerCountry);
+		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount,playerCountry,gamePhaseDetails);
 
 		//playerCountry;
 		if (isMapConcured()) {

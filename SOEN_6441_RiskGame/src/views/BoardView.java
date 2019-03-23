@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -261,21 +262,20 @@ public class BoardView implements Observer {
 				combo_sourceCountry();
 			}
 			component_gamePhaseActions.removeAll();
-			JViewport view = new JViewport();
 			int strartY = 5;
 			ArrayList<String> gamePhaseDetailForPrint = game.getGamePhaseDetails();
 			for (String gamePhaseDetailString : gamePhaseDetailForPrint) {
 				JLabel textLabel = new JLabel();
+				System.out.println(gamePhaseDetailString);
 				textLabel.setText(gamePhaseDetailString);
-				Font font = new Font("Courier", Font.ITALIC, 10);
+				Font font = new Font("Courier", Font.ITALIC, 16);
 				textLabel.setFont(font);
-				textLabel.setBounds(15, strartY, 220, 40);
-				strartY = strartY + 15;
-				pane_gameScrollPhaseView.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-				pane_gameScrollPhaseView.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-				pane_gameScrollPhaseView.setViewportView(component_gamePhaseActions);
-				pane_gameScrollPhaseView.add(textLabel);
+				textLabel.setBounds(15, strartY, 220, 20);
+				strartY = strartY + 20;
+
+				component_gamePhaseActions.add(textLabel);
 			}
+			component_gamePhaseActions.setPreferredSize(new Dimension(300, strartY));
 			component_gamePhaseActions.revalidate();
 			component_gamePhaseActions.repaint();
 		}
@@ -301,7 +301,7 @@ public class BoardView implements Observer {
 		fortification();
 		viewAttackPhase();
 
-		frameGameWindow.setSize(pane_mapScrollPane.getWidth()+550, 800);
+		frameGameWindow.setSize(pane_mapScrollPane.getWidth()+550, 1200);
 		frameGameWindow.setVisible(true);
 		panel_gameAction.setBackground(Color.white);
 		frameGameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -376,9 +376,13 @@ public class BoardView implements Observer {
 	 * Method to display the actions performed during each phase
 	 */
 	public void loadingPhaseActionLabel() {
-		component_gamePhaseActions = new JPanel();
-		JLabel my_label = new JLabel();
-		component_gamePhaseActions.add(my_label);
+		component_gamePhaseActions = new JPanel(){
+		    @Override
+		    public Dimension getPreferredSize() {
+		        return new Dimension(300, 5000);
+		    };
+		};
+		component_gamePhaseActions.setLayout(new FlowLayout(FlowLayout.LEFT));
 		pane_gameScrollPhaseView = new JScrollPane(component_gamePhaseActions);
 		pane_gameScrollPhaseView.setBounds(lab_gamePhase.getX(),lab_gamePhase.getY() + lab_gamePhase.getHeight()+20,
 				lab_gamePhase.getWidth(), 300);
