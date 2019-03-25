@@ -247,6 +247,7 @@ public class Game extends Observable {
 		}
 		assignReinforcement(player,country);
 		gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
+		notifyObserverslocal(this);
 		return true;
 	}
 
@@ -254,6 +255,7 @@ public class Game extends Observable {
 	 * This method initializes the reinforcement phase for each player by adding corresponding number of armies. 
 	 */
 	public void reinforcementPhaseSetup() {
+		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
 		if(player.getCards().size()>2) {
 			CardView cv = new CardView(this);
@@ -276,8 +278,8 @@ public class Game extends Observable {
 	 */
 	public void updateGame() {
 		if (this.getGamePhase() == gamePhase.Startup) {
-
-			gamePhaseDetails.removeAll(gamePhaseDetails);
+//
+//			gamePhaseDetails.removeAll(gamePhaseDetails);r
 			long pendingPlayersCount = playerList.stream().filter(p -> p.getNumberOfInitialArmies() > 0).count();
 			System.out.println(pendingPlayersCount);
 
@@ -288,8 +290,8 @@ public class Game extends Observable {
 			}
 		} 
 		else if (this.getGamePhase() == gamePhase.Reinforcement) {	
-			gamePhaseDetails.removeAll(gamePhaseDetails);
 			if (getCurrentPlayer().getNumberOfReinforcedArmies() == 0) {
+				gamePhaseDetails.removeAll(gamePhaseDetails);
 				this.setGamePhase(gamePhase.Attack);
 			}
 
