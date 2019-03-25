@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -18,15 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -73,6 +66,11 @@ public class BoardView implements Observer {
 	
 	/** The lab nameof phase. */
 	private static JLabel lab_nameofPhase;
+
+	// Phase View Actions Components
+	private static JComponent component_gamePhaseActions;
+	private static JScrollPane pane_gameScrollPhaseView;
+	private static JLabel lab_currentAction;
 
 	/** The lab initialisation. */
 	// Initialization variables
@@ -239,32 +237,49 @@ public class BoardView implements Observer {
 
 			if (game.getGamePhase() == GamePhase.Startup) {
 				lab_nameofPhase.setText("Initialization");
-				
-				  lab_fortification.setVisible(false); lab_initialisation.setVisible(true);
-				  lab_reinforcement.setVisible(false);
-				} else if (game.getGamePhase() == GamePhase.Reinforcement) {
+				lab_fortification.setVisible(false); lab_initialisation.setVisible(true);
+				lab_reinforcement.setVisible(false);
+			} else if (game.getGamePhase() == GamePhase.Reinforcement) {
 				lab_nameofPhase.setText("Reinforcement");
 				lab_nameofPhase.setForeground(Color.red);
 				
-				  lab_fortification.setVisible(false); lab_reinforcement.setVisible(true);
-				  lab_attack.setVisible(false);
+				lab_fortification.setVisible(false); lab_reinforcement.setVisible(true);
+				lab_attack.setVisible(false);
 				 
 			} else if (game.getGamePhase() == GamePhase.Attack) {
 				lab_nameofPhase.setText("Attack Phase");
 				lab_nameofPhase.setForeground(Color.BLUE);
 				
-				  lab_attack.setVisible(true); lab_fortification.setVisible(false);
+				lab_attack.setVisible(true); lab_fortification.setVisible(false);
 				 
 				combo_attackerCountry();
 			} else if (game.getGamePhase() == GamePhase.Fortification) {
 				lab_nameofPhase.setText("Fortification");
 				lab_nameofPhase.setForeground(Color.MAGENTA);
 				
-				  lab_attack.setVisible(false); lab_fortification.setVisible(true);
+				lab_attack.setVisible(false); lab_fortification.setVisible(true);
 				 
 				combo_sourceCountry();
 			}
+			component_gamePhaseActions.removeAll();
+			int strartY = 5;
+			ArrayList<String> gamePhaseDetailForPrint = game.getGamePhaseDetails();
+			for (String gamePhaseDetailString : gamePhaseDetailForPrint) {
+				JLabel textLabel = new JLabel();
+				System.out.println(gamePhaseDetailString);
+				textLabel.setText(gamePhaseDetailString);
+				Font font = new Font("Courier", Font.ITALIC, 16);
+				textLabel.setFont(font);
+				textLabel.setBounds(15, strartY, 220, 20);
+				strartY = strartY + 20;
+
+				component_gamePhaseActions.add(textLabel);
+			}
+			component_gamePhaseActions.setPreferredSize(new Dimension(300, strartY));
+			component_gamePhaseActions.revalidate();
+			component_gamePhaseActions.repaint();
 		}
+
 	}
 
 	//-------------------------- Board View Initializer ---------------------------------
@@ -280,12 +295,13 @@ public class BoardView implements Observer {
 		mapGenerator();
 		createPlayerWorldDominationView();
 		gamePhase();
+		loadingPhaseActionLabel();
 		view_initialisation();
 		reinforcements();
 		fortification();
 		viewAttackPhase();
 
-		frameGameWindow.setSize(pane_mapScrollPane.getWidth()+550, 800);
+		frameGameWindow.setSize(pane_mapScrollPane.getWidth()+550, 1200);
 		frameGameWindow.setVisible(true);
 		panel_gameAction.setBackground(Color.white);
 		frameGameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -327,7 +343,7 @@ public class BoardView implements Observer {
 			lab_map.add(newLabel);
 		}
 
-		pane_mapScrollPane = new JScrollPane(lab_map);		
+		pane_mapScrollPane = new JScrollPane(lab_map);
 		pane_mapScrollPane.setBounds(0,10,icon.getIconWidth()+20,icon.getIconHeight()+20);
 		panel_gameAction.add(pane_mapScrollPane);
 		frameGameWindow.add(panel_gameAction);
@@ -345,8 +361,6 @@ public class BoardView implements Observer {
 				tb);
 		String nm="#6600cc";
 	//	tb.setBorder(new LineBorder(Color.decode(nm)));
-		
-		
 		lab_gamePhase.setBounds(pane_mapScrollPane.getWidth()+10, pane_mapScrollPane.getY()+55, 490, 60);
 
 		lab_nameofPhase = new JLabel("Initialization");
@@ -356,6 +370,26 @@ public class BoardView implements Observer {
 
 		lab_gamePhase.add(lab_nameofPhase);
 		panel_gameAction.add(lab_gamePhase);
+	}
+
+	/**
+	 * Method to display the actions performed during each phase
+	 */
+	public void loadingPhaseActionLabel() {
+		component_gamePhaseActions = new JPanel(){
+		    @Override
+		    public Dimension getPreferredSize() {
+		        return new Dimension(300, 5000);
+		    };
+		};
+		component_gamePhaseActions.setLayout(new FlowLayout(FlowLayout.LEFT));
+		pane_gameScrollPhaseView = new JScrollPane(component_gamePhaseActions);
+		pane_gameScrollPhaseView.setBounds(lab_gamePhase.getX(),lab_gamePhase.getY() + lab_gamePhase.getHeight()+20,
+				lab_gamePhase.getWidth(), 300);
+		TitledBorder tb = BorderFactory.createTitledBorder(null, "Phase Details", TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.blue);
+		pane_gameScrollPhaseView.setBorder(tb);
+		panel_gameAction.add(pane_gameScrollPhaseView);
 	}
 
 	//--------------------------- initial Phase Start -----------------------------
@@ -372,7 +406,7 @@ public class BoardView implements Observer {
 		String nm="#6600cc";
 	//	tb.setBorder(new LineBorder(Color.decode(nm)));
 		
-		lab_initialisation.setBounds(lab_gamePhase.getX(), lab_gamePhase.getY()+ lab_gamePhase.getHeight()+20, 490, 80);
+		lab_initialisation.setBounds(lab_gamePhase.getX(), pane_gameScrollPhaseView.getY()+ pane_gameScrollPhaseView.getHeight()+20, 490, 80);
 
 		
 		lab_playersTurn = new JLabel(activePlayerName);
