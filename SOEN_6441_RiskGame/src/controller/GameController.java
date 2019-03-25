@@ -424,6 +424,7 @@ public class GameController {
 					boolean success = game.exchangeRiskCards(selectedCards);
 					if(success) {
 						CardView.closeTheWindow();
+						boardView.getFrameGameWindow().setEnabled(true);
 						game.updateReinforcementValue();
 						
 					}
