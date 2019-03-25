@@ -11,29 +11,29 @@ import java.util.ArrayList;
  * @author Gargi
  * @version 1.0.0
  */
- public class Country {
-	
+public class Country {
+
 	/** The country id. */
 	private int countryId;
-	
+
 	/** The country name. */
 	private String countryName;
-	
+
 	/** The continent ID. */
 	private int continentID;
-	
+
 	/** The x coordinate. */
 	private int xCoordinate;
-	
+
 	/** The y coordinate. */
 	private int yCoordinate;
-	
+
 	/** The player id. */
 	private int playerId;
-	
+
 	/** The army numbers. */
 	private int armyNumbers;
-	
+
 	/** The country color. */
 	private Colors countryColor;
 
@@ -46,7 +46,7 @@ import java.util.ArrayList;
 		return playerId;
 	}
 
-	
+
 	/**
 	 * This method is used to set played id.
 	 * @param playerId ID of the player
@@ -75,7 +75,7 @@ import java.util.ArrayList;
 
 	/** The neighbours string. */
 	private ArrayList<String> neighboursString = new ArrayList<>();
-	
+
 	/** The neighbours of country. */
 	private ArrayList<Country> neighboursOfCountry= new ArrayList<>();
 
@@ -174,7 +174,7 @@ import java.util.ArrayList;
 	public void setyCoordinate(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
-	
+
 	/**
 	 * This method is used to get an integer value of the continent which is set as Country ID.
 	 *
@@ -183,7 +183,7 @@ import java.util.ArrayList;
 	public int getContinentID() {
 		return continentID;
 	}
-	
+
 	/**
 	 * This method is used to sets an integer value of the continent which is set as Country ID.
 	 *
@@ -226,12 +226,21 @@ import java.util.ArrayList;
 	 * @param newNeighbour the new neighbour
 	 */
 	public void addNeighborString(String newNeighbour) {
+		if (!neighboursString.contains(newNeighbour)) {
+			neighboursString.add(newNeighbour);
+		}
+	}
+	
+	
+	
+
+	/*public void addNeighborString(String newNeighbour) {
 		if (this.neighboursString.contains(newNeighbour)) {
-			// Do nothing
+			// Nothing implemented
 		} else {
 			this.neighboursString.add(newNeighbour);
 		}
-	}
+	}*/
 
 	/**
 	 * This method is used to get number of armies.
