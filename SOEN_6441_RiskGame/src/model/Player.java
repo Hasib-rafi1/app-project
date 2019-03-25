@@ -40,6 +40,7 @@ public class Player {
 	/** The assigned list of countries. */
 	private ArrayList<Country> assignedListOfCountries = new ArrayList<Country>();
 	
+	
 	/** To assign a card after the attack phase if the country is Conquered. */
 	private Boolean isConquered = false;
 
