@@ -63,7 +63,6 @@ public class MapModel {
 	/**
 	 * This method is used to import the existing file from the directory. It reads the map file and stores the
 	 * corresponding values for countries and continents.
-	 *
 	 * @param mapPath the map path
 	 * @return map
 	 */

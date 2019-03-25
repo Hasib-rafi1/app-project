@@ -70,7 +70,6 @@ public class MapView {
 
 	/**
 	 * This method is used to return content of file(like continents, territories etc).
-	 *
 	 * @return String mapContent
 	 */
 	public String returnMapContent() {
@@ -79,7 +78,6 @@ public class MapView {
 
 	/**
 	 * This method is used to return name of the map.
-	 *
 	 * @return String mapName
 	 */
 	public String returnMapName() {

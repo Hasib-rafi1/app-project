@@ -13,6 +13,7 @@ import views.MapView;
 // TODO: Auto-generated Javadoc
 /**
  * This class is used to handle the operations to generate, edit the map.
+ * 
  * @author Gargi Sharma
  * @author Zakiya Jafrin
  * @version 1.0.0
@@ -125,7 +126,7 @@ public class MapController {
 
 	/**
 	 * This method is used to edit the map.
-	 * @author Gargi Sharma
+	 *
 	 * @version 1.0.0
 	 */
 	public void editExistingMapFile() {

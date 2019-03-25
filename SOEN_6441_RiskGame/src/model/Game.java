@@ -21,6 +21,7 @@ import java.util.Observable;
 /**
  * Game model contains the class to create a model for the game. 
  * It is bounded with the Game Controller and the Board View.
+ * 
  * @author Jaiganesh
  * @author Hasibul Huq
  * @author Gargi sharma
@@ -70,7 +71,6 @@ public class Game extends Observable {
 
 	/**
 	 * Instantiates a new game.
-	 *
 	 * @param map the map
 	 */
 	//Initializes the map and the game phase of the game.
@@ -365,7 +365,6 @@ public class Game extends Observable {
 
 	/**
 	 * This method recursively explores all the nodes connected to a country and returns the neighboring countries.
-	 *
 	 * @param source source countries
 	 * @param countryList list of countries
 	 *
@@ -591,7 +590,6 @@ public class Game extends Observable {
 
 	/**
 	 * This function is used to get map.
-	 *
 	 * @return mapModel
 	 */
 	public MapModel getMap() {
@@ -601,7 +599,6 @@ public class Game extends Observable {
 
 	/**
 	 *  This is used to set map.
-	 *
 	 * @param map map
 	 */
 	public void setMap(MapModel map) {
@@ -621,7 +618,6 @@ public class Game extends Observable {
 
 	/**
 	 * This is used to set game phase.
-	 *
 	 * @param gamePhase Game phase
 	 */
 	public void setGamePhase(GamePhase gamePhase) {
@@ -761,7 +757,6 @@ public class Game extends Observable {
 
 	/**
 	 * Returns allowable dices for attacking country.
-	 *
 	 * @param countryName the country name
 	 * @return Integer
 	 */
@@ -788,7 +783,6 @@ public class Game extends Observable {
 
 	/**
 	 * Method for  attack phase where attack will handled.
-	 *
 	 * @param attackerCountry the attacker country
 	 * @param defenderCountry the defender country
 	 * @param attackerDiceCount the attacker dice count
@@ -838,7 +832,6 @@ public class Game extends Observable {
 	
 	/**
 	 * Checks if is map concured.
-	 *
 	 * @return true, if is map concured
 	 */
 	public boolean isMapConcured() {
@@ -851,7 +844,6 @@ public class Game extends Observable {
 
 	/**
 	 * method to get countries from the attackers country where number of armies are getter than 1.
-	 *
 	 * @return attackerCountry arraylist of attacker country
 	 */
 	public ArrayList<String> getAttackPossibleCountries() {
@@ -889,7 +881,6 @@ public class Game extends Observable {
 
 	/**
 	 * Method for performing All out attack phase.
-	 *
 	 * @param attackerCountry the attacker country
 	 * @param defenderCountry the defender country
 	 * @return true, if attack phase out
@@ -919,7 +910,6 @@ public class Game extends Observable {
 
 	/**
 	 * move Armies after attack.
-	 *
 	 * @param attackersCountry Attacker country
 	 * @param atteckersNewCountry Attacker new country
 	 * @param attackerMoveArmies Attacker move armies
@@ -935,7 +925,6 @@ public class Game extends Observable {
 
 	/**
 	 * Gets the percentage of map controlled by every player.
-	 *
 	 * @return the percentage of map controlled by every player
 	 */
 	public HashMap<Integer, Float> getPercentageOfMapControlledByEveryPlayer() {
@@ -992,7 +981,6 @@ public class Game extends Observable {
 
 	/**
 	 * Gets list of players.
-	 *
 	 * @param countriesListOfPlayer Countries list of players
 	 * @return countriesListString Countries list
 	 */
@@ -1008,7 +996,6 @@ public class Game extends Observable {
 	
 	/**
 	 * This method is used to get the number of armies for each player.
-	 *
 	 * @return numberOfArmies Number of armies
 	 */
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
@@ -1028,7 +1015,6 @@ public class Game extends Observable {
 
 	/**
 	 * Get all the players and countries.
-	 *
 	 * @return playerCountry Player country
 	 */
 	public HashMap<Player, ArrayList<Country>> playerandCountries(){
@@ -1037,7 +1023,6 @@ public class Game extends Observable {
 	
 	/**
 	 * get the board view.
-	 *
 	 * @return boardView
 	 */
 	public BoardView getBoardView() {
@@ -1055,7 +1040,6 @@ public class Game extends Observable {
 
 	/**
 	 * Get the board view of a game.
-	 *
 	 * @param viewOfBoard the board view
 	 */
 	public void setBoardView(BoardView viewOfBoard) {

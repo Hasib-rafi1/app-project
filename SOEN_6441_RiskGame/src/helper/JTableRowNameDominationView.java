@@ -7,8 +7,10 @@ import javax.swing.table.*;
 
 // TODO: Auto-generated Javadoc
 /**
- * This class is used to create the static rows with the element name in the world dominaton view.
- * @version 1.0 11/09/98
+ * This class is used to create the static rows with the element name in the world domination view.
+ * 
+ * @author Zakiya Jafrin
+ * @version 1.0 
  */
 
 public class JTableRowNameDominationView extends JLabel implements ListCellRenderer {

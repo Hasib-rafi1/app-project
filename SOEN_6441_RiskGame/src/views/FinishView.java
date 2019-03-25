@@ -26,8 +26,7 @@ public class FinishView {
 	private static JLabel lab_congratulation;
 
 	/**
-	 * Exchange.
-	 *
+	 * ui for printing the winner of the game
 	 * @param playerName the player name
 	 */
 	public void Exchange(String playerName) {

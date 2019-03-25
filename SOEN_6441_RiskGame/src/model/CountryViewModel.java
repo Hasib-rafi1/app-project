@@ -6,6 +6,7 @@ import helper.Colors;
 /**
  * An object model for country with payers information and number of armies belongs to one country 
  * for creating a view.
+ * 
  * @author Hasibul Huq
  * @version 1.0.0
  *
@@ -38,7 +39,6 @@ public class CountryViewModel {
 
 	/**
 	 * This method is used to get an integer value of the country which is set as Country ID.
-	 *
 	 * @return the country ID Integer
 	 */
 	public int getCountryId() {
@@ -47,7 +47,6 @@ public class CountryViewModel {
 
 	/**
 	 * This method is going to set the country id.
-	 *
 	 * @param countryId id of country
 	 */
 	public void setCountryId(int countryId) {
@@ -64,7 +63,6 @@ public class CountryViewModel {
 
 	/**
 	 * This method will set the name of the country.
-	 *
 	 * @param countryName name of the country
 	 */
 	public void setCountryName(String countryName) {
@@ -73,7 +71,6 @@ public class CountryViewModel {
 
 	/**
 	 * This method will return the x coordinate of the view .
-	 *
 	 * @return xCoordinate as an integer value
 	 */
 	public int getxCoordinate() {
@@ -82,7 +79,6 @@ public class CountryViewModel {
 
 	/**
 	 * this method will set xCoordinate as an integer value.
-	 *
 	 * @param xCoordinate x coordinates of country
 	 */
 	public void setxCoordinate(int xCoordinate) {
@@ -91,7 +87,6 @@ public class CountryViewModel {
 	
 	/**
 	 * This method will return yCoordinate as an integer value.
-	 *
 	 * @return yCoordinate as an integer value
 	 */
 	public int getyCoordinate() {
@@ -100,7 +95,6 @@ public class CountryViewModel {
 
 	/**
 	 * This method is setting yCoordinate value.
-	 *
 	 * @param yCoordinate y coordinates of country
 	 */
 	public void setyCoordinate(int yCoordinate) {
@@ -109,7 +103,6 @@ public class CountryViewModel {
 
 	/**
 	 * This method will return the numbers of armies that the country have right now.
-	 *
 	 * @return numberOfArmies as an integer value
 	 */
 	public int getNumberOfArmies() {
@@ -118,7 +111,6 @@ public class CountryViewModel {
 
 	/**
 	 * This method is setting the numbers of armies.
-	 *
 	 * @param numberOfArmies , the numbers of armies
 	 */
 	public void setNumberOfArmies(int numberOfArmies) {
@@ -127,7 +119,6 @@ public class CountryViewModel {
 
 	/**
 	 * This method will the return the country color according to the player color.
-	 *
 	 * @return colors , color of country
 	 */
 	public Colors getColorOfCountry() {
@@ -135,8 +126,7 @@ public class CountryViewModel {
 	}
 
 	/**
-	 * This method is storing the color of the player who currently acquired the country .
-	 *
+	 * This method is storing the color of the player who currently acquired the country.
 	 * @param colorOfCountry color of country
 	 */
 	public void setColorOfCountry(Colors colorOfCountry) {
@@ -144,8 +134,7 @@ public class CountryViewModel {
 	}
 
 	/**
-	 * This function is returning the data of player id who is currently acquired the country .
-	 *
+	 * This function is returning the data of player id who is currently acquired the country.
 	 * @return player id as integer value
 	 */
 	public int getPlayerID() {
@@ -154,7 +143,6 @@ public class CountryViewModel {
 
 	/**
 	 * This method is setting player id who is currently acquired the country.
-	 *
 	 * @param playerID ID of player
 	 */
 	public void setPlayerID(int playerID) {
@@ -163,7 +151,6 @@ public class CountryViewModel {
 
 	/**
 	 * This function is returning the array list of the neighbours of the country.
-	 *
 	 * @return neighbours country neighbours
 	 */
 	public ArrayList<String> getNeighbours() {

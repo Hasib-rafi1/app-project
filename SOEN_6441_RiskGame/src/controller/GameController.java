@@ -30,6 +30,7 @@ import helper.PrintConsoleAndUserInput;
  * Game Controller initializes the game by calling the game model.
  * It controls the view by actively listing to the view elements and performing the respective actions. 
  * Class that achieves the action listener for the user input 
+ * 
  * @author Jaiganesh
  * @version 1.0.0
  */

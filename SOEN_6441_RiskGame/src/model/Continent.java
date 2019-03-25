@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
 /**
- * This is a main class to read and store different elements of the continent. *
+ * This is a main class to read and store different elements of the continent. 
+ * 
  * @author Zakiya Jafrin
  * @author Jaiganesh
  * @version 1.0.0
@@ -39,7 +40,6 @@ public class Continent {
 
 	/**
 	 * This method is used to get an integer value of the continent which is set as Continent ID.
-	 *
 	 * @return continentID, ID of the continent.
 	 */
 	public int getContinentID() {
@@ -47,7 +47,7 @@ public class Continent {
 	}
 
 	/**
-	 * This function sets the continent ID of the continent.	 *
+	 * This function sets the continent ID of the continent.	 
 	 * @param continentID ,Id of the continent
 	 */
 	public void setContinentId(int continentID) {
@@ -56,7 +56,6 @@ public class Continent {
 	
 	/**
 	 * This method is used to get the name of the Continent as a String.
-	 *
 	 * @return continentName, name of the continent.
 	 */
 	public String getContinentName() {
@@ -65,7 +64,6 @@ public class Continent {
 
 	/**
 	 * This method is used to get the control Value of the Continent in the conquest Map.
-	 *
 	 * @return controlValue,  Control Value to the continent.
 	 */
 	public int getControlValue() {
@@ -73,7 +71,7 @@ public class Continent {
 	}
 
 	/**
-	 * This function sets the continent name.	 *
+	 * This function sets the continent name.	
 	 * @param continentName , Name of the continent
 	 */
 	public void setContinentName(String continentName) {
@@ -81,8 +79,7 @@ public class Continent {
 	}
 
 	/**
-	 * This function sets the control value of the continent object.	 *
-	 *
+	 * This function sets the control value of the continent object.	 
 	 * @param controlValue the new control value
 	 */
 	public void setControlValue(int controlValue) {
@@ -91,7 +88,6 @@ public class Continent {
 
 	/**
 	 * This method is used to takes all the countries as a parameter and list them in an array list under the Continent Name.
-	 *
 	 * @param country the country
 	 */
 	public void addCountriesToTheContinentList(Country country) {

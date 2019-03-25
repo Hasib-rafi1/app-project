@@ -2,8 +2,8 @@ package helper;
 
 // TODO: Auto-generated Javadoc
 /**
- * This is used to add colors in game.
- *
+ * This class adds colors in game.
+ * 
  * @author Gargi Sharma
  * @version 1.0.0
  */

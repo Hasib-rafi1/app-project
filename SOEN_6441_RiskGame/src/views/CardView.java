@@ -34,6 +34,7 @@ import helper.PrintConsoleAndUserInput;
 /**
  *
  * This class is used to chose the cards by the player during the Reinforcement phase of the game to obtain new armies.
+ * 
  * @author Jaiganesh
  * @author naren
  * @version 1.0.0
@@ -100,11 +101,14 @@ public  class CardView{
 		lab_forPlayerTurn.setBounds(30, 45, 250, 150);
 		lab_forPlayerTurn.setHorizontalAlignment(lab_forPlayerTurn.CENTER);
 		lab_forPlayerTurn.setVerticalAlignment(lab_forPlayerTurn.CENTER);
+		//getting the cards a player owns
 		ArrayList<Card> typeOfCards = game.getCurrentPlayer().getCards();
 		String cards[] = new String[typeOfCards.size()];
+		//assigning the cards the player has in a string array
 		for (int i = 0; i < typeOfCards.size(); i++) {
 			cards[i] = typeOfCards.get(i).toString();
 		}
+		//putting it in a JList
 		list_cardsOwnedByThePlayer = new JList<>(cards);
 		list_cardsOwnedByThePlayer.setBorder(new TitledBorder("Cards Owned"));
 		list_cardsOwnedByThePlayer.setBounds(310, 45, 250, 150);
