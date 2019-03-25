@@ -67,6 +67,8 @@ public class Game extends Observable {
 	
 	/** The exchange number. */
 	private Integer exchangeNumber= 5;
+	
+	public boolean dominationViewOn = false;
 
 	/**
 	 * Instantiates a new game.

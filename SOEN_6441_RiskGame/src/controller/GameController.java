@@ -324,7 +324,7 @@ public class GameController {
 	public void addActionListenerForWorldDominationView() {
 		boardView.worldDominationViewListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WorldDominationView.frameWindowForWorldDominationView.toFront();
+				game.dominationViewOn =true;
 				DecimalFormat countryPercentFormat = new DecimalFormat(".####");
 				ArrayList<Player> playerList = game.getAllPlayers();
 
