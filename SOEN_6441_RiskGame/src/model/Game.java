@@ -258,7 +258,6 @@ public class Game extends Observable {
 		if(player.getCards().size()>2) {
 			CardView cv = new CardView(this);
 			cv.Exchange();
-			cv.frame_cardExchange.toFront();
 			this.getBoardView().getFrameGameWindow().setEnabled(false);
 		}
 		gamePhaseDetails.add("card:"+player.getCards().size());

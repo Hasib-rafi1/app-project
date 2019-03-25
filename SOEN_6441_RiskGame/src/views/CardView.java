@@ -1,6 +1,8 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,7 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -32,6 +35,8 @@ import helper.PrintConsoleAndUserInput;
  *
  * This class is used to chose the cards by the player during the Reinforcement phase of the game to obtain new armies.
  * @author Jaiganesh
+ * @author naren
+ * @version 1.0.0
  */
 
 
@@ -64,7 +69,6 @@ public  class CardView{
 	/** The game. */
 	//Instantiate game object
 	 Game game;
-	
 	/**
 	 * Instantiates a new card view.
 	 *
@@ -75,7 +79,7 @@ public  class CardView{
 	}
 	
 	/**
-	 * Exchange.
+	 * ui for the card exchange.
 	 */
 	public  void Exchange() {
 		frame_cardExchange = new JFrame("Card Exchange View");
@@ -102,26 +106,18 @@ public  class CardView{
 			cards[i] = typeOfCards.get(i).toString();
 		}
 		list_cardsOwnedByThePlayer = new JList<>(cards);
-		JScrollPane s = new JScrollPane(list_cardsOwnedByThePlayer);
-	   // s.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-	    s.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		list_cardsOwnedByThePlayer.setBorder(new TitledBorder("Cards Owned"));
 		list_cardsOwnedByThePlayer.setBounds(310, 45, 250, 150);
-
 		lab_totalNewArmies = new JLabel("" + game.getCurrentPlayer().getNumberOfReinforcedArmies());
-		
 		lab_totalNewArmies.setBorder(new TitledBorder("Reinforced Number Army"));
 		lab_totalNewArmies.setBounds(180, 200, 250, 70);
 		button_cardExchange.setBounds(120, 280, 160, 40);
 		button_exit.setBounds(310, 280, 160, 40);
-		
 		lab_cardExchange.add(lab_totalNewArmies);
 		lab_cardExchange.add(list_cardsOwnedByThePlayer);
-		//frame_cardExchange.getRootPane().setWindowDecorationStyle(JRootPane.PLAIN_DIALOG);
 		lab_cardExchange.add(lab_forPlayerTurn);
 		lab_cardExchange.add(button_cardExchange);
 		lab_cardExchange.add(button_exit);
-	//	panel_cardExchange.add(new JScrollPane (lab_cardExchange));
 		panel_cardExchange.add(lab_cardExchange);
 		frame_cardExchange.add(panel_cardExchange);
 		frame_cardExchange.setVisible(true);

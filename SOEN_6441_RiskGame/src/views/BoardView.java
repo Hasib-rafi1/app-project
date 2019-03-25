@@ -39,7 +39,7 @@ import helper.GamePhase;
  * This class implements the Risk game view designed in gui .
  *
  * @author naren
- * @version 1.0.0
+ * @version 2.0.0
  */
 public class BoardView implements Observer {
 
@@ -385,7 +385,7 @@ public class BoardView implements Observer {
 		component_gamePhaseActions.setLayout(new FlowLayout(FlowLayout.LEFT));
 		pane_gameScrollPhaseView = new JScrollPane(component_gamePhaseActions);
 		pane_gameScrollPhaseView.setBounds(lab_gamePhase.getX(),lab_gamePhase.getY() + lab_gamePhase.getHeight()+20,
-				lab_gamePhase.getWidth(), 300);
+				lab_gamePhase.getWidth(), 150);
 		TitledBorder tb = BorderFactory.createTitledBorder(null, "Phase Details", TitledBorder.DEFAULT_JUSTIFICATION,
 				TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.blue);
 		pane_gameScrollPhaseView.setBorder(tb);
