@@ -277,7 +277,6 @@ public class Game extends Observable {
 	public void updateGame() {
 		if (this.getGamePhase() == gamePhase.Startup) {
 
-			gamePhaseDetails.removeAll(gamePhaseDetails);
 			long pendingPlayersCount = playerList.stream().filter(p -> p.getNumberOfInitialArmies() > 0).count();
 			System.out.println(pendingPlayersCount);
 
