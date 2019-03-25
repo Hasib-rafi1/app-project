@@ -4,10 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.text.DecimalFormat;
+import java.util.*;
 import javax.swing.*;
 import helper.Colors;
 import helper.PrintConsoleAndUserInput;
 import helper.JTableRowNameDominationView;
+import model.Game;
+import model.Player;
 // TODO: Auto-generated Javadoc
 /**
  *	This class shows the updated view of the Players world domination which includes
@@ -17,26 +21,29 @@ import helper.JTableRowNameDominationView;
  * @author Gargi Sharma
  * @version 1.0.0
  */
-public class WorldDominationView {
+public class WorldDominationView implements Observer{
 	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 
 	/** The panel window for world domination view. */
-	JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
+	public static JPanel panelWindowForWorldDominationView ;
 
 	/** The frame window for world domination view. */
-	public static JFrame frameWindowForWorldDominationView = new JFrame("Player World Domination View");
+	public static JFrame frameWindowForWorldDominationView = new JFrame("Players World Domination View");
+	public static JTable table;
+	public static JScrollPane scroll;
+	public static JList rowHeader;
 
 	/**
 	 * Creates the jframe for world domination view.	 *
 	 * @param rowData the row data
 	 * @param playerNamesInTableColumns the player names in table columns
 	 */
-	public static void createJframeForWorldDominationView(String[][] rowData, String[] playerNamesInTableColumns) {	
+	public static void createJframeForWorldDominationView(String[][] rowData, String[] playerNamesInTableColumns) {
 	
 		// TODO Auto-generated method stub		
-		JPanel panelWindowForWorldDominationView = new JPanel(new BorderLayout());
-		JFrame frameWindowForWorldDominationView = new JFrame("Players World Domination View");
+		panelWindowForWorldDominationView = new JPanel(new BorderLayout());
+		frameWindowForWorldDominationView = new JFrame("Players World Domination View");
 		panelWindowForWorldDominationView.setLayout(new FlowLayout());
 		panelWindowForWorldDominationView.setPreferredSize(new Dimension(1000, 200));
 		
@@ -49,18 +56,18 @@ public class WorldDominationView {
 			}
 		};
 
-		JTable table = new JTable(rowData, playerNamesInTableColumns);
+		table = new JTable(rowData, playerNamesInTableColumns);
 		table.setEnabled(false);
 		table.getTableHeader().setBackground(Color.orange);
 
-		JList rowHeader = new JList(lm);
+		rowHeader = new JList(lm);
 		rowHeader.setFixedCellWidth(150);
 		rowHeader.setFixedCellHeight(table.getRowHeight()
 				+ table.getRowMargin());
 		
 		rowHeader.setCellRenderer(new JTableRowNameDominationView(table));
 
-		JScrollPane scroll = new JScrollPane( table );
+		scroll = new JScrollPane( table );
 		scroll.setRowHeaderView(rowHeader);
 		frameWindowForWorldDominationView.getContentPane().add(scroll, BorderLayout.CENTER);
 		frameWindowForWorldDominationView.setSize(1000, 200);
@@ -72,9 +79,114 @@ public class WorldDominationView {
 	}
 
 
-	
+//	public static void updateWindow(String[][] rowData, String[] playerNamesInTableColumns) {
+//
+//		// TODO Auto-generated method stub
+//
+//		// Putting the data in a table
+//		ListModel lm = new AbstractListModel() {
+//			String headers[] = {"Percentage Country", "Continents Owned", "Armies Owned"};
+//			public int getSize() { return headers.length; }
+//			public Object getElementAt(int index) {
+//				return headers[index];
+//			}
+//		};
+//
+//		table = new JTable(rowData, playerNamesInTableColumns);
+//		table.setEnabled(false);
+//		table.getTableHeader().setBackground(Color.orange);
+//
+//		rowHeader = new JList(lm);
+//		rowHeader.setFixedCellWidth(150);
+//		rowHeader.setFixedCellHeight(table.getRowHeight()
+//				+ table.getRowMargin());
+//
+//		rowHeader.setCellRenderer(new JTableRowNameDominationView(table));
+//
+//		scroll = new JScrollPane( table );
+//		scroll.setRowHeaderView(rowHeader);
+//		frameWindowForWorldDominationView.getContentPane().add(scroll, BorderLayout.CENTER);
+//		frameWindowForWorldDominationView.setSize(1000, 200);
+//		frameWindowForWorldDominationView.setLocationRelativeTo(null);
+//		frameWindowForWorldDominationView.setVisible(true);
+//		frameWindowForWorldDominationView.add(panelWindowForWorldDominationView);
+//		frameWindowForWorldDominationView.pack();
+//		frameWindowForWorldDominationView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//	}
 
+	@Override
+	public void update(Observable o, Object arg) {
+		Game game = ((Game)o);
+		DecimalFormat countryPercentFormat = new DecimalFormat(".####");
+		ArrayList<Player> playerList = game.getAllPlayers();
 
+		// Get players from the above arraylist and add in the other arraylist.
+		int x = 0;
+		ArrayList<String> newPlayerNameList = new ArrayList<>();
+		for (Player playerData : playerList) {
+			String name = playerData.getPlayerName();
+			newPlayerNameList.add(name);
+			x++;
+		}
 
+		// print Player name in tabular columns(Ist row heading)
+		String[] playerNamesInTableColumns = new String[newPlayerNameList.size()];
+		int y=0;
+		for ( String nameOfPlayer : newPlayerNameList ) {
 
+			playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
+			y++;
+		}
+		int size = newPlayerNameList.size();
+
+		// Get the Percentage of the map controlled by every player
+		Float[] mapPercentage = new Float[size];
+		HashMap<Integer,Float> findPercentageOfMap =  game.getPercentageOfMapControlledByEveryPlayer();
+		int z=0;
+		for (Map.Entry<Integer, Float> entry : findPercentageOfMap.entrySet()) {
+			//   System.out.println(entry.getKey()+" : "+entry.getValue());
+			float value = entry.getValue();
+			mapPercentage[z] = value;
+			z++;
+		}
+
+		//Get the continents controlled by every player
+		String[] continentsAcquired = new String[size];
+		HashMap<Integer,String> findContinentsAcquired =  game.getContinentsControlledByEachPlayer();
+		int l=0;
+		for (Map.Entry<Integer, String> entry : findContinentsAcquired.entrySet()) {
+			String value = entry.getValue();
+			continentsAcquired[l] = value;
+			l++;
+		}
+
+		int[] numberOfArmies = new int[size];
+		HashMap<Integer, Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
+		int i=0;
+		for (Map.Entry<Integer, Integer> entry : armiesMap.entrySet()) {
+			int value = entry.getValue();
+			numberOfArmies[i] = value;
+			System.out.println("######"+value);
+			i++;
+		}
+
+		// To print data in a table
+		String[][] dataInTableRows = new String[3][size];
+		for (int percentColumn = 0; percentColumn < dataInTableRows[0].length; percentColumn++) {
+			String formattedPercent = countryPercentFormat.format(mapPercentage[percentColumn]);
+			dataInTableRows[0][percentColumn] = formattedPercent + " %";
+		}
+		for (int continentColumn = 0; continentColumn < dataInTableRows[0].length; continentColumn++) {
+			dataInTableRows[1][continentColumn] = continentsAcquired[continentColumn];
+		}
+		for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
+			dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
+		}
+//		table = new JTable(dataInTableRows, playerNamesInTableColumns);
+////		rowHeader.setCellRenderer(new JTableRowNameDominationView(table));
+//		scroll = new JScrollPane( table );
+		frameWindowForWorldDominationView.dispose();
+		createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
+		System.out.println("ffss");
+	}
 }
