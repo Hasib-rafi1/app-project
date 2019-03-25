@@ -231,7 +231,7 @@ public class Player {
 	}
 
 	/**
-	 * This method will process attack for the selected player and for the defender player.
+	 * 
 	 *
 	 * @param defenderPlayer the defender player
 	 * @param attackerCountry the attacker country
@@ -239,6 +239,16 @@ public class Player {
 	 * @param attackerDiceCount the attacker dice count
 	 * @param defenderDiceCount the defender dice count
 	 * @param playerCountry the player country
+	 */
+	/**
+	 * This method will process attack for the selected player and for the defender player.
+	 * @param defenderPlayer the defender player
+	 * @param attackerCountry the attacker country
+	 * @param defenderCountry the defender country
+	 * @param attackerDiceCount the attacker dice count
+	 * @param defenderDiceCount the defender dice count
+	 * @param playerCountry the player country
+	 * @param gamePhaseDetails Details of Game Phase
 	 */
 	public void attackPhaseActions(Player defenderPlayer, Country attackerCountry, Country defenderCountry, int attackerDiceCount, int defenderDiceCount,HashMap<Player, ArrayList<Country>> playerCountry,ArrayList<String> gamePhaseDetails) {
 		diceRoller(attackerDiceCount);
@@ -353,30 +363,29 @@ public class Player {
 		return countries_count;
 	}
 	
+
 	/**
 	 * This method checks whether the source and destination countries belongs to the player and moves the armies from source to destination.
-	 * @param sourceCountry  source as string
-	 * @param destinationCountry destination countries as string
-	 * @param armies count of armies as int
-	 * @return true
+	 * @param sourceCountry The Source Country
+	 * @param destinationCountry The Destination Country
+	 * @param armies Count of armies
+	 * @return true if armies count increases or decreases
 	 */
-	public boolean fortificationPhase(Country sourceCountry, Country destinationCountry, int armies){
-		
+	public boolean fortificationPhase(Country sourceCountry, Country destinationCountry, int armies){		
 		if(!checkFortificationCondition(sourceCountry, destinationCountry,armies)) {
 			return false;
 		}
 		
 		sourceCountry.decreaseArmyCount(armies);
-		destinationCountry.increaseArmyCount(armies);
-		
+		destinationCountry.increaseArmyCount(armies);		
 		return true;
 	}
 	
 	/**
 	 * 
-	 * @param sourceCountry
-	 * @param destinationCountry
-	 * @param armies
+	 * @param sourceCountry The source Country
+	 * @param destinationCountry The destination Country
+	 * @param armies Armies count
 	 * @return boolean result based on condition passes
 	 */
 	public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
