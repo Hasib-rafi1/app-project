@@ -42,6 +42,8 @@ public class GameController {
 	/** The board view. */
 	BoardView boardView;
 
+	WorldDominationView worldDominationViewObserver;
+
 	
 	/** The player. */
 	Player player;
@@ -95,6 +97,8 @@ public class GameController {
 		int j=1;
 		game = new Game(mapModel);
 		boardView=new BoardView();
+		worldDominationViewObserver = new WorldDominationView();
+		game.addObserver(worldDominationViewObserver);
 		
 		game.addObserver(boardView);
 		//game.addObserver(cardView);
@@ -321,7 +325,7 @@ public class GameController {
 	public void addActionListenerForWorldDominationView() {
 		boardView.worldDominationViewListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WorldDominationView.frameWindowForWorldDominationView.toFront();
+				game.dominationViewOn =true;
 				DecimalFormat countryPercentFormat = new DecimalFormat(".####");
 				ArrayList<Player> playerList = game.getAllPlayers();
 
@@ -387,7 +391,7 @@ public class GameController {
 					dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
 				}
 
-				WorldDominationView.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
+				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 
 
 			}
@@ -425,6 +429,7 @@ public class GameController {
 					boolean success = game.exchangeRiskCards(selectedCards);
 					if(success) {
 						CardView.closeTheWindow();
+						boardView.getFrameGameWindow().setEnabled(true);
 						game.updateReinforcementValue();
 						
 					}
