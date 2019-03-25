@@ -41,6 +41,8 @@ public class GameController {
 	/** The board view. */
 	BoardView boardView;
 
+	WorldDominationView worldDominationViewObserver;
+
 	
 	/** The player. */
 	Player player;
@@ -94,6 +96,8 @@ public class GameController {
 		int j=1;
 		game = new Game(mapModel);
 		boardView=new BoardView();
+		worldDominationViewObserver = new WorldDominationView();
+		game.addObserver(worldDominationViewObserver);
 		
 		game.addObserver(boardView);
 		//game.addObserver(cardView);
@@ -386,7 +390,7 @@ public class GameController {
 					dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
 				}
 
-				WorldDominationView.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
+				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 
 
 			}
