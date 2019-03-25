@@ -184,7 +184,6 @@ public class BoardView implements Observer {
 	//----------------------------- View Update Function ---------------------------
 	/**
 	 * method to perform all the actions.
-	 *
 	 * @param arg0 the arg 0
 	 * @param arg1 the arg 1
 	 */
@@ -457,8 +456,6 @@ public class BoardView implements Observer {
 	/**
 	 * Method used to perform Attack phase of game.
 	 */
-
-	
 	
 	  public void viewAttackPhase() { 
 		  lab_attack = new JLabel(); 
@@ -578,7 +575,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * World domination view listener.
-	 *
 	 * @param listener the listener
 	 */
 	//--------------------------------- Listener Initialization -------------------------
@@ -588,7 +584,6 @@ public class BoardView implements Observer {
 	
 	/**
 	 * method to use for the mouse event for the map labels.
-	 *
 	 * @param listener MouseListener
 	 */
 	public void addMapLabelsListener(MouseListener listener) {
@@ -601,7 +596,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * method to add a listener in the combobox of the source country.
-	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToSourceCountryList(ActionListener listener) {
@@ -610,7 +604,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * method to add a listener in the combobox of the attacker country.
-	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToAttackerCountryList(ActionListener listener) {
@@ -619,7 +612,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * method to add a listener in the combobox of the defender country.
-	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToDefenderCountryList(ActionListener listener) {
@@ -628,7 +620,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * Method for performing action listener on move army button.
-	 *
 	 * @param listener ActionListener
 	 */
 	public void moveArmyButtonListener(ActionListener listener) {
@@ -637,7 +628,6 @@ public class BoardView implements Observer {
 	
 	/**
 	 * Method for performing action listener on attack Button.
-	 *
 	 * @param listener  ActionListener
 	 */
 	public void addActionListenToAttackButton(ActionListener listener) {
@@ -646,7 +636,6 @@ public class BoardView implements Observer {
 	
 	/**
 	 * Method for performing action listener on End attack Button.
-	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToEndAttackButton(ActionListener listener) {
@@ -655,7 +644,6 @@ public class BoardView implements Observer {
 	
 	/**
 	 * Method for performing action listener on End attack Button.
-	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToAllOutButton(ActionListener listener) {
@@ -664,7 +652,6 @@ public class BoardView implements Observer {
 	
 	/**
 	 * Method for performing action listener on move armies after concuring Button.
-	 *
 	 * @param listener ActionListener
 	 */
 	public void addActionListenToMoveButton(ActionListener listener) {
@@ -672,8 +659,7 @@ public class BoardView implements Observer {
 	}
 	
 	/**
-	 * Skip the fortification round.
-	 *
+	 * Skip the fortification round
 	 * @param listener ActionListener
 	 */
 	public void skipFortificationActionListener(ActionListener listener) {
@@ -684,7 +670,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * Static method to get selected source country.
-	 *
 	 * @return selectedCountry
 	 */
 	public static String getSourceCountry() {
@@ -711,7 +696,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * Static method to get selected attacker country.
-	 *
 	 * @return selectedCountry
 	 */
 	public static String getAttackerCountry() {
@@ -736,7 +720,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * Static method to get selected attacker country.
-	 *
 	 * @return selectedCountry
 	 */
 	public  String getDefenderCountry() {
@@ -746,8 +729,7 @@ public class BoardView implements Observer {
 
 
 	/**
-	 * Method is populating value in the destination phase combobox .
-	 *
+	 * Method is populating value in the destination phase combobox.
 	 * @param defenderCountries ArrayList
 	 */	
 	public void combo_fillDefendersCountry(ArrayList<String> defenderCountries){   
@@ -759,8 +741,7 @@ public class BoardView implements Observer {
 	}
 
 	/**
-	 * Method is populating value in the destination phase combobox .
-	 *
+	 * Method is populating value in the destination phase combobox.
 	 * @param destinationCountries ArrayList
 	 */	
 	public void combo_fillDestinationCountry(ArrayList<String> destinationCountries){   
@@ -773,7 +754,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * static method to get the selected item from destination combo.
-	 *
 	 * @return selectedCountry
 	 */
 	public static String getDestinationCountry() {
@@ -790,7 +770,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * Method to add the possible number of the army the player can move.
-	 *
 	 * @param NoOfArmies int
 	 */
 	public void combo_fillArmyToMove(int NoOfArmies){   
@@ -802,7 +781,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * Static method to get number of army the player wants to move.
-	 *
 	 * @return NoOfArmies
 	 */
 	public static Integer combo_getArmyToMove() {
@@ -816,7 +794,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * Method used to populate value in the attacker dice.
-	 *
 	 * @param allowableDices the new attacker dice combo box
 	 */
 	public void setAttackerDiceComboBox(int allowableDices) {
@@ -828,7 +805,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * Static method to get selected attacker dice no.
-	 *
 	 * @return selectedCountry
 	 */
 	public static String getAttackerDiceNo() {
@@ -838,7 +814,6 @@ public class BoardView implements Observer {
 	
 	/**
 	 * Method used to populate value in the defender dice.
-	 *
 	 * @param allowableDices the new defender dice combo box
 	 */
 	public void setDefenderDiceComboBox(int allowableDices) {
@@ -850,7 +825,6 @@ public class BoardView implements Observer {
 	
 	/**
 	 * Static method to get selected defender dice no.
-	 *
 	 * @return selectedCountry
 	 */
 	public static String getDefenderDiceNo() {
@@ -876,7 +850,6 @@ public class BoardView implements Observer {
 	
 	/**
 	 * Method used to populate value in the move.
-	 *
 	 * @param movePossible possible move
 	 */
 	public void setMoveComboBox(int movePossible) {
@@ -888,7 +861,6 @@ public class BoardView implements Observer {
 	
 	/**
 	 * Static method to get selected move possible.
-	 *
 	 * @return selectedCountry
 	 */
 	public  String getMoveComboBox() {
@@ -899,7 +871,6 @@ public class BoardView implements Observer {
 
 	/**
 	 * get the frame to control the card conditions.
-	 *
 	 * @return frameGameWindow jframe for the card window
 	 */
 	public JFrame getFrameGameWindow() {

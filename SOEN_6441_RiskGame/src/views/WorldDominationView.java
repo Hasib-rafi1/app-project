@@ -21,8 +21,8 @@ import model.Player;
  * (1) The percentage of the map controlled by every player 
  * (2) The continents controlled by every player
  * (3) The total number of armies owned by every player.
- * @author Gargi Sharma
  * 
+ * @author Gargi Sharma
  * @version 1.0.0
  */
 public class WorldDominationView implements Observer{
@@ -40,7 +40,7 @@ public class WorldDominationView implements Observer{
 	private static Game gameGlobal;
 
 	/**
-	 * Creates the jframe for world domination view.	 *
+	 * Creates the jFrame for world domination view.	 *
 	 * @param rowData the row data
 	 * @param playerNamesInTableColumns the player names in table columns
 	 */
@@ -64,14 +64,10 @@ public class WorldDominationView implements Observer{
 		table = new JTable(rowData, playerNamesInTableColumns);
 		table.setEnabled(false);
 		table.getTableHeader().setBackground(Color.orange);
-
 		rowHeader = new JList(lm);
 		rowHeader.setFixedCellWidth(150);
-		rowHeader.setFixedCellHeight(table.getRowHeight()
-				+ table.getRowMargin());
-
+		rowHeader.setFixedCellHeight(table.getRowHeight() + table.getRowMargin());
 		rowHeader.setCellRenderer(new JTableRowNameDominationView(table));
-
 		scroll = new JScrollPane( table );
 		scroll.setRowHeaderView(rowHeader);
 		frameWindowForWorldDominationView.getContentPane().add(scroll, BorderLayout.CENTER);
@@ -90,7 +86,11 @@ public class WorldDominationView implements Observer{
 		});
 	}
 
-
+	/**
+	 * updates the values of the cells
+	 * @param rowData
+	 * @param playerNamesInTableColumns
+	 */
 	public static void updateWindow(String[][] rowData, String[] playerNamesInTableColumns) {
 		frameWindowForWorldDominationView.getContentPane().removeAll();
 		frameWindowForWorldDominationView.repaint();
@@ -137,6 +137,11 @@ public class WorldDominationView implements Observer{
 
 	}
 
+	/**
+	 * Observer update function
+	 * @param arg0 the arg 0
+	 * @param arg1 the arg 1
+	 */
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -207,13 +212,9 @@ public class WorldDominationView implements Observer{
 		for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
 			dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
 		}
-		//		table = new JTable(dataInTableRows, playerNamesInTableColumns);
-		////		rowHeader.setCellRenderer(new JTableRowNameDominationView(table));
-		//		scroll = new JScrollPane( table );
 		if(game.dominationViewOn) {
 			updateWindow(dataInTableRows,playerNamesInTableColumns);
 		}
-
 
 	}
 }
