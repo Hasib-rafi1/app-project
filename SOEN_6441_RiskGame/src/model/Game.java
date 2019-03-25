@@ -71,6 +71,7 @@ public class Game extends Observable {
 	
 	public boolean dominationViewOn = false;
 
+	CardView cv = new CardView(this);
 	/**
 	 * Instantiates a new game.
 	 * @param map the map
@@ -98,6 +99,7 @@ public class Game extends Observable {
 	 * It randomly assigns the countries to the players. 
 	 */
 	public void startGame() {
+		this.addObserver(cv);
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
@@ -109,7 +111,7 @@ public class Game extends Observable {
 			gamePhaseDetails.add("Player's Color"+playerList.get(i).getColor());
 			
 		}
-
+		
 		int players_count = playerList.size();
 		System.out.println("Player Count:"+players_count);
 		int countries_count = mapModel.getCountryList().size();
@@ -260,7 +262,7 @@ public class Game extends Observable {
 		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
 		if(player.getCards().size()>2) {
-			CardView cv = new CardView(this);
+			
 			cv.Exchange();
 			this.getBoardView().getFrameGameWindow().setEnabled(false);
 		}

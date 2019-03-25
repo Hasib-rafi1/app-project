@@ -448,7 +448,7 @@ public class GameController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int temp_forNumberOfCardsPlayerHolds=(game.getCurrentPlayer().getCards()).size();
-				if(temp_forNumberOfCardsPlayerHolds>5) {
+				if(temp_forNumberOfCardsPlayerHolds>4) {
 					JOptionPane.showMessageDialog(null, "Cannot skip Exchange. Perform the Exchange operation!");
 				}else {
 					boardView.getFrameGameWindow().setEnabled(true);

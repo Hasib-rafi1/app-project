@@ -26,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+
 import model.Game;
 import helper.Card;
 import helper.PrintConsoleAndUserInput;
@@ -41,7 +42,7 @@ import helper.PrintConsoleAndUserInput;
  */
 
 
-public  class CardView{
+public  class CardView implements Observer{
 	
 	/** The frame card exchange. */
 	public static JFrame frame_cardExchange = null;
@@ -156,4 +157,34 @@ public  class CardView{
 	public static void closeTheWindow() {
 		frame_cardExchange.dispose();
 	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		Game game = ((Game)o);
+	}
+	
+	public void updateCardView(Game game) {
+
+		if (game.getCurrentPlayer() != null && lab_totalNewArmies != null) {
+			lab_totalNewArmies.setText("" + game.getCurrentPlayer().getNumberOfReinforcedArmies());
+			ArrayList<Card> typeOfCards = game.getCurrentPlayer().getCards();
+			String cards[] = new String[typeOfCards.size()];
+			for (int i = 0; i < typeOfCards.size(); i++) {
+				cards[i] = typeOfCards.get(i).toString();
+			}
+			lab_cardExchange.remove(list_cardsOwnedByThePlayer);
+			list_cardsOwnedByThePlayer = null;
+			list_cardsOwnedByThePlayer = new JList<>(cards);
+			list_cardsOwnedByThePlayer.setBorder(new TitledBorder("Cards Owned"));
+			list_cardsOwnedByThePlayer.setBounds(310, 45, 250, 70);
+			lab_cardExchange.add(list_cardsOwnedByThePlayer);	
+			frame_cardExchange.revalidate();
+			frame_cardExchange.repaint();
+
+		
+		}
+
+	}
+	
 }
