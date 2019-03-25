@@ -8,6 +8,7 @@ import helper.Colors;
 // TODO: Auto-generated Javadoc
 /**
  * Test class that tests the methods in CountryViewModel class in model package.
+ * 
  * @author naren
  */
 public class CountryViewModelTest {
@@ -20,7 +21,6 @@ public class CountryViewModelTest {
 
 	/**
 	 * Initializing objects and values for the test cases.
-	 *
 	 * @throws Exception if it is not setting the values at the starting
 	 */
 

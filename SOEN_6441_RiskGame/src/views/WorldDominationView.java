@@ -15,6 +15,7 @@ import helper.JTableRowNameDominationView;
  * (2) The continents controlled by every player
  * (3) The total number of armies owned by every player.
  * @author Gargi Sharma
+ * 
  * @version 1.0.0
  */
 public class WorldDominationView {

@@ -9,7 +9,8 @@ import helper.PrintConsoleAndUserInput;
 
 // TODO: Auto-generated Javadoc
 /**
- * This test Class is dealing with the game model class. It will check the game play by executing the game automatically . 
+ * This test Class deals with the game model class. It will check the game play by executing the game automatically .
+ *  
  * @author Hasibul Huq
  *
  */
