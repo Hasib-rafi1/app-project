@@ -13,7 +13,9 @@ package helper;
 public enum Card {
 
     /** The Infantry. */
-    Infantry, /** The Cavalry. */
- Cavalry, /** The Artillery. */
- Artillery
+    Infantry,
+    /** The Cavalry. */
+    Cavalry,
+    /** The Artillery. */
+    Artillery
 }
