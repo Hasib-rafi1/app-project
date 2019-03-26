@@ -193,7 +193,7 @@ public class WorldDominationView implements Observer{
 		for (Map.Entry<Integer, Integer> entry : armiesMap.entrySet()) {
 			int value = entry.getValue();
 			numberOfArmies[i] = value;
-			System.out.println("######"+value);
+//			System.out.println("######"+value);
 			i++;
 		}
 

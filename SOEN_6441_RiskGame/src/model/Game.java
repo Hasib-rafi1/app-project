@@ -971,12 +971,12 @@ public class Game extends Observable {
 
 		for (Player player : this.playerList) {
 			int numberOfContinents = player.getConquerdContinents().size();
-			System.out.println(numberOfContinents);
+//			System.out.println(numberOfContinents);
 			for (Continent continentName: player.getConquerdContinents()) {
 				nameOfTheContinent.add(continentName.getContinentName());
 				numberAndName = "(" + numberOfContinents + "): "+nameOfTheContinent;
 			}
-			print.consoleErr(numberAndName);
+//			print.consoleErr(numberAndName);
 			continentsOfPlayer.put(player.getPlayerId(), numberAndName);
 			numberAndName="";
 			nameOfTheContinent.clear();
