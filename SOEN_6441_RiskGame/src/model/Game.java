@@ -939,7 +939,6 @@ public class Game extends Observable {
 		for (Continent continent : allContinents) {
 			ArrayList<Country> country = continent.getCountryList();
 			totalNumberOfCountries = totalNumberOfCountries + country.size();
-			//System.out.println(totalNumberOfCountries+"====="+country.size());
 		}
 
 		// store the percentage in a hashmap with the player id.
