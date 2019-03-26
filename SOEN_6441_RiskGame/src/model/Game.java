@@ -65,12 +65,13 @@ public class Game extends Observable {
 
 	/** The game phase details. */
 	private ArrayList<String> gamePhaseDetails = new ArrayList<>();
-	
+
 	/** The exchange number. */
-	private Integer exchangeNumber= 5;
+	private Integer armiesAfterExchange= 5;
 	
 	public boolean dominationViewOn = false;
 
+	CardView cardview = new CardView(this);
 	/**
 	 * Instantiates a new game.
 	 * @param map the map
@@ -98,6 +99,7 @@ public class Game extends Observable {
 	 * It randomly assigns the countries to the players. 
 	 */
 	public void startGame() {
+		this.addObserver(cardview);
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
@@ -109,7 +111,7 @@ public class Game extends Observable {
 			gamePhaseDetails.add("Player's Color"+playerList.get(i).getColor());
 			
 		}
-
+		
 		int players_count = playerList.size();
 		System.out.println("Player Count:"+players_count);
 		int countries_count = mapModel.getCountryList().size();
@@ -260,8 +262,8 @@ public class Game extends Observable {
 		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
 		if(player.getCards().size()>2) {
-			CardView cv = new CardView(this);
-			cv.Exchange();
+			
+			cardview.Exchange();
 			this.getBoardView().getFrameGameWindow().setEnabled(false);
 		}
 		gamePhaseDetails.add("card:"+player.getCards().size());
@@ -575,8 +577,8 @@ public class Game extends Observable {
 				getCurrentPlayer().getCards().remove(firstCard);
 				getCurrentPlayer().getCards().remove(secondCard);
 				getCurrentPlayer().getCards().remove(thirdCard);
-				getCurrentPlayer().setInitialArmiesafterExchange(exchangeNumber);
-				exchangeNumber= exchangeNumber+5;
+				getCurrentPlayer().setInitialArmiesafterExchange(armiesAfterExchange);
+				armiesAfterExchange= armiesAfterExchange+5;
 				addRiskCardToDeck(firstCard);
 				addRiskCardToDeck(secondCard);
 				addRiskCardToDeck(thirdCard);
@@ -1056,5 +1058,23 @@ public class Game extends Observable {
 	public void updateReinforcementValue() {
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
+	}
+	
+	public boolean isAttackerDefenderValid(Country attCountry,Country  defCountry,int defendergDiceCount) {
+		if (attCountry == null || defCountry == null) {
+			return false;
+		}
+
+		if (defCountry.getnoOfArmies() < defendergDiceCount) {
+			gamePhaseDetails.add("Defender doesn't have sufficiant armies");
+			return false;
+		}
+		Player defenderPlayer = playerList.stream().filter(p -> p.getPlayerId()==defCountry.getPlayerId())
+				.findAny().orElse(null);
+
+		if (defenderPlayer == null) {
+			return false;
+		}
+		return true;
 	}
 }
