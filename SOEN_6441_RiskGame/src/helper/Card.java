@@ -3,9 +3,7 @@ package helper;
 // TODO: Auto-generated Javadoc
 /**
  * The Enum Card.
- */
-/*
- * This class has cards a player can possibly own
+ * This class has cards a player can possibly own.√
  * 
  * @author Jaiganesh
  * @version 1.0.0
