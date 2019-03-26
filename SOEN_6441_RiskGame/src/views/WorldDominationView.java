@@ -86,10 +86,11 @@ public class WorldDominationView implements Observer{
 		});
 	}
 
+
 	/**
-	 * updates the values of the cells
-	 * @param rowData
-	 * @param playerNamesInTableColumns
+	 * This methodis used to update the values of the column cells
+	 * @param rowData data displayed in columns
+	 * @param playerNamesInTableColumns Player names in columns
 	 */
 	public static void updateWindow(String[][] rowData, String[] playerNamesInTableColumns) {
 		frameWindowForWorldDominationView.getContentPane().removeAll();
@@ -137,12 +138,11 @@ public class WorldDominationView implements Observer{
 
 	}
 
-	/**
-	 * Observer update function
-	 * @param arg0 the arg 0
-	 * @param arg1 the arg 1
-	 */
+	
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		Game game = ((Game)o);

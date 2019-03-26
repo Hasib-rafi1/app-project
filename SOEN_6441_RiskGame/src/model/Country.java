@@ -225,9 +225,10 @@ public class Country {
 		return armyNumbers;
 	}
 	
+
 	/**
-	 * This method is used to get number of armies.
-	 * @return armyNumbers number of armies
+	 * This method is used to set number of armies.
+	 * @param armies Number of armies
 	 */
 	public void setnoOfArmies(int armies) {
 		 armyNumbers= armies;
