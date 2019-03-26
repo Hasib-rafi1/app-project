@@ -65,9 +65,9 @@ public class Game extends Observable {
 
 	/** The game phase details. */
 	private ArrayList<String> gamePhaseDetails = new ArrayList<>();
-	
+
 	/** The exchange number. */
-	private Integer exchangeNumber= 5;
+	private Integer armiesAfterExchange= 5;
 	
 	public boolean dominationViewOn = false;
 
@@ -577,8 +577,8 @@ public class Game extends Observable {
 				getCurrentPlayer().getCards().remove(firstCard);
 				getCurrentPlayer().getCards().remove(secondCard);
 				getCurrentPlayer().getCards().remove(thirdCard);
-				getCurrentPlayer().setInitialArmiesafterExchange(exchangeNumber);
-				exchangeNumber= exchangeNumber+5;
+				getCurrentPlayer().setInitialArmiesafterExchange(armiesAfterExchange);
+				armiesAfterExchange= armiesAfterExchange+5;
 				addRiskCardToDeck(firstCard);
 				addRiskCardToDeck(secondCard);
 				addRiskCardToDeck(thirdCard);
