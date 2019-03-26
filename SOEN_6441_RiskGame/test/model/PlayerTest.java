@@ -44,6 +44,10 @@ public class PlayerTest {
 	
 	/** The player 5. */
 	Player player5;
+
+	/* The Country Object*/
+	Country country1, country2;
+
 	
 	/** The id. */
 	int id =0;
@@ -59,8 +63,10 @@ public class PlayerTest {
 		obj_playertest.setColor(Colors.RED);
 		obj_playertest.setNumberOfInitialArmies(5);
 		obj_playertest.setNumberOfReinforcedArmies(3);
-		
-		
+		country1 = new Country(1,"India");
+		country2 = new Country(2,"China");
+		country1.setnoOfArmies(3);
+		country2.setnoOfArmies(2);
 		mapModel = new MapModel();
 //		mapModel.readMapFile("src/mapFiles/World.map");
 		mapModel.readMapFile(PrintConsoleAndUserInput.getMapDir()+"World.map");
@@ -173,6 +179,11 @@ public class PlayerTest {
 	public void testDecreaseNumberOfReinforcedArmies() {
 		obj_playertest.decreaseReinforcementArmy();
 		System.out.println("Decrease Reinforced Army:"+obj_playertest.getNumberOfReinforcedArmies());
+	}
+	@Test
+	public void testCheckFortificationCondition(){
+		assertTrue(obj_playertest.checkFortificationCondition(country1,country2,country2.getnoOfArmies()));
+
 	}
 
 	/**
