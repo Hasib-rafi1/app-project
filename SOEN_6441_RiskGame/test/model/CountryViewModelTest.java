@@ -23,7 +23,6 @@ public class CountryViewModelTest {
 	 * Initializing objects and values for the test cases.
 	 * @throws Exception if it is not setting the values at the starting
 	 */
-
 	@Before
 	public void setUp() throws Exception{
 		obj_CVM.setCountryId(1);
@@ -42,7 +41,6 @@ public class CountryViewModelTest {
 	/**
 	 * test method to check if it returns correct country id.
 	 */
-
 	@Test
 	public void testGetCountryId() {
 		assertEquals(1,obj_CVM.getCountryId());
@@ -51,7 +49,6 @@ public class CountryViewModelTest {
 	/**
 	 * test method to check if it returns correct country name.
 	 */
-
 	@Test
 	public void testGetCountryName() {
 		assertEquals("Canada",obj_CVM.getCountryName());
@@ -87,7 +84,6 @@ public class CountryViewModelTest {
 	/**
 	 * method that tests if it returns the correct value for the color of the country.
 	 */
-
 	@Test
 	public void testGetColorOfCountry() {
 		assertEquals(Colors.GREEN,obj_CVM.getColorOfCountry());
@@ -105,8 +101,6 @@ public class CountryViewModelTest {
 	/**
 	 * method that tests if it fetches the neighbours from the list.
 	 */
-
-
 	@Test
 	public void testGetNeighbours() {
 		for(String s:neighbours) 

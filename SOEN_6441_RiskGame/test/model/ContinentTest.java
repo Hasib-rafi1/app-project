@@ -17,10 +17,10 @@ public class ContinentTest {
 	/** Declaring objects. */
 	private ArrayList<Country> countriesOfTheContinent= new ArrayList<>();
 	
-	/** The obj continent. */
+	/** Continent class object. */
 	Continent obj_continent;
 	
-	/** The obj country. */
+	/** Country class object. */
 	Country obj_country;
 
 
@@ -47,7 +47,6 @@ public class ContinentTest {
 	/**
 	 * test method to check if it returns correct continent Name.
 	 */
-
 	@Test
 	public void testGetContinentName() {
 		assertEquals("Asia",obj_continent.getContinentName());
@@ -57,20 +56,15 @@ public class ContinentTest {
 	/**
 	 * test method to check if it returns correct control value for the continent.
 	 */
-
 	@Test
 	public void testGetControlValue() {
-
-
 		assertEquals(3,obj_continent.getControlValue());
 
 	}
 
-
 	/**
 	 * test method to check whether the country is being added to the continent.
 	 */
-
 	@Test
 	public void testGetCountryList() {
 
@@ -78,8 +72,5 @@ public class ContinentTest {
 		countriesOfTheContinent = obj_continent.getCountryList();
 		assertEquals(countriesOfTheContinent,obj_continent.getCountryList());
 	}
-
-
-
 
 }

@@ -48,7 +48,6 @@ public class MapControllerTest {
 		System.out.println("\nEnding the test case");
 	}
 
-
 	/**
 	 *  This function is going to test the map files from the directory.
 	 */

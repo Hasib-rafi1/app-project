@@ -227,11 +227,8 @@ public class BoardView implements Observer {
 		}
 		if(lab_playersTurn != null){
 			lab_playersTurn.setText(activePlayerName);
-
-
 			lab_playersTurn.setForeground(PrintConsoleAndUserInput.getColor(activePlayerColor));
 			lab_armiesLeft.setText(activePlayerUnassignedArmiesCount);
-
 			lab_unassignedReinforcement.setText(reinforcementUnassignedArmiesCount);
 
 			if (game.getGamePhase() == GamePhase.Startup) {
@@ -247,17 +244,13 @@ public class BoardView implements Observer {
 				 
 			} else if (game.getGamePhase() == GamePhase.Attack) {
 				lab_nameofPhase.setText("Attack Phase");
-				lab_nameofPhase.setForeground(Color.BLUE);
-				
-				lab_attack.setVisible(true); lab_fortification.setVisible(false);
-				 
+				lab_nameofPhase.setForeground(Color.BLUE);	
+				lab_attack.setVisible(true); lab_fortification.setVisible(false); 
 				combo_attackerCountry();
 			} else if (game.getGamePhase() == GamePhase.Fortification) {
 				lab_nameofPhase.setText("Fortification");
-				lab_nameofPhase.setForeground(Color.MAGENTA);
-				
-				lab_attack.setVisible(false); lab_fortification.setVisible(true);
-				 
+				lab_nameofPhase.setForeground(Color.MAGENTA);	
+				lab_attack.setVisible(false); lab_fortification.setVisible(true); 
 				combo_sourceCountry();
 			}
 			component_gamePhaseActions.removeAll();
@@ -404,7 +397,6 @@ public class BoardView implements Observer {
 		lab_initialisation.setBorder(tb);
 		String nm="#6600cc";
 	//	tb.setBorder(new LineBorder(Color.decode(nm)));
-		
 		lab_initialisation.setBounds(lab_gamePhase.getX(), pane_gameScrollPhaseView.getY()+ pane_gameScrollPhaseView.getHeight()+20, 490, 80);
 
 		
@@ -414,7 +406,6 @@ public class BoardView implements Observer {
 		lab_playersTurn.setBorder(new TitledBorder("Active Player Name"));
 //		lab_playersTurn.setBorder(new LineBorder(Color.decode(nm)));
 		lab_playersTurn.setBounds(15, 25, 220, 50);
-
 		lab_armiesLeft = new JLabel("" + activePlayerUnassignedArmiesCount);
 		lab_armiesLeft.setBorder(new TitledBorder("Armies Left"));
 		lab_armiesLeft.setBounds(lab_playersTurn.getX() + 240,
@@ -443,7 +434,6 @@ public class BoardView implements Observer {
 		lab_reinforcement.setBounds(lab_initialisation.getX(),
 				lab_initialisation.getY() +20 + lab_initialisation.getHeight(), lab_initialisation.getWidth(),
 				80);
-
 		lab_unassignedReinforcement = new JLabel(reinforcementUnassignedArmiesCount);
 		lab_unassignedReinforcement.setBorder(new TitledBorder("Reinforced Unit"));
 		lab_unassignedReinforcement.setBounds(15,25, 460,50);
@@ -471,7 +461,6 @@ public class BoardView implements Observer {
 	  combo_attackerCountry.setBorder(new
 	  TitledBorder("Attack From"));
 	  combo_attackerCountry.setBounds(15, 15, 220,50);
-	  
 	  
 	  combo_defenderCountry = new JComboBox();
 	  combo_defenderCountry.setBorder(new TitledBorder("Attack To"));
@@ -691,8 +680,6 @@ public class BoardView implements Observer {
 		}
 
 	}
-
-
 
 	/**
 	 * Static method to get selected attacker country.

@@ -41,7 +41,6 @@ import helper.PrintConsoleAndUserInput;
  * @version 1.0.0
  */
 
-
 public  class CardView implements Observer{
 	
 	/** The frame card exchange. */
@@ -128,9 +127,7 @@ public  class CardView implements Observer{
 		frame_cardExchange.setVisible(true);
 		//default close button to not work
 		frame_cardExchange.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
-		
-		
+				
 	}
 
 	/**
@@ -144,7 +141,6 @@ public  class CardView implements Observer{
 	
 	/**
 	 * Exit action listener.
-	 *
 	 * @param listener the listener
 	 */
 	public static void exit_actionListener(ActionListener listener) {
