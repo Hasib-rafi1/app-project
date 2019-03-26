@@ -10,24 +10,24 @@ package helper;
 
 public enum Colors {
 	
-	/** The red. */
-	RED, 
- /** The pink. */
- PINK, 
- /** The white. */
- WHITE, 
- /** The yellow. */
- YELLOW, 
- /** The green. */
- GREEN, 
- /** The blue. */
- BLUE, 
- /** The magenta. */
- MAGENTA, 
- /** The black. */
- BLACK, 
- /** The orange. */
- ORANGE;
+    /** The red. */
+	RED,
+    /** The pink. */
+    PINK,
+    /** The white. */
+    WHITE,
+    /** The yellow. */
+    YELLOW,
+    /** The green. */
+    GREEN,
+    /** The blue. */
+    BLUE,
+    /** The magenta. */
+    MAGENTA,
+    /** The black. */
+    BLACK,
+    /** The orange. */
+    ORANGE
 }
 
 

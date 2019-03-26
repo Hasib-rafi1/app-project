@@ -315,7 +315,7 @@ public class Game extends Observable {
 	/**
 	 * This method returns the neighboring connected countries of a specific country.
 	 * @param source source countries
-	 * @return finalCOuntries countries
+	 * @return finalCountries countries
 	 */
 	public ArrayList<String> getNeighbouringCountries(String source) {
 
@@ -939,7 +939,6 @@ public class Game extends Observable {
 		for (Continent continent : allContinents) {
 			ArrayList<Country> country = continent.getCountryList();
 			totalNumberOfCountries = totalNumberOfCountries + country.size();
-			//System.out.println(totalNumberOfCountries+"====="+country.size());
 		}
 
 		// store the percentage in a hashmap with the player id.

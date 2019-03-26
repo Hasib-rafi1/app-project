@@ -31,7 +31,6 @@ public class MapController {
 	MapView mapView = new MapView();
 
 	/** The map model. */
-	//	MapModel mapModel = new MapModel();
 	MapModel mapModel ;
 
 	/** The maincontroller. */
@@ -83,6 +82,7 @@ public class MapController {
 
 	/**
 	 * This method is used to create the user map and save it in directory.
+	 *
 	 */
 	public void createAndSaveUserMap() {
 		mapModel = new MapModel();//----refresh----
@@ -125,6 +125,8 @@ public class MapController {
 
 	/**
 	 * This method is used to edit the map.
+	 *
+	 * @version 1.0.0
 	 */
 	public void editExistingMapFile() {
 		
@@ -248,6 +250,7 @@ public class MapController {
 
 	/**
 	 * This method is used to get The ContinentList form the map file.
+	 *
 	 * @return the list of all map file
 	 */
 	public ArrayList<Continent> getContinentList() {
@@ -255,5 +258,4 @@ public class MapController {
 	}
 
 }
-
 

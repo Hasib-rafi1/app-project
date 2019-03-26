@@ -26,8 +26,6 @@ import model.Player;
  * @version 1.0.0
  */
 public class WorldDominationView implements Observer{
-	/** The print. */
-	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 
 	/** The panel window for world domination view. */
 	public static JPanel panelWindowForWorldDominationView;
@@ -40,7 +38,7 @@ public class WorldDominationView implements Observer{
 	private static Game gameGlobal;
 
 	/**
-	 * Creates the jFrame for world domination view.	 *
+	 * Creates the jFrame for world domination view.	 
 	 * @param rowData the row data
 	 * @param playerNamesInTableColumns the player names in table columns
 	 */
@@ -88,7 +86,7 @@ public class WorldDominationView implements Observer{
 
 
 	/**
-	 * This methodis used to update the values of the column cells
+	 * This method is used to update the values of the column cells
 	 * @param rowData data displayed in columns
 	 * @param playerNamesInTableColumns Player names in columns
 	 */
@@ -138,6 +136,8 @@ public class WorldDominationView implements Observer{
 
 	}
 
+	
+
 	/* (non-Javadoc)
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
@@ -172,7 +172,6 @@ public class WorldDominationView implements Observer{
 		HashMap<Integer,Float> findPercentageOfMap =  game.getPercentageOfMapControlledByEveryPlayer();
 		int z=0;
 		for (Map.Entry<Integer, Float> entry : findPercentageOfMap.entrySet()) {
-			//   System.out.println(entry.getKey()+" : "+entry.getValue());
 			float value = entry.getValue();
 			mapPercentage[z] = value;
 			z++;
@@ -216,3 +215,4 @@ public class WorldDominationView implements Observer{
 
 	}
 }
+
