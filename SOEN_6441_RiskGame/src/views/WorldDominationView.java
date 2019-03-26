@@ -26,9 +26,7 @@ import model.Player;
  * @version 1.0.0
  */
 public class WorldDominationView implements Observer{
-	/** The print. */
-	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
-
+	
 	/** The panel window for world domination view. */
 	public static JPanel panelWindowForWorldDominationView;
 
@@ -40,7 +38,7 @@ public class WorldDominationView implements Observer{
 	private static Game gameGlobal;
 
 	/**
-	 * Creates the jFrame for world domination view.	 *
+	 * Creates the jFrame for world domination view.	 
 	 * @param rowData the row data
 	 * @param playerNamesInTableColumns the player names in table columns
 	 */

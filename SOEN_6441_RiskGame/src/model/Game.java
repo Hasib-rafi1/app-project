@@ -315,7 +315,7 @@ public class Game extends Observable {
 	/**
 	 * This method returns the neighboring connected countries of a specific country.
 	 * @param source source countries
-	 * @return finalCOuntries countries
+	 * @return finalCountries countries
 	 */
 	public ArrayList<String> getNeighbouringCountries(String source) {
 
