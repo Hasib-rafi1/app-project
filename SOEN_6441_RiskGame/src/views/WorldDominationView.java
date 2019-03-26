@@ -26,7 +26,7 @@ import model.Player;
  * @version 1.0.0
  */
 public class WorldDominationView implements Observer{
-	
+
 	/** The panel window for world domination view. */
 	public static JPanel panelWindowForWorldDominationView;
 
@@ -172,7 +172,6 @@ public class WorldDominationView implements Observer{
 		HashMap<Integer,Float> findPercentageOfMap =  game.getPercentageOfMapControlledByEveryPlayer();
 		int z=0;
 		for (Map.Entry<Integer, Float> entry : findPercentageOfMap.entrySet()) {
-			//   System.out.println(entry.getKey()+" : "+entry.getValue());
 			float value = entry.getValue();
 			mapPercentage[z] = value;
 			z++;
