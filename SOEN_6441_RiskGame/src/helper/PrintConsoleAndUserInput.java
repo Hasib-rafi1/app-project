@@ -7,6 +7,7 @@ import java.util.Scanner;
 // TODO: Auto-generated Javadoc
 /**
  * This class is used to take the input from from the console.
+ * 
  * @author Zakiya Jafrin
  * @version 1.0.0
  */
@@ -35,7 +36,6 @@ public class PrintConsoleAndUserInput {
 
 	/**
 	 *  This method is used to show the error in console.
-	 *
 	 * @param error the error
 	 */
 	public void consoleErr(String error){
@@ -71,7 +71,6 @@ public class PrintConsoleAndUserInput {
 
 	/**
 	 * This method is used to print and handle Exceptions.
-	 *
 	 * @param exception the exception
 	 */
 	public static void printException(Exception exception) {
@@ -83,7 +82,6 @@ public class PrintConsoleAndUserInput {
 
 	/**
 	 * Method to convert the enum color into color object of swings.
-	 *
 	 * @param selectedColor the selected color
 	 * @return Color based on the objects
 	 */
@@ -113,7 +111,6 @@ public class PrintConsoleAndUserInput {
 
 	/**
 	 * Listof mapsin directory.
-	 *
 	 * @return the array list
 	 */
 	public ArrayList<String> listofMapsinDirectory(){

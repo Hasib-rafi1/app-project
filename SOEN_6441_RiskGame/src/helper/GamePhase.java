@@ -2,7 +2,7 @@ package helper;
 // TODO: Auto-generated Javadoc
 
 /**
- * This enum is containging the phases name of the game.
+ * This enum is containing the phases name of the game.
  *
  * @author Hasibul Huq
  */

@@ -7,19 +7,14 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.*;
-
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-
 import model.Country;
 import model.Game;
 import model.Player;
 import views.BoardView;
 import views.CardView;
 import views.WorldDominationView;
-//import views.WorldDominationView;
 import model.MapModel;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
@@ -30,6 +25,7 @@ import helper.PrintConsoleAndUserInput;
  * Game Controller initializes the game by calling the game model.
  * It controls the view by actively listing to the view elements and performing the respective actions. 
  * Class that achieves the action listener for the user input 
+ * 
  * @author Jaiganesh
  * @version 1.0.0
  */
@@ -54,7 +50,6 @@ public class GameController {
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 
 	/** The userinput. */
-	//	WorldDominationView worldDominationView = new WorldDominationView();
 	Scanner userinput = new Scanner(System.in);
 	
 	/** The att country. */
@@ -163,7 +158,7 @@ public class GameController {
 	 */
 	public void addSourceCountriesListener(){
 		boardView.addActionListenToSourceCountryList(new ActionListener() {
-
+			@Override			
 			public void actionPerformed(ActionEvent  e) {
 				String countryName = boardView.getSourceCountry();
 				System.out.println("Game controller class"+countryName);
@@ -173,19 +168,17 @@ public class GameController {
 					boardView.combo_fillDestinationCountry(neighborCountries);
 					boardView.combo_fillArmyToMove(armyCount);
 				}
-			}
+			}		
 		});
 	}
 
 	/**
-	 * to add listeners on the attacker Country List.
+	 * This method is used to add listeners on the attacker Country List.
 	 */
 	public void addAttackerCountryListener() {
 		boardView.addActionListenToAttackerCountryList(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				String countryName = boardView.getAttackerCountry();
-
 				if (countryName != null) {
 					ArrayList<String> neighborCountries = game.getOthersNeighbouringCountriesOnly(countryName);
 					boardView.combo_fillDefendersCountry(neighborCountries);
@@ -201,10 +194,8 @@ public class GameController {
 	 */
 	public void addDefenderCountryListener() {
 		boardView.addActionListenToDefenderCountryList(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				String countryName = boardView.getDefenderCountry();
-
 				if (countryName != null) {
 					int diceCount = game.getMaximumDices(countryName, "Defender");
 					boardView.setDefenderDiceComboBox(diceCount);
@@ -214,11 +205,10 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the Attack Button.
+	 * This method is used to add listener on the Attack Button.
 	 */
 	public void addAttackButtonListener() {
 		boardView.addActionListenToAttackButton(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				String attackerCountry = boardView.getAttackerCountry();
 				String defenderCountry = boardView.getDefenderCountry();
@@ -245,11 +235,10 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the END Attack Button.
+	 * This method is used to add listener on the END Attack Button.
 	 */
 	public void addEndAttackButtonListener() {
 		boardView.addActionListenToEndAttackButton(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				if (game.getGamePhase() == GamePhase.Attack) {
 					game.updateGame();
@@ -259,11 +248,10 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the END Attack Button.
+	 * This method is used to add listener on the END Attack Button.
 	 */
 	public void addAllOutButtonListener() {
 		boardView.addActionListenToAllOutButton(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				if (game.getGamePhase() == GamePhase.Attack) {
 					String attackerCountry = boardView.getAttackerCountry();
@@ -285,20 +273,17 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the move army Button.
+	 * This method is used to add listener on the move army Button.
 	 */
 	public void addAttackMoveArmyButtonListener() {
 		boardView.addActionListenToMoveButton(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				if (game.getGamePhase() == GamePhase.Attack) {
-
 					Integer attackerMoveArmies = Integer.parseInt(boardView.getMoveComboBox());
 					game.moveArmies(attCountry,defCountry,attackerMoveArmies);
 					attCountry = null;
 					defCountry = null;
 					boardView.setVisibalityOfMoveAfterMove();
-
 				}
 			}
 		});
@@ -391,8 +376,6 @@ public class GameController {
 				}
 
 				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
-
-
 			}
 		});
 	}
@@ -402,35 +385,34 @@ public class GameController {
 	 */
 	public void addSkipButtonListener() {
 		boardView.skipFortificationActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.print("A");
 				if(game.getGamePhase()==GamePhase.Fortification) {
 					game.skipFortification();
-
 				}
 			}
-
 		});
 	}
 	
 	/**
-	 * Exchange button listener.
+	 * This function is used to exchange button listener.
 	 */
 	public void exchangeButtonListener() {
 		CardView.exchange_actionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (CardView.list_cardsOwnedByThePlayer.getSelectedValuesList() != null &&  CardView.list_cardsOwnedByThePlayer.getSelectedValuesList().size() > 0) {
+					// This list holds the cards selected by the user
 					ArrayList<String> selectedCards = (ArrayList<String>) CardView.list_cardsOwnedByThePlayer.getSelectedValuesList();
-					// this arraylist holds the cards selected by the user
+					
 					boolean success = game.exchangeRiskCards(selectedCards);
 					if(success) {
 						CardView.closeTheWindow();
 						boardView.getFrameGameWindow().setEnabled(true);
-						game.updateReinforcementValue();
-						
+						game.updateReinforcementValue();						
+					}else {
+						// Nothing implemented
 					}
 				}
 			}
@@ -441,13 +423,11 @@ public class GameController {
 	 * This function is going to close/skip if number of card is less than 5.
 	 */
 	public void skipExchangeListener() {
-
 		CardView.exit_actionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int temp_forNumberOfCardsPlayerHolds=(game.getCurrentPlayer().getCards()).size();
-				if(temp_forNumberOfCardsPlayerHolds>5) {
+				int temp_forNumberOfCardsPlayerHolds = (game.getCurrentPlayer().getCards()).size();
+				if(temp_forNumberOfCardsPlayerHolds >= 5) {
 					JOptionPane.showMessageDialog(null, "Cannot skip Exchange. Perform the Exchange operation!");
 				}else {
 					boardView.getFrameGameWindow().setEnabled(true);
@@ -458,7 +438,7 @@ public class GameController {
 	}
 
 	/**
-	 * this function is going to set the boardview in the game model.
+	 * This function is going to set the boardview in the game model.
 	 */
 	public void setBoardView() {
 		game.setBoardView(boardView);

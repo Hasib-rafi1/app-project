@@ -9,7 +9,8 @@ import helper.PrintConsoleAndUserInput;
 
 // TODO: Auto-generated Javadoc
 /**
- * This test Class is dealing with the game model class. It will check the game play by executing the game automatically . 
+ * This test Class deals with the game model class. It will check the game play by executing the game automatically .
+ *  
  * @author Hasibul Huq
  *
  */
@@ -119,6 +120,16 @@ public class GameTest {
 		}else {
 			assertFalse(gameObject.isMapConcured());
 		}
+	}
+	
+	@Test
+	public void checkAttackerDefender() {
+		Country attCountry = gameObject.playerCountry.get(player1).get(0);
+		Country defCountry = gameObject.playerCountry.get(player2).get(0);
+		int defendergDiceCount =1;
+		defCountry.setnoOfArmies(3);
+		boolean result =gameObject.isAttackerDefenderValid(attCountry, defCountry, defendergDiceCount);
+		assertTrue(result);
 	}
 	
 	/**

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 /**
  *
  *This class is used to display the Congratulation message to the player who wins the game.
+ *
  * @author Jaiganesh
  */
 
@@ -26,15 +27,13 @@ public class FinishView {
 	private static JLabel lab_congratulation;
 
 	/**
-	 * Exchange.
-	 *
+	 * UI for printing the winner of the game
 	 * @param playerName the player name
 	 */
 	public void Exchange(String playerName) {
 		frame_congratulation = new JFrame("Congratulations");
 		panel_congratulation = new JPanel();
 		frame_congratulation.setSize(800, 300);
-
 		frame_congratulation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		lab_congratulation = new JLabel("Congratulation! Player "+ playerName + " wins the game");
 		Font font = new Font("Courier", Font.BOLD, 30);

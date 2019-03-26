@@ -21,6 +21,7 @@ import java.util.Observable;
 /**
  * Game model contains the class to create a model for the game. 
  * It is bounded with the Game Controller and the Board View.
+ * 
  * @author Jaiganesh
  * @author Hasibul Huq
  * @author Gargi sharma
@@ -64,15 +65,15 @@ public class Game extends Observable {
 
 	/** The game phase details. */
 	private ArrayList<String> gamePhaseDetails = new ArrayList<>();
-	
+
 	/** The exchange number. */
-	private Integer exchangeNumber= 5;
+	private Integer armiesAfterExchange= 5;
 	
 	public boolean dominationViewOn = false;
 
+	CardView cardview = new CardView(this);
 	/**
 	 * Instantiates a new game.
-	 *
 	 * @param map the map
 	 */
 	//Initializes the map and the game phase of the game.
@@ -98,6 +99,7 @@ public class Game extends Observable {
 	 * It randomly assigns the countries to the players. 
 	 */
 	public void startGame() {
+		this.addObserver(cardview);
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
@@ -109,7 +111,7 @@ public class Game extends Observable {
 			gamePhaseDetails.add("Player's Color"+playerList.get(i).getColor());
 			
 		}
-
+		
 		int players_count = playerList.size();
 		System.out.println("Player Count:"+players_count);
 		int countries_count = mapModel.getCountryList().size();
@@ -260,9 +262,8 @@ public class Game extends Observable {
 		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
 		if(player.getCards().size()>2) {
-			CardView cv = new CardView(this);
-			cv.Exchange();
-			cv.frame_cardExchange.toFront();
+			
+			cardview.Exchange();
 			this.getBoardView().getFrameGameWindow().setEnabled(false);
 		}
 		gamePhaseDetails.add("card:"+player.getCards().size());
@@ -314,7 +315,7 @@ public class Game extends Observable {
 	/**
 	 * This method returns the neighboring connected countries of a specific country.
 	 * @param source source countries
-	 * @return finalCOuntries countries
+	 * @return finalCountries countries
 	 */
 	public ArrayList<String> getNeighbouringCountries(String source) {
 
@@ -370,7 +371,6 @@ public class Game extends Observable {
 
 	/**
 	 * This method recursively explores all the nodes connected to a country and returns the neighboring countries.
-	 *
 	 * @param source source countries
 	 * @param countryList list of countries
 	 *
@@ -577,8 +577,8 @@ public class Game extends Observable {
 				getCurrentPlayer().getCards().remove(firstCard);
 				getCurrentPlayer().getCards().remove(secondCard);
 				getCurrentPlayer().getCards().remove(thirdCard);
-				getCurrentPlayer().setInitialArmiesafterExchange(exchangeNumber);
-				exchangeNumber= exchangeNumber+5;
+				getCurrentPlayer().setInitialArmiesafterExchange(armiesAfterExchange);
+				armiesAfterExchange= armiesAfterExchange+5;
 				addRiskCardToDeck(firstCard);
 				addRiskCardToDeck(secondCard);
 				addRiskCardToDeck(thirdCard);
@@ -596,7 +596,6 @@ public class Game extends Observable {
 
 	/**
 	 * This function is used to get map.
-	 *
 	 * @return mapModel
 	 */
 	public MapModel getMap() {
@@ -606,7 +605,6 @@ public class Game extends Observable {
 
 	/**
 	 *  This is used to set map.
-	 *
 	 * @param map map
 	 */
 	public void setMap(MapModel map) {
@@ -626,7 +624,6 @@ public class Game extends Observable {
 
 	/**
 	 * This is used to set game phase.
-	 *
 	 * @param gamePhase Game phase
 	 */
 	public void setGamePhase(GamePhase gamePhase) {
@@ -766,7 +763,6 @@ public class Game extends Observable {
 
 	/**
 	 * Returns allowable dices for attacking country.
-	 *
 	 * @param countryName the country name
 	 * @return Integer
 	 */
@@ -793,7 +789,6 @@ public class Game extends Observable {
 
 	/**
 	 * Method for  attack phase where attack will handled.
-	 *
 	 * @param attackerCountry the attacker country
 	 * @param defenderCountry the defender country
 	 * @param attackerDiceCount the attacker dice count
@@ -843,7 +838,6 @@ public class Game extends Observable {
 	
 	/**
 	 * Checks if is map concured.
-	 *
 	 * @return true, if is map concured
 	 */
 	public boolean isMapConcured() {
@@ -856,7 +850,6 @@ public class Game extends Observable {
 
 	/**
 	 * method to get countries from the attackers country where number of armies are getter than 1.
-	 *
 	 * @return attackerCountry arraylist of attacker country
 	 */
 	public ArrayList<String> getAttackPossibleCountries() {
@@ -894,7 +887,6 @@ public class Game extends Observable {
 
 	/**
 	 * Method for performing All out attack phase.
-	 *
 	 * @param attackerCountry the attacker country
 	 * @param defenderCountry the defender country
 	 * @return true, if attack phase out
@@ -924,7 +916,6 @@ public class Game extends Observable {
 
 	/**
 	 * move Armies after attack.
-	 *
 	 * @param attackersCountry Attacker country
 	 * @param atteckersNewCountry Attacker new country
 	 * @param attackerMoveArmies Attacker move armies
@@ -940,7 +931,6 @@ public class Game extends Observable {
 
 	/**
 	 * Gets the percentage of map controlled by every player.
-	 *
 	 * @return the percentage of map controlled by every player
 	 */
 	public HashMap<Integer, Float> getPercentageOfMapControlledByEveryPlayer() {
@@ -949,7 +939,6 @@ public class Game extends Observable {
 		for (Continent continent : allContinents) {
 			ArrayList<Country> country = continent.getCountryList();
 			totalNumberOfCountries = totalNumberOfCountries + country.size();
-			//System.out.println(totalNumberOfCountries+"====="+country.size());
 		}
 
 		// store the percentage in a hashmap with the player id.
@@ -997,7 +986,6 @@ public class Game extends Observable {
 
 	/**
 	 * Gets list of players.
-	 *
 	 * @param countriesListOfPlayer Countries list of players
 	 * @return countriesListString Countries list
 	 */
@@ -1013,7 +1001,6 @@ public class Game extends Observable {
 	
 	/**
 	 * This method is used to get the number of armies for each player.
-	 *
 	 * @return numberOfArmies Number of armies
 	 */
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
@@ -1033,7 +1020,6 @@ public class Game extends Observable {
 
 	/**
 	 * Get all the players and countries.
-	 *
 	 * @return playerCountry Player country
 	 */
 	public HashMap<Player, ArrayList<Country>> playerandCountries(){
@@ -1042,7 +1028,6 @@ public class Game extends Observable {
 	
 	/**
 	 * get the board view.
-	 *
 	 * @return boardView
 	 */
 	public BoardView getBoardView() {
@@ -1060,7 +1045,6 @@ public class Game extends Observable {
 
 	/**
 	 * Get the board view of a game.
-	 *
 	 * @param viewOfBoard the board view
 	 */
 	public void setBoardView(BoardView viewOfBoard) {
@@ -1073,5 +1057,23 @@ public class Game extends Observable {
 	public void updateReinforcementValue() {
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
+	}
+	
+	public boolean isAttackerDefenderValid(Country attCountry,Country  defCountry,int defendergDiceCount) {
+		if (attCountry == null || defCountry == null) {
+			return false;
+		}
+
+		if (defCountry.getnoOfArmies() < defendergDiceCount) {
+			gamePhaseDetails.add("Defender doesn't have sufficiant armies");
+			return false;
+		}
+		Player defenderPlayer = playerList.stream().filter(p -> p.getPlayerId()==defCountry.getPlayerId())
+				.findAny().orElse(null);
+
+		if (defenderPlayer == null) {
+			return false;
+		}
+		return true;
 	}
 }

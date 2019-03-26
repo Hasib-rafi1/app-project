@@ -1,10 +1,17 @@
 package model;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.Before;
 import helper.Colors;
+import helper.GamePhase;
+import helper.PrintConsoleAndUserInput;
+
 import org.junit.Test;
 // TODO: Auto-generated Javadoc
+
 
 /**
  * Test class that tests the correctness in values in Player class that'll be used in further operations .
@@ -16,10 +23,33 @@ public class PlayerTest {
 	/** Declaring objects. */
 
 	Player obj_playertest;
+	
+	/** The map model. */
+	MapModel mapModel;
+	
+	/** The game object. */
+	Game gameObject;
+	
+	/** The player 1. */
+	Player player1;
+	
+	/** The player 2. */
+	Player player2;
+	
+	/** The player 3. */
+	Player player3;
+	
+	/** The player 4. */
+	Player player4;
+	
+	/** The player 5. */
+	Player player5;
+	
+	/** The id. */
+	int id =0;
 
 	/**
 	 * Initializing objects and values for the test cases.
-	 *
 	 * @throws Exception if it is not setting the values at the starting
 	 */
 
@@ -29,6 +59,35 @@ public class PlayerTest {
 		obj_playertest.setColor(Colors.RED);
 		obj_playertest.setNumberOfInitialArmies(5);
 		obj_playertest.setNumberOfReinforcedArmies(3);
+		
+		
+		mapModel = new MapModel();
+//		mapModel.readMapFile("src/mapFiles/World.map");
+		mapModel.readMapFile(PrintConsoleAndUserInput.getMapDir()+"World.map");
+		gameObject = new Game(mapModel);
+		player1 = new Player(0,"Jai");
+		player2 = new Player(1,"Gargi");
+		player3 = new Player(2,"Zakia");
+		player4 = new Player(3,"Narendra");
+		player5 = new Player(4,"Rafi");
+		gameObject.addPlayer(player1);
+		gameObject.addPlayer(player2);
+		gameObject.addPlayer(player3);
+		gameObject.addPlayer(player4);
+		gameObject.addPlayer(player5);
+		gameObject.startGame();
+
+		while (gameObject.getGamePhase() == GamePhase.Startup) {
+			// Randomly increase army for the country of player
+			ArrayList<Country> playerCountries = gameObject.getCurrentPlayerCountries();
+
+			gameObject.addingCountryArmy(playerCountries.get(id).getCountryName());
+
+			id++;
+			if(id==8) {
+				id = 0;
+			}
+		}
 
 	}
 
@@ -116,5 +175,39 @@ public class PlayerTest {
 		System.out.println("Decrease Reinforced Army:"+obj_playertest.getNumberOfReinforcedArmies());
 	}
 
+	/**
+	 * This is used to test Move armies after attack
+	 */
+	@Test
+	public void moveArmiesAfterAttackTest()
+	{ Player currentPlayer = gameObject.getCurrentPlayer(); 
+	   ArrayList<String> attackingCountryList = gameObject.getAttackPossibleCountries();
+	    ArrayList<String> attackedCountryList;
+	    Country attackingCountry,defendingCountry;
+	    int attackingCountryArmyCount, defendingCountryArmyCount;
+	    Player defenderPlayer; 
+	    currentPlayer.setIsConqured(true);	    
+  	   for(String attackingCountryName:attackingCountryList)
+	    { attackedCountryList = gameObject.getOthersNeighbouringCountriesOnly(attackingCountryName);
+	      attackingCountry = mapModel.getCountryFromName(attackingCountryName);
+	      attackingCountry.setnoOfArmies(5);
+	      attackingCountryArmyCount = attackingCountry.getnoOfArmies();
+
+	      for(String attackedCountryName : attackedCountryList)
+	      { defenderPlayer = gameObject.getAllPlayers().stream().filter(p -> p.getAssignedListOfCountries().contains(attackedCountryName))
+			.findAny().orElse(null);				    	  
+	    	defendingCountry = mapModel.getCountryFromName(attackedCountryName);
+	    	defendingCountry.setnoOfArmies(1);
+	    	defendingCountryArmyCount = defendingCountry.getnoOfArmies();
+		    defendingCountry.increaseArmyCount(3);
+		    attackingCountry.decreaseArmyCount(3);
+	 	    assertEquals(defendingCountryArmyCount+3, defendingCountry.getnoOfArmies());
+		    assertEquals(attackingCountryArmyCount-3, attackingCountry.getnoOfArmies());	
+	    	break;	    	
+	      }
+	      break;
+	      }	    
+		
+	}
 
 }

@@ -17,6 +17,7 @@ import controller.MapControllerTest;
 /**
  * 
  * @author naren
+ * 
  * This is the Test Suite class
  */
 public class TestSuite {

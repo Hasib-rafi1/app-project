@@ -57,7 +57,6 @@ public class Country {
 
 	/**
 	 * This method is used to get color of country.
-	 *
 	 * @return countryColor, get color of country
 	 */
 	public Colors getCountryColor() {
@@ -66,7 +65,6 @@ public class Country {
 
 	/**
 	 * This method is used to set color of country.
-	 *
 	 * @param countryColor the new country color
 	 */
 	public void setCountryColor(Colors countryColor) {
@@ -81,7 +79,6 @@ public class Country {
 
 	/**
 	 * The Constructor is created to set the all parameters of the country Element.
-	 *
 	 * @param countryId ID of country
 	 * @param countryName name of country
 	 */
@@ -92,7 +89,6 @@ public class Country {
 
 	/**
 	 * The Constructor is created to set the all parameters of the country Element.
-	 *
 	 * @param countryId ID of country
 	 * @param countryName name of country
 	 * @param xCoordinate x coordinates  of country
@@ -107,7 +103,6 @@ public class Country {
 
 	/**
 	 * This method is used to get an integer value of the country which is set as Country ID.
-	 *
 	 * @return the country ID Integer
 	 */
 	public int getCountryId(){
@@ -140,7 +135,6 @@ public class Country {
 
 	/**
 	 * This method is used to get the X-coordinate of the corresponding Country.
-	 *
 	 * @return the integer value of x coordinate
 	 */
 	public int getxCoordinate(){
@@ -150,7 +144,6 @@ public class Country {
 
 	/**
 	 * This method is used to set x coordinates.
-	 *
 	 * @param xCoordinate x coordinates  of country
 	 */
 	public void setxCoordinate(int xCoordinate) {
@@ -159,7 +152,6 @@ public class Country {
 
 	/**
 	 * This method is used to get the Y-coordinate of the corresponding Country.
-	 *
 	 * @return the integer value of y coordinate
 	 */
 	public int getyCoordinate() {
@@ -168,7 +160,6 @@ public class Country {
 
 	/**
 	 * This method is used to set y coordinates.
-	 *
 	 * @param yCoordinate y coordinates  of country
 	 */
 	public void setyCoordinate(int yCoordinate) {
@@ -177,7 +168,6 @@ public class Country {
 
 	/**
 	 * This method is used to get an integer value of the continent which is set as Country ID.
-	 *
 	 * @return the continent ID.
 	 */
 	public int getContinentID() {
@@ -186,7 +176,6 @@ public class Country {
 
 	/**
 	 * This method is used to sets an integer value of the continent which is set as Country ID.
-	 *
 	 * @param continentID the new continent ID
 	 */
 	public void setContinentID(int continentID) {
@@ -195,7 +184,6 @@ public class Country {
 
 	/**
 	 * This method is used to get all the neighbours that a country has as an Array list.
-	 *
 	 * @return arrayList of the neighbouring country
 	 */
 	public ArrayList<Country> getNeighboursOfCountry() {
@@ -204,7 +192,6 @@ public class Country {
 
 	/**
 	 * From the country-neighbour HashMap adds the neighbours to the country individually.
-	 *
 	 * @param neighbour the neighbour
 	 */
 	public void addNeighboursToTheCountries(Country neighbour){
@@ -213,7 +200,6 @@ public class Country {
 
 	/**
 	 * This method is used to get the list of neighbour Strings.
-	 *
 	 * @return neighboursString
 	 */
 	public ArrayList<String> getNeighboursString() {
@@ -222,7 +208,6 @@ public class Country {
 
 	/**
 	 * This method is used to add name for neighbour string.
-	 *
 	 * @param newNeighbour the new neighbour
 	 */
 	public void addNeighborString(String newNeighbour) {
@@ -231,24 +216,22 @@ public class Country {
 		}
 	}
 	
-	
-	
-
-	/*public void addNeighborString(String newNeighbour) {
-		if (this.neighboursString.contains(newNeighbour)) {
-			// Nothing implemented
-		} else {
-			this.neighboursString.add(newNeighbour);
-		}
-	}*/
 
 	/**
 	 * This method is used to get number of armies.
-	 *
 	 * @return armyNumbers number of armies
 	 */
 	public int getnoOfArmies() {
 		return armyNumbers;
+	}
+	
+
+	/**
+	 * This method is used to set number of armies.
+	 * @param armies Number of armies
+	 */
+	public void setnoOfArmies(int armies) {
+		 armyNumbers= armies;
 	}
 
 	/**

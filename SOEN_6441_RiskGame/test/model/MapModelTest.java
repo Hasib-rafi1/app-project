@@ -12,6 +12,9 @@ import static org.junit.Assert.*;
 // TODO: Auto-generated Javadoc
 /**
  * The Class MapModelTest.
+ * 
+ * @author Zakiya Zafrin
+ * @author Gargi Sharma
  */
 public class MapModelTest {
    
@@ -32,7 +35,6 @@ public class MapModelTest {
 
     /**
      * Sets the up.
-     *
      * @throws Exception the exception
      */
     @Before
@@ -82,7 +84,6 @@ public class MapModelTest {
 
     /**
      * This method runs at the end of each test case.
-     *
      * @throws Exception if not
      */
     @After

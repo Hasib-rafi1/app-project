@@ -14,6 +14,7 @@ import helper.Card;
 /**
  * this is a player class which contains the players attributes and basic setter getter functions 
  * to get and set the value out of it. Some business logic is also added in this class
+ * 
  * @author Md Hasibul Huq
  * @version 1.0.0
  */
@@ -56,7 +57,6 @@ public class Player {
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and
 	 * color.
-	 *
 	 * @param playerId the player id
 	 * @param name the name
 	 */
@@ -69,7 +69,6 @@ public class Player {
 
 	/**
 	 * This method is going to provide the players id.
-	 *
 	 * @return integer value of playerId
 	 */
 	public int getPlayerId() {
@@ -78,7 +77,6 @@ public class Player {
 
 	/**
 	 * This method is setting the value of playerId of a player object.
-	 *
 	 * @param playerId ID of player
 	 */
 	public void setPlayerId(int playerId) {
@@ -87,7 +85,6 @@ public class Player {
 
 	/**
 	 * This function is providing the assigned army number of a player.
-	 *
 	 * @return integer value of assigned armies
 	 */
 	public int getNumberOfInitialArmies() {
@@ -96,7 +93,6 @@ public class Player {
 
 	/**
 	 * This is function is going to set the assigned army numbers in the specific object.
-	 *
 	 * @param numberOfInitialArmies number of initial armies
 	 */
 	public void setNumberOfInitialArmies(int numberOfInitialArmies) {
@@ -105,7 +101,6 @@ public class Player {
 
 	/**
 	 * This function is going to return the reinforced army number.
-	 *
 	 * @return integer value number of reinforced army
 	 */
 	public int getNumberOfReinforcedArmies() {
@@ -114,7 +109,6 @@ public class Player {
 
 	/**
 	 * This function is setting the reinforced army.
-	 *
 	 * @param noOfReinforcedArmies number of enforced armies
 	 */
 	public void setNumberOfReinforcedArmies(int noOfReinforcedArmies) {
@@ -123,7 +117,6 @@ public class Player {
 
 	/**
 	 * This function is going to return name of the player.
-	 *
 	 * @return string value.
 	 */
 	public String getPlayerName() {
@@ -132,7 +125,6 @@ public class Player {
 
 	/**
 	 * This function sets the name of the player.
-	 *
 	 * @param playerName name of player
 	 */
 	public void setPlayerName(String playerName) {
@@ -141,7 +133,6 @@ public class Player {
 
 	/**
 	 * This function returns the color.
-	 *
 	 * @return ENUM value of color
 	 */
 	public Colors getColor() {
@@ -150,7 +141,6 @@ public class Player {
 
 	/**
 	 * Setting the color.
-	 *
 	 * @param color set color
 	 */
 	public void setColor(Colors color) {
@@ -179,7 +169,6 @@ public class Player {
 
 	/**
 	 * Gets the number dices.
-	 *
 	 * @param country the country
 	 * @param playerStatus the player status
 	 * @return allowableAttackingArmies
@@ -205,7 +194,6 @@ public class Player {
 	
 	/**
 	 * This method is used to return the assigned countries to each Player.
-	 * 
 	 * @return assignedListOfCountries
 	 */
 	public ArrayList<Country> getAssignedListOfCountries() {
@@ -214,7 +202,6 @@ public class Player {
 	
 	/**
 	 * Assigns the current country to player.
-	 *
 	 * @param country the country
 	 */
 	public void assignCountryToPlayer(Country country) {
@@ -223,23 +210,12 @@ public class Player {
 	
 	/**
 	 * Unassigns the current country to player.
-	 *
 	 * @param country the country
 	 */
 	public void unAssignCountryToPlayer(Country country) {
 		assignedListOfCountries.remove(country);
 	}
 
-	/**
-	 * 
-	 *
-	 * @param defenderPlayer the defender player
-	 * @param attackerCountry the attacker country
-	 * @param defenderCountry the defender country
-	 * @param attackerDiceCount the attacker dice count
-	 * @param defenderDiceCount the defender dice count
-	 * @param playerCountry the player country
-	 */
 	/**
 	 * This method will process attack for the selected player and for the defender player.
 	 * @param defenderPlayer the defender player
@@ -316,7 +292,6 @@ public class Player {
 
 	/**
 	 * This method will roll a Dice.
-	 *
 	 * @param diceCount the dice count
 	 */
 	private void diceRoller(int diceCount) {
@@ -328,7 +303,6 @@ public class Player {
 
 	/**
 	 * This will generate the random integers between  1 to 6.
-	 *
 	 * @return random integer
 	 */
 	public int getRandomDiceNumber() {
@@ -382,7 +356,7 @@ public class Player {
 	}
 	
 	/**
-	 * 
+	 * This method checks if the fortification condition is satisfied for further operations
 	 * @param sourceCountry The source Country
 	 * @param destinationCountry The destination Country
 	 * @param armies Armies count
@@ -402,7 +376,6 @@ public class Player {
 
 	/**
 	 * Gets the checks if is conqured.
-	 *
 	 * @return the checks if is conqured
 	 */
 	public boolean getIsConqured() {
@@ -411,7 +384,6 @@ public class Player {
 	
 	/**
 	 * Sets the checks if is conqured.
-	 *
 	 * @param isConqueredTemp the new checks if is conqured
 	 */
 	public void setIsConqured(boolean isConqueredTemp) {
@@ -420,7 +392,6 @@ public class Player {
 	
 	/**
 	 * Gets the cards.
-	 *
 	 * @return the cards
 	 */
 	public ArrayList<Card> getCards() {
@@ -436,7 +407,6 @@ public class Player {
 
 	/**
 	 * Adds the card.
-	 *
 	 * @param card the card
 	 */
 	public void addCard(Card card) {
@@ -445,7 +415,6 @@ public class Player {
 
 	/**
 	 * set Conquer continents for the player.
-	 *
 	 * @param continents Continents
 	 */
 	public void setConcuredContinents(ArrayList<Continent> continents) {
@@ -464,7 +433,6 @@ public class Player {
 	
 	/**
 	 * Gets the conquerd continents.
-	 *
 	 * @return the conquerd continents
 	 */
 	public ArrayList<Continent> getConquerdContinents(){
@@ -473,7 +441,6 @@ public class Player {
 	
 	/**
 	 * Sets the initial armiesafter exchange.
-	 *
 	 * @param armies the new initial armiesafter exchange
 	 */
 	public void setInitialArmiesafterExchange(int armies) {

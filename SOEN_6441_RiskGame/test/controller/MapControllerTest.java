@@ -14,6 +14,7 @@ import helper.PrintConsoleAndUserInput;
 // TODO: Auto-generated Javadoc
 /**
  * This file test the test cases for the map controller class.
+ * 
  * @author Gargi Sharma
  * @version 1.0.0
  *
@@ -46,7 +47,6 @@ public class MapControllerTest {
 	public void tearDown() {
 		System.out.println("\nEnding the test case");
 	}
-
 
 	/**
 	 *  This function is going to test the map files from the directory.
@@ -87,39 +87,4 @@ public class MapControllerTest {
 		File file = new File(PrintConsoleAndUserInput.getMapDir()+"notExist.map");
 		assertFalse(file.exists());
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/* @Test
-    public void generateMap() throws Exception {
-    }
-
-    @Test
-    public void createAndSaveUserMap() throws Exception {
-    }
-
-    @Test
-    public void checkMapFileExists() throws Exception {
-    }
-
-    @Test
-    public void editMap() throws Exception {
-    }
-
-    @Test
-    public void getContinentList() throws Exception {
-    }*/
-
-
-
 }

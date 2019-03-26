@@ -21,12 +21,11 @@ import model.Player;
  * (1) The percentage of the map controlled by every player 
  * (2) The continents controlled by every player
  * (3) The total number of armies owned by every player.
+ * 
  * @author Gargi Sharma
  * @version 1.0.0
  */
 public class WorldDominationView implements Observer{
-	/** The print. */
-	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 
 	/** The panel window for world domination view. */
 	public static JPanel panelWindowForWorldDominationView;
@@ -39,7 +38,7 @@ public class WorldDominationView implements Observer{
 	private static Game gameGlobal;
 
 	/**
-	 * Creates the jframe for world domination view.	 *
+	 * Creates the jFrame for world domination view.	 
 	 * @param rowData the row data
 	 * @param playerNamesInTableColumns the player names in table columns
 	 */
@@ -63,14 +62,10 @@ public class WorldDominationView implements Observer{
 		table = new JTable(rowData, playerNamesInTableColumns);
 		table.setEnabled(false);
 		table.getTableHeader().setBackground(Color.orange);
-
 		rowHeader = new JList(lm);
 		rowHeader.setFixedCellWidth(150);
-		rowHeader.setFixedCellHeight(table.getRowHeight()
-				+ table.getRowMargin());
-
+		rowHeader.setFixedCellHeight(table.getRowHeight() + table.getRowMargin());
 		rowHeader.setCellRenderer(new JTableRowNameDominationView(table));
-
 		scroll = new JScrollPane( table );
 		scroll.setRowHeaderView(rowHeader);
 		frameWindowForWorldDominationView.getContentPane().add(scroll, BorderLayout.CENTER);
@@ -90,6 +85,11 @@ public class WorldDominationView implements Observer{
 	}
 
 
+	/**
+	 * This method is used to update the values of the column cells
+	 * @param rowData data displayed in columns
+	 * @param playerNamesInTableColumns Player names in columns
+	 */
 	public static void updateWindow(String[][] rowData, String[] playerNamesInTableColumns) {
 		frameWindowForWorldDominationView.getContentPane().removeAll();
 		frameWindowForWorldDominationView.repaint();
@@ -136,7 +136,11 @@ public class WorldDominationView implements Observer{
 
 	}
 
+	
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		Game game = ((Game)o);
@@ -168,7 +172,6 @@ public class WorldDominationView implements Observer{
 		HashMap<Integer,Float> findPercentageOfMap =  game.getPercentageOfMapControlledByEveryPlayer();
 		int z=0;
 		for (Map.Entry<Integer, Float> entry : findPercentageOfMap.entrySet()) {
-			//   System.out.println(entry.getKey()+" : "+entry.getValue());
 			float value = entry.getValue();
 			mapPercentage[z] = value;
 			z++;
@@ -206,13 +209,10 @@ public class WorldDominationView implements Observer{
 		for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
 			dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
 		}
-		//		table = new JTable(dataInTableRows, playerNamesInTableColumns);
-		////		rowHeader.setCellRenderer(new JTableRowNameDominationView(table));
-		//		scroll = new JScrollPane( table );
 		if(game.dominationViewOn) {
 			updateWindow(dataInTableRows,playerNamesInTableColumns);
 		}
 
-
 	}
 }
+
