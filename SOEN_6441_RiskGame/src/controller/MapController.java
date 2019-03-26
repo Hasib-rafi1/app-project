@@ -31,7 +31,6 @@ public class MapController {
 	MapView mapView = new MapView();
 
 	/** The map model. */
-	//	MapModel mapModel = new MapModel();
 	MapModel mapModel ;
 
 	/** The maincontroller. */
