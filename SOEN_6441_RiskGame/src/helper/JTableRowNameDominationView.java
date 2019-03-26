@@ -17,7 +17,6 @@ public class JTableRowNameDominationView extends JLabel implements ListCellRende
 
 	/**
 	 * Instantiates a new j table row name domination view.
-	 *
 	 * @param table the table
 	 */
 	public JTableRowNameDominationView(JTable table) {

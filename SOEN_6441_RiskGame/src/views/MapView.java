@@ -9,6 +9,7 @@ import helper.PrintConsoleAndUserInput;
 // TODO: Auto-generated Javadoc
 /**
  * This class is used to create a map. Also, this creates the window to show the map by using JFrame.
+ * 
  * @author Gargi Sharma
  * @version 1.0.0
  */

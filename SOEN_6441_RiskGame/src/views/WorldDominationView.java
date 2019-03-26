@@ -86,7 +86,7 @@ public class WorldDominationView implements Observer{
 
 
 	/**
-	 * This methodis used to update the values of the column cells
+	 * This method is used to update the values of the column cells
 	 * @param rowData data displayed in columns
 	 * @param playerNamesInTableColumns Player names in columns
 	 */
@@ -215,3 +215,4 @@ public class WorldDominationView implements Observer{
 
 	}
 }
+
