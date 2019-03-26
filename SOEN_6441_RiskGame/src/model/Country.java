@@ -224,6 +224,14 @@ public class Country {
 	public int getnoOfArmies() {
 		return armyNumbers;
 	}
+	
+	/**
+	 * This method is used to get number of armies.
+	 * @return armyNumbers number of armies
+	 */
+	public void setnoOfArmies(int armies) {
+		 armyNumbers= armies;
+	}
 
 	/**
 	 * This method is used to increment the count of army.

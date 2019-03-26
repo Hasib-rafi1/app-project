@@ -1059,4 +1059,22 @@ public class Game extends Observable {
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 	}
+	
+	public boolean isAttackerDefenderValid(Country attCountry,Country  defCountry,int defendergDiceCount) {
+		if (attCountry == null || defCountry == null) {
+			return false;
+		}
+
+		if (defCountry.getnoOfArmies() < defendergDiceCount) {
+			gamePhaseDetails.add("Defender doesn't have sufficiant armies");
+			return false;
+		}
+		Player defenderPlayer = playerList.stream().filter(p -> p.getPlayerId()==defCountry.getPlayerId())
+				.findAny().orElse(null);
+
+		if (defenderPlayer == null) {
+			return false;
+		}
+		return true;
+	}
 }

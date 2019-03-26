@@ -122,6 +122,16 @@ public class GameTest {
 		}
 	}
 	
+	@Test
+	public void checkAttackerDefender() {
+		Country attCountry = gameObject.playerCountry.get(player1).get(0);
+		Country defCountry = gameObject.playerCountry.get(player2).get(0);
+		int defendergDiceCount =1;
+		defCountry.setnoOfArmies(3);
+		boolean result =gameObject.isAttackerDefenderValid(attCountry, defCountry, defendergDiceCount);
+		assertTrue(result);
+	}
+	
 	/**
 	 * Test If attack is possible from the current player.
 	 */
