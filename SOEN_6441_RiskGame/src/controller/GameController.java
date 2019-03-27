@@ -325,7 +325,7 @@ public class GameController {
 				// print Player name in tabular columns(Ist row heading)				
 				String[] playerNamesInTableColumns = new String[newPlayerNameList.size()];
 				int y=0;				
-				for ( String nameOfPlayer : newPlayerNameList ) {				
+				for ( String nameOfPlayer : newPlayerNameList ) {	
 
 					playerNamesInTableColumns[y] = "Player name : "+nameOfPlayer;
 					y++;
@@ -353,6 +353,7 @@ public class GameController {
 					l++;
 				}
 
+				// Get the number of armies owned by each player
 				int[] numberOfArmies = new int[size];
 				HashMap<Integer, Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
 				int i=0;
