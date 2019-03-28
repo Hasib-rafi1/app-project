@@ -67,7 +67,7 @@ public class Game extends Observable {
 	private ArrayList<String> gamePhaseDetails = new ArrayList<>();
 
 	/** The exchange number. */
-	private Integer armiesAfterExchange= 5;
+	private int armiesAfterExchange= 5;
 	
 	public boolean dominationViewOn = false;
 
@@ -1004,6 +1004,9 @@ public class Game extends Observable {
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
 		HashMap<Integer, Integer> numberOfArmies = new HashMap<Integer, Integer>();
 		for (Player player : this.playerList) {
+			if(player.getAssignedListOfCountries().size()==0) {
+				numberOfArmies.put(player.getPlayerId(), 0);
+			}
 			for (Country country : player.getAssignedListOfCountries()) {
 				int totalArmies = country.getnoOfArmies();
 				if(numberOfArmies.containsKey(player.getPlayerId())) 
