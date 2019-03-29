@@ -48,6 +48,8 @@ public class MainController {
 				break;
 			case 2:
 				gameController.initializeMap();
+				//gameController.initializeGame();
+				
 				break;
 			case 3:
 				print.consoleErr("Thanks for playing this Game.");

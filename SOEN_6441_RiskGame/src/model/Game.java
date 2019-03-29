@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
+import helper.GameMode;
+
 import java.util.Collections;
 
 import helper.Card;
@@ -50,6 +52,8 @@ public class Game extends Observable {
 
 	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
+	
+	
 
 	/** The player list. */
 	private ArrayList<Player> playerList = new ArrayList<Player>();
@@ -62,6 +66,7 @@ public class Game extends Observable {
 	
 	/** The boardview. */
 	private BoardView boardview;
+	private GameMode gameMode;
 
 	/** The game phase details. */
 	private ArrayList<String> gamePhaseDetails = new ArrayList<>();
@@ -1073,5 +1078,11 @@ public class Game extends Observable {
 			return false;
 		}
 		return true;
+	}
+	
+	
+	
+	public void setGameMode(GameMode gameMode) {
+		this.gameMode = gameMode;
 	}
 }

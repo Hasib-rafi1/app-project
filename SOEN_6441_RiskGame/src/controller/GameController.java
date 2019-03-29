@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 import model.Country;
 import model.Game;
 import model.Player;
@@ -17,6 +18,7 @@ import views.CardView;
 import views.WorldDominationView;
 import model.MapModel;
 import helper.GamePhase;
+import helper.GameMode;
 import helper.PrintConsoleAndUserInput;
 
 
@@ -39,7 +41,7 @@ public class GameController {
 
 	WorldDominationView worldDominationViewObserver;
 
-	
+
 	/** The player. */
 	Player player;
 
@@ -49,12 +51,13 @@ public class GameController {
 	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 
+
 	/** The userinput. */
 	Scanner userinput = new Scanner(System.in);
-	
+
 	/** The att country. */
 	Country attCountry;
-	
+
 	/** The def country. */
 	Country defCountry;
 
@@ -62,6 +65,7 @@ public class GameController {
 	 * This function is going to initializing the map by taking user input.
 	 */
 	public void initializeMap() {
+
 		print.listofMapsinDirectory();
 		print.consoleOut("\nEnter Map Name to load Map file:\n");
 		String mapPath = mapModel.getMapNameByUserInput();		
@@ -76,7 +80,7 @@ public class GameController {
 				initializeGame();
 			}
 		}else {
-			print.consoleErr("****File not found!!!. Please enter the correct name of map.****");
+			print.consoleErr("**** File not found!!!. Please enter the correct name of map.****");
 		}
 	}
 
@@ -88,16 +92,75 @@ public class GameController {
 	 * It is taking the the input from the user for creating number of players.
 	 */
 	public void initializeGame(){
+		/*  ---------------  TRYING TO WORK ON GAME MODES BY GARGI	 -------
+	 print.consoleOut("\n ***** Select the Game mode you want to play? *****" );
+		print.consoleOut("1. Single Game Mode" );
+		print.consoleOut("2. Tournament Mode" );		
+		int gameModeUserInput =  userinput.nextInt();	
+
+		if (gameModeUserInput == 1) {
+			print.listofMapsinDirectory();
+			print.consoleOut("\nEnter Map Name to load Map file:\n");
+			String mapPath = mapModel.getMapNameByUserInput();		
+			File tempFile = new File(mapPath);
+			boolean exists = tempFile.exists();
+			if (exists) {			
+				mapModel.readMapFile(mapPath);
+				mapModel.printMapValidOrNot();
+				if (!mapModel.checkMapIsValid()){
+					//print.consoleErr("****Error!! Invalid map name. Please try again with the valid name****");
+				}else {
+					playerInformationInput();				
+				}
+			}else {
+				print.consoleErr("**** File not found!!!. Please enter the correct name of map.****");
+			}
+		}else if (gameModeUserInput == 2) {
+			print.consoleErr("**** game mode 2****");
+		}*/
+
 		int j=1;
 		game = new Game(mapModel);
-		boardView=new BoardView();
+		boardView = new BoardView();
 		worldDominationViewObserver = new WorldDominationView();
 		game.addObserver(worldDominationViewObserver);
-		
+
 		game.addObserver(boardView);
 		//game.addObserver(cardView);
+
 		print.consoleOut("\nEnter the number of Players between 3-5:");
 		int playerCount = Integer.parseInt(userinput.nextLine());
+
+		if(playerCount < 3 || playerCount > 5) {
+			print.consoleErr("**** Error!!! Please enter the number of Players between 3-5. ****");
+		} else {
+			for (int i = 0; i < playerCount ; i++) {
+				print.consoleOut("\nEnter the name of Player " + j);
+				String name = userinput.nextLine();
+				Player player = new Player(i,name);
+				game.addPlayer(player);
+				j++;
+			}	
+			game.startGame();
+			game.initializeRiskCards();
+			boardView.gameWindowLoad();	
+			callListenerOnView();
+		}
+	}
+
+	public void playerInformationInput()  {
+		int j=1;
+		game = new Game(mapModel);
+		boardView = new BoardView();
+		worldDominationViewObserver = new WorldDominationView();
+		game.addObserver(worldDominationViewObserver);
+
+		game.addObserver(boardView);
+
+		print.consoleOut("\nEnter the number of Players between 3-5:");
+		//	int playerCount = Integer.parseInt(userinput.nextLine());
+		int playerCount = userinput.nextInt();
+		print.consoleOut("Number of players entered = " +playerCount );
 
 		if(playerCount < 3 || playerCount > 5) {
 			print.consoleErr("**** Error!!! Please enter the number of Players between 3-5. ****");
@@ -395,7 +458,7 @@ public class GameController {
 			}
 		});
 	}
-	
+
 	/**
 	 * This function is used to exchange button listener.
 	 */
@@ -406,7 +469,7 @@ public class GameController {
 				if (CardView.list_cardsOwnedByThePlayer.getSelectedValuesList() != null &&  CardView.list_cardsOwnedByThePlayer.getSelectedValuesList().size() > 0) {
 					// This list holds the cards selected by the user
 					ArrayList<String> selectedCards = (ArrayList<String>) CardView.list_cardsOwnedByThePlayer.getSelectedValuesList();
-					
+
 					boolean success = game.exchangeRiskCards(selectedCards);
 					if(success) {
 						CardView.closeTheWindow();
