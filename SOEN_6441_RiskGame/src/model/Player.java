@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import helper.Colors;
 import helper.Card;
+import model.PlayerStrategies.PlayerStrategy;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -40,8 +41,7 @@ public class Player {
 	
 	/** The assigned list of countries. */
 	private ArrayList<Country> assignedListOfCountries = new ArrayList<Country>();
-	
-	
+
 	/** To assign a card after the attack phase if the country is Conquered. */
 	private Boolean isConquered = false;
 
@@ -53,6 +53,11 @@ public class Player {
 
 	/** The initial armiesafter exchange. */
 	private Integer initialArmiesafterExchange = 0;
+
+	/** The Player's Strategy. */
+	private PlayerStrategy playerStrategy;
+
+
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and
