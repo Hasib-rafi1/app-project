@@ -66,6 +66,8 @@ public class Game extends Observable {
 	
 	/** The boardview. */
 	private BoardView boardview;
+
+	/** The Game Mode. */
 	private GameMode gameMode;
 
 	/** The game phase details. */

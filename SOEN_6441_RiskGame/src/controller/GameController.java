@@ -87,7 +87,7 @@ public class GameController {
 	public void initializeGame(){
 
 		print.consoleOut("Enter the Game mode you want to play.");
-		print.consoleOut("1 -> Single Mode. \n 2 -> Tournament Mode.");
+		print.consoleOut("1 -> Single Mode. \n2 -> Tournament Mode.");
 		int gameMode = print.userIntInput();
 
 		if(gameMode == 1){
