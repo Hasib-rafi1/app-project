@@ -583,7 +583,8 @@ public class Game extends Observable {
 				getCurrentPlayer().getCards().remove(secondCard);
 				getCurrentPlayer().getCards().remove(thirdCard);
 				getCurrentPlayer().setInitialArmiesafterExchange(armiesAfterExchange);
-				armiesAfterExchange= armiesAfterExchange+5;
+				armiesAfterExchange= armiesAfterExchange + 5;
+				System.out.println(armiesAfterExchange);
 				addRiskCardToDeck(firstCard);
 				addRiskCardToDeck(secondCard);
 				addRiskCardToDeck(thirdCard);
