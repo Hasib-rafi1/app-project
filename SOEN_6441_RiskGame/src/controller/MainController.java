@@ -47,9 +47,8 @@ public class MainController {
 				mapController.generateMap();
 				break;
 			case 2:
-				gameController.initializeMap();
-				//gameController.initializeGame();
-				
+				gameController.initializeGame();
+
 				break;
 			case 3:
 				print.consoleErr("Thanks for playing this Game.");

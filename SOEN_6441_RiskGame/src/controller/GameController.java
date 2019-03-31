@@ -72,14 +72,11 @@ public class GameController {
 			mapModel.printMapValidOrNot();
 			if (!mapModel.checkMapIsValid()){
 				//print.consoleErr("****Error!! Invalid map name. Please try again with the valid name****");
-			}else {
-				initializeGame();
 			}
 		}else {
 			print.consoleErr("****File not found!!!. Please enter the correct name of map.****");
 		}
 	}
-
 
 
 	/**
@@ -88,31 +85,42 @@ public class GameController {
 	 * It is taking the the input from the user for creating number of players.
 	 */
 	public void initializeGame(){
-		int j=1;
-		game = new Game(mapModel);
-		boardView=new BoardView();
-		worldDominationViewObserver = new WorldDominationView();
-		game.addObserver(worldDominationViewObserver);
-		
-		game.addObserver(boardView);
-		//game.addObserver(cardView);
-		print.consoleOut("\nEnter the number of Players between 3-5:");
-		int playerCount = Integer.parseInt(userinput.nextLine());
 
-		if(playerCount < 3 || playerCount > 5) {
-			print.consoleErr("**** Error!!! Please enter the number of Players between 3-5. ****");
-		} else {
-			for (int i = 0; i < playerCount ; i++) {
-				print.consoleOut("\nEnter the name of Player " + j);
-				String name = userinput.nextLine();
-				Player player = new Player(i,name);
-				game.addPlayer(player);
-				j++;
-			}	
-			game.startGame();
-			game.initializeRiskCards();
-			boardView.gameWindowLoad();	
-			callListenerOnView();
+		print.consoleOut("Enter the Game mode you want to play.");
+		print.consoleOut("1 -> Single Mode. \n 2 -> Tournament Mode.");
+		int gameMode = print.userIntInput();
+
+		if(gameMode == 1){
+			int j=1;
+			initializeMap();
+			game = new Game(mapModel);
+			boardView=new BoardView();
+			worldDominationViewObserver = new WorldDominationView();
+			game.addObserver(worldDominationViewObserver);
+			game.addObserver(boardView);
+			//game.addObserver(cardView);
+			print.consoleOut("\nEnter the number of Players between 3-5:");
+			int playerCount = Integer.parseInt(userinput.nextLine());
+
+			if(playerCount < 3 || playerCount > 5) {
+				print.consoleErr("**** Error!!! Please enter the number of Players between 3-5. ****");
+			} else {
+				for (int i = 0; i < playerCount ; i++) {
+					print.consoleOut("\nEnter the name of Player " + j);
+					String name = userinput.nextLine();
+					Player player = new Player(i,name);
+					game.addPlayer(player);
+					j++;
+				}
+				game.startGame();
+				game.initializeRiskCards();
+				boardView.gameWindowLoad();
+				callListenerOnView();
+			}
+
+		} else if (gameMode == 2){
+
+			print.consoleOut("Welcome to Tournament Mode.");
 		}
 	}
 
