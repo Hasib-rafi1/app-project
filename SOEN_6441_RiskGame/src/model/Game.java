@@ -1088,4 +1088,10 @@ public class Game extends Observable {
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
 	}
+
+
+	public void saveGamePlay() {
+		// TODO Auto-generated method stub
+		System.out.println("working on game");
+	}
 }

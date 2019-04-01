@@ -1,6 +1,4 @@
 package model;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +7,8 @@ import java.util.stream.Collectors;
 
 import helper.Colors;
 import helper.Card;
-import model.PlayerStrategies.PlayerStrategy;
+import strategies.PlayerStrategy;
+
 
 // TODO: Auto-generated Javadoc
 /**

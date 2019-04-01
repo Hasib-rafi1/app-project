@@ -119,6 +119,8 @@ public class BoardView implements Observer {
 	
 	/** The button end attack. */
 	private static JButton button_endAttack = new JButton("End Attack");
+	
+	private static JButton loadAndSaveGameButton = new JButton("Save Game");;
 
 	/** The lab fortification. */
 	// Fortification variables
@@ -286,12 +288,15 @@ public class BoardView implements Observer {
 
 		mapGenerator();
 		createPlayerWorldDominationView();
+		loadAndSaveGame();
 		gamePhase();
 		loadingPhaseActionLabel();
 		view_initialisation();
 		reinforcements();
 		fortification();
 		viewAttackPhase();
+	
+		
 
 		frameGameWindow.setSize(pane_mapScrollPane.getWidth()+550, 1200);
 		frameGameWindow.setVisible(true);
@@ -299,6 +304,8 @@ public class BoardView implements Observer {
 		frameGameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+
+	
 
 	//------------------------ Map View initializing -----------------------------
 	/**
@@ -557,19 +564,40 @@ public class BoardView implements Observer {
 	 */
 	public void createPlayerWorldDominationView() {
 		button_playerWorldDominationView = new JButton("Player World Domination View");
-		button_playerWorldDominationView.setBounds(pane_mapScrollPane.getWidth()+10, pane_mapScrollPane.getY(), 490, 40);
-		panel_gameAction.add(button_playerWorldDominationView,BorderLayout.NORTH);
+		button_playerWorldDominationView.setBounds(940, pane_mapScrollPane.getY(), 250, 40);
+		panel_gameAction.add(button_playerWorldDominationView);
 	
 	}
 
 	/**
 	 * World domination view listener.
-	 * @param listener the listener
+	 * @param listener Action Listener
 	 */
 	//--------------------------------- Listener Initialization -------------------------
 	public void worldDominationViewListener(ActionListener listener) {
 		button_playerWorldDominationView.addActionListener(listener);
 	}	
+	
+	
+	// ----------------------------- Save and load Game ------------------	
+	/**
+	 * This method is used to create the save game button in the panel window.
+	 */
+	public void loadAndSaveGame() {
+		// TODO Auto-generated method stub	
+		loadAndSaveGameButton.setBounds(1200,pane_mapScrollPane.getY(),200, 40);
+		panel_gameAction.add(loadAndSaveGameButton);	
+	}
+	
+	/**
+	 * Save and load game Listener.
+	 * @param listener Action Listener
+	 */
+	public void loadAndSaveGameButtonListener(ActionListener listener) {
+		loadAndSaveGameButton.addActionListener(listener);
+	}
+	
+	
 	
 	/**
 	 * method to use for the mouse event for the map labels.

@@ -39,7 +39,7 @@ public class GameController {
 
 	/** The world domination view. */
 	WorldDominationView worldDominationViewObserver;
-	
+
 	/** The player. */
 	Player player;
 
@@ -51,10 +51,10 @@ public class GameController {
 
 	/** The userinput. */
 	Scanner userinput = new Scanner(System.in);
-	
+
 	/** The att country. */
 	Country attCountry;
-	
+
 	/** The def country. */
 	Country defCountry;
 
@@ -62,11 +62,11 @@ public class GameController {
 	 * This function is going to initializing the map by taking user input.
 	 */
 	public void initializeMap(String mapPath) {
-//	public void initializeMap() {
-//		print.listofMapsinDirectory();
-//		print.consoleOut("\nEnter Map Name to load Map file:\n");
-//		mapModel = new MapModel(); //------Refresh------
-//		String mapPath = mapModel.getMapNameByUserInput();
+		//	public void initializeMap() {
+		//		print.listofMapsinDirectory();
+		//		print.consoleOut("\nEnter Map Name to load Map file:\n");
+		//		mapModel = new MapModel(); //------Refresh------
+		//		String mapPath = mapModel.getMapNameByUserInput();
 		File tempFile = new File(mapPath);
 		boolean exists = tempFile.exists();
 		if (exists) {			
@@ -80,21 +80,21 @@ public class GameController {
 		}
 	}
 
-    public MapModel getInitializedMapModel() {
-        mapModel = new MapModel(); //------Refresh------
-//        ArrayList<String> mapNamesListForTournament= new ArrayList<>();
-        String mapPath = mapModel.getMapNameByUserInput();
-//        if(!mapNamesListForTournament.contains(mapPath)){
-//            mapNamesListForTournament.add(mapPath);
-//        }else {
-//            print.consoleOut("Please Different Names For the Maps You want to play On");
-//        }
-        System.out.println(mapPath);
-        initializeMap(mapPath);
-        return mapModel;
-    }
+	public MapModel getInitializedMapModel() {
+		mapModel = new MapModel(); //------Refresh------
+		//        ArrayList<String> mapNamesListForTournament= new ArrayList<>();
+		String mapPath = mapModel.getMapNameByUserInput();
+		//        if(!mapNamesListForTournament.contains(mapPath)){
+		//            mapNamesListForTournament.add(mapPath);
+		//        }else {
+		//            print.consoleOut("Please Different Names For the Maps You want to play On");
+		//        }
+		System.out.println(mapPath);
+		initializeMap(mapPath);
+		return mapModel;
+	}
 
-    /**
+	/**
 	 * This method is setting up the board and game model
 	 * It is intializing the observer for the gui also
 	 * It is taking the the input from the user for creating number of players.
@@ -156,10 +156,10 @@ public class GameController {
 			print.consoleOut("Enter '" + M + "' Different Map Names from following list: ");
 			print.listofMapsinDirectory();
 			for (int i = 0; i < M; i++) {
-                mapModel = new MapModel(); //------Refresh------
-                mapNamesForTournament.add(getInitializedMapModel());
-            }
-            System.out.println(mapNamesForTournament.size());
+				mapModel = new MapModel(); //------Refresh------
+				mapNamesForTournament.add(getInitializedMapModel());
+			}
+			System.out.println(mapNamesForTournament.size());
 
 			print.consoleOut("Enter The Number of player strategies you want to play with(2-4): ");
 			print.consoleOut("Enter" + "'the number of the input goes here'"+
@@ -167,8 +167,8 @@ public class GameController {
 			print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
 			print.consoleOut("Enter Maximum Number of Turns for Each Game (10 - 50): ");
 		}else {
-            print.consoleErr("Please Enter a Valid Game Mode.");
-        }
+			print.consoleErr("Please Enter a Valid Game Mode.");
+		}
 	}
 
 	/**
@@ -182,6 +182,7 @@ public class GameController {
 		addAttackerCountryListener();
 		addDefenderCountryListener();
 		addActionListenerForWorldDominationView();
+		addActionListenerForloadAndSaveGame();
 		addAttackButtonListener();
 		addAllOutButtonListener();
 		addEndAttackButtonListener();
@@ -192,6 +193,8 @@ public class GameController {
 		setBoardView();
 
 	}
+
+
 
 	/**
 	 * This method is going to assign armies to the specific countries in initial phase and in reinforcement phase.
@@ -436,6 +439,22 @@ public class GameController {
 	}
 
 	/**
+	 * Add action listener for the Load and save Game
+	 */
+	private void addActionListenerForloadAndSaveGame() {
+		// TODO Auto-generated method stub
+		boardView.loadAndSaveGameButtonListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				game.saveGamePlay();
+			}
+		});
+
+	}
+
+	/**
 	 * Adds the skip button listener.
 	 */
 	public void addSkipButtonListener() {
@@ -449,7 +468,7 @@ public class GameController {
 			}
 		});
 	}
-	
+
 	/**
 	 * This function is used to exchange button listener.
 	 */
@@ -460,7 +479,7 @@ public class GameController {
 				if (CardView.list_cardsOwnedByThePlayer.getSelectedValuesList() != null &&  CardView.list_cardsOwnedByThePlayer.getSelectedValuesList().size() > 0) {
 					// This list holds the cards selected by the user
 					ArrayList<String> selectedCards = (ArrayList<String>) CardView.list_cardsOwnedByThePlayer.getSelectedValuesList();
-					
+
 					boolean success = game.exchangeRiskCards(selectedCards);
 					if(success) {
 						CardView.closeTheWindow();
