@@ -122,8 +122,9 @@ public class GameController {
 
 			print.consoleOut("******* Welcome to Tournament Mode. *******");
 			print.consoleOut("Enter The Number of Maps You want to play on (1-5): ");
-			print.consoleOut("Enter" + "'the number of the input goes here'"+
-					"Different Map Names from following list");
+			int numberOfMaps = print.userIntInput();
+			print.consoleOut("Enter '" +numberOfMaps+ "' Different Map Names from following list: ");
+			print.listofMapsinDirectory();
 			print.consoleOut("Enter The Number of player strategies you want to play with(2-4): ");
 			print.consoleOut("Enter" + "'the number of the input goes here'"+
 					"Different Strategy Names from following list:");
