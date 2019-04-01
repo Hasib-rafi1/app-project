@@ -1,4 +1,4 @@
-package model.PlayerStrategies;
+package strategies;
 
 import model.Player;
 
