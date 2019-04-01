@@ -87,7 +87,7 @@ public class GameController {
 	public void initializeGame(){
 
 		print.consoleOut("Enter the Game mode you want to play.");
-		print.consoleOut("1 -> Single Mode. \n2 -> Tournament Mode.");
+		print.consoleOut("1 -> Single Game Mode. \n2 -> Tournament Mode.");
 		int gameMode = print.userIntInput();
 
 		if(gameMode == 1){
@@ -120,7 +120,15 @@ public class GameController {
 
 		} else if (gameMode == 2){
 
-			print.consoleOut("Welcome to Tournament Mode.");
+			print.consoleOut("******* Welcome to Tournament Mode. *******");
+			print.consoleOut("Enter The Number of Maps You want to play on (1-5): ");
+			print.consoleOut("Enter" + "'the number of the input goes here'"+
+					"Different Map Names from following list");
+			print.consoleOut("Enter The Number of player strategies you want to play with(2-4): ");
+			print.consoleOut("Enter" + "'the number of the input goes here'"+
+					"Different Strategy Names from following list:");
+			print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
+			print.consoleOut("Enter Maximum Number of Turns for Each Game (10 - 50): ");
 		}
 	}
 
