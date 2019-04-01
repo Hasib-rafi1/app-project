@@ -61,10 +61,12 @@ public class GameController {
 	/**
 	 * This function is going to initializing the map by taking user input.
 	 */
-	public void initializeMap() {
-		print.listofMapsinDirectory();
-		print.consoleOut("\nEnter Map Name to load Map file:\n");
-		String mapPath = mapModel.getMapNameByUserInput();		
+	public void initializeMap(String mapPath) {
+//	public void initializeMap() {
+//		print.listofMapsinDirectory();
+//		print.consoleOut("\nEnter Map Name to load Map file:\n");
+//		mapModel = new MapModel(); //------Refresh------
+//		String mapPath = mapModel.getMapNameByUserInput();
 		File tempFile = new File(mapPath);
 		boolean exists = tempFile.exists();
 		if (exists) {			
@@ -78,8 +80,21 @@ public class GameController {
 		}
 	}
 
+    public MapModel getInitializedMapModel() {
+        mapModel = new MapModel(); //------Refresh------
+//        ArrayList<String> mapNamesListForTournament= new ArrayList<>();
+        String mapPath = mapModel.getMapNameByUserInput();
+//        if(!mapNamesListForTournament.contains(mapPath)){
+//            mapNamesListForTournament.add(mapPath);
+//        }else {
+//            print.consoleOut("Please Different Names For the Maps You want to play On");
+//        }
+        System.out.println(mapPath);
+        initializeMap(mapPath);
+        return mapModel;
+    }
 
-	/**
+    /**
 	 * This method is setting up the board and game model
 	 * It is intializing the observer for the gui also
 	 * It is taking the the input from the user for creating number of players.
@@ -92,7 +107,13 @@ public class GameController {
 
 		if(gameMode == 1){
 			int j=1;
-			initializeMap();
+
+			print.listofMapsinDirectory();
+			print.consoleOut("\nEnter Map Name to load Map file:\n");
+			mapModel = new MapModel(); //------Refresh------
+			String mapPath = mapModel.getMapNameByUserInput();
+			initializeMap(mapPath);
+
 			game = new Game(mapModel);
 			boardView=new BoardView();
 			worldDominationViewObserver = new WorldDominationView();
@@ -120,17 +141,34 @@ public class GameController {
 
 		} else if (gameMode == 2){
 
+			int M = 0, P = 0, G = 0, D = 0;
+			ArrayList<MapModel> mapNamesForTournament = new ArrayList<>();
+
 			print.consoleOut("******* Welcome to Tournament Mode. *******");
-			print.consoleOut("Enter The Number of Maps You want to play on (1-5): ");
-			int numberOfMaps = print.userIntInput();
-			print.consoleOut("Enter '" +numberOfMaps+ "' Different Map Names from following list: ");
+			while (true) {
+				print.consoleOut("Enter The Number of Maps You want to play on (1-5): ");
+				int numberOfMaps = print.userIntInput();
+				if (numberOfMaps >= 1 && numberOfMaps <= 5) {
+					M = numberOfMaps;
+					break;
+				}else{print.consoleErr("**** Error!!! Please Enter the number of Maps between 3-5. ****");}
+			}
+			print.consoleOut("Enter '" + M + "' Different Map Names from following list: ");
 			print.listofMapsinDirectory();
+			for (int i = 0; i < M; i++) {
+                mapModel = new MapModel(); //------Refresh------
+                mapNamesForTournament.add(getInitializedMapModel());
+            }
+            System.out.println(mapNamesForTournament.size());
+
 			print.consoleOut("Enter The Number of player strategies you want to play with(2-4): ");
 			print.consoleOut("Enter" + "'the number of the input goes here'"+
 					"Different Strategy Names from following list:");
 			print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
 			print.consoleOut("Enter Maximum Number of Turns for Each Game (10 - 50): ");
-		}
+		}else {
+            print.consoleErr("Please Enter a Valid Game Mode.");
+        }
 	}
 
 	/**
