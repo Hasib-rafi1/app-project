@@ -56,6 +56,36 @@ public class Player {
 	/** The Player's Strategy. */
 	private PlayerStrategy playerStrategy;
 
+	//Attributes for Fortification
+
+	private Country sourceCountry;
+	private Country destinationCountry;
+	private int armies;
+
+
+	public void setSourceCountry(Country country){
+		this.sourceCountry = country;
+	}
+
+	public Country getSourceCountry(Country country){
+		return sourceCountry;
+	}
+
+	public void setDestinationCountry(Country country){
+		this.sourceCountry = country;
+	}
+
+	public Country getDestinationCountry(Country country){
+		return destinationCountry;
+	}
+
+	public void setArmies(int armies){
+		this.armies = armies;
+	}
+
+	public int getDestinationCountry(int armies){
+		return armies;
+	}
 
 
 	/**
