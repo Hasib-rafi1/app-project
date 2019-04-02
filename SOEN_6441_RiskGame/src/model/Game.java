@@ -465,8 +465,16 @@ public class Game extends Observable implements Serializable {
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
 
 		// player class function
-		boolean success = player.fortificationPhase(sourceCountry, destinationCountry, armies);
-		gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
+
+        player.setSourceCountry(sourceCountry);
+        player.setDestinationCountry(destinationCountry);
+        player.setArmies(armies);
+
+		boolean success = player.fortificationPhase();
+
+		if(success){
+		    gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
+        }
 		if(player.getIsConqured()){
 			System.out.println("Conquered");
 			Card riskCard = getRiskCardFromDeck();

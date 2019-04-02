@@ -67,15 +67,15 @@ public class Player {
 		this.sourceCountry = country;
 	}
 
-	public Country getSourceCountry(Country country){
+	public Country getSourceCountry(){
 		return sourceCountry;
 	}
 
 	public void setDestinationCountry(Country country){
-		this.sourceCountry = country;
+		this.destinationCountry = country;
 	}
 
-	public Country getDestinationCountry(Country country){
+	public Country getDestinationCountry(){
 		return destinationCountry;
 	}
 
@@ -83,7 +83,7 @@ public class Player {
 		this.armies = armies;
 	}
 
-	public int getDestinationCountry(int armies){
+	public int getArmies(){
 		return armies;
 	}
 
@@ -390,20 +390,24 @@ public class Player {
 
 	/**
 	 * This method checks whether the source and destination countries belongs to the player and moves the armies from source to destination.
-	 * @param sourceCountry The Source Country
-	 * @param destinationCountry The Destination Country
-	 * @param armies Count of armies
 	 * @return true if armies count increases or decreases
 	 */
-	public boolean fortificationPhase(Country sourceCountry, Country destinationCountry, int armies){		
-		if(!checkFortificationCondition(sourceCountry, destinationCountry,armies)) {
-			return false;
-		}
-		
-		sourceCountry.decreaseArmyCount(armies);
-		destinationCountry.increaseArmyCount(armies);		
-		return true;
+	public boolean fortificationPhase(){
+        return this.playerStrategy.fortify(this);
+
 	}
+
+    public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
+        if (sourceCountry == null || destinationCountry == null) {
+            System.out.println("Source or destination country is invalid!");
+            return false;
+        }
+        if (armies == 0) {
+            System.out.println("No armies to move");
+            return false;
+        }
+        return true;
+    }
 	
 	/**
 	 * This method checks if the fortification condition is satisfied for further operations
@@ -412,17 +416,7 @@ public class Player {
 	 * @param armies Armies count
 	 * @return boolean result based on condition passes
 	 */
-	public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
-		if (sourceCountry == null || destinationCountry == null) {
-			System.out.println("Source or destination country is invalid!");
-			return false;
-		}
-		if (armies == 0) {
-			System.out.println("No armies to move");
-			return false;
-		}
-		return true;
-	}
+
 
 	/**
 	 * Gets the checks if is conqured.

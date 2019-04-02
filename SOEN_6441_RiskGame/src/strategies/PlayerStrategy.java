@@ -18,6 +18,6 @@ public interface PlayerStrategy {
 
     public void attack(Player player);
 
-    public void fortify(Player player);
+    public boolean fortify(Player player);
 
 }
