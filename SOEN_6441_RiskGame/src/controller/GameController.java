@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import model.Country;
 import model.Game;
 import model.Player;
+import strategies.Human;
 import views.BoardView;
 import views.CardView;
 import views.WorldDominationView;
@@ -131,8 +132,15 @@ public class GameController {
 					print.consoleOut("\nEnter the name of Player " + j);
 					String name = userinput.nextLine();
 					Player player = new Player(i,name);
+                    print.consoleOut("\nEnter the "+name+"'s Strategy ");
+                    print.consoleOut("\n1 -> Human \n2 -> Aggressor \n3 -> Benevolent \n4 -> Cheater \n5 -> Random");
+                    int strategy = Integer.parseInt(userinput.nextLine());
 
-					game.addPlayer(player);
+                    if(strategy == 1){
+                        player.setPlayerStrategy(new Human());
+                    }
+
+                    game.addPlayer(player);
 					j++;
 				}
 				game.startGame();
