@@ -247,25 +247,16 @@ public class Game extends Observable implements Serializable {
 			print.consoleOut("Not a Valid Phase");
 			return false;
 		}
+        Player player = this.getCurrentPlayer();
+        Country country = playerCountry.get(player).stream()
+                .filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
 
-		Player player = this.getCurrentPlayer();
+		player.setReinforceCountry(country);
+		boolean success = player.reinforcementPhase();
 
-		if(player == null){
-			print.consoleOut("Player ID"+currentPlayerId+"does not exist.");
-			return false;
-		}
-		if(player.getNumberOfReinforcedArmies() == 0){
-			print.consoleOut("Player "+player.getPlayerName()+": Doesn't have any Armies.");
-			return false;
-		}
-		Country country = playerCountry.get(player).stream()
-				.filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
-		if (country == null) {
-			print.consoleOut("Country Name: " + countryName + " does not exist!");
-			return false;
-		}
-		assignReinforcement(player,country);
-		gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
+		if(success){
+		    gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
+        }
 		notifyObserverslocal(this);
 		return true;
 	}

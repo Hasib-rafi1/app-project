@@ -56,7 +56,7 @@ public class Player {
 	/** The Player's Strategy. */
 	private PlayerStrategy playerStrategy;
 
-	//Attributes for Fortification
+	//Fortification-Strategy
 
 	private Country fortify_sourceCountry;
 	private Country fortify_destinationCountry;
@@ -86,6 +86,30 @@ public class Player {
 	public int getFortifyArmies(){
 		return fortify_armies;
 	}
+
+    public boolean fortificationPhase(){
+        return this.playerStrategy.fortify(this);
+    }
+
+    //Reinforcement-Strategy
+
+    private Country reinforce_country;
+
+	public void setReinforceCountry(Country country){
+	    this.reinforce_country = country;
+    }
+
+    public Country getReinforceCountry(){
+        return reinforce_country;
+    }
+
+    public boolean reinforcementPhase(){
+        return this.playerStrategy.reinforce(this);
+    }
+
+    //Attack-Strategy
+
+
 
 
 	/**
@@ -392,10 +416,7 @@ public class Player {
 	 * This method checks whether the source and destination countries belongs to the player and moves the armies from source to destination.
 	 * @return true if armies count increases or decreases
 	 */
-	public boolean fortificationPhase(){
-        return this.playerStrategy.fortify(this);
 
-	}
 
     public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
         if (sourceCountry == null || destinationCountry == null) {

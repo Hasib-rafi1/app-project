@@ -25,7 +25,32 @@ public class Human implements PlayerStrategy, Serializable {
     }
 
     public boolean reinforce(Player player){
+
+        Country country = player.getReinforceCountry();
+
+        if(player.getNumberOfReinforcedArmies() == 0){
+            System.out.println("Player "+player.getPlayerName()+": Doesn't have any Armies.");
+            return false;
+        }
+
+        if(player == null){
+            System.out.println("Player ID"+player.getPlayerId()+"does not exist.");
+            return false;
+        }
+
+        if (country == null) {
+            System.out.println("Country Name: " + country.getCountryName() + " does not exist!");
+            return false;
+        }
+
+        assignReinforcement(player,country);
+
         return true;
+    }
+
+    public void assignReinforcement(Player player, Country country){
+        player.decreaseReinforcementArmy();
+        country.increaseArmyCount();
     }
 
     public void attack(Player player){
