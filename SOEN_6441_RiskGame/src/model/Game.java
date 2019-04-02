@@ -830,7 +830,21 @@ public class Game extends Observable implements Serializable {
 			return false;
 		}
 
-		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount,playerCountry,gamePhaseDetails);
+		Player player = getCurrentPlayer();
+
+		player.setAttack_defenderplayer(defenderPlayer);
+		player.setAttack_attackercountry(attCountry);
+		player.setAttack_defendercountry(defCountry);
+		player.setAttack_attackerdicecount(attackerDiceCount);
+		player.setAttack_defenderdicecount(defendergDiceCount);
+		player.setAttack_playerCountry(playerCountry);
+		player.setAttack_gamePhaseDetails(gamePhaseDetails);
+
+
+        boolean success = player.attackPhase();
+        if(success){
+        	System.out.println("Success");
+		}
 
 		//playerCountry;
 		if (isMapConcured()) {

@@ -16,7 +16,7 @@ public interface PlayerStrategy {
 
     public boolean reinforce(Player player);
 
-    public void attack(Player player);
+    public boolean attack(Player player);
 
     public boolean fortify(Player player);
 

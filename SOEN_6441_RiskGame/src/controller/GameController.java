@@ -249,8 +249,6 @@ public class GameController {
 
 	}
 
-
-
 	/**
 	 * This method is going to assign armies to the specific countries in initial phase and in reinforcement phase.
 	 */
