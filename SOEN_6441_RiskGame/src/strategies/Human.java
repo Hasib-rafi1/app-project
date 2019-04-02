@@ -35,9 +35,9 @@ public class Human implements PlayerStrategy, Serializable {
     public boolean fortify(Player thisPlayer){
 
         Player player = thisPlayer;
-        Country sourceCountry = player.getSourceCountry();
-        Country destinationCountry = player.getDestinationCountry();
-        int armies = player.getArmies();
+        Country sourceCountry = player.getFortifySourceCountry();
+        Country destinationCountry = player.getFortifyDestinationCountry();
+        int armies = player.getFortifyArmies();
 
         if(!checkFortificationCondition(sourceCountry, destinationCountry,armies)) {
             return false;

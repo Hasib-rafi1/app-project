@@ -466,9 +466,9 @@ public class Game extends Observable implements Serializable {
 
 		// player class function
 
-        player.setSourceCountry(sourceCountry);
-        player.setDestinationCountry(destinationCountry);
-        player.setArmies(armies);
+        player.setFortifySourceCountry(sourceCountry);
+        player.setFortifyDestinationCountry(destinationCountry);
+        player.setFortifyArmies(armies);
 
 		boolean success = player.fortificationPhase();
 

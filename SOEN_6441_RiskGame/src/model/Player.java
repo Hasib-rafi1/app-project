@@ -58,33 +58,33 @@ public class Player {
 
 	//Attributes for Fortification
 
-	private Country sourceCountry;
-	private Country destinationCountry;
-	private int armies;
+	private Country fortify_sourceCountry;
+	private Country fortify_destinationCountry;
+	private int fortify_armies;
 
 
-	public void setSourceCountry(Country country){
-		this.sourceCountry = country;
+	public void setFortifySourceCountry(Country country){
+		this.fortify_sourceCountry = country;
 	}
 
-	public Country getSourceCountry(){
-		return sourceCountry;
+	public Country getFortifySourceCountry(){
+		return fortify_sourceCountry;
 	}
 
-	public void setDestinationCountry(Country country){
-		this.destinationCountry = country;
+	public void setFortifyDestinationCountry(Country country){
+		this.fortify_destinationCountry = country;
 	}
 
-	public Country getDestinationCountry(){
-		return destinationCountry;
+	public Country getFortifyDestinationCountry(){
+		return fortify_destinationCountry;
 	}
 
-	public void setArmies(int armies){
-		this.armies = armies;
+	public void setFortifyArmies(int armies){
+		this.fortify_armies = armies;
 	}
 
-	public int getArmies(){
-		return armies;
+	public int getFortifyArmies(){
+		return fortify_armies;
 	}
 
 
