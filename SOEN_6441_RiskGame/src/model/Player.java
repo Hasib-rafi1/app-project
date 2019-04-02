@@ -128,6 +128,22 @@ public class Player {
 	}
 
 	/**
+	 * This is the setter function for the player's strategy.
+	 * @param playerStrategy
+	 */
+	public void setPlayerStrategy(PlayerStrategy playerStrategy) {
+		this.playerStrategy = playerStrategy;
+	}
+
+	/**
+	 * This is the getter function for the player's strategy.
+	 * @return playerStrategy
+	 */
+	public PlayerStrategy getPlayerStrategy() {
+		return playerStrategy;
+	}
+
+	/**
 	 * This function sets the name of the player.
 	 * @param playerName name of player
 	 */

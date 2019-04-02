@@ -106,6 +106,7 @@ public class GameController {
 		int gameMode = print.userIntInput();
 
 		if(gameMode == 1){
+
 			int j=1;
 
 			print.listofMapsinDirectory();
@@ -130,6 +131,7 @@ public class GameController {
 					print.consoleOut("\nEnter the name of Player " + j);
 					String name = userinput.nextLine();
 					Player player = new Player(i,name);
+
 					game.addPlayer(player);
 					j++;
 				}
