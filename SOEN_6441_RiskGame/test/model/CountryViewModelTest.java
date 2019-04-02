@@ -14,7 +14,7 @@ import helper.Colors;
 public class CountryViewModelTest {
 	
 	/** Declaring objects. */
-	CountryViewModel obj_CVM = new CountryViewModel();
+	CountryViewModel objCVM = new CountryViewModel();
 	
 	/** The neighbours. */
 	private ArrayList<String> neighbours = new ArrayList<>();
@@ -25,16 +25,16 @@ public class CountryViewModelTest {
 	 */
 	@Before
 	public void setUp() throws Exception{
-		obj_CVM.setCountryId(1);
-		obj_CVM.setCountryName("Canada");
-		obj_CVM.setxCoordinate(120);
-		obj_CVM.setyCoordinate(100);
-		obj_CVM.setNumberOfArmies(4);
-		obj_CVM.setPlayerID(1);
-		obj_CVM.setColorOfCountry(Colors.GREEN);
+		objCVM.setCountryId(1);
+		objCVM.setCountryName("Canada");
+		objCVM.setxCoordinate(120);
+		objCVM.setyCoordinate(100);
+		objCVM.setNumberOfArmies(4);
+		objCVM.setPlayerID(1);
+		objCVM.setColorOfCountry(Colors.GREEN);
 		neighbours.add("USA");
 		neighbours.add("mexico");
-		obj_CVM.setNeighbours(neighbours);
+		objCVM.setNeighbours(neighbours);
 
 	}
 
@@ -43,7 +43,7 @@ public class CountryViewModelTest {
 	 */
 	@Test
 	public void testGetCountryId() {
-		assertEquals(1,obj_CVM.getCountryId());
+		assertEquals(1,objCVM.getCountryId());
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class CountryViewModelTest {
 	 */
 	@Test
 	public void testGetCountryName() {
-		assertEquals("Canada",obj_CVM.getCountryName());
+		assertEquals("Canada",objCVM.getCountryName());
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class CountryViewModelTest {
 
 	@Test
 	public void testGetxCoordinate() {
-		assertEquals(120,obj_CVM.getxCoordinate());
+		assertEquals(120,objCVM.getxCoordinate());
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class CountryViewModelTest {
 
 	@Test
 	public void testGetyCoordinate() {
-		assertEquals(100,obj_CVM.getyCoordinate());
+		assertEquals(100,objCVM.getyCoordinate());
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class CountryViewModelTest {
 
 	@Test
 	public void testGetnumberOfArmies() {
-		assertEquals(4,obj_CVM.getNumberOfArmies());
+		assertEquals(4,objCVM.getNumberOfArmies());
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class CountryViewModelTest {
 	 */
 	@Test
 	public void testGetColorOfCountry() {
-		assertEquals(Colors.GREEN,obj_CVM.getColorOfCountry());
+		assertEquals(Colors.GREEN,objCVM.getColorOfCountry());
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class CountryViewModelTest {
 
 	@Test
 	public void testGetPlayerId() {
-		assertEquals(1,obj_CVM.getPlayerID());
+		assertEquals(1,objCVM.getPlayerID());
 	}
 
 	/**

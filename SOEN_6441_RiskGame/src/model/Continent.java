@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * @author Jaiganesh
  * @version 1.0.0
  */
-public class Continent {
+public class Continent implements Serializable {
 
 	/** The continent ID. */
 	private int continentID;
