@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import model.Country;
 import model.Game;
 import model.Player;
+import strategies.Human;
 import views.BoardView;
 import views.CardView;
 import views.WorldDominationView;
@@ -106,6 +107,7 @@ public class GameController {
 		int gameMode = print.userIntInput();
 
 		if(gameMode == 1){
+
 			int j=1;
 
 			print.listofMapsinDirectory();

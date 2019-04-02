@@ -38,7 +38,7 @@ import java.util.Observable;
  * @version 1.0.0
  */
 
-public class Game extends Observable  implements Serializable {
+public class Game extends Observable implements Serializable {
 
 	/** The map model. */
 	private MapModel mapModel;
