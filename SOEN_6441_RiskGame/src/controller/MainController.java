@@ -48,11 +48,16 @@ public class MainController {
 				break;
 			case 2:
 				gameController.initializeGame();
-
 				break;
+				
 			case 3:
+				gameController.loadSavedGame();
+				break;
+				
+			case 4:
 				print.consoleErr("Thanks for playing this Game.");
 				System.exit(0);
+				
 			default :
 				System.err.println("\n\t Error! Select option from the menu list (1 to 5):");
 				break;
@@ -75,7 +80,8 @@ public class MainController {
 		print.consoleOut("\t Risk Game\t");
 		print.consoleOut("1.Map Generator");
 		print.consoleOut("2.Start Game");
-		print.consoleOut("3.Exit Game");
+		print.consoleOut("3.Load Saved Game");
+		print.consoleOut("4.Exit Game");
 		print.consoleOut("\n*********************************");
 		print.consoleOut("Please Enter Your Choice from the list: ");
 		return print.userIntInput();

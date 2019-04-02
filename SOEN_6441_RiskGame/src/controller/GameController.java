@@ -9,6 +9,8 @@ import java.text.DecimalFormat;
 import java.util.*;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+
 import model.Country;
 import model.Game;
 import model.Player;
@@ -569,6 +571,34 @@ public class GameController {
 	 */
 	public void setBoardView() {
 		game.setBoardView(boardView);
+	}
+
+	public void loadSavedGame() {
+		// TODO Auto-generated method stub
+		print.listofSavedGamesinDirectory();
+		/*int i = 1;
+		for (String GameTitle : savedGameList) {
+			IOHelper.print(i + ")" + GameTitle);
+			i++;
+		}
+		IOHelper.print("\nEnter Game that you want to load:");
+		int gameNumber = IOHelper.getNextInteger();
+		String GameTitle = savedGameList.get(gameNumber - 1);
+		game = Game.loadGame(GameTitle);
+
+		Map map = game.getMap();
+		cardExchangeView = new CardExchangeView();
+		gameView = new GameView();
+		game.addObserver(gameView);
+		game.addObserver(cardExchangeView);
+		game.notifyObserversLocal();
+		gameView.mapPath = map.getMapPath() + map.getMapName() + ".bmp";
+		gameView.gameInitializer();
+		activateListenersOnView();
+		game.notifyObserversLocal();
+
+		IOHelper.print("Game Successfully Loaded");*/
+		
 	}
 
 }

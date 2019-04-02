@@ -110,8 +110,8 @@ public class PrintConsoleAndUserInput {
 	}
 
 	/**
-	 * Listof mapsin directory.
-	 * @return the array list
+	 * List of maps in directory.
+	 * @return list of map files
 	 */
 	public ArrayList<String> listofMapsinDirectory(){
 		ArrayList<String> mapFileList = new ArrayList<String>();
@@ -132,6 +132,32 @@ public class PrintConsoleAndUserInput {
 			j++;
 		}
 		return mapFileList;
+	}
+	
+	
+	/**
+	 * This method is used to return the list od saved game files in the folder
+	 * @return list of saved game files
+	 */
+	public ArrayList<String> listofSavedGamesinDirectory() {		
+		ArrayList<String> savedGamesList = new ArrayList<String>();
+		File folder = new File(".\\src\\savedGames\\");
+		File[] listOfGameFiles = folder.listFiles();
+		int i = 0, j = 1;
+		for(File file : listOfGameFiles){
+			if(file.isFile()){
+				if (file.getName().toLowerCase().contains(".txt")){
+					savedGamesList.add(listOfGameFiles[i].getName());
+				}
+			}
+			i++;
+		}
+		consoleOut("\n"+ "The List of Saved Games is Given Below:-"+ "\n");
+		for (String textfileName : savedGamesList) {
+			consoleOut(j + ". " +textfileName);
+			j++;
+		}
+		return savedGamesList;
 	}
 }
 
