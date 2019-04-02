@@ -44,28 +44,28 @@ import helper.PrintConsoleAndUserInput;
 public  class CardView implements Observer{
 	
 	/** The frame card exchange. */
-	public static JFrame frame_cardExchange = null;
+	public static JFrame frameCardExchange = null;
 	
 	/** The panel card exchange. */
-	private static JPanel panel_cardExchange;
+	private static JPanel panelCardExchange;
 	
 	/** The lab card exchange. */
-	private static JLabel lab_cardExchange;
+	private static JLabel labelCardExchange;
 	
 	/** The lab for player turn. */
-	private static JLabel lab_forPlayerTurn;
+	private static JLabel labelPlayerTurn;
 	
 	/** The list cards owned by the player. */
-	public static JList<String> list_cardsOwnedByThePlayer;
+	public static JList<String> listCardsOwnedByThePlayer;
 	
 	/** The lab total new armies. */
-	private static JLabel lab_totalNewArmies;
+	private static JLabel labelTotalNewArmies;
 	
 	/** The button card exchange. */
-	private static JButton button_cardExchange = new JButton("Exchange Cards");
+	private static JButton buttonCardExchange = new JButton("Exchange Cards");
 	
 	/** The button exit. */
-	private static JButton button_exit = new JButton("Skip Exchange");
+	private static JButton buttonExit = new JButton("Skip Exchange");
 	
 	/** The game. */
 	//Instantiate game object
@@ -83,24 +83,24 @@ public  class CardView implements Observer{
 	 * ui for the card exchange.
 	 */
 	public  void Exchange() {
-		frame_cardExchange = new JFrame("Card Exchange View");
-		panel_cardExchange = new JPanel(null);
-		frame_cardExchange.setSize(800, 600);
+		frameCardExchange = new JFrame("Card Exchange View");
+		panelCardExchange = new JPanel(null);
+		frameCardExchange.setSize(800, 600);
 
-		frame_cardExchange.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		lab_cardExchange = new JLabel();
-		lab_cardExchange
+		frameCardExchange.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		labelCardExchange = new JLabel();
+		labelCardExchange
 		.setBorder(BorderFactory.createTitledBorder(null, "Exchange Card", TitledBorder.DEFAULT_JUSTIFICATION,
 				TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLACK));
-		lab_cardExchange.setBounds(100, 100, 600, 400);
-		lab_forPlayerTurn = new JLabel(game.getCurrentPlayer().getPlayerName());
+		labelCardExchange.setBounds(100, 100, 600, 400);
+		labelPlayerTurn = new JLabel(game.getCurrentPlayer().getPlayerName());
 		Font font = new Font("Courier", Font.BOLD, 24);
-		lab_forPlayerTurn.setFont(font);
-		lab_forPlayerTurn.setForeground(PrintConsoleAndUserInput.getColor(game.getCurrentPlayer().getColor()));
-		lab_forPlayerTurn.setBorder(new TitledBorder("Active Player"));
-		lab_forPlayerTurn.setBounds(30, 45, 250, 150);
-		lab_forPlayerTurn.setHorizontalAlignment(lab_forPlayerTurn.CENTER);
-		lab_forPlayerTurn.setVerticalAlignment(lab_forPlayerTurn.CENTER);
+		labelPlayerTurn.setFont(font);
+		labelPlayerTurn.setForeground(PrintConsoleAndUserInput.getColor(game.getCurrentPlayer().getColor()));
+		labelPlayerTurn.setBorder(new TitledBorder("Active Player"));
+		labelPlayerTurn.setBounds(30, 45, 250, 150);
+		labelPlayerTurn.setHorizontalAlignment(labelPlayerTurn.CENTER);
+		labelPlayerTurn.setVerticalAlignment(labelPlayerTurn.CENTER);
 		//getting the cards a player owns
 		ArrayList<Card> typeOfCards = game.getCurrentPlayer().getCards();
 		String cards[] = new String[typeOfCards.size()];
@@ -109,24 +109,24 @@ public  class CardView implements Observer{
 			cards[i] = typeOfCards.get(i).toString();
 		}
 		//putting it in a JList
-		list_cardsOwnedByThePlayer = new JList<>(cards);
-		list_cardsOwnedByThePlayer.setBorder(new TitledBorder("Cards Owned"));
-		list_cardsOwnedByThePlayer.setBounds(310, 45, 250, 150);
-		lab_totalNewArmies = new JLabel("" + game.getCurrentPlayer().getNumberOfReinforcedArmies());
-		lab_totalNewArmies.setBorder(new TitledBorder("Reinforced Number Army"));
-		lab_totalNewArmies.setBounds(180, 200, 250, 70);
-		button_cardExchange.setBounds(120, 280, 160, 40);
-		button_exit.setBounds(310, 280, 160, 40);
-		lab_cardExchange.add(lab_totalNewArmies);
-		lab_cardExchange.add(list_cardsOwnedByThePlayer);
-		lab_cardExchange.add(lab_forPlayerTurn);
-		lab_cardExchange.add(button_cardExchange);
-		lab_cardExchange.add(button_exit);
-		panel_cardExchange.add(lab_cardExchange);
-		frame_cardExchange.add(panel_cardExchange);
-		frame_cardExchange.setVisible(true);
+		listCardsOwnedByThePlayer = new JList<>(cards);
+		listCardsOwnedByThePlayer.setBorder(new TitledBorder("Cards Owned"));
+		listCardsOwnedByThePlayer.setBounds(310, 45, 250, 150);
+		labelTotalNewArmies = new JLabel("" + game.getCurrentPlayer().getNumberOfReinforcedArmies());
+		labelTotalNewArmies.setBorder(new TitledBorder("Reinforced Number Army"));
+		labelTotalNewArmies.setBounds(180, 200, 250, 70);
+		buttonCardExchange.setBounds(120, 280, 160, 40);
+		buttonExit.setBounds(310, 280, 160, 40);
+		labelCardExchange.add(labelTotalNewArmies);
+		labelCardExchange.add(listCardsOwnedByThePlayer);
+		labelCardExchange.add(labelPlayerTurn);
+		labelCardExchange.add(buttonCardExchange);
+		labelCardExchange.add(buttonExit);
+		panelCardExchange.add(labelCardExchange);
+		frameCardExchange.add(panelCardExchange);
+		frameCardExchange.setVisible(true);
 		//default close button to not work
-		frame_cardExchange.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frameCardExchange.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				
 	}
 
@@ -135,23 +135,23 @@ public  class CardView implements Observer{
 	 *
 	 * @param listener the listener
 	 */
-	public static void exchange_actionListener(ActionListener listener) {
-		button_cardExchange.addActionListener(listener);
+	public static void exchangeActionListener(ActionListener listener) {
+		buttonCardExchange.addActionListener(listener);
 	}
 	
 	/**
 	 * Exit action listener.
 	 * @param listener the listener
 	 */
-	public static void exit_actionListener(ActionListener listener) {
-		button_exit.addActionListener(listener);
+	public static void exitActionListener(ActionListener listener) {
+		buttonExit.addActionListener(listener);
 	}
 	
 	/**
 	 * Close the window.
 	 */
 	public static void closeTheWindow() {
-		frame_cardExchange.dispose();
+		frameCardExchange.dispose();
 	}
 
 	@Override
@@ -162,21 +162,21 @@ public  class CardView implements Observer{
 	
 	public void updateCardView(Game game) {
 
-		if (game.getCurrentPlayer() != null && lab_totalNewArmies != null) {
-			lab_totalNewArmies.setText("" + game.getCurrentPlayer().getNumberOfReinforcedArmies());
+		if (game.getCurrentPlayer() != null && labelTotalNewArmies != null) {
+			labelTotalNewArmies.setText("" + game.getCurrentPlayer().getNumberOfReinforcedArmies());
 			ArrayList<Card> typeOfCards = game.getCurrentPlayer().getCards();
 			String cards[] = new String[typeOfCards.size()];
 			for (int i = 0; i < typeOfCards.size(); i++) {
 				cards[i] = typeOfCards.get(i).toString();
 			}
-			lab_cardExchange.remove(list_cardsOwnedByThePlayer);
-			list_cardsOwnedByThePlayer = null;
-			list_cardsOwnedByThePlayer = new JList<>(cards);
-			list_cardsOwnedByThePlayer.setBorder(new TitledBorder("Cards Owned"));
-			list_cardsOwnedByThePlayer.setBounds(310, 45, 250, 70);
-			lab_cardExchange.add(list_cardsOwnedByThePlayer);	
-			frame_cardExchange.revalidate();
-			frame_cardExchange.repaint();
+			labelCardExchange.remove(listCardsOwnedByThePlayer);
+			listCardsOwnedByThePlayer = null;
+			listCardsOwnedByThePlayer = new JList<>(cards);
+			listCardsOwnedByThePlayer.setBorder(new TitledBorder("Cards Owned"));
+			listCardsOwnedByThePlayer.setBounds(310, 45, 250, 70);
+			labelCardExchange.add(listCardsOwnedByThePlayer);	
+			frameCardExchange.revalidate();
+			frameCardExchange.repaint();
 
 		
 		}

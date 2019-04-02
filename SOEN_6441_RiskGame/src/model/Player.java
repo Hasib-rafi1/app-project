@@ -317,7 +317,7 @@ public class Player {
 	 * @return total number of armies in reinforcement
 	 */
 	public int calculationForNumberOfArmiesInReinforcement(HashMap<Player, ArrayList<Country>> playerCountry,ArrayList<Continent> continents) {
-		int countries_count = (int) Math.floor(playerCountry.get(this).stream().count() / 3);
+		int countriesCount = (int) Math.floor(playerCountry.get(this).stream().count() / 3);
 		if (playerCountry.containsKey(this)) {
 			ArrayList<Country> assignedCountries = playerCountry.get(this);
 
@@ -329,12 +329,12 @@ public class Player {
 				boolean hasPlayerAllCountries = assignedCountryIds.containsAll(continentCountryIds);
 
 				if (hasPlayerAllCountries){
-					countries_count += continent.getControlValue();
+					countriesCount += continent.getControlValue();
 				}
 			}
 		}
-		countries_count = countries_count+ initialArmiesafterExchange;
-		return countries_count;
+		countriesCount = countriesCount+ initialArmiesafterExchange;
+		return countriesCount;
 	}
 	
 

@@ -112,28 +112,28 @@ public class Game extends Observable {
 			
 		}
 		
-		int players_count = playerList.size();
-		System.out.println("Player Count:"+players_count);
-		int countries_count = mapModel.getCountryList().size();
-		int players_id = 0;
+		int playersCount = playerList.size();
+		System.out.println("Player Count:"+playersCount);
+		int countriescount = mapModel.getCountryList().size();
+		int playersid = 0;
 
 		ArrayList<Integer> randomNumbers = new ArrayList<>();
-		for(int i=0; i<countries_count; i++){
+		for(int i=0; i<countriescount; i++){
 			randomNumbers.add(i);
 		}
 		Collections.shuffle(randomNumbers, new Random());
 
-		for(int i=0; i<countries_count ; i++){
-			if (players_id == players_count){
-				players_id = 0;
+		for(int i=0; i<countriescount ; i++){
+			if (playersid == playersCount){
+				playersid = 0;
 			}
 
-			Country assign_country = mapModel.getCountryList().get(randomNumbers.get(i));
-			assignPlayerCountry(playerList.get(players_id),assign_country);
-			assignUnassigned(playerList.get(players_id),assign_country);
-			playerList.get(players_id).assignCountryToPlayer(assign_country);
-			gamePhaseDetails.add(assign_country.getCountryName()+" added for the player: "+players_id);
-			players_id++;
+			Country assignCountry = mapModel.getCountryList().get(randomNumbers.get(i));
+			assignPlayerCountry(playerList.get(playersid),assignCountry);
+			assignUnassigned(playerList.get(playersid),assignCountry);
+			playerList.get(playersid).assignCountryToPlayer(assignCountry);
+			gamePhaseDetails.add(assignCountry.getCountryName()+" added for the player: "+playersid);
+			playersid++;
 		}
 
 		for (Map.Entry<Player, ArrayList<Country>> entry : playerCountry.entrySet()){
@@ -157,9 +157,9 @@ public class Game extends Observable {
 			playerCountry.get(player).add(country);
 		}
 		else{
-			ArrayList<Country> assign_country = new ArrayList<>();
-			assign_country.add(country);
-			playerCountry.put(player, assign_country);
+			ArrayList<Country> assignCountry = new ArrayList<>();
+			assignCountry.add(country);
+			playerCountry.put(player, assignCountry);
 		}
 		country.setCountryColor(player.getColor());
 		country.setPlayerId(player.getPlayerId());
@@ -268,12 +268,12 @@ public class Game extends Observable {
 		}
 		gamePhaseDetails.add("card:"+player.getCards().size());
 		System.out.println("card:"+player.getCards().size());
-		int countries_count = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
+		int countriescount = player.calculationForNumberOfArmiesInReinforcement(playerCountry,mapModel.getContinentList());
 		gamePhaseDetails.add("Calculating reinforcement");
-		countries_count = countries_count < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : countries_count;
-		System.out.println("Countries Count:" + countries_count);
-		gamePhaseDetails.add("Number of armies get from reinforcement:"+countries_count);
-		player.setNumberOfReinforcedArmies(countries_count);
+		countriescount = countriescount < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : countriescount;
+		System.out.println("Countries Count:" + countriescount);
+		gamePhaseDetails.add("Number of armies get from reinforcement:"+countriescount);
+		player.setNumberOfReinforcedArmies(countriescount);
 	}
 
 	/**
@@ -699,11 +699,11 @@ public class Game extends Observable {
 	 * @param countryName anme of the country
 	 */
 	public void getCountryArmies(String countryName) {
-		int armies_number = 0;
+		int armiesnumber = 0;
 		Player player = this.getCurrentPlayer();
 		for(Country country: playerCountry.get(player)){
 			if(country.getCountryName().equals(countryName)){
-				armies_number = country.getnoOfArmies();
+				armiesnumber = country.getnoOfArmies();
 			}
 		}
 	}
@@ -856,9 +856,9 @@ public class Game extends Observable {
 		ArrayList<String> attackerCountry = new ArrayList<String>();
 		ArrayList<Country> countryList = this.getCurrentPlayerCountries();
 		for (int i = 0; i < countryList.size(); i++) {
-			Country temp_cname = countryList.get(i);
-			if (temp_cname.getnoOfArmies()>1) {
-				attackerCountry.add(temp_cname.getCountryName());
+			Country tempcname = countryList.get(i);
+			if (tempcname.getnoOfArmies()>1) {
+				attackerCountry.add(tempcname.getCountryName());
 			}
 		}
 		return attackerCountry;

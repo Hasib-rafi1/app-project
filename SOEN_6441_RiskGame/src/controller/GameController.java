@@ -165,8 +165,8 @@ public class GameController {
 				if(countryName!=null) {
 					ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
 					int armyCount = game.getArmiesAssignedToCountry(countryName);
-					boardView.combo_fillDestinationCountry(neighborCountries);
-					boardView.combo_fillArmyToMove(armyCount);
+					boardView.comboboxFillDestinationCountry(neighborCountries);
+					boardView.comboboxFillArmyToMove(armyCount);
 				}
 			}		
 		});
@@ -181,7 +181,7 @@ public class GameController {
 				String countryName = boardView.getAttackerCountry();
 				if (countryName != null) {
 					ArrayList<String> neighborCountries = game.getOthersNeighbouringCountriesOnly(countryName);
-					boardView.combo_fillDefendersCountry(neighborCountries);
+					boardView.comboboxFillDefendersCountry(neighborCountries);
 					int diceCount = game.getMaximumDices(countryName, "Attacker");
 					boardView.setAttackerDiceComboBox(diceCount);
 				}
@@ -296,7 +296,7 @@ public class GameController {
 		boardView.moveArmyButtonListener(new ActionListener() {
 			public void actionPerformed(ActionEvent  e) {
 				if (game.getGamePhase()==GamePhase.Fortification) {
-					game.fortificationPhase(boardView.getSourceCountry(),boardView.getDestinationCountry(),boardView.combo_getArmyToMove());
+					game.fortificationPhase(boardView.getSourceCountry(),boardView.getDestinationCountry(),boardView.comboboxGetArmyToMove());
 				}
 			}
 		});
@@ -399,12 +399,12 @@ public class GameController {
 	 * This function is used to exchange button listener.
 	 */
 	public void exchangeButtonListener() {
-		CardView.exchange_actionListener(new ActionListener(){
+		CardView.exchangeActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (CardView.list_cardsOwnedByThePlayer.getSelectedValuesList() != null &&  CardView.list_cardsOwnedByThePlayer.getSelectedValuesList().size() > 0) {
+				if (CardView.listCardsOwnedByThePlayer.getSelectedValuesList() != null &&  CardView.listCardsOwnedByThePlayer.getSelectedValuesList().size() > 0) {
 					// This list holds the cards selected by the user
-					ArrayList<String> selectedCards = (ArrayList<String>) CardView.list_cardsOwnedByThePlayer.getSelectedValuesList();
+					ArrayList<String> selectedCards = (ArrayList<String>) CardView.listCardsOwnedByThePlayer.getSelectedValuesList();
 					
 					boolean success = game.exchangeRiskCards(selectedCards);
 					if(success) {
@@ -423,11 +423,11 @@ public class GameController {
 	 * This function is going to close/skip if number of card is less than 5.
 	 */
 	public void skipExchangeListener() {
-		CardView.exit_actionListener(new ActionListener() {
+		CardView.exitActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int temp_forNumberOfCardsPlayerHolds = (game.getCurrentPlayer().getCards()).size();
-				if(temp_forNumberOfCardsPlayerHolds >= 5) {
+				int tempForNumberOfCardsPlayerHolds = (game.getCurrentPlayer().getCards()).size();
+				if(tempForNumberOfCardsPlayerHolds >= 5) {
 					JOptionPane.showMessageDialog(null, "Cannot skip Exchange. Perform the Exchange operation!");
 				}else {
 					boardView.getFrameGameWindow().setEnabled(true);
@@ -438,7 +438,7 @@ public class GameController {
 	}
 
 	/**
-	 * This function is going to set the boardview in the game model.
+	 * This function is going to set the BoardView in the game model.
 	 */
 	public void setBoardView() {
 		game.setBoardView(boardView);

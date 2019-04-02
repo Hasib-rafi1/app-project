@@ -18,30 +18,30 @@ import javax.swing.JPanel;
 public class FinishView {
 
 	/** The frame congratulation. */
-	private static JFrame frame_congratulation = null;
+	private static JFrame frameCongratulation = null;
 
 	/** The panel congratulation. */
-	private static JPanel panel_congratulation;
+	private static JPanel panelCongratulation;
 
 	/** The lab congratulation. */
-	private static JLabel lab_congratulation;
+	private static JLabel labCongratulation;
 
 	/**
 	 * UI for printing the winner of the game
 	 * @param playerName the player name
 	 */
 	public void Exchange(String playerName) {
-		frame_congratulation = new JFrame("Congratulations");
-		panel_congratulation = new JPanel();
-		frame_congratulation.setSize(800, 300);
-		frame_congratulation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		lab_congratulation = new JLabel("Congratulation! Player "+ playerName + " wins the game");
+		frameCongratulation = new JFrame("Congratulations");
+		panelCongratulation = new JPanel();
+		frameCongratulation.setSize(800, 300);
+		frameCongratulation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		labCongratulation = new JLabel("Congratulation! Player "+ playerName + " wins the game");
 		Font font = new Font("Courier", Font.BOLD, 30);
-		lab_congratulation.setFont(font);
-		lab_congratulation.setBounds(100, 100, 220, 40);
-		panel_congratulation.add(lab_congratulation);
-		frame_congratulation.add(panel_congratulation);
-		frame_congratulation.setVisible(true);
+		labCongratulation.setFont(font);
+		labCongratulation.setBounds(100, 100, 220, 40);
+		panelCongratulation.add(labCongratulation);
+		frameCongratulation.add(panelCongratulation);
+		frameCongratulation.setVisible(true);
 
 	}
 }
