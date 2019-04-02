@@ -38,7 +38,7 @@ import java.util.Observable;
  * @version 1.0.0
  */
 
-public class Game extends Observable  implements Serializable {
+public class Game extends Observable implements Serializable {
 
 	/** The map model. */
 	private MapModel mapModel;
@@ -247,25 +247,16 @@ public class Game extends Observable  implements Serializable {
 			print.consoleOut("Not a Valid Phase");
 			return false;
 		}
+        Player player = this.getCurrentPlayer();
+        Country country = playerCountry.get(player).stream()
+                .filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
 
-		Player player = this.getCurrentPlayer();
+		player.setReinforceCountry(country);
+		boolean success = player.reinforcementPhase();
 
-		if(player == null){
-			print.consoleOut("Player ID"+currentPlayerId+"does not exist.");
-			return false;
-		}
-		if(player.getNumberOfReinforcedArmies() == 0){
-			print.consoleOut("Player "+player.getPlayerName()+": Doesn't have any Armies.");
-			return false;
-		}
-		Country country = playerCountry.get(player).stream()
-				.filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
-		if (country == null) {
-			print.consoleOut("Country Name: " + countryName + " does not exist!");
-			return false;
-		}
-		assignReinforcement(player,country);
-		gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
+		if(success){
+		    gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
+        }
 		notifyObserverslocal(this);
 		return true;
 	}
@@ -465,8 +456,16 @@ public class Game extends Observable  implements Serializable {
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
 
 		// player class function
-		boolean success = player.fortificationPhase(sourceCountry, destinationCountry, armies);
-		gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
+
+        player.setFortifySourceCountry(sourceCountry);
+        player.setFortifyDestinationCountry(destinationCountry);
+        player.setFortifyArmies(armies);
+
+		boolean success = player.fortificationPhase();
+
+		if(success){
+		    gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
+        }
 		if(player.getIsConqured()){
 			System.out.println("Conquered");
 			Card riskCard = getRiskCardFromDeck();
@@ -831,7 +830,21 @@ public class Game extends Observable  implements Serializable {
 			return false;
 		}
 
-		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount,playerCountry,gamePhaseDetails);
+		Player player = getCurrentPlayer();
+
+		player.setAttack_defenderplayer(defenderPlayer);
+		player.setAttack_attackercountry(attCountry);
+		player.setAttack_defendercountry(defCountry);
+		player.setAttack_attackerdicecount(attackerDiceCount);
+		player.setAttack_defenderdicecount(defendergDiceCount);
+		player.setAttack_playerCountry(playerCountry);
+		player.setAttack_gamePhaseDetails(gamePhaseDetails);
+
+
+        boolean success = player.attackPhase();
+        if(success){
+        	System.out.println("Success");
+		}
 
 		//playerCountry;
 		if (isMapConcured()) {
