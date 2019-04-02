@@ -590,9 +590,9 @@ public class BoardView implements Observer {
 	 * This method is used to create the save game button in the panel window.
 	 */
 	public void createSaveGameButton() {	
-		saveGameButton.setBounds(button_playerWorldDominationView.getX() + button_playerWorldDominationView.getWidth() + 15,
-				pane_mapScrollPane.getY(),200, 40);
-		panel_gameAction.add(saveGameButton);	
+		saveGameButton.setBounds(buttonPlayerWorldDominationView.getX() + buttonPlayerWorldDominationView.getWidth() + 15,
+				mapScrollPane.getY(),200, 40);
+		panelGameAction.add(saveGameButton);	
 	}
 	
 	/**
