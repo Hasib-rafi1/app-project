@@ -3,6 +3,8 @@ import helper.Colors;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -190,6 +192,21 @@ public class Country implements Serializable{
 	 */
 	public ArrayList<Country> getNeighboursOfCountry() {
 		return neighboursOfCountry;
+	}
+	
+	/**
+	 * This method is used to get the list of neighbour Strings.
+	 * @return neighboursString
+	 */
+	public ArrayList<String> getStringsOfNeighbours() {
+		ArrayList<String> neighboursStrings= new ArrayList<String>();
+		
+		Iterator<Country> itr = neighboursOfCountry.iterator(); 
+		while (itr.hasNext()) {
+			Country request = itr.next();
+			neighboursStrings.add(request.getCountryName());
+		}
+		return neighboursStrings;
 	}
 
 	/**
