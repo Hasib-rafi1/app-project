@@ -1,6 +1,7 @@
 package helper;
 import java.awt.Color;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
  * @author Zakiya Jafrin
  * @version 1.0.0
  */
-public class PrintConsoleAndUserInput {
+public class PrintConsoleAndUserInput  {
 
 	/** The input. */
 	static Scanner input = new Scanner(System.in);

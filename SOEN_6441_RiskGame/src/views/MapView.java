@@ -2,6 +2,8 @@ package views;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.Serializable;
+
 import javax.swing.*;
 
 import helper.PrintConsoleAndUserInput;
@@ -13,7 +15,7 @@ import helper.PrintConsoleAndUserInput;
  * @author Gargi Sharma
  * @version 1.0.0
  */
-public class MapView {
+public class MapView  {
 
 	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();

@@ -1,5 +1,7 @@
 package model;
 import helper.Colors;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  * @author Gargi
  * @version 1.0.0
  */
-public class Country {
+public class Country implements Serializable{
 
 	/** The country id. */
 	private int countryId;

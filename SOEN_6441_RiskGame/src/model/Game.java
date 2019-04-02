@@ -1,6 +1,8 @@
 package model;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -11,6 +13,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+
+
 
 import helper.GameMode;
 
@@ -39,7 +43,10 @@ import java.util.Observable;
  */
 
 public class Game extends Observable implements Serializable {
-
+	public Game()
+	{
+		System.out.println("constructor initialise");
+	}
 	/** The map model. */
 	private MapModel mapModel;
 
@@ -96,6 +103,7 @@ public class Game extends Observable implements Serializable {
 		super();
 		this.mapModel = map;
 		this.setGamePhase(GamePhase.Startup);
+		System.out.println("--" + this);
 	}
 
 
@@ -750,7 +758,7 @@ public class Game extends Observable implements Serializable {
 	 * This is the method that notifies all the observers connected to the observable.
 	 * @param game game view
 	 */
-	private void notifyObserverslocal(Game game){
+	public void notifyObserverslocal(Game game){
 		setChanged();
 		notifyObservers(this);
 	}
@@ -1125,6 +1133,7 @@ public class Game extends Observable implements Serializable {
 		try {
 			FileOutputStream fileOut = new FileOutputStream(".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt");
 			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+			//System.out.println("printing correctly : " + this);
 			objectOut.writeObject(this);
 			objectOut.close();
 			System.out.println("******* The Game is succesfully saved to a file ********");
@@ -1134,5 +1143,48 @@ public class Game extends Observable implements Serializable {
 		}
 		return saveGameFileWithTime;
 
+	}
+	
+	public String saveMyGame()
+	{
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
+		String saveGameFileWithTime = dateFormat.format(cal.getTime());
+		String filepath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
+		try 
+		{
+			FileOutputStream fo = new FileOutputStream(filepath);
+			ObjectOutputStream os = new ObjectOutputStream(fo);
+			os.writeObject(this);
+			os.close();
+			
+			//os.flush();
+			fo.close();
+			//fo.flush();
+		}
+	 catch (Exception ex) {
+		ex.printStackTrace();
+	}
+	return saveGameFileWithTime;
+	}
+	/**
+	 * This method is used to save game in a text file while playing
+	 * @return filename of saved Game
+	 */
+	public static Game loadGame(String gameTitle) {
+		Game game = null;
+		try {
+			System.out.println("gameTitle:" + gameTitle);
+			FileInputStream fileIn = new FileInputStream(".\\src\\savedGames\\" + gameTitle+ ".txt");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			game = (Game) in.readObject();
+			in.close();
+			fileIn.close();
+		} catch (IOException i) {
+			i.printStackTrace();
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+		}
+		return game;
 	}
 }

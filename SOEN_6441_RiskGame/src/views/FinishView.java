@@ -1,5 +1,7 @@
 package views;
 import java.awt.Font;
+import java.io.Serializable;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +17,7 @@ import javax.swing.JPanel;
  * @author Jaiganesh
  */
 
-public class FinishView {
+public class FinishView  {
 
 	/** The frame congratulation. */
 	private static JFrame frameCongratulation = null;
