@@ -132,13 +132,14 @@ public class GameController {
 					print.consoleOut("\nEnter the name of Player " + j);
 					String name = userinput.nextLine();
 					Player player = new Player(i,name);
+                    print.consoleOut("\nEnter The Strategy of playing for Player: " +name);
+                    print.consoleOut("\n1. Human \n2. Aggressor \n3. Benevolent \n4. Cheater \n5. Random");
+                    int strategy = Integer.parseInt(userinput.nextLine());
 
-//					print.consoleOut("\nEnter The Strategy of playing for this Player ");
-//					print.consoleOut("1. Human");
-//					print.consoleOut("2. Aggressive");
-//					print.consoleOut("3. Benevolent");
-//					print.consoleOut("4. Random");
-//					print.consoleOut("5. Cheater");
+                    if(strategy == 1){
+                        player.setPlayerStrategy(new Human());
+                    }
+                    
 //					playerStrategyName = print.userIntInput();
 //					playerStrategyActions();
 
@@ -184,10 +185,7 @@ public class GameController {
 				}else{print.consoleErr("Please Enter the number of Strategies between 2-4. ");}
 			}
 			print.consoleOut("Enter '" + P + "' Different Strategies from following list:");
-			print.consoleOut("2. Aggressive");
-			print.consoleOut("3. Benevolent");
-			print.consoleOut("4. Random");
-			print.consoleOut("5. Cheater");
+			print.consoleOut("2. Aggressor \n3. Benevolent \n4. Cheater \n5. Random");
 			for (int i = 0; i < P; i++) {
 				playerStrategyName = print.userIntInput();
 				while (true) {
