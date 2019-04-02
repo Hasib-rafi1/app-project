@@ -1,4 +1,5 @@
 package model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,7 @@ import strategies.PlayerStrategy;
  * @author Md Hasibul Huq
  * @version 1.0.0
  */
-public class Player {
+public class Player implements Serializable{
 	
 	/** The player id. */
 	private int playerId;

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,7 +27,7 @@ import java.util.Scanner;
  * @author Zakiya Jafrin
  * @version 1.0.0
  */
-public class MapModel {
+public class MapModel implements Serializable{
 	
 	/** The scanner. */
 	Scanner scanner = new Scanner(System.in);

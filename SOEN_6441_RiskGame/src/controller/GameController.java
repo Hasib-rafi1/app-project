@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.*;
 import javax.swing.JLabel;
@@ -503,7 +504,7 @@ public class GameController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				game.saveGamePlay();
+				game.saveMyGame();
 			}
 		});
 
@@ -573,8 +574,24 @@ public class GameController {
 	}
 
 	public void loadSavedGame() {
-		// TODO Auto-generated method stub
+		// print the saved game files in the directory
 		print.listofSavedGamesinDirectory();
+		
+		print.consoleOut("Enter Game file name which you want to load:");		
+		String selectFileToLoadGame = userinput.nextLine();
+
+		game = Game.loadGame(selectFileToLoadGame);
+		
+		MapModel mapModel = game.getMap();
+		//game = new Game(mapModel);
+		boardView=new BoardView();		
+		worldDominationViewObserver = new WorldDominationView();
+		
+		game.addObserver(worldDominationViewObserver);
+		game.addObserver(boardView);
+		
+		callListenerOnView();
+		game.notifyObserverslocal(game);
 		/*int i = 1;
 		for (String GameTitle : savedGameList) {
 			IOHelper.print(i + ")" + GameTitle);
@@ -587,7 +604,7 @@ public class GameController {
 
 		Map map = game.getMap();
 		cardExchangeView = new CardExchangeView();
-		gameView = new GameView();
+		gameView = new GameView(); // boardview
 		game.addObserver(gameView);
 		game.addObserver(cardExchangeView);
 		game.notifyObserversLocal();
