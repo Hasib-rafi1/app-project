@@ -569,7 +569,7 @@ public class BoardView implements Observer {
 	 */
 	public void createPlayerWorldDominationView() {
 		buttonPlayerWorldDominationView = new JButton("Player World Domination View");
-		buttonPlayerWorldDominationView.setBounds(mapScrollPane.getWidth()+10, mapScrollPane.getY(), 490, 40);
+		buttonPlayerWorldDominationView.setBounds(mapScrollPane.getWidth()+10, mapScrollPane.getY(), 360, 40);
 		panelGameAction.add(buttonPlayerWorldDominationView,BorderLayout.NORTH);
 
 	
@@ -591,7 +591,7 @@ public class BoardView implements Observer {
 	 */
 	public void createSaveGameButton() {	
 		saveGameButton.setBounds(buttonPlayerWorldDominationView.getX() + buttonPlayerWorldDominationView.getWidth() + 15,
-				mapScrollPane.getY(),200, 40);
+				mapScrollPane.getY(),110, 40);
 		panelGameAction.add(saveGameButton);	
 	}
 	

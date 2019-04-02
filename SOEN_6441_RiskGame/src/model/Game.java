@@ -126,19 +126,12 @@ public class Game extends Observable implements Serializable {
 			gamePhaseDetails.add("Player's Color"+playerList.get(i).getColor());
 
 		}
-<<<<<<< HEAD
 		
 		int playersCount = playerList.size();
 		System.out.println("Player Count:"+playersCount);
 		int countriescount = mapModel.getCountryList().size();
 		int playersid = 0;
-=======
 
-		int players_count = playerList.size();
-		System.out.println("Player Count:"+players_count);
-		int countries_count = mapModel.getCountryList().size();
-		int players_id = 0;
->>>>>>> branch 'master' of https://naren_csp@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
 
 		ArrayList<Integer> randomNumbers = new ArrayList<>();
 		for(int i=0; i<countriescount; i++){

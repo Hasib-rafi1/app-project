@@ -9,5 +9,12 @@ package strategies;
  *
  */
 public class Cheater {
+	public String strategyName = "Cheater";
 
+    public String getStrategyName(){
+        return strategyName;
+    }
+	public boolean isHuman() {
+		return false;
+	}
 }

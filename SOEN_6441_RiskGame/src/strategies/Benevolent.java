@@ -8,5 +8,14 @@ package strategies;
  *
  */
 public class Benevolent {
+		
+	public String strategyName = "Benevolent";
+
+    public String getStrategyName(){
+        return strategyName;
+    }
+	public boolean isHuman() {
+		return false;
+	}
 
 }

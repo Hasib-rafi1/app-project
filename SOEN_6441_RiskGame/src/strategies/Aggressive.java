@@ -9,5 +9,13 @@ package strategies;
  *
  */
 public class Aggressive {
+	public String strategyName = "Aggressive";
+
+    public String getStrategyName(){
+        return strategyName;
+    }
+	public boolean isHuman() {
+		return false;
+	}
 
 }

@@ -9,5 +9,12 @@ package strategies;
  *
  */
 public class Random {
+	public String strategyName = "Random";
 
+    public String getStrategyName(){
+        return strategyName;
+    }
+	public boolean isHuman() {
+		return false;
+	}
 }

@@ -533,13 +533,7 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				if (CardView.listCardsOwnedByThePlayer.getSelectedValuesList() != null &&  CardView.listCardsOwnedByThePlayer.getSelectedValuesList().size() > 0) {
 					// This list holds the cards selected by the user
-<<<<<<< HEAD
 					ArrayList<String> selectedCards = (ArrayList<String>) CardView.listCardsOwnedByThePlayer.getSelectedValuesList();
-					
-=======
-					ArrayList<String> selectedCards = (ArrayList<String>) CardView.list_cardsOwnedByThePlayer.getSelectedValuesList();
-
->>>>>>> branch 'master' of https://naren_csp@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
 					boolean success = game.exchangeRiskCards(selectedCards);
 					if(success) {
 						CardView.closeTheWindow();
