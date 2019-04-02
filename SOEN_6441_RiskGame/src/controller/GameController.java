@@ -443,7 +443,7 @@ public class GameController {
 	 */
 	private void addActionListenerForloadAndSaveGame() {
 		// TODO Auto-generated method stub
-		boardView.loadAndSaveGameButtonListener(new ActionListener() {
+		boardView.saveGameButtonListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {

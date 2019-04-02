@@ -9,5 +9,5 @@ package helper;
 */
 
 public enum GameMode {
-	SingleMode,TournamentMode
+	SingleGameMode,TournamentMode
 }

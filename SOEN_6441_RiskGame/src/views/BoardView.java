@@ -120,7 +120,9 @@ public class BoardView implements Observer {
 	/** The button end attack. */
 	private static JButton button_endAttack = new JButton("End Attack");
 	
-	private static JButton loadAndSaveGameButton = new JButton("Save Game");;
+	private static JButton saveGameButton = new JButton("Save Game");
+	
+
 
 	/** The lab fortification. */
 	// Fortification variables
@@ -288,7 +290,7 @@ public class BoardView implements Observer {
 
 		mapGenerator();
 		createPlayerWorldDominationView();
-		loadAndSaveGame();
+		createSaveGameButton();
 		gamePhase();
 		loadingPhaseActionLabel();
 		view_initialisation();
@@ -564,7 +566,8 @@ public class BoardView implements Observer {
 	 */
 	public void createPlayerWorldDominationView() {
 		button_playerWorldDominationView = new JButton("Player World Domination View");
-		button_playerWorldDominationView.setBounds(940, pane_mapScrollPane.getY(), 250, 40);
+		button_playerWorldDominationView.setBounds(pane_mapScrollPane.getWidth()+15, pane_mapScrollPane.getY(), 250, 40);
+		
 		panel_gameAction.add(button_playerWorldDominationView);
 	
 	}
@@ -583,18 +586,18 @@ public class BoardView implements Observer {
 	/**
 	 * This method is used to create the save game button in the panel window.
 	 */
-	public void loadAndSaveGame() {
-		// TODO Auto-generated method stub	
-		loadAndSaveGameButton.setBounds(1200,pane_mapScrollPane.getY(),200, 40);
-		panel_gameAction.add(loadAndSaveGameButton);	
+	public void createSaveGameButton() {	
+		saveGameButton.setBounds(button_playerWorldDominationView.getX() + button_playerWorldDominationView.getWidth() + 15,
+				pane_mapScrollPane.getY(),200, 40);
+		panel_gameAction.add(saveGameButton);	
 	}
 	
 	/**
-	 * Save and load game Listener.
+	 * Save game Listener.
 	 * @param listener Action Listener
 	 */
-	public void loadAndSaveGameButtonListener(ActionListener listener) {
-		loadAndSaveGameButton.addActionListener(listener);
+	public void saveGameButtonListener(ActionListener listener) {
+		saveGameButton.addActionListener(listener);
 	}
 	
 	
