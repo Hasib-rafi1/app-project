@@ -185,6 +185,8 @@ public class BoardView implements Observer {
 	/** The map it. */
 	MapModel mapIt;
 
+
+
 	//----------------------------- View Update Function ---------------------------
 	/**
 	 * method to perform all the actions.

@@ -61,8 +61,6 @@ public class Game extends Observable  implements Serializable {
 	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
 
-
-
 	/** The player list. */
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 
@@ -87,6 +85,8 @@ public class Game extends Observable  implements Serializable {
 	public boolean dominationViewOn = false;
 
 	CardView cardview = new CardView(this);
+	
+	
 	/**
 	 * Instantiates a new game.
 	 * @param map the map
@@ -1112,7 +1112,7 @@ public class Game extends Observable  implements Serializable {
 		try {
 			FileOutputStream fileOut = new FileOutputStream(".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt");
 			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-			objectOut.writeObject("hello test");
+			objectOut.writeObject(this);
 			objectOut.close();
 			System.out.println("******* The Game is succesfully saved to a file ********");
 
