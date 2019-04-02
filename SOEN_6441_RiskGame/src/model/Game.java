@@ -1,11 +1,21 @@
 package model;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
+import helper.GameMode;
+
 import java.util.Collections;
+import java.util.Date;
 
 import helper.Card;
 import helper.InitialPlayerArmy;
@@ -28,23 +38,23 @@ import java.util.Observable;
  * @version 1.0.0
  */
 
-public class Game extends Observable {
+public class Game extends Observable implements Serializable {
 
 	/** The map model. */
 	private MapModel mapModel;
-	
+
 	/** The game phase. */
 	private GamePhase gamePhase;
-	
+
 	/** The current player id. */
 	private int currentPlayerId;
-	
-	/** The MINIMU M REINFORCEMEN T pl AYERS. */
+
+	/** The MINIMUM REINFORCEMEN plAYERS. */
 	private int MINIMUM_REINFORCEMENT_PlAYERS = 3;
 
 	/** The connected own countries. */
 	private ArrayList<String> connectedOwnCountries = new ArrayList<String>();
-	
+
 	/** The initial source country. */
 	private String initialSourceCountry;
 
@@ -53,25 +63,30 @@ public class Game extends Observable {
 
 	/** The player list. */
 	private ArrayList<Player> playerList = new ArrayList<Player>();
-	
+
 	/** The player country. */
 	HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
 
 	/** The Risk Cards. */
 	private ArrayList<Card> riskCards = new ArrayList<>();
-	
+
 	/** The boardview. */
 	private BoardView boardview;
+
+	/** The Game Mode. */
+	private GameMode gameMode;
 
 	/** The game phase details. */
 	private ArrayList<String> gamePhaseDetails = new ArrayList<>();
 
 	/** The exchange number. */
 	private Integer armiesAfterExchange= 5;
-	
+
 	public boolean dominationViewOn = false;
 
 	CardView cardview = new CardView(this);
+	
+	
 	/**
 	 * Instantiates a new game.
 	 * @param map the map
@@ -109,13 +124,21 @@ public class Game extends Observable {
 			gamePhaseDetails.add("Player Name: "+playerList.get(i).getPlayerName());
 			gamePhaseDetails.add("Player's Army: "+playerList.get(i).getNumberOfInitialArmies());
 			gamePhaseDetails.add("Player's Color"+playerList.get(i).getColor());
-			
+
 		}
+<<<<<<< HEAD
 		
 		int playersCount = playerList.size();
 		System.out.println("Player Count:"+playersCount);
 		int countriescount = mapModel.getCountryList().size();
 		int playersid = 0;
+=======
+
+		int players_count = playerList.size();
+		System.out.println("Player Count:"+players_count);
+		int countries_count = mapModel.getCountryList().size();
+		int players_id = 0;
+>>>>>>> branch 'master' of https://naren_csp@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
 
 		ArrayList<Integer> randomNumbers = new ArrayList<>();
 		for(int i=0; i<countriescount; i++){
@@ -227,30 +250,21 @@ public class Game extends Observable {
 	 * @return true
 	 */
 	public boolean addingReinforcementCountryArmy(String countryName){
-		
+
 		if(this.gamePhase != gamePhase.Reinforcement){
 			print.consoleOut("Not a Valid Phase");
 			return false;
 		}
+        Player player = this.getCurrentPlayer();
+        Country country = playerCountry.get(player).stream()
+                .filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
 
-		Player player = this.getCurrentPlayer();
+		player.setReinforceCountry(country);
+		boolean success = player.reinforcementPhase();
 
-		if(player == null){
-			print.consoleOut("Player ID"+currentPlayerId+"does not exist.");
-			return false;
-		}
-		if(player.getNumberOfReinforcedArmies() == 0){
-			print.consoleOut("Player "+player.getPlayerName()+": Doesn't have any Armies.");
-			return false;
-		}
-		Country country = playerCountry.get(player).stream()
-				.filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
-		if (country == null) {
-			print.consoleOut("Country Name: " + countryName + " does not exist!");
-			return false;
-		}
-		assignReinforcement(player,country);
-		gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
+		if(success){
+		    gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
+        }
 		notifyObserverslocal(this);
 		return true;
 	}
@@ -262,7 +276,7 @@ public class Game extends Observable {
 		gamePhaseDetails.removeAll(gamePhaseDetails);
 		Player player = getCurrentPlayer();
 		if(player.getCards().size()>2) {
-			
+
 			cardview.Exchange();
 			this.getBoardView().getFrameGameWindow().setEnabled(false);
 		}
@@ -281,8 +295,8 @@ public class Game extends Observable {
 	 */
 	public void updateGame() {
 		if (this.getGamePhase() == gamePhase.Startup) {
-//
-//			gamePhaseDetails.removeAll(gamePhaseDetails);r
+			//
+			//			gamePhaseDetails.removeAll(gamePhaseDetails);r
 			long pendingPlayersCount = playerList.stream().filter(p -> p.getNumberOfInitialArmies() > 0).count();
 			System.out.println(pendingPlayersCount);
 
@@ -359,7 +373,7 @@ public class Game extends Observable {
 			String country = rec.next();
 			getConnectedCountries(country, countryList);
 		}
-		
+
 		System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
 		System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 		finalCOuntries.addAll(connectedOwnCountries);
@@ -448,14 +462,22 @@ public class Game extends Observable {
 
 		Country destinationCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
-		
+
 		// player class function
-		boolean success = player.fortificationPhase(sourceCountry, destinationCountry, armies);
-		gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
+
+        player.setFortifySourceCountry(sourceCountry);
+        player.setFortifyDestinationCountry(destinationCountry);
+        player.setFortifyArmies(armies);
+
+		boolean success = player.fortificationPhase();
+
+		if(success){
+		    gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
+        }
 		if(player.getIsConqured()){
 			System.out.println("Conquered");
 			Card riskCard = getRiskCardFromDeck();
-			
+
 			if(riskCard == null){
 				System.out.println("No Cards Available Right Now.");
 			} else {
@@ -472,7 +494,7 @@ public class Game extends Observable {
 		notifyObserverslocal(this);
 		return true;
 	}
-	
+
 	/**
 	 * This function skip the fortification phase.
 	 */
@@ -491,16 +513,16 @@ public class Game extends Observable {
 			player.setIsConqured(false);
 
 		}
-		
+
 		this.setupNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 	}
 
-    /**
-     * This function initialises the Risk Cards during the startup of the game.
-     */
+	/**
+	 * This function initialises the Risk Cards during the startup of the game.
+	 */
 
 	public void initializeRiskCards(){
 
@@ -525,25 +547,25 @@ public class Game extends Observable {
 		System.out.println(riskCards.toString());
 	}
 
-    /**
-     * This function returns a risk card from the deck when called.
-     * @return riskCard
-     */
+	/**
+	 * This function returns a risk card from the deck when called.
+	 * @return riskCard
+	 */
 	public Card getRiskCardFromDeck(){
-        System.out.println(riskCards.toString());
-        if(riskCards.size() > 0){
-	        Card riskCard = riskCards.get(0);
-	        riskCards.remove(0);
-	        return riskCard;
-        }
-        return null;
-    }
+		System.out.println(riskCards.toString());
+		if(riskCards.size() > 0){
+			Card riskCard = riskCards.get(0);
+			riskCards.remove(0);
+			return riskCard;
+		}
+		return null;
+	}
 
-    /**
-     * This function adds the risk card back to the deck when called.
-     * @param riskCard Card
-     */
-    public void addRiskCardToDeck(Card riskCard){
+	/**
+	 * This function adds the risk card back to the deck when called.
+	 * @param riskCard Card
+	 */
+	public void addRiskCardToDeck(Card riskCard){
 		if(riskCards.size()>0){
 			riskCards.add(riskCard);
 		}
@@ -552,7 +574,7 @@ public class Game extends Observable {
 
 	/**
 	 * This function performs the exchange operations for the risk cards by assigning armies to the player.
-     * @param selectedRiskCards arraylist which contains selected risk cards
+	 * @param selectedRiskCards arraylist which contains selected risk cards
 	 * @return true if cards exchanges otherwise false
 	 */
 	public boolean exchangeRiskCards(ArrayList<String> selectedRiskCards){
@@ -578,7 +600,8 @@ public class Game extends Observable {
 				getCurrentPlayer().getCards().remove(secondCard);
 				getCurrentPlayer().getCards().remove(thirdCard);
 				getCurrentPlayer().setInitialArmiesafterExchange(armiesAfterExchange);
-				armiesAfterExchange= armiesAfterExchange+5;
+				armiesAfterExchange= armiesAfterExchange + 5;
+				System.out.println(armiesAfterExchange);
 				addRiskCardToDeck(firstCard);
 				addRiskCardToDeck(secondCard);
 				addRiskCardToDeck(thirdCard);
@@ -796,7 +819,7 @@ public class Game extends Observable {
 	 * @return true, if attack done
 	 */
 	public Boolean attackPhase(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
-		
+
 		Country attCountry = mapModel.getCountryFromName(attackerCountry);
 		Country defCountry = mapModel.getCountryFromName(defenderCountry);
 		gamePhaseDetails.add(attackerCountry+" is attacking the "+ defenderCountry);
@@ -815,7 +838,21 @@ public class Game extends Observable {
 			return false;
 		}
 
-		getCurrentPlayer().attackPhaseActions(defenderPlayer, attCountry, defCountry, attackerDiceCount, defendergDiceCount,playerCountry,gamePhaseDetails);
+		Player player = getCurrentPlayer();
+
+		player.setAttack_defenderplayer(defenderPlayer);
+		player.setAttack_attackercountry(attCountry);
+		player.setAttack_defendercountry(defCountry);
+		player.setAttack_attackerdicecount(attackerDiceCount);
+		player.setAttack_defenderdicecount(defendergDiceCount);
+		player.setAttack_playerCountry(playerCountry);
+		player.setAttack_gamePhaseDetails(gamePhaseDetails);
+
+
+        boolean success = player.attackPhase();
+        if(success){
+        	System.out.println("Success");
+		}
 
 		//playerCountry;
 		if (isMapConcured()) {
@@ -835,7 +872,7 @@ public class Game extends Observable {
 
 		return false;
 	}
-	
+
 	/**
 	 * Checks if is map concured.
 	 * @return true, if is map concured
@@ -926,7 +963,7 @@ public class Game extends Observable {
 		notifyObserverslocal(this);
 
 	}
-	
+
 
 
 	/**
@@ -960,23 +997,21 @@ public class Game extends Observable {
 	}
 
 
-    /**
-     * Get the number of continents and their name by each player
-     * @return hashMap for a player and continent
-     */
-    public HashMap<Integer, String> getContinentsControlledByEachPlayer() {
+	/**
+	 * Get the number of continents and their name by each player
+	 * @return hashMap for a player and continent
+	 */
+	public HashMap<Integer, String> getContinentsControlledByEachPlayer() {
 		HashMap<Integer, String> continentsOfPlayer = new HashMap<Integer, String>();
 		ArrayList<String> nameOfTheContinent = new ArrayList<>();
 		String numberAndName= null;
 
 		for (Player player : this.playerList) {
 			int numberOfContinents = player.getConquerdContinents().size();
-			System.out.println(numberOfContinents);
 			for (Continent continentName: player.getConquerdContinents()) {
 				nameOfTheContinent.add(continentName.getContinentName());
 				numberAndName = "(" + numberOfContinents + "): "+nameOfTheContinent;
 			}
-			print.consoleErr(numberAndName);
 			continentsOfPlayer.put(player.getPlayerId(), numberAndName);
 			numberAndName="";
 			nameOfTheContinent.clear();
@@ -996,9 +1031,9 @@ public class Game extends Observable {
 		}
 		return countriesListString;
 	}
-	
 
-	
+
+
 	/**
 	 * This method is used to get the number of armies for each player.
 	 * @return numberOfArmies Number of armies
@@ -1025,7 +1060,7 @@ public class Game extends Observable {
 	public HashMap<Player, ArrayList<Country>> playerandCountries(){
 		return playerCountry;
 	}
-	
+
 	/**
 	 * get the board view.
 	 * @return boardView
@@ -1041,16 +1076,16 @@ public class Game extends Observable {
 	public ArrayList<String> getGamePhaseDetails() {
 		return gamePhaseDetails;
 	}
-	
+
 
 	/**
 	 * Get the board view of a game.
 	 * @param viewOfBoard the board view
 	 */
 	public void setBoardView(BoardView viewOfBoard) {
-		 boardview  = viewOfBoard;
+		boardview  = viewOfBoard;
 	}
-	
+
 	/**
 	 * update the reinforcement value.
 	 */
@@ -1058,7 +1093,7 @@ public class Game extends Observable {
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 	}
-	
+
 	public boolean isAttackerDefenderValid(Country attCountry,Country  defCountry,int defendergDiceCount) {
 		if (attCountry == null || defCountry == null) {
 			return false;
@@ -1075,5 +1110,37 @@ public class Game extends Observable {
 			return false;
 		}
 		return true;
+	}
+
+
+
+	public void setGameMode(GameMode gameMode) {
+		this.gameMode = gameMode;
+	}
+
+
+
+	/**
+	 * This method is used to save game in a text file while playing
+	 * @return filename of saved Game
+	 */
+	public String saveGamePlay() {
+		// TODO Auto-generated method stub			
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
+		String saveGameFileWithTime = dateFormat.format(cal.getTime());
+
+		try {
+			FileOutputStream fileOut = new FileOutputStream(".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt");
+			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+			objectOut.writeObject(this);
+			objectOut.close();
+			System.out.println("******* The Game is succesfully saved to a file ********");
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return saveGameFileWithTime;
+
 	}
 }

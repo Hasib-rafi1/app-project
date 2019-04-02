@@ -1,6 +1,4 @@
 package model;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +7,8 @@ import java.util.stream.Collectors;
 
 import helper.Colors;
 import helper.Card;
+import strategies.PlayerStrategy;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -40,12 +40,11 @@ public class Player {
 	
 	/** The assigned list of countries. */
 	private ArrayList<Country> assignedListOfCountries = new ArrayList<Country>();
-	
-	
+
 	/** To assign a card after the attack phase if the country is Conquered. */
 	private Boolean isConquered = false;
 
-	/** The assigned Risk Card of the player. */
+    /** The assigned Risk Card of the player. */
 	private ArrayList<Card> playerCards = new ArrayList<>();
 	
 	/**  The Conquered continents. */
@@ -53,6 +52,146 @@ public class Player {
 
 	/** The initial armiesafter exchange. */
 	private Integer initialArmiesafterExchange = 0;
+
+	/** The Player's Strategy. */
+	private PlayerStrategy playerStrategy;
+
+	//Fortification-Strategy
+
+	private Country fortify_sourceCountry;
+	private Country fortify_destinationCountry;
+	private int fortify_armies;
+
+
+	public void setFortifySourceCountry(Country country){
+		this.fortify_sourceCountry = country;
+	}
+
+	public Country getFortifySourceCountry(){
+		return fortify_sourceCountry;
+	}
+
+	public void setFortifyDestinationCountry(Country country){
+		this.fortify_destinationCountry = country;
+	}
+
+	public Country getFortifyDestinationCountry(){
+		return fortify_destinationCountry;
+	}
+
+	public void setFortifyArmies(int armies){
+		this.fortify_armies = armies;
+	}
+
+	public int getFortifyArmies(){
+		return fortify_armies;
+	}
+
+    public boolean fortificationPhase(){
+        return this.playerStrategy.fortify(this);
+    }
+
+    //Reinforcement-Strategy
+
+    private Country reinforce_country;
+
+	public void setReinforceCountry(Country country){
+	    this.reinforce_country = country;
+    }
+
+    public Country getReinforceCountry(){
+        return reinforce_country;
+    }
+
+    public boolean reinforcementPhase(){
+        return this.playerStrategy.reinforce(this);
+    }
+
+    //Attack-Strategy
+
+    private Player attack_defenderplayer;
+	private Country attack_attackercountry;
+    private Country attack_defendercountry;
+    private int attack_attackerdicecount;
+    private int attack_defenderdicecount;
+    private HashMap<Player, ArrayList<Country>> attack_playerCountry;
+    private ArrayList<String> attack_gamePhaseDetails;
+
+    public Player getAttack_defenderplayer() {
+        return attack_defenderplayer;
+    }
+
+    public void setAttack_defenderplayer(Player attack_defenderplayer) {
+        this.attack_defenderplayer = attack_defenderplayer;
+    }
+
+    public Country getAttack_attackercountry() {
+        return attack_attackercountry;
+    }
+
+    public void setAttack_attackercountry(Country attack_attackercountry) {
+        this.attack_attackercountry = attack_attackercountry;
+    }
+
+    public Country getAttack_defendercountry() {
+        return attack_defendercountry;
+    }
+
+    public void setAttack_defendercountry(Country attack_defendercountry) {
+        this.attack_defendercountry = attack_defendercountry;
+    }
+
+    public int getAttack_attackerdicecount() {
+        return attack_attackerdicecount;
+    }
+
+    public void setAttack_attackerdicecount(int attack_attackerdicecount) {
+        this.attack_attackerdicecount = attack_attackerdicecount;
+    }
+
+    public int getAttack_defenderdicecount() {
+        return attack_defenderdicecount;
+    }
+
+    public void setAttack_defenderdicecount(int attack_defenderdicecount) {
+        this.attack_defenderdicecount = attack_defenderdicecount;
+    }
+
+    public HashMap<Player, ArrayList<Country>> getAttack_playerCountry() {
+        return attack_playerCountry;
+    }
+
+    public void setAttack_playerCountry(HashMap<Player, ArrayList<Country>> attack_playerCountry) {
+        this.attack_playerCountry = attack_playerCountry;
+    }
+
+    public ArrayList<String> getAttack_gamePhaseDetails() {
+        return attack_gamePhaseDetails;
+    }
+
+    public void setAttack_gamePhaseDetails(ArrayList<String> attack_gamePhaseDetails) {
+        this.attack_gamePhaseDetails = attack_gamePhaseDetails;
+    }
+
+    public ArrayList<Integer> getDiceResults() {
+        return diceResults;
+    }
+
+    public void setDiceResults(ArrayList<Integer> diceResults) {
+        this.diceResults = diceResults;
+    }
+
+    public ArrayList<Card> getPlayerCards() {
+        return playerCards;
+    }
+
+    public void setPlayerCards(ArrayList<Card> playerCards) {
+        this.playerCards = playerCards;
+    }
+
+    public boolean attackPhase(){
+        return this.playerStrategy.attack(this);
+    }
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and
@@ -121,6 +260,22 @@ public class Player {
 	 */
 	public String getPlayerName() {
 		return playerName;
+	}
+
+	/**
+	 * This is the setter function for the player's strategy.
+	 * @param playerStrategy
+	 */
+	public void setPlayerStrategy(PlayerStrategy playerStrategy) {
+		this.playerStrategy = playerStrategy;
+	}
+
+	/**
+	 * This is the getter function for the player's strategy.
+	 * @return playerStrategy
+	 */
+	public PlayerStrategy getPlayerStrategy() {
+		return playerStrategy;
 	}
 
 	/**
@@ -294,7 +449,7 @@ public class Player {
 	 * This method will roll a Dice.
 	 * @param diceCount the dice count
 	 */
-	private void diceRoller(int diceCount) {
+	public void diceRoller(int diceCount) {
 		diceResults.clear();
 		for (int i = 0; i < diceCount; i++) {
 			diceResults.add(this.getRandomDiceNumber());
@@ -340,20 +495,21 @@ public class Player {
 
 	/**
 	 * This method checks whether the source and destination countries belongs to the player and moves the armies from source to destination.
-	 * @param sourceCountry The Source Country
-	 * @param destinationCountry The Destination Country
-	 * @param armies Count of armies
 	 * @return true if armies count increases or decreases
 	 */
-	public boolean fortificationPhase(Country sourceCountry, Country destinationCountry, int armies){		
-		if(!checkFortificationCondition(sourceCountry, destinationCountry,armies)) {
-			return false;
-		}
-		
-		sourceCountry.decreaseArmyCount(armies);
-		destinationCountry.increaseArmyCount(armies);		
-		return true;
-	}
+
+
+    public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
+        if (sourceCountry == null || destinationCountry == null) {
+            System.out.println("Source or destination country is invalid!");
+            return false;
+        }
+        if (armies == 0) {
+            System.out.println("No armies to move");
+            return false;
+        }
+        return true;
+    }
 	
 	/**
 	 * This method checks if the fortification condition is satisfied for further operations
@@ -362,17 +518,7 @@ public class Player {
 	 * @param armies Armies count
 	 * @return boolean result based on condition passes
 	 */
-	public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
-		if (sourceCountry == null || destinationCountry == null) {
-			System.out.println("Source or destination country is invalid!");
-			return false;
-		}
-		if (armies == 0) {
-			System.out.println("No armies to move");
-			return false;
-		}
-		return true;
-	}
+
 
 	/**
 	 * Gets the checks if is conqured.

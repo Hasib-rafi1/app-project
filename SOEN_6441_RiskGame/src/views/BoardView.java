@@ -36,7 +36,7 @@ import helper.GamePhase;
 // TODO: Auto-generated Javadoc
 
 /**
- * This class implements the Risk game view designed in gui .
+ * This class implements the Risk game view designed in GUI.
  *
  * @author naren
  * @version 2.0.0
@@ -64,7 +64,7 @@ public class BoardView implements Observer {
 	// Phase variables
 	private static JLabel labelGamePhase;
 	
-	/** The lab nameof phase. */
+	/** The lab name of phase. */
 	private static JLabel labelNameOfPhase;
 
 	// Phase View Actions Components
@@ -119,6 +119,11 @@ public class BoardView implements Observer {
 	
 	/** The button end attack. */
 	private static JButton buttonEndAttack = new JButton("End Attack");
+
+	
+	private static JButton saveGameButton = new JButton("Save Game");
+	
+
 
 	/** The lab fortification. */
 	// Fortification variables
@@ -180,6 +185,8 @@ public class BoardView implements Observer {
 	
 	/** The map it. */
 	MapModel mapIt;
+
+
 
 	//----------------------------- View Update Function ---------------------------
 	/**
@@ -286,12 +293,15 @@ public class BoardView implements Observer {
 
 		mapGenerator();
 		createPlayerWorldDominationView();
+		createSaveGameButton();
 		gamePhase();
 		loadingPhaseActionLabel();
 		viewInitialisation();
 		reinforcements();
 		fortification();
 		viewAttackPhase();
+	
+		
 
 		frameGameWindow.setSize(mapScrollPane.getWidth()+550, 1200);
 		frameGameWindow.setVisible(true);
@@ -299,6 +309,8 @@ public class BoardView implements Observer {
 		frameGameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+
+	
 
 	//------------------------ Map View initializing -----------------------------
 	/**
@@ -559,17 +571,39 @@ public class BoardView implements Observer {
 		buttonPlayerWorldDominationView = new JButton("Player World Domination View");
 		buttonPlayerWorldDominationView.setBounds(mapScrollPane.getWidth()+10, mapScrollPane.getY(), 490, 40);
 		panelGameAction.add(buttonPlayerWorldDominationView,BorderLayout.NORTH);
+
 	
 	}
 
 	/**
 	 * World domination view listener.
-	 * @param listener the listener
+	 * @param listener Action Listener
 	 */
 	//--------------------------------- Listener Initialization -------------------------
 	public void worldDominationViewListener(ActionListener listener) {
 		buttonPlayerWorldDominationView.addActionListener(listener);
 	}	
+	
+	
+	// ----------------------------- Save and load Game ------------------	
+	/**
+	 * This method is used to create the save game button in the panel window.
+	 */
+	public void createSaveGameButton() {	
+		saveGameButton.setBounds(button_playerWorldDominationView.getX() + button_playerWorldDominationView.getWidth() + 15,
+				pane_mapScrollPane.getY(),200, 40);
+		panel_gameAction.add(saveGameButton);	
+	}
+	
+	/**
+	 * Save game Listener.
+	 * @param listener Action Listener
+	 */
+	public void saveGameButtonListener(ActionListener listener) {
+		saveGameButton.addActionListener(listener);
+	}
+	
+	
 	
 	/**
 	 * method to use for the mouse event for the map labels.
