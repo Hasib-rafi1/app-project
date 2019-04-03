@@ -13,7 +13,7 @@ import helper.RandomNumber;
  * This class is used for A random computer player strategy that reinforces random a random country,
  * attacks a random number of times a random country, 
  * and fortifies a random country, all following the standard rules for each phase.
- * @author 
+ * @author Md Hasibul Huq
  * @version 1.0.0
  *
  */
@@ -37,6 +37,10 @@ public class Random implements PlayerStrategy, Serializable {
             return true;
         else if (countryList.size() > 1)
             random = RandomNumber.getRandomNumberInRange(0, countryList.size() - 1);
+        
+//        if(player.getCards().size()>2) {
+//        	
+//        }
         int armies = player.getNumberOfReinforcedArmies();
         Country country = countryList.get(random);
 
@@ -76,7 +80,10 @@ public class Random implements PlayerStrategy, Serializable {
 
 		for (int i = 0; i < totalAttack; i++) {
 
-			attackDetails(fromCountry, toCountry, player);
+			boolean captured =  attackDetails(fromCountry, toCountry, player);
+			if(captured) {
+				break;
+			}
 		}
 		return true;
     }
@@ -135,10 +142,10 @@ public class Random implements PlayerStrategy, Serializable {
         }
         // Check if defending armies are 0 then acquire the country with cards
         if (toCountry.getnoOfArmies() == 0) {
-        	player.conquerCountry(defenderPlayer);
+        	player.conquerCountryAutomate(defenderPlayer,toCountry,fromCountry);
+        	return true;
         }
-        return true;
-
+        return false;
 	}
 
     public boolean fortify(Player player){

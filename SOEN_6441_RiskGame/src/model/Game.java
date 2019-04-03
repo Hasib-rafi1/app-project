@@ -15,7 +15,9 @@ import java.util.Map;
 import java.util.Random;
 
 
+
 import helper.*;
+
 
 import java.util.Collections;
 import java.util.Date;
@@ -32,16 +34,14 @@ import java.util.Observable;
  * It is bounded with the Game Controller and the Board View.
  * 
  * @author Jaiganesh
- * @author Hasibul Huq
+ * @author Md Hasibul Huq
  * @author Gargi sharma
  * @version 1.0.0
  */
 
 public class Game extends Observable implements Serializable {
-	public Game()
-	{
-		System.out.println("constructor initialise");
-	}
+	//private static final long serialVersionUID = 6529685098267757690L;
+	private static final long serialVersionUID = 42L; 
 	/** The map model. */
 	private MapModel mapModel;
 
@@ -54,8 +54,7 @@ public class Game extends Observable implements Serializable {
 	/** The MINIMUM REINFORCEMEN plAYERS. */
 	private int MINIMUM_REINFORCEMENT_PlAYERS = 3;
 
-	/** The connected own countries. */
-	private ArrayList<String> connectedOwnCountries = new ArrayList<String>();
+	
 
 	/** The initial source country. */
 	private String initialSourceCountry;
@@ -65,6 +64,9 @@ public class Game extends Observable implements Serializable {
 
 	/** The player list. */
 	private ArrayList<Player> playerList = new ArrayList<Player>();
+	
+	/** The connected own countries. */
+	private ArrayList<String> connectedOwnCountries = new ArrayList<String>();
 
 	/** The player country. */
 	HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
@@ -88,7 +90,7 @@ public class Game extends Observable implements Serializable {
 
 	CardView cardview = new CardView(this);
 
-
+	
 	/**
 	 * Instantiates a new game.
 	 * @param map the map
@@ -98,8 +100,8 @@ public class Game extends Observable implements Serializable {
 		super();
 		this.mapModel = map;
 		this.setGamePhase(GamePhase.Startup);
-		System.out.println("--" + this);
 	}
+
 
 
 	//Functions called by the initializeGame() from the GameController.
@@ -111,7 +113,7 @@ public class Game extends Observable implements Serializable {
 		this.playerList.add(player);
 	}
 
-	
+
 	/**
 	 * This method initializes the Game.
 	 * It assigns the initial armies to the player.
@@ -256,16 +258,16 @@ public class Game extends Observable implements Serializable {
 			print.consoleOut("Not a Valid Phase");
 			return false;
 		}
-        Player player = this.getCurrentPlayer();
-        Country country = playerCountry.get(player).stream()
-                .filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
+		Player player = this.getCurrentPlayer();
+		Country country = playerCountry.get(player).stream()
+				.filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
 
 		player.setReinforceCountry(country);
 		boolean success = player.reinforcementPhase();
 
 		if(success){
-		    gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
-        }
+			gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
+		}
 		notifyObserverslocal(this);
 		return true;
 	}
@@ -391,7 +393,7 @@ public class Game extends Observable implements Serializable {
 	 *
 	 */
 	public void getConnectedCountries(String source, ArrayList<Country> countryList) {
-		System.out.println("source Country Name :" + source);
+		System.out.println("Source Country Name :" + source);
 
 		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
 		ArrayList<String> neighborCountriesName = new ArrayList<String>();
@@ -466,15 +468,15 @@ public class Game extends Observable implements Serializable {
 
 		// player class function
 
-        player.setFortifySourceCountry(sourceCountry);
-        player.setFortifyDestinationCountry(destinationCountry);
-        player.setFortifyArmies(armies);
+		player.setFortifySourceCountry(sourceCountry);
+		player.setFortifyDestinationCountry(destinationCountry);
+		player.setFortifyArmies(armies);
 
 		boolean success = player.fortificationPhase();
 
 		if(success){
-		    gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
-        }
+			gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
+		}
 		if(player.getIsConqured()){
 			System.out.println("Conquered");
 			Card riskCard = getRiskCardFromDeck();
@@ -813,7 +815,7 @@ public class Game extends Observable implements Serializable {
 		}
 		return allowableAttackingArmies;
 	}
-	
+
 
 
 	/**
@@ -851,15 +853,15 @@ public class Game extends Observable implements Serializable {
 		player.setAttackDefenderCountry(defCountry);
 		player.setAttackAttackerDiceCount(attackerDiceCount);
 		player.setAttackAttackerDiceCount(defendergDiceCount);
-		
-		
+
+
 		player.setAttackPlayerCountry(playerCountry);
 		player.setAttackGamePhaseDetails(gamePhaseDetails);
 
-        boolean success = player.attackPhase();
+		boolean success = player.attackPhase();
 
-        if(success){
-        	System.out.println("Success");
+		if(success){
+			System.out.println("Success");
 		}
 
 		//playerCountry;
@@ -1132,62 +1134,37 @@ public class Game extends Observable implements Serializable {
 		this.gameMode = gameMode;
 	}
 
-	/**
-	 * This method is used to save game in a text file while playing
-	 * @return filename of saved Game
-	 */
-	public String saveGamePlay() {
-		// TODO Auto-generated method stub
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
-		String saveGameFileWithTime = dateFormat.format(cal.getTime());
-
-		try {
-			FileOutputStream fileOut = new FileOutputStream(".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt");
-			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-			//System.out.println("printing correctly : " + this);
-			objectOut.writeObject(this);
-			objectOut.close();
-			System.out.println("******* The Game is succesfully saved to a file ********");
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return saveGameFileWithTime;
-
-	}
-
-
 	public void automateCurrentPhase(){
-	    if(this.gamePhase == GamePhase.Startup){
+		if(this.gamePhase == GamePhase.Startup){
 
-	    	ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
-	    	int random = 0;
-	    	if(countryList.isEmpty()){
-	    		return;
+			ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
+			int random = 0;
+			if(countryList.isEmpty()){
+				return;
 			} else if (countryList.size() > 1){
-	    		random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
+				random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
 			}
-	    	Country country = countryList.get(random);
-	    	boolean success = addingStartupCountryArmy(country.getCountryName());
-	    	if(success){
-	    		setupNextPlayerTurn();
+			Country country = countryList.get(random);
+			boolean success = addingStartupCountryArmy(country.getCountryName());
+			if(success){
+				setupNextPlayerTurn();
 			}
 		} else if (this.gamePhase == GamePhase.Reinforcement) {
-
-	    	boolean success = this.getCurrentPlayer().reinforcementPhase();
-	    	if(success){
-	    		setupNextPlayerTurn();
+			//this.getCurrentPlayer().setReinforceContinent(mapModel.getContinentList());
+			//this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			boolean success = this.getCurrentPlayer().reinforcementPhase();
+			if(success){
 			}
 
 		} else if (this.gamePhase == GamePhase.Attack){
 
+			getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
 			boolean success = this.getCurrentPlayer().attackPhase();
-	    	if(isMapConcured()){
-	    		System.out.println("You Win");
+			if(isMapConcured()){
+				System.out.println("You Win");
 			}
 			if(success){
-				setupNextPlayerTurn();
 			}
 		} else if (this.gamePhase == GamePhase.Fortification){
 
@@ -1195,57 +1172,85 @@ public class Game extends Observable implements Serializable {
 			if(success){
 				setupNextPlayerTurn();
 			}
+			reinforcementPhaseSetup();
 		}
-    }
+	}
 
-	public String saveMyGame()
-	{
+
+
+/*	public String saveGamePlay() {
+		// Saving the game file with the date time format
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
 		String saveGameFileWithTime = dateFormat.format(cal.getTime());
-//		String filepath = "SOEN_6441_RiskGame/src/savedGames/" + saveGameFileWithTime+ ".txt";
-		String filepath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
-		try
-		{
-			FileOutputStream fo = new FileOutputStream(filepath);
-			ObjectOutputStream os = new ObjectOutputStream(fo);
-			os.writeObject(this);
-			os.close();
-			System.out.println("phew");
-			//os.flush();
-			fo.close();
-			//fo.flush();
+
+		// save game object on this path 					
+		String filePath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
+
+		try {
+			FileOutputStream fileOut = new FileOutputStream(filePath);
+			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+			objectOut.writeObject(this);
+			objectOut.close();
+			System.out.println("******* The Game is succesfully saved to a file ********");
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-	 catch (Exception ex) {
-		ex.printStackTrace();
-	}
-	return saveGameFileWithTime;
-	}
+		return saveGameFileWithTime;
+	}*/
+	
+	
 	/**
 	 * This method is used to save game in a text file while playing
 	 * @return filename of saved Game
 	 */
-	public static Game loadGame(String gameTitle) {
-		Game game = null;
+	public boolean writeObjectToSaveMyGame() {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
+		String saveGameFileWithTime = dateFormat.format(cal.getTime());
+		String filePath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
 		try {
-			System.out.println("gameTitle:" + gameTitle);
-			FileInputStream fileIn = new FileInputStream(".\\src\\savedGames\\" + gameTitle+ ".txt");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			game = (Game) in.readObject();
-			in.close();
-			fileIn.close();
-		} catch (IOException i) {
-			i.printStackTrace();
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
+			FileOutputStream fileOut = new FileOutputStream(filePath);			
+			ObjectOutputStream ObjectOut = new ObjectOutputStream(fileOut);
+			ObjectOut.writeObject(this);
+			ObjectOut.close();
+			fileOut.close();
+			System.out.println("Game has been saved at this location: " +filePath);
+			return true;
+		} catch (IOException ex) {
+			System.out.println("IOException: " + ex.getMessage());
+			return false;
 		}
-		return game;
+	}
+
+	/**
+	 * This method is used to load game with reading the object
+	 * @return filename of saved Game
+	 */
+	public static Game readSavedObjectToloadGame(String gameNameEnteredByUser) {	
+		Game gameObj = null;
+		String filePath = ".\\src\\savedGames\\" + gameNameEnteredByUser+ ".txt";
+		try {			
+			FileInputStream fileIn = new FileInputStream(filePath);
+			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+			gameObj = (Game) objectIn.readObject();
+			objectIn.close();
+			System.out.println("Game has been loaded. ");
+			fileIn.close();
+		} catch (IOException ex) {
+			System.out.println("IOException: " + ex.getMessage());
+		} catch (ClassNotFoundException ex) {
+			System.out.println("ClassNotFoundException: " + ex.getMessage());
+		}
+		return gameObj;
 	}
 
 	public void initializeAutoSequence(){
-	    while (!getCurrentPlayer().getPlayerStrategy().isHuman() && !this.isMapConcured()){
-	        automateCurrentPhase();
-	        updateGame();
-        }
-    }
+		while (!getCurrentPlayer().getPlayerStrategy().isHuman() && !this.isMapConcured()){
+			automateCurrentPhase();
+			notifyObserverslocal(this);
+			try{Thread.sleep(1000);} catch(Exception e){}
+			updateGame();
+		}
+	}
 }
