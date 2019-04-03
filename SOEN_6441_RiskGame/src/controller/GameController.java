@@ -16,6 +16,7 @@ import helper.GameMode;
 import model.Country;
 import model.Game;
 import model.Player;
+import strategies.Cheater;
 import strategies.Human;
 import views.BoardView;
 import views.CardView;
@@ -144,7 +145,9 @@ public class GameController {
 
                     if(strategy == 1){
                         player.setPlayerStrategy(new Human());
-                    }
+                    } else if (strategy == 2){
+                    	player.setPlayerStrategy(new Cheater());
+					}
 
 
 					game.addPlayer(player);
