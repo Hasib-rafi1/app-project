@@ -34,7 +34,7 @@ import java.util.Observable;
  * It is bounded with the Game Controller and the Board View.
  * 
  * @author Jaiganesh
- * @author Hasibul Huq
+ * @author Md Hasibul Huq
  * @author Gargi sharma
  * @version 1.0.0
  */
@@ -1246,6 +1246,7 @@ public class Game extends Observable implements Serializable {
 	public void initializeAutoSequence(){
 		while (!getCurrentPlayer().getPlayerStrategy().isHuman() && !this.isMapConcured()){
 			automateCurrentPhase();
+			notifyObserverslocal(this);
 			updateGame();
 		}
 	}

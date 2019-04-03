@@ -13,7 +13,7 @@ import helper.RandomNumber;
  * This class is used for A random computer player strategy that reinforces random a random country,
  * attacks a random number of times a random country, 
  * and fortifies a random country, all following the standard rules for each phase.
- * @author 
+ * @author Md Hasibul Huq
  * @version 1.0.0
  *
  */

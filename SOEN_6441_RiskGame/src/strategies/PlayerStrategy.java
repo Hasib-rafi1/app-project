@@ -4,7 +4,7 @@ import model.Player;
 
 /**
  * This class is used for the declaration of the reinforce, attack and fortify methods.
- * @author 
+ * @author Jaiganesh
  * @version 1.0.0
  *
  */
