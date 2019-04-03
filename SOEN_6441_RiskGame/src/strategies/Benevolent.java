@@ -26,18 +26,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 		return false;
 	}
 
-	public boolean reinforce() {
-		
-		return true;
-	}
-	public boolean attack() {
-		System.out.println("No attack phase for Benevolent Strategy");
-		return false;
-	}
-	
-	public boolean fortify() {
-		return true;
-	}
+
 	
 	private Country getWeakestCountry(ArrayList<Country> countries) {
 		Country country = null;
@@ -63,16 +52,17 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	@Override
 	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Override
 	public boolean attack(Player player) {
 		// TODO Auto-generated method stub
+		System.out.println("No attack phase for Benevolent Strategy");
 		return false;
 	}
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }

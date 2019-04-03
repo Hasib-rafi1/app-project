@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+
+
 import helper.Colors;
 import helper.GamePhase;
 import helper.Card;
@@ -59,7 +61,7 @@ public class Player implements Serializable{
 	private PlayerStrategy playerStrategy;
 
 	//Fortification-Strategy
-
+	private ArrayList<Country> assignedCountryList = new ArrayList<Country>();
 
 	private Country fortifySourceCountry;
 	private Country fortifyDestinationCountry;
@@ -660,7 +662,32 @@ public class Player implements Serializable{
 		
 		return allowableAttackingArmies;
 	}
-	
+	public ArrayList<Country> getNeighbouringCountries(Country sourceCountry, ArrayList<Country> assignedCountries) {
+		ArrayList<Country> neighborCountriesName = new ArrayList<>();
+		if(sourceCountry != null) {
+			for (Country country : assignedCountryList) {
+				assignedCountries.add(country);
+				if (country.getCountryName().equals(sourceCountry.getCountryName())) {
+					neighborCountriesName = country.getNeighboursOfCountry();
+				}
+			}
+		}
+		return neighborCountriesName;
+	}
+	public ArrayList<Country> getConnectedCountriesRecursively(Country sourceCountry,
+			ArrayList<Country> assignedCountries, ArrayList<Country> foundCountries) {
+
+		ArrayList<Country> neighbouringCounties = this.getNeighbouringCountries(sourceCountry, assignedCountries);
+		if (neighbouringCounties.size() > 0) {
+			for (Country neigbour : neighbouringCounties) {
+				if (!foundCountries.contains(neigbour)) {
+					foundCountries.add(neigbour);
+					getConnectedCountriesRecursively(neigbour, assignedCountries, foundCountries);
+				}
+			}
+		}
+		return foundCountries;
+	}
 	/**
 	 * 
 	 */
