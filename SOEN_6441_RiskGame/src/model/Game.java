@@ -206,7 +206,7 @@ public class Game extends Observable implements Serializable {
 		}
 		updateGame();
 		if(this.gameMode == GameMode.SingleGameMode){
-			automateCurrentPhase();
+			initializeAutoSequence();
 		}
 		notifyObserverslocal(this);
 	}
@@ -492,7 +492,7 @@ public class Game extends Observable implements Serializable {
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 		if(this.gameMode == GameMode.SingleGameMode){
-			automateCurrentPhase();
+			initializeAutoSequence();
 		}
 		return true;
 	}
@@ -847,6 +847,8 @@ public class Game extends Observable implements Serializable {
 		player.setAttack_defendercountry(defCountry);
 		player.setAttack_attackerdicecount(attackerDiceCount);
 		player.setAttack_defenderdicecount(defendergDiceCount);
+		
+		
 		player.setAttack_playerCountry(playerCountry);
 		player.setAttack_gamePhaseDetails(gamePhaseDetails);
 
@@ -860,7 +862,7 @@ public class Game extends Observable implements Serializable {
 		//playerCountry;
 		if (isMapConcured()) {
 			FinishView finish = new FinishView();
-			finish.Exchange(getCurrentPlayer().getPlayerName());
+			finish.callWinner(getCurrentPlayer().getPlayerName());
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 			gamePhaseDetails.add("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
@@ -961,8 +963,13 @@ public class Game extends Observable implements Serializable {
 	 * @param attackerMoveArmies Attacker move armies
 	 */
 	public void moveArmies(Country attackersCountry, Country atteckersNewCountry, int attackerMoveArmies) {
-		attackersCountry.decreaseArmyCount(attackerMoveArmies);
-		atteckersNewCountry.increaseArmyCount(attackerMoveArmies);
+		if(attackersCountry.getnoOfArmies()>attackerMoveArmies) {
+			attackersCountry.decreaseArmyCount(attackerMoveArmies);
+			atteckersNewCountry.increaseArmyCount(attackerMoveArmies);
+		}else {
+			System.out.println("Move Armies is not possible");
+			gamePhaseDetails.add("Move Armies is not possible. No sufficient armies");
+		}
 		notifyObserverslocal(this);
 
 	}
@@ -1159,23 +1166,32 @@ public class Game extends Observable implements Serializable {
 	    		random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
 			}
 	    	Country country = countryList.get(random);
-	    	boolean isProcessed = addingStartupCountryArmy(country.getCountryName());
-	    	if(isProcessed){
+	    	boolean success = addingStartupCountryArmy(country.getCountryName());
+	    	if(success){
 	    		setupNextPlayerTurn();
 			}
 		} else if (this.gamePhase == GamePhase.Reinforcement) {
 
-	    	this.getCurrentPlayer().reinforcementPhase();
+	    	boolean success = this.getCurrentPlayer().reinforcementPhase();
+	    	if(success){
+	    		setupNextPlayerTurn();
+			}
 
 		} else if (this.gamePhase == GamePhase.Attack){
 
-	    	this.getCurrentPlayer().attackPhase();
+			boolean success = this.getCurrentPlayer().attackPhase();
 	    	if(isMapConcured()){
 	    		System.out.println("You Win");
 			}
+			if(success){
+				setupNextPlayerTurn();
+			}
 		} else if (this.gamePhase == GamePhase.Fortification){
 
-	    	this.getCurrentPlayer().fortificationPhase();
+			boolean success = this.getCurrentPlayer().fortificationPhase();
+			if(success){
+				setupNextPlayerTurn();
+			}
 		}
     }
 	

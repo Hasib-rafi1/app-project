@@ -66,16 +66,7 @@ public class Human implements PlayerStrategy, Serializable {
         int attackerDiceCount = player.getAttack_attackerdicecount();
         int defenderDiceCount = player.getAttack_defenderdicecount();
 
-        HashMap<Player, ArrayList<Country>> playerCountry = player.getAttack_playerCountry();
         ArrayList<String> gamePhaseDetails = player.getAttack_gamePhaseDetails();
-
-        ArrayList<Card> playerCards = player.getPlayerCards();
-
-        ArrayList<Country> assignedListOfCountries = player.getAssignedListOfCountries();
-
-        int playerId = player.getPlayerId();
-
-        boolean isConquered = player.getIsConqured();
 
         player.diceRoller(attackerDiceCount);
         defenderPlayer.diceRoller(defenderDiceCount);
@@ -121,25 +112,7 @@ public class Human implements PlayerStrategy, Serializable {
         }
         // Check if defending armies are 0 then acquire the country with cards
         if (defenderCountry.getnoOfArmies() == 0) {
-            defenderCountry.setPlayerId(playerId);
-            defenderCountry.setCountryColor(attackerCountry.getCountryColor());
-            defenderPlayer.unAssignCountryToPlayer(defenderCountry);
-            assignedListOfCountries.add(defenderCountry);
-            playerCountry.get(this).add(defenderCountry);
-            playerCountry.get(defenderPlayer).remove(defenderCountry);
-            isConquered =true;
-            gamePhaseDetails.add(defenderCountry.getCountryName()+" is Conquered");
-            // attacker has to put minimum one army defending country (By Game rules)
-            attackerCountry.decreaseArmyCount(1);
-            defenderCountry.increaseArmyCount(1);
-
-            if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
-                ArrayList<Card> defendersCards = defenderPlayer.getCards();
-                defenderPlayer.removeCards();
-                for(Card card: defendersCards) {
-                    playerCards.add(card);
-                }
-            }
+        	player.conquerCountry(defenderPlayer);
         }
         return true;
     }
