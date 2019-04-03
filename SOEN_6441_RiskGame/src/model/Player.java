@@ -354,7 +354,7 @@ public class Player implements Serializable{
 	 * This method is used to return the assigned countries to each Player.
 	 * @return assignedListOfCountries
 	 */
-	public ArrayList<Country> getAssignedListOfCountries() {
+	public   ArrayList<Country> getAssignedListOfCountries() {
 		return assignedListOfCountries;
 	}
 	
@@ -590,7 +590,7 @@ public class Player implements Serializable{
 	}
 	
 	/**
-	 * Sets the initial armiesafter exchange.
+	 * Sets the initial armies after exchange.
 	 * @param armies the new initial armiesafter exchange
 	 */
 	public void setInitialArmiesafterExchange(int armies) {

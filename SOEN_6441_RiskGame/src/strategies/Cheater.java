@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 import model.Country;
-
+import model.Game;
 import model.Player;
 
 /**
@@ -18,7 +18,8 @@ import model.Player;
 public class Cheater {
 	
 	
-	
+	Game game;
+	Player player1;
 	public String strategyName = "Cheater";
     public String getStrategyName(){
         return strategyName;
@@ -37,13 +38,28 @@ public class Cheater {
 		
 	}
 	public boolean attack(Player player) {
+		for(Country country : player.getAssignedListOfCountries()) {
+			ArrayList<String> getNeighbouringCountries = game.getOthersNeighbouringCountriesOnly(country.getCountryName());
+			
+		}
 		return true;
 		
 	}
 	
 	public boolean fortify(Player player) {
-		
+		int armiesCount;
+		for (Country country : player.getAssignedListOfCountries()) {
+			ArrayList<String> getNeighbouringCountries = game.getOthersNeighbouringCountriesOnly(country.getCountryName());
+			for(String tempM:getNeighbouringCountries) {
+				ArrayList<Country> getPlayerOwnedCountries = player1.getAssignedListOfCountries();
+				for(Country tempN:getPlayerOwnedCountries) {
+					if(tempN.toString()!=tempM) {
+						armiesCount=tempN.getnoOfArmies();
+						tempN.setnoOfArmies(armiesCount*2);
+					}
+				}
+			}		
+		}
 		return true;
-		
 	}
 }
