@@ -2,6 +2,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -58,7 +59,10 @@ public class Player implements Serializable{
 
 	/** The Player's Strategy. */
 	private PlayerStrategy playerStrategy;
-
+	/** The connected own countries. */
+	private ArrayList<Country> connectedOwnCountries = new ArrayList<Country>();
+	/** The initial source country. */
+	private Country initialSourceCountry;
 	//Fortification-Strategy
 
 	private Country fortify_sourceCountry;
@@ -676,6 +680,109 @@ public class Player implements Serializable{
 		}
 		return this;
 	}
+	
+	
+	//Functions called by addSourceCountriesListener() from the GameController.
+		/**
+		 * This method returns the neighboring connected countries of a specific country.
+		 * @param source source countries
+		 * @return finalCountries countries
+		 */
+		public ArrayList<Country> getNeighbouringCountries(Country source) {
+
+			System.out.print(connectedOwnCountries.toString());
+			
+			initialSourceCountry = source;
+
+			ArrayList<Country> countriesAssignedToPlayer = new ArrayList<Country>();
+			ArrayList<Country> finalCOuntries = new ArrayList<Country>();
+
+			ArrayList<Country> countryList = this.getAssignedListOfCountries();
+			ArrayList<Country> neighborCountriesName = new ArrayList<Country>();
+
+			for (Country country : countryList) {
+				countriesAssignedToPlayer.add(country);
+				if (country==source) {
+					for( Country country1 :  country.getNeighboursOfCountry()){
+						neighborCountriesName.add(country1);
+					}
+				}
+			}
+
+			Iterator<Country> it = neighborCountriesName.iterator();
+			while (it.hasNext()) {
+				Country country = it.next();
+				if (!countriesAssignedToPlayer.contains(country)){
+					it.remove();
+				}
+			}
+
+			if(neighborCountriesName!=null) {
+				neighborCountriesName.removeAll(connectedOwnCountries);
+				connectedOwnCountries.addAll(neighborCountriesName);
+			}
+
+			Iterator<Country> rec = neighborCountriesName.iterator();
+			while (rec.hasNext()) {
+				Country country = rec.next();
+				getConnectedCountries(country, countryList);
+			}
+
+			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+			finalCOuntries.addAll(connectedOwnCountries);
+			connectedOwnCountries.clear();
+			return finalCOuntries;
+		}
+
+
+		/**
+		 * This method recursively explores all the nodes connected to a country and returns the neighboring countries.
+		 * @param source source countries
+		 * @param countryList list of countries
+		 *
+		 */
+		public void getConnectedCountries(Country source, ArrayList<Country> countryList) {
+			System.out.println("source Country Name :" + source);
+
+			ArrayList<Country> countriesAssignedToPlayer = new ArrayList<Country>();
+			ArrayList<Country> neighborCountriesName = new ArrayList<Country>();
+
+			for (Country country : countryList) {
+				Country countryName = country;
+				countriesAssignedToPlayer.add(countryName);
+				if (country==source) {
+					for( Country country1 :  country.getNeighboursOfCountry()){
+						neighborCountriesName.add(country1);
+					}
+				}
+			}
+
+			Iterator<Country> it = neighborCountriesName.iterator();
+			while (it.hasNext()) {
+				Country country = it.next();
+				if (!countriesAssignedToPlayer.contains(country)||country==initialSourceCountry){
+					it.remove();
+				}
+			}
+
+			if(neighborCountriesName!=null) {
+				neighborCountriesName.removeAll(connectedOwnCountries);
+				connectedOwnCountries.addAll(neighborCountriesName);
+			}
+
+			Iterator<Country> rec = neighborCountriesName.iterator();
+			while (rec.hasNext()) {
+				Country country = rec.next();
+				getConnectedCountries(country, countryList);
+			}
+
+			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+
+		}
+
+
 	
 	/**
 	 * This returns the player color.
