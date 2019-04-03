@@ -206,7 +206,7 @@ public class Game extends Observable implements Serializable {
 		}
 		updateGame();
 		if(this.gameMode == GameMode.SingleGameMode){
-			automateCurrentPhase();
+			initializeAutoSequence();
 		}
 		notifyObserverslocal(this);
 	}
@@ -492,7 +492,7 @@ public class Game extends Observable implements Serializable {
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 		if(this.gameMode == GameMode.SingleGameMode){
-			automateCurrentPhase();
+			initializeAutoSequence();
 		}
 		return true;
 	}
@@ -1161,23 +1161,32 @@ public class Game extends Observable implements Serializable {
 	    		random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
 			}
 	    	Country country = countryList.get(random);
-	    	boolean isProcessed = addingStartupCountryArmy(country.getCountryName());
-	    	if(isProcessed){
+	    	boolean success = addingStartupCountryArmy(country.getCountryName());
+	    	if(success){
 	    		setupNextPlayerTurn();
 			}
 		} else if (this.gamePhase == GamePhase.Reinforcement) {
 
-	    	this.getCurrentPlayer().reinforcementPhase();
+	    	boolean success = this.getCurrentPlayer().reinforcementPhase();
+	    	if(success){
+	    		setupNextPlayerTurn();
+			}
 
 		} else if (this.gamePhase == GamePhase.Attack){
 
-	    	this.getCurrentPlayer().attackPhase();
+			boolean success = this.getCurrentPlayer().attackPhase();
 	    	if(isMapConcured()){
 	    		System.out.println("You Win");
 			}
+			if(success){
+				setupNextPlayerTurn();
+			}
 		} else if (this.gamePhase == GamePhase.Fortification){
 
-	    	this.getCurrentPlayer().fortificationPhase();
+			boolean success = this.getCurrentPlayer().fortificationPhase();
+			if(success){
+				setupNextPlayerTurn();
+			}
 		}
     }
 	
