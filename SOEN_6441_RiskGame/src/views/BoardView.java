@@ -42,7 +42,7 @@ import helper.GamePhase;
  * @author naren
  * @version 2.0.0
  */
-public class BoardView implements Observer {
+public class BoardView implements Observer,Serializable {
 
 	/** The frame game window. */
 	// Board Initialization

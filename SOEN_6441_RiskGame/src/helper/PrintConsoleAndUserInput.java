@@ -12,10 +12,10 @@ import java.util.Scanner;
  * @author Zakiya Jafrin
  * @version 1.0.0
  */
-public class PrintConsoleAndUserInput  {
+public class PrintConsoleAndUserInput implements Serializable{
 
 	/** The input. */
-	static Scanner input = new Scanner(System.in);
+	private static transient Scanner input = new Scanner(System.in);
 	
 	/** The os. */
 	// Try with these directory path if code is not running
@@ -47,9 +47,6 @@ public class PrintConsoleAndUserInput  {
 	 * This method is used to get the string input.
 	 * @return string nextLine
 	 */
-	public static String userStrInput(){
-		return input.nextLine();
-	}
 
 	/**
 	 * This method is used to get the integer input.
