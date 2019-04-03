@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -21,6 +22,7 @@ import strategies.Benevolent;
 import strategies.Cheater;
 import strategies.Human;
 import strategies.Random;
+
 import views.BoardView;
 import views.CardView;
 import views.WorldDominationView;
@@ -54,6 +56,9 @@ public class GameController {
 
 	/** The map model. */
 	MapModel mapModel = new MapModel();
+
+	/** The card view. */
+	CardView cardView;
 
 	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
@@ -142,9 +147,9 @@ public class GameController {
 					print.consoleOut("\nEnter the name of Player " + j);
 					String name = userinput.nextLine();
 					Player player = new Player(i,name);
-                    print.consoleOut("\nEnter The Strategy of playing for Player: " +name);
-                    print.consoleOut("\n1. Human \n2. Aggressive \n3. Benevolent \n4. Cheater \n5. Random");
-                    int strategy = Integer.parseInt(userinput.nextLine());
+					print.consoleOut("\nEnter The Strategy of playing for Player: " +name);
+					print.consoleOut("\n1. Human \n2. Aggressive \n3. Benevolent \n4. Cheater \n5. Random");
+					int strategy = Integer.parseInt(userinput.nextLine());
 
 					if(strategy == 1){
 						player.setPlayerStrategy(new Human());
@@ -225,19 +230,19 @@ public class GameController {
 
 	public void playerStrategyActions(){
 		switch (playerStrategyName) {
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
-			default:
-				print.consoleErr("\n\t Error! Select the Strategies from the list (1 to 5):");
-				break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		default:
+			print.consoleErr("\n\t Error! Select the Strategies from the list (1 to 5):");
+			break;
 		}
 	}
 
@@ -517,8 +522,10 @@ public class GameController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				game.saveMyGame();
+				game.writeObjectToSaveMyGame();
+				boardView.closeFrameWindow();
 			}
+			
 		});
 
 	}
@@ -586,48 +593,36 @@ public class GameController {
 		game.setBoardView(boardView);
 	}
 
+	/**
+	 * This method is used to load the saved game entered by user.
+	 * It shows all the parameters which has been saved by user during game play.
+	 * All objects are called by this method to get the saved results in the board view.
+	 */
 	public void loadSavedGame() {
 		// print the saved game files in the directory
 		print.listofSavedGamesinDirectory();
-		
-		print.consoleOut("Enter Game file name which you want to load:");		
+		print.consoleOut("Enter the name of Game which you want to load:");		
 		String selectFileToLoadGame = userinput.nextLine();
+		String gamesFilePath = ".\\src\\savedGames\\" + selectFileToLoadGame+ ".txt";
+		File tempFile = new File(gamesFilePath);
+		boolean exists = tempFile.exists();
+		if (exists) {
+			game = Game.readSavedObjectToloadGame(selectFileToLoadGame);
+			MapModel map = game.getMap();
+			cardView = new CardView(game);
+			boardView=new BoardView();		
+			game.addObserver(boardView);		
+			game.addObserver(cardView);
+			game.notifyObserverslocal(game);
+			boardView.mapPath = game.getMap().getMapDir()+game.getMap().getMapName()+ ".bmp";
+			boardView.gameWindowLoad();
+			callListenerOnView();
+			game.notifyObserverslocal(game);
 
-		game = Game.loadGame(selectFileToLoadGame);
-		
-		MapModel mapModel = game.getMap();
-		//game = new Game(mapModel);
-		boardView=new BoardView();		
-		worldDominationViewObserver = new WorldDominationView();
-		
-		game.addObserver(worldDominationViewObserver);
-		game.addObserver(boardView);
-		
-		callListenerOnView();
-		game.notifyObserverslocal(game);
-		/*int i = 1;
-		for (String GameTitle : savedGameList) {
-			IOHelper.print(i + ")" + GameTitle);
-			i++;
+		} else {
+			print.consoleErr("File not found!!!. Please enter the coreect name of map.");
+			MainController mainMenu = new MainController();
+			mainMenu.displaymainMenu();
 		}
-		IOHelper.print("\nEnter Game that you want to load:");
-		int gameNumber = IOHelper.getNextInteger();
-		String GameTitle = savedGameList.get(gameNumber - 1);
-		game = Game.loadGame(GameTitle);
-
-		Map map = game.getMap();
-		cardExchangeView = new CardExchangeView();
-		gameView = new GameView(); // boardview
-		game.addObserver(gameView);
-		game.addObserver(cardExchangeView);
-		game.notifyObserversLocal();
-		gameView.mapPath = map.getMapPath() + map.getMapName() + ".bmp";
-		gameView.gameInitializer();
-		activateListenersOnView();
-		game.notifyObserversLocal();
-
-		IOHelper.print("Game Successfully Loaded");*/
-		
 	}
-
 }
