@@ -15,16 +15,11 @@ import java.util.Map;
 import java.util.Random;
 
 
-
-import helper.GameMode;
+import helper.*;
 
 import java.util.Collections;
 import java.util.Date;
 
-import helper.Card;
-import helper.InitialPlayerArmy;
-import helper.GamePhase;
-import helper.PrintConsoleAndUserInput;
 import views.BoardView;
 import views.CardView;
 
@@ -210,6 +205,9 @@ public class Game extends Observable implements Serializable {
 			addingReinforcementCountryArmy(countryName);
 		}
 		updateGame();
+		if(this.gameMode == GameMode.SingleGameMode){
+			automateCurrentPhase();
+		}
 		notifyObserverslocal(this);
 	}
 
@@ -493,6 +491,9 @@ public class Game extends Observable implements Serializable {
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
+		if(this.gameMode == GameMode.SingleGameMode){
+			automateCurrentPhase();
+		}
 		return true;
 	}
 
@@ -851,6 +852,7 @@ public class Game extends Observable implements Serializable {
 
 
         boolean success = player.attackPhase();
+
         if(success){
         	System.out.println("Success");
 		}
@@ -1113,13 +1115,9 @@ public class Game extends Observable implements Serializable {
 		return true;
 	}
 
-
-
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
 	}
-
-
 
 	/**
 	 * This method is used to save game in a text file while playing
@@ -1145,6 +1143,38 @@ public class Game extends Observable implements Serializable {
 		return saveGameFileWithTime;
 
 	}
+
+
+	public void automateCurrentPhase(){
+	    if(this.gamePhase == GamePhase.Startup){
+
+	    	ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
+	    	int random = 0;
+	    	if(countryList.isEmpty()){
+	    		return;
+			} else if (countryList.size() > 1){
+	    		random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
+			}
+	    	Country country = countryList.get(random);
+	    	boolean isProcessed = addingStartupCountryArmy(country.getCountryName());
+	    	if(isProcessed){
+	    		setupNextPlayerTurn();
+			}
+		} else if (this.gamePhase == GamePhase.Reinforcement) {
+
+	    	this.getCurrentPlayer().reinforcementPhase();
+
+		} else if (this.gamePhase == GamePhase.Attack){
+
+	    	this.getCurrentPlayer().attackPhase();
+	    	if(isMapConcured()){
+	    		System.out.println("You Win");
+			}
+		} else if (this.gamePhase == GamePhase.Fortification){
+
+	    	this.getCurrentPlayer().fortificationPhase();
+		}
+    }
 	
 	public String saveMyGame()
 	{
@@ -1188,4 +1218,11 @@ public class Game extends Observable implements Serializable {
 		}
 		return game;
 	}
+
+	public void initializeAutoSequence(){
+	    while (!getCurrentPlayer().getPlayerStrategy().isHuman() && !this.isMapConcured()){
+	        automateCurrentPhase();
+	        updateGame();
+        }
+    }
 }

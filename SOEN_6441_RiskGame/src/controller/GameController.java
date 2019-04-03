@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
+import helper.GameMode;
 import model.Country;
 import model.Game;
 import model.Player;
@@ -120,11 +121,13 @@ public class GameController {
 			initializeMap(mapPath);
 
 			game = new Game(mapModel);
+
+			game.setGameMode(GameMode.SingleGameMode);
 			boardView=new BoardView();
 			worldDominationViewObserver = new WorldDominationView();
 			game.addObserver(worldDominationViewObserver);
 			game.addObserver(boardView);
-			//game.addObserver(cardView);
+
 			print.consoleOut("\nEnter the number of Players between 3-5:");
 			int playerCount = Integer.parseInt(userinput.nextLine());
 
@@ -143,14 +146,13 @@ public class GameController {
                         player.setPlayerStrategy(new Human());
                     }
 
-//					playerStrategyName = print.userIntInput();
-//					playerStrategyActions();
 
 					game.addPlayer(player);
 					j++;
 				}
 				game.startGame();
 				game.initializeRiskCards();
+				game.initializeAutoSequence();
 				boardView.gameWindowLoad();
 				callListenerOnView();
 			}
