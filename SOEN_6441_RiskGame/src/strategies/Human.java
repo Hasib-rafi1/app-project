@@ -11,7 +11,7 @@ import java.util.Random;
 
 /**
  * This class is used for human player that requires user interaction to make decisions.
- * @author 
+ * @author Jaiganesh
  * @version 1.0.0
  *
  */
@@ -58,15 +58,15 @@ public class Human implements PlayerStrategy, Serializable {
 
     public boolean attack(Player player){
 
-        Player defenderPlayer = player.getAttack_defenderplayer();
+        Player defenderPlayer = player.getAttackDefenderPlayer();
 
-        Country attackerCountry = player.getAttack_attackercountry();
-        Country defenderCountry = player.getAttack_defendercountry();
+        Country attackerCountry = player.getAttackAttackerCountry();
+        Country defenderCountry = player.getAttackDefenderCountry();
 
-        int attackerDiceCount = player.getAttack_attackerdicecount();
-        int defenderDiceCount = player.getAttack_defenderdicecount();
+        int attackerDiceCount = player.getAttackAttackerDiceCount();
+        int defenderDiceCount = player.getAttackDefenderDiceCount();
 
-        ArrayList<String> gamePhaseDetails = player.getAttack_gamePhaseDetails();
+        ArrayList<String> gamePhaseDetails = player.getAttackGamePhaseDetails();
 
         player.diceRoller(attackerDiceCount);
         defenderPlayer.diceRoller(defenderDiceCount);

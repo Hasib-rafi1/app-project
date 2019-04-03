@@ -6,7 +6,6 @@ import model.Player;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
 import helper.RandomNumber;
 
 
@@ -14,7 +13,7 @@ import helper.RandomNumber;
  * This class is used for A random computer player strategy that reinforces random a random country,
  * attacks a random number of times a random country, 
  * and fortifies a random country, all following the standard rules for each phase.
- * @author 
+ * @author Md Hasibul Huq
  * @version 1.0.0
  *
  */
@@ -87,7 +86,7 @@ public class Random implements PlayerStrategy, Serializable {
 	 * 
 	 * @param fromCountry
 	 * @param toCountry
-	 * @param attackerPlayer
+	 * @param player
 	 */
 	private boolean attackDetails(Country fromCountry, Country toCountry, Player player) {
 		

@@ -1,5 +1,7 @@
 package strategies;
 
+import model.Player;
+
 import java.io.Serializable;
 
 /**
@@ -10,14 +12,27 @@ import java.io.Serializable;
  * @version 1.0.0
  *
  */
-public class Aggressive implements Serializable {
+public class Aggressive implements PlayerStrategy, Serializable {
 	public String strategyName = "Aggressive";
 
     public String getStrategyName(){
         return strategyName;
     }
+
 	public boolean isHuman() {
 		return false;
+	}
+
+	public boolean reinforce(Player player){
+    	return true;
+	}
+
+	public boolean attack(Player player){
+    	return true;
+	}
+
+	public boolean fortify(Player player){
+    	return true;
 	}
 
 }

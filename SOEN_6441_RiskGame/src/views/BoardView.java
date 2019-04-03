@@ -176,7 +176,7 @@ public class BoardView implements Observer,Serializable {
 
 
 	/** The map path. */
-	String mapPath;
+	public String mapPath;
 	
 	/** The country list. */
 	ArrayList<CountryViewModel> countryList = new ArrayList<CountryViewModel>();
@@ -301,6 +301,7 @@ public class BoardView implements Observer,Serializable {
 		reinforcements();
 		fortification();
 		viewAttackPhase();
+		
 	
 		
 
@@ -897,5 +898,14 @@ public class BoardView implements Observer,Serializable {
 	 */
 	public JFrame getFrameGameWindow() {
 		return frameGameWindow;
+	}
+	
+	
+	/**
+	 * This is the method to close the frame window
+	 */
+	public void closeFrameWindow() {
+		// TODO Auto-generated method stub
+		frameGameWindow.dispose();
 	}
 }
