@@ -6,6 +6,7 @@ import model.Country;
 import model.Player;
 
 
+import java.io.Serializable;
 
 /**
  * This class is used for benevolent computer player strategy that focuses on protecting its weak countries 
@@ -14,7 +15,7 @@ import model.Player;
  * @version 1.0.0
  *
  */
-public class Benevolent {
+public class Benevolent implements PlayerStrategy,Serializable{
 		
 	public String strategyName = "Benevolent";
 
@@ -58,5 +59,20 @@ public class Benevolent {
 				returnVal = country.getnoOfArmies();
 		}
 		return returnVal;
+	}
+	@Override
+	public boolean reinforce(Player player) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean attack(Player player) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean fortify(Player player) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

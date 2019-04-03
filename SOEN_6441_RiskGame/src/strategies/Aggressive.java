@@ -1,5 +1,7 @@
 package strategies;
 
+import java.io.Serializable;
+
 /**
  * This class is used for aggressive computer player strategy that focuses on attack (reinforces its strongest country, 
  * then always attack with it until it cannot attack anymore, then fortifies in order to 
@@ -8,7 +10,7 @@ package strategies;
  * @version 1.0.0
  *
  */
-public class Aggressive {
+public class Aggressive implements Serializable {
 	public String strategyName = "Aggressive";
 
     public String getStrategyName(){

@@ -115,6 +115,6 @@ public static int displaymainMenu() {
 	print.consoleOut("4.Exit Game");
 	print.consoleOut("\n*********************************");
 	print.consoleOut("Please Enter Your Choice from the list: ");
-	return print.userIntInput();
+	return PrintConsoleAndUserInput.userIntInput();
 }
 }

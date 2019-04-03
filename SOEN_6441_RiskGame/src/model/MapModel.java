@@ -30,7 +30,7 @@ import java.util.Scanner;
 public class MapModel implements Serializable{
 	
 	/** The scanner. */
-	Scanner scanner = new Scanner(System.in);
+	transient Scanner scanner = new Scanner(System.in);
 
 
 	/** The print. */
@@ -484,7 +484,7 @@ public class MapModel implements Serializable{
 	public void addContinentNameToMapFile() {
 		// Asks the number of CONTINENTS a user wants to add.
 		print.consoleOut("How many continents you want to add in a Map?");
-		int numberOfContinentsToAdd = print.userIntInput();
+		int numberOfContinentsToAdd = PrintConsoleAndUserInput.userIntInput();
 
 
 		// It increments the number of continents a user wants to add.
@@ -493,14 +493,14 @@ public class MapModel implements Serializable{
 			int incrementOfContinentNumber = k+1;
 			print.consoleOut("Input the CONTINENT NAME for number = (" +incrementOfContinentNumber+ ") continent and its caontrol value.");
 			String continentNameByUser = scanner.nextLine();
-			int controlValueByUser = print.userIntInput();
+			int controlValueByUser = PrintConsoleAndUserInput.userIntInput();
 
 			// add to the continent list
 			Continent addedcontinent = new Continent(k, continentNameByUser, controlValueByUser);
 
 			// Asks the number of COUNTRIES a user wants to add in a given continent. And eneter the x and y coordinates
 			print.consoleOut("How many countries you want to create in ("+continentNameByUser+") continent:\n");
-			int numberOfCountriesByUser = print.userIntInput();
+			int numberOfCountriesByUser = PrintConsoleAndUserInput.userIntInput();
 			for (int i = 0; i < numberOfCountriesByUser; i++) {
 
 				int numberOfCountriesCounter = (i + 1);
@@ -510,11 +510,11 @@ public class MapModel implements Serializable{
 
 				// Enter x coordinates of country name
 				print.consoleOut("Input x coordinates for");
-				int xCoordinateOfCountry = print.userIntInput();
+				int xCoordinateOfCountry = PrintConsoleAndUserInput.userIntInput();
 
 				// Enter y coordinates of country name
 				print.consoleOut("Input y coordinates for");
-				int yCoordinateOfCountry = print.userIntInput();
+				int yCoordinateOfCountry = PrintConsoleAndUserInput.userIntInput();
 
 				// put in a continent and set continent id
 				Country country = new Country(i, countryNameByUser);
@@ -524,7 +524,7 @@ public class MapModel implements Serializable{
 
 				// Enter the number of neighbor countries
 				print.consoleOut("\nInput  the number of neighbor countries you want to add:\n");
-				int numberOfNeighbourCountriesByUser = print.userIntInput();
+				int numberOfNeighbourCountriesByUser = PrintConsoleAndUserInput.userIntInput();
 
 				for (int j = 0; j < numberOfNeighbourCountriesByUser; j++) {
 					int neighborCountriesCounter = (j + 1);
