@@ -77,7 +77,7 @@ public class Random implements PlayerStrategy, Serializable {
 
 		for (int i = 0; i < totalAttack; i++) {
 
-			attackDetails(fromCountry, toCountry, player);
+			boolean attackDetails(fromCountry, toCountry, player);
 		}
 		return true;
     }
@@ -137,9 +137,9 @@ public class Random implements PlayerStrategy, Serializable {
         // Check if defending armies are 0 then acquire the country with cards
         if (toCountry.getnoOfArmies() == 0) {
         	player.conquerCountry(defenderPlayer);
+        	return true;
         }
-        return true;
-
+        return false;
 	}
 
     public boolean fortify(Player player){
