@@ -111,6 +111,7 @@ public class Game extends Observable implements Serializable {
 		this.playerList.add(player);
 	}
 
+	
 	/**
 	 * This method initializes the Game.
 	 * It assigns the initial armies to the player.
@@ -123,6 +124,7 @@ public class Game extends Observable implements Serializable {
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
 			System.out.println("Player ID: "+playerList.get(i).getPlayerId()+" Player Name: "+playerList.get(i).getPlayerName()+" Player's Army: "+playerList.get(i).getNumberOfInitialArmies()+" Player's Color"+playerList.get(i).getColor());
 			playerList.get(i).setConcuredContinents(mapModel.getContinentList());
+			playerList.get(i).addPlayerList(playerList);
 			gamePhaseDetails.add("Player ID: "+playerList.get(i).getPlayerId());
 			gamePhaseDetails.add("Player Name: "+playerList.get(i).getPlayerName());
 			gamePhaseDetails.add("Player's Army: "+playerList.get(i).getNumberOfInitialArmies());
@@ -811,6 +813,8 @@ public class Game extends Observable implements Serializable {
 		}
 		return allowableAttackingArmies;
 	}
+	
+
 
 	/**
 	 * Method for  attack phase where attack will handled.
@@ -842,16 +846,15 @@ public class Game extends Observable implements Serializable {
 
 		Player player = getCurrentPlayer();
 
-		player.setAttack_defenderplayer(defenderPlayer);
-		player.setAttack_attackercountry(attCountry);
-		player.setAttack_defendercountry(defCountry);
-		player.setAttack_attackerdicecount(attackerDiceCount);
-		player.setAttack_defenderdicecount(defendergDiceCount);
-
-
-		player.setAttack_playerCountry(playerCountry);
-		player.setAttack_gamePhaseDetails(gamePhaseDetails);
-
+		player.setAttackDefenderPlayer(defenderPlayer);
+		player.setAttackAttackerCountry(attCountry);
+		player.setAttackDefenderCountry(defCountry);
+		player.setAttackAttackerDiceCount(attackerDiceCount);
+		player.setAttackAttackerDiceCount(defendergDiceCount);
+		
+		
+		player.setAttackPlayerCountry(playerCountry);
+		player.setAttackGamePhaseDetails(gamePhaseDetails);
 
         boolean success = player.attackPhase();
 

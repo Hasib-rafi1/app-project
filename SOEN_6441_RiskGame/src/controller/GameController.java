@@ -16,8 +16,11 @@ import helper.GameMode;
 import model.Country;
 import model.Game;
 import model.Player;
+import strategies.Aggressive;
+import strategies.Benevolent;
 import strategies.Cheater;
 import strategies.Human;
+import strategies.Random;
 import views.BoardView;
 import views.CardView;
 import views.WorldDominationView;
@@ -143,12 +146,17 @@ public class GameController {
                     print.consoleOut("\n1. Human \n2. Aggressive \n3. Benevolent \n4. Cheater \n5. Random");
                     int strategy = Integer.parseInt(userinput.nextLine());
 
-                    if(strategy == 1){
-                        player.setPlayerStrategy(new Human());
-                    } else if (strategy == 2){
-                    	player.setPlayerStrategy(new Cheater());
+					if(strategy == 1){
+						player.setPlayerStrategy(new Human());
+					} else if (strategy == 2){
+						player.setPlayerStrategy(new Aggressive());
+					} else if (strategy == 3){
+						player.setPlayerStrategy(new Benevolent());
+					} else if (strategy == 4){
+						player.setPlayerStrategy(new Cheater());
+					} else if (strategy == 5){
+						player.setPlayerStrategy(new Random());
 					}
-
 
 					game.addPlayer(player);
 					j++;
@@ -206,7 +214,6 @@ public class GameController {
 				}
 
 			}
-
 
 
 			print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");

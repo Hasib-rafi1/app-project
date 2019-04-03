@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
+
 // TODO: Auto-generated Javadoc
 /**
  * This is a main class to read and store different elements of the country.
@@ -40,8 +41,16 @@ public class Country implements Serializable{
 
 	/** The country color. */
 	private Colors countryColor;
+	
+	private Player player;
 
+	public Player getPlayer() {
+		return player;
+	}
 
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 	/**
 	 * This method is used to get played id.
 	 * @return playerId ID of the player
