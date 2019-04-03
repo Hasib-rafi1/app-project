@@ -168,9 +168,9 @@ public class GameController {
 				}
 				game.startGame();
 				game.initializeRiskCards();
-				game.initializeAutoSequence();
 				boardView.gameWindowLoad();
 				callListenerOnView();
+				game.initializeAutoSequence();
 			}
 
 		} else if (gameMode == 2){

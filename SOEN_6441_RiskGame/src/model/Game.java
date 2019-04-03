@@ -1247,6 +1247,7 @@ public class Game extends Observable implements Serializable {
 		while (!getCurrentPlayer().getPlayerStrategy().isHuman() && !this.isMapConcured()){
 			automateCurrentPhase();
 			notifyObserverslocal(this);
+			try{Thread.sleep(1000);} catch(Exception e){}
 			updateGame();
 		}
 	}
