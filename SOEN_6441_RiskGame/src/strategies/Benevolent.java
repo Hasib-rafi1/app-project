@@ -1,7 +1,8 @@
 package strategies;
 
 import java.util.ArrayList;
-
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 import model.Country;
@@ -54,6 +55,29 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	@Override
 	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
+		int minArmies = getMinimumArmies(player);
+		List<Country> weakestCountries = player.getAssignedListOfCountries().stream()
+				.filter(x -> x.getnoOfArmies() == minArmies).collect(Collectors.toList());
+
+		System.out.println("Found " + weakestCountries.size() + " weakest countries. Now assigning "
+				+ player.getNumberOfReinforcedArmies() + " armies");
+		if (weakestCountries != null && weakestCountries.size() > 0) {
+			
+			int index = 0;
+			while (player.getNumberOfReinforcedArmies() > 0) {
+				Country c = weakestCountries.get(index);
+				int armies = player.getNumberOfReinforcedArmies();
+				player.decreaseReinforcementArmy();
+				c.increaseArmyCount(1);
+				System.out.println("Added reinforcement army in " + c.getCountryName() + "(" + c.getnoOfArmies() + ")");
+				index++;
+				if (index == weakestCountries.size())
+					index = 0;
+			}
+		} else {
+				System.out.println("Cannot find any weakest country");
+		}
+		
 		return true;
 	}
 	
@@ -74,21 +98,27 @@ public class Benevolent implements PlayerStrategy,Serializable{
 
 			if (fromCountry == null)
 				break;
-			
-			ArrayList<Country> neighborCountries = player.getConnectedCountriesRecursively(fromCountry,
-					(ArrayList<Country>) player.getAssignedListOfCountries().clone(), new ArrayList<Country>());
+			System.out.println("Found strongest country " + fromCountry.getCountryName() + ". Now finding weakest link...");
+			ArrayList<Country> neighborCountries = player.getNeighbouringCountries(fromCountry);
 			if (neighborCountries != null && neighborCountries.size() > 0) {
 				Country toCountry = getWeakestCountry(neighborCountries);
 				if (fromCountry != null && toCountry != null
 						&& toCountry.getnoOfArmies() < fromCountry.getnoOfArmies()) {
 					// fortify weakest country
 					int armies = (fromCountry.getnoOfArmies() - toCountry.getnoOfArmies()) / 2;
+					System.out.println("Benevolent player " + player.getPlayerName() + " - fortification from "
+							+ fromCountry.getCountryName() + "(" + fromCountry.getnoOfArmies() + ") to "
+							+ toCountry.getCountryName() + "(" + toCountry.getnoOfArmies() + ") with " + armies
+							+ " armies");
 					
 					fromCountry.decreaseArmyCount(armies);
 					toCountry.increaseArmyCount(armies);
+					System.out.println("Finished fortification with destination country " + toCountry.getCountryName()
+					+ " (" + toCountry.getnoOfArmies() + ")");
 					break;
 				}
 			}
+			System.out.println("Cannot find any neighbouring weaker country");
 			
 		}
 

@@ -666,32 +666,7 @@ public class Player implements Serializable{
 		
 		return allowableAttackingArmies;
 	}
-	public ArrayList<Country> getNeighbouringCountries(Country sourceCountry, ArrayList<Country> assignedCountries) {
-		ArrayList<Country> neighborCountriesName = new ArrayList<>();
-		if(sourceCountry != null) {
-			for (Country country : assignedCountryList) {
-				assignedCountries.add(country);
-				if (country.getCountryName().equals(sourceCountry.getCountryName())) {
-					neighborCountriesName = country.getNeighboursOfCountry();
-				}
-			}
-		}
-		return neighborCountriesName;
-	}
-	public ArrayList<Country> getConnectedCountriesRecursively(Country sourceCountry,
-			ArrayList<Country> assignedCountries, ArrayList<Country> foundCountries) {
 
-		ArrayList<Country> neighbouringCounties = this.getNeighbouringCountries(sourceCountry, assignedCountries);
-		if (neighbouringCounties.size() > 0) {
-			for (Country neigbour : neighbouringCounties) {
-				if (!foundCountries.contains(neigbour)) {
-					foundCountries.add(neigbour);
-					getConnectedCountriesRecursively(neigbour, assignedCountries, foundCountries);
-				}
-			}
-		}
-		return foundCountries;
-	}
 	/**
 	 * add player list 
 	 */
