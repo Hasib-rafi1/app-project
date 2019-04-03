@@ -689,10 +689,20 @@ public class Player implements Serializable{
 		return foundCountries;
 	}
 	/**
-	 * 
+	 * add player list 
 	 */
 	public void addPlayerList(ArrayList<Player> playerListTemp) {
 		playerList= playerListTemp;
+	}
+	
+	public Player getPlayer(int playerId) {
+		
+		for(int i=0; i<playerList.size(); i++){
+			if(playerList.get(i).playerId == playerId) {
+				return playerList.get(i);
+			}
+		}
+		return this;
 	}
 	
 	/**

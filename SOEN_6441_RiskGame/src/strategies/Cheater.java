@@ -18,9 +18,6 @@ import model.Player;
  */
 public class Cheater implements PlayerStrategy, Serializable  {
 	
-	
-	Game game;
-	Player player1;
 	public String strategyName = "Cheater";
     public String getStrategyName(){
         return strategyName;
@@ -42,8 +39,12 @@ public class Cheater implements PlayerStrategy, Serializable  {
 		for(Country country : player.getAssignedListOfCountries()) {
 			ArrayList<Country> getNeighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);
 			
-			for(Country temp:getNeighbouringCountries)
-				Player.conquerCountry(temp.getPlayerId());
+			for(Country temp:getNeighbouringCountries) {
+				Player defender=player.getPlayer(temp.getPlayerId());
+				temp.setnoOfArmies(1);
+				player.conquerCountry(defender);
+			}
+				
 		}
 		return true;
 		
@@ -52,17 +53,12 @@ public class Cheater implements PlayerStrategy, Serializable  {
 	public boolean fortify(Player player) {
 		int armiesCount;
 		for (Country country : player.getAssignedListOfCountries()) {
-			ArrayList<String> getNeighbouringCountries = game.getOthersNeighbouringCountriesOnly(country.getCountryName());
-			for(String tempM:getNeighbouringCountries) {
-				ArrayList<Country> getPlayerOwnedCountries = player1.getAssignedListOfCountries();
-				for(Country tempN:getPlayerOwnedCountries) {
-					if(tempN.toString()!=tempM) {
-						armiesCount=tempN.getnoOfArmies();
-						tempN.setnoOfArmies(armiesCount*2);
-					}
-				}
-			}		
-		}
+			ArrayList<Country> getNeighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);
+			for(Country country1:getNeighbouringCountries) {
+				armiesCount=country1.getnoOfArmies();
+				country1.setnoOfArmies(armiesCount*2);
+			}
+		}	
 		return true;
 	}
 }

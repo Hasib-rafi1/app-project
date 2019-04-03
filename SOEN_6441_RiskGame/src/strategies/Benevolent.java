@@ -56,12 +56,16 @@ public class Benevolent implements PlayerStrategy,Serializable{
 		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	
 	@Override
 	public boolean attack(Player player) {
 		// TODO Auto-generated method stub
 		System.out.println("No attack phase for Benevolent Strategy");
 		return false;
 	}
+	
+	
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
