@@ -2,6 +2,8 @@ package strategies;
 
 import java.util.ArrayList;
 
+
+
 import model.Country;
 import model.Player;
 
@@ -63,6 +65,29 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
+		ArrayList<Country> countryList = player.getAssignedListOfCountries();
+		for (Country fromCountry : countryList) {
+
+			if (fromCountry == null)
+				break;
+			
+			ArrayList<Country> neighborCountries = player.getConnectedCountriesRecursively(fromCountry,
+					(ArrayList<Country>) player.getAssignedListOfCountries().clone(), new ArrayList<Country>());
+			if (neighborCountries != null && neighborCountries.size() > 0) {
+				Country toCountry = getWeakestCountry(neighborCountries);
+				if (fromCountry != null && toCountry != null
+						&& toCountry.getnoOfArmies() < fromCountry.getnoOfArmies()) {
+					// fortify weakest country
+					int armies = (fromCountry.getnoOfArmies() - toCountry.getnoOfArmies()) / 2;
+					
+					fromCountry.decreaseArmyCount(armies);
+					toCountry.increaseArmyCount(armies);
+					break;
+				}
+			}
+			
+		}
+
 		return true;
 	}
 }
