@@ -17,7 +17,6 @@ import java.util.Random;
  */
 public class Human implements PlayerStrategy, Serializable {
 
-
     public String strategyName = "Human";
 
     public String getStrategyName(){
