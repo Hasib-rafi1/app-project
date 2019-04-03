@@ -361,6 +361,7 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				if (game.getGamePhase() == GamePhase.Attack) {
 					game.updateGame();
+					boardView.setVisibalityOfMoveAfterMove();
 				}
 			}
 		});

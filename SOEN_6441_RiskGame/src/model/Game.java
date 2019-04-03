@@ -963,8 +963,13 @@ public class Game extends Observable implements Serializable {
 	 * @param attackerMoveArmies Attacker move armies
 	 */
 	public void moveArmies(Country attackersCountry, Country atteckersNewCountry, int attackerMoveArmies) {
-		attackersCountry.decreaseArmyCount(attackerMoveArmies);
-		atteckersNewCountry.increaseArmyCount(attackerMoveArmies);
+		if(attackersCountry.getnoOfArmies()>attackerMoveArmies) {
+			attackersCountry.decreaseArmyCount(attackerMoveArmies);
+			atteckersNewCountry.increaseArmyCount(attackerMoveArmies);
+		}else {
+			System.out.println("Move Armies is not possible");
+			gamePhaseDetails.add("Move Armies is not possible. No sufficient armies");
+		}
 		notifyObserverslocal(this);
 
 	}
