@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+
 import helper.Colors;
+import helper.GamePhase;
 import helper.Card;
 import strategies.PlayerStrategy;
 
@@ -62,6 +64,7 @@ public class Player implements Serializable{
 	private Country fortify_sourceCountry;
 	private Country fortify_destinationCountry;
 	private int fortify_armies;
+	private ArrayList<Player> playerList;
 
 
 	public void setFortifySourceCountry(Country country){
@@ -620,6 +623,48 @@ public class Player implements Serializable{
                 playerCards.add(card);
             }
         }
+	}
+	
+	/**
+	 * It is going to return the values of attack possible  countries who have more than one armies
+	 * @return ArrayList of Countries
+	 */
+	public ArrayList<Country> getpossibleAttackerCountries() {
+		ArrayList<Country> countries = new ArrayList<Country>();
+		for (Country country : getAssignedListOfCountries()) {
+			if (country.getnoOfArmies() > 1) {
+				countries.add(country);
+			}
+		}
+		return countries;
+	}
+	
+	/**
+	 * Returns allowable dices for attacking country.
+	 * @param countryName the country name
+	 * @return Integer
+	 */
+	public ArrayList<Country> getOthersNeighbouringCountriesOnlyObject(Country selectedCountry) {
+		ArrayList<Country> allowableAttackingArmies = new ArrayList<Country>();
+			
+			ArrayList<Country> countryList = getAssignedListOfCountries();
+
+			if (selectedCountry != null) {
+				allowableAttackingArmies = selectedCountry.getNeighboursOfCountry();
+				for (Country country : countryList) {
+					allowableAttackingArmies.remove(country);
+				}
+
+			}
+		
+		return allowableAttackingArmies;
+	}
+	
+	/**
+	 * 
+	 */
+	public void addPlayerList(ArrayList<Player> playerListTemp) {
+		playerList= playerListTemp;
 	}
 	
 	/**
