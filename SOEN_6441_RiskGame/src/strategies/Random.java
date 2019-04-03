@@ -86,7 +86,7 @@ public class Random implements PlayerStrategy, Serializable {
 	 * 
 	 * @param fromCountry
 	 * @param toCountry
-	 * @param attackerPlayer
+	 * @param player
 	 */
 	private boolean attackDetails(Country fromCountry, Country toCountry, Player player) {
 		
