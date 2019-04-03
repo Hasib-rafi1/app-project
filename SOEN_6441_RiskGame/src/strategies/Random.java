@@ -153,8 +153,7 @@ public class Random implements PlayerStrategy, Serializable {
 		Country sourceCountry = countryList.get(randomIndex);
 		System.out.println("Randomly select " + sourceCountry.getCountryName() + "(" + sourceCountry.getnoOfArmies()
 				+ ") country for fortification");
-		ArrayList<Country> neigbouringCountries = player.getConnectedCountriesRecursively(sourceCountry,
-				(ArrayList<Country>) player.getAssignedListOfCountries().clone(), new ArrayList<Country>());
+		ArrayList<Country> neigbouringCountries = player.getNeighbouringCountries(sourceCountry);
 
 		if (neigbouringCountries != null && neigbouringCountries.size() > 0) {
 			int destinationRandomIndex = RandomNumber.getRandomNumberInRange(0, neigbouringCountries.size() - 1);
