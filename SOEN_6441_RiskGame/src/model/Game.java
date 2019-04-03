@@ -801,7 +801,7 @@ public class Game extends Observable implements Serializable {
 			ArrayList<Country> countryList = playerCountry.get(currentPlayer);
 
 			if (c != null) {
-				allowableAttackingArmies = c.getNeighboursString();
+				allowableAttackingArmies = c.getStringsOfNeighbours();
 				for (Country country : countryList) {
 					String countryName1 = country.getCountryName();
 					allowableAttackingArmies.remove(countryName1);
@@ -1044,6 +1044,9 @@ public class Game extends Observable implements Serializable {
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
 		HashMap<Integer, Integer> numberOfArmies = new HashMap<Integer, Integer>();
 		for (Player player : this.playerList) {
+			if(player.getAssignedListOfCountries().size()==0) {
+				numberOfArmies.put(player.getPlayerId(), 0);
+			}
 			for (Country country : player.getAssignedListOfCountries()) {
 				int totalArmies = country.getnoOfArmies();
 				if(numberOfArmies.containsKey(player.getPlayerId())) 
