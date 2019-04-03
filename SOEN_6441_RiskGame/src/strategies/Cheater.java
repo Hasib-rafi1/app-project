@@ -1,5 +1,6 @@
 package strategies;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -15,7 +16,7 @@ import model.Player;
  * @version 1.0.0
  *
  */
-public class Cheater {
+public class Cheater implements PlayerStrategy, Serializable  {
 	
 	
 	Game game;
@@ -40,7 +41,7 @@ public class Cheater {
 	public boolean attack(Player player) {
 		for(Country country : player.getAssignedListOfCountries()) {
 			ArrayList<String> getNeighbouringCountries = game.getOthersNeighbouringCountriesOnly(country.getCountryName());
-			
+			//Player.conquerCountry();
 		}
 		return true;
 		
