@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+
+
 import helper.Colors;
 import helper.Card;
 import strategies.PlayerStrategy;
@@ -371,6 +373,7 @@ public class Player implements Serializable{
 	public void unAssignCountryToPlayer(Country country) {
 		assignedListOfCountries.remove(country);
 	}
+
 
 	/**
 	 * This method will process attack for the selected player and for the defender player.

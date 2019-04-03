@@ -203,7 +203,6 @@ public class GameController {
 			}
 
 
-
 			print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
 			print.consoleOut("Enter Maximum Number of Turns for Each Game (10 - 50): ");
 		}else {
