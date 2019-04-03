@@ -1150,20 +1150,21 @@ public class Game extends Observable implements Serializable {
 				setupNextPlayerTurn();
 			}
 		} else if (this.gamePhase == GamePhase.Reinforcement) {
-
+			//this.getCurrentPlayer().setReinforceContinent(mapModel.getContinentList());
+			//this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			boolean success = this.getCurrentPlayer().reinforcementPhase();
 			if(success){
-				setupNextPlayerTurn();
 			}
 
 		} else if (this.gamePhase == GamePhase.Attack){
 
+			getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
 			boolean success = this.getCurrentPlayer().attackPhase();
 			if(isMapConcured()){
 				System.out.println("You Win");
 			}
 			if(success){
-				setupNextPlayerTurn();
 			}
 		} else if (this.gamePhase == GamePhase.Fortification){
 
@@ -1171,6 +1172,7 @@ public class Game extends Observable implements Serializable {
 			if(success){
 				setupNextPlayerTurn();
 			}
+			reinforcementPhaseSetup();
 		}
 	}
 

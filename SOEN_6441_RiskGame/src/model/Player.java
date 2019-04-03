@@ -104,6 +104,15 @@ public class Player implements Serializable{
     //Reinforcement-Strategy
 
     private Country reinforceCountry;
+    private ArrayList<Continent> reinforceContinent;
+
+	public ArrayList<Continent> getReinforceContinent() {
+		return reinforceContinent;
+	}
+
+	public void setReinforceContinent(ArrayList<Continent> reinforceContinent) {
+		this.reinforceContinent = reinforceContinent;
+	}
 
 	public void setReinforceCountry(Country country){
 	    this.reinforceCountry = country;
@@ -622,6 +631,35 @@ public class Player implements Serializable{
         // attacker has to put minimum one army defending country (By Game rules)
         getAttackAttackerCountry().decreaseArmyCount(1);
         getAttackDefenderCountry().increaseArmyCount(1);
+
+        if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
+            ArrayList<Card> defendersCards = defenderPlayer.getCards();
+            defenderPlayer.removeCards();
+            for(Card card: defendersCards) {
+                playerCards.add(card);
+            }
+        }
+	}
+	
+	
+	/**
+	 * This method will perform operation required after conquering a country
+	 * 
+	 * @param defenderPlayer,
+	 *            Player object
+	 */
+	public void conquerCountryAutomate(Player defenderPlayer,Country defenderCountry, Country attackerCountry) {
+		defenderCountry.setPlayerId(playerId);
+		defenderCountry.setCountryColor(attackerCountry.getCountryColor());
+        defenderPlayer.unAssignCountryToPlayer(defenderCountry);
+        assignedListOfCountries.add(defenderCountry);
+        attackPlayerCountry.get(this).add(defenderCountry);
+        attackPlayerCountry.get(defenderPlayer).remove(defenderCountry);
+        isConquered =true;
+        attackGamePhaseDetails.add(defenderCountry.getCountryName()+" is Conquered");
+        // attacker has to put minimum one army defending country (By Game rules)
+        attackerCountry.decreaseArmyCount(1);
+        defenderCountry.increaseArmyCount(1);
 
         if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
             ArrayList<Card> defendersCards = defenderPlayer.getCards();
