@@ -595,6 +595,34 @@ public class Player implements Serializable{
 	}
 
 	/**
+	 * This method will perform operation required after conquering a country
+	 * 
+	 * @param defenderPlayer,
+	 *            Player object
+	 */
+	public void conquerCountry(Player defenderPlayer) {
+		getAttack_defendercountry().setPlayerId(playerId);
+		getAttack_defendercountry().setCountryColor(getAttack_attackercountry().getCountryColor());
+        defenderPlayer.unAssignCountryToPlayer(getAttack_defendercountry());
+        assignedListOfCountries.add(getAttack_defendercountry());
+        attack_playerCountry.get(this).add(getAttack_defendercountry());
+        attack_playerCountry.get(defenderPlayer).remove(getAttack_defendercountry());
+        isConquered =true;
+        attack_gamePhaseDetails.add(getAttack_defendercountry().getCountryName()+" is Conquered");
+        // attacker has to put minimum one army defending country (By Game rules)
+        getAttack_attackercountry().decreaseArmyCount(1);
+        getAttack_defendercountry().increaseArmyCount(1);
+
+        if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
+            ArrayList<Card> defendersCards = defenderPlayer.getCards();
+            defenderPlayer.removeCards();
+            for(Card card: defendersCards) {
+                playerCards.add(card);
+            }
+        }
+	}
+	
+	/**
 	 * This returns the player color.
 	 * @param playerID the id of the player
 	 * @return EnumColor,color of the player

@@ -32,7 +32,7 @@ public class FinishView  {
 	 * UI for printing the winner of the game
 	 * @param playerName the player name
 	 */
-	public void Exchange(String playerName) {
+	public void callWinner(String playerName) {
 		frameCongratulation = new JFrame("Congratulations");
 		panelCongratulation = new JPanel();
 		frameCongratulation.setSize(800, 300);

@@ -847,6 +847,8 @@ public class Game extends Observable implements Serializable {
 		player.setAttack_defendercountry(defCountry);
 		player.setAttack_attackerdicecount(attackerDiceCount);
 		player.setAttack_defenderdicecount(defendergDiceCount);
+		
+		
 		player.setAttack_playerCountry(playerCountry);
 		player.setAttack_gamePhaseDetails(gamePhaseDetails);
 
@@ -860,7 +862,7 @@ public class Game extends Observable implements Serializable {
 		//playerCountry;
 		if (isMapConcured()) {
 			FinishView finish = new FinishView();
-			finish.Exchange(getCurrentPlayer().getPlayerName());
+			finish.callWinner(getCurrentPlayer().getPlayerName());
 			System.out.println("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 			gamePhaseDetails.add("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
