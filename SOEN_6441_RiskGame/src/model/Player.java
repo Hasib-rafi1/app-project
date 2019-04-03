@@ -66,11 +66,20 @@ public class Player implements Serializable{
 	private Country initialSourceCountry;
 	//Fortification-Strategy
 	private ArrayList<Country> assignedCountryList = new ArrayList<Country>();
+	private Card riskCards;
 
 	private Country fortifySourceCountry;
 	private Country fortifyDestinationCountry;
 	private int fortifyArmies;
 	private ArrayList<Player> playerList;
+
+	public Card getRiskCards() {
+		return riskCards;
+	}
+
+	public void setRiskCards(Card riskCards) {
+		this.riskCards = riskCards;
+	}
 
 
 	public void setFortifySourceCountry(Country country){
