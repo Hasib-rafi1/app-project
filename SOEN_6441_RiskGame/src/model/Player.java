@@ -61,33 +61,33 @@ public class Player implements Serializable{
 
 	//Fortification-Strategy
 
-	private Country fortify_sourceCountry;
-	private Country fortify_destinationCountry;
-	private int fortify_armies;
+	private Country fortifySourceCountry;
+	private Country fortifyDestinationCountry;
+	private int fortifyArmies;
 
 
 	public void setFortifySourceCountry(Country country){
-		this.fortify_sourceCountry = country;
+		this.fortifySourceCountry = country;
 	}
 
 	public Country getFortifySourceCountry(){
-		return fortify_sourceCountry;
+		return fortifySourceCountry;
 	}
 
 	public void setFortifyDestinationCountry(Country country){
-		this.fortify_destinationCountry = country;
+		this.fortifyDestinationCountry = country;
 	}
 
 	public Country getFortifyDestinationCountry(){
-		return fortify_destinationCountry;
+		return fortifyDestinationCountry;
 	}
 
 	public void setFortifyArmies(int armies){
-		this.fortify_armies = armies;
+		this.fortifyArmies = armies;
 	}
 
 	public int getFortifyArmies(){
-		return fortify_armies;
+		return fortifyArmies;
 	}
 
     public boolean fortificationPhase(){
@@ -96,14 +96,14 @@ public class Player implements Serializable{
 
     //Reinforcement-Strategy
 
-    private Country reinforce_country;
+    private Country reinforceCountry;
 
 	public void setReinforceCountry(Country country){
-	    this.reinforce_country = country;
+	    this.reinforceCountry = country;
     }
 
     public Country getReinforceCountry(){
-        return reinforce_country;
+        return reinforceCountry;
     }
 
     public boolean reinforcementPhase(){
@@ -112,68 +112,68 @@ public class Player implements Serializable{
 
     //Attack-Strategy
 
-    private Player attack_defenderplayer;
-	private Country attack_attackercountry;
-    private Country attack_defendercountry;
-    private int attack_attackerdicecount;
-    private int attack_defenderdicecount;
-    private HashMap<Player, ArrayList<Country>> attack_playerCountry;
-    private ArrayList<String> attack_gamePhaseDetails;
+    private Player attackDefenderPlayer;
+	private Country attackAttackerCountry;
+    private Country attackDefenderCountry;
+    private int attackAttackerDiceCount;
+    private int attackDefenderDiceCount;
+    private HashMap<Player, ArrayList<Country>> attackPlayerCountry;
+    private ArrayList<String> attackGamePhaseDetails;
 
-    public Player getAttack_defenderplayer() {
-        return attack_defenderplayer;
+    public Player getAttackDefenderPlayer() {
+        return attackDefenderPlayer;
     }
 
-    public void setAttack_defenderplayer(Player attack_defenderplayer) {
-        this.attack_defenderplayer = attack_defenderplayer;
+    public void setAttackDefenderPlayer(Player attackDefenderPlayer) {
+        this.attackDefenderPlayer = attackDefenderPlayer;
     }
 
-    public Country getAttack_attackercountry() {
-        return attack_attackercountry;
+    public Country getAttackAttackerCountry() {
+        return attackAttackerCountry;
     }
 
-    public void setAttack_attackercountry(Country attack_attackercountry) {
-        this.attack_attackercountry = attack_attackercountry;
+    public void setAttackAttackerCountry(Country attackAttackerCountry) {
+        this.attackAttackerCountry = attackAttackerCountry;
     }
 
-    public Country getAttack_defendercountry() {
-        return attack_defendercountry;
+    public Country getAttackDefenderCountry() {
+        return attackDefenderCountry;
     }
 
-    public void setAttack_defendercountry(Country attack_defendercountry) {
-        this.attack_defendercountry = attack_defendercountry;
+    public void setAttackDefenderCountry(Country attackDefenderCountry) {
+        this.attackDefenderCountry = attackDefenderCountry;
     }
 
-    public int getAttack_attackerdicecount() {
-        return attack_attackerdicecount;
+    public int getAttackAttackerDiceCount() {
+        return attackAttackerDiceCount;
     }
 
-    public void setAttack_attackerdicecount(int attack_attackerdicecount) {
-        this.attack_attackerdicecount = attack_attackerdicecount;
+    public void setAttackAttackerDiceCount(int attackAttackerDiceCount) {
+        this.attackAttackerDiceCount = attackAttackerDiceCount;
     }
 
-    public int getAttack_defenderdicecount() {
-        return attack_defenderdicecount;
+    public int getAttackDefenderDiceCount() {
+        return attackDefenderDiceCount;
     }
 
-    public void setAttack_defenderdicecount(int attack_defenderdicecount) {
-        this.attack_defenderdicecount = attack_defenderdicecount;
+    public void setAttackDefenderDiceCount(int attackDefenderDiceCount) {
+        this.attackDefenderDiceCount = attackDefenderDiceCount;
     }
 
-    public HashMap<Player, ArrayList<Country>> getAttack_playerCountry() {
-        return attack_playerCountry;
+    public HashMap<Player, ArrayList<Country>> getattackPlayerCountry() {
+        return attackPlayerCountry;
     }
 
-    public void setAttack_playerCountry(HashMap<Player, ArrayList<Country>> attack_playerCountry) {
-        this.attack_playerCountry = attack_playerCountry;
+    public void setAttackPlayerCountry(HashMap<Player, ArrayList<Country>> attackPlayerCountry) {
+        this.attackPlayerCountry = attackPlayerCountry;
     }
 
-    public ArrayList<String> getAttack_gamePhaseDetails() {
-        return attack_gamePhaseDetails;
+    public ArrayList<String> getAttackGamePhaseDetails() {
+        return attackGamePhaseDetails;
     }
 
-    public void setAttack_gamePhaseDetails(ArrayList<String> attack_gamePhaseDetails) {
-        this.attack_gamePhaseDetails = attack_gamePhaseDetails;
+    public void setAttackGamePhaseDetails(ArrayList<String> attackGamePhaseDetails) {
+        this.attackGamePhaseDetails = attackGamePhaseDetails;
     }
 
     public ArrayList<Integer> getDiceResults() {
@@ -604,17 +604,17 @@ public class Player implements Serializable{
 	 *            Player object
 	 */
 	public void conquerCountry(Player defenderPlayer) {
-		getAttack_defendercountry().setPlayerId(playerId);
-		getAttack_defendercountry().setCountryColor(getAttack_attackercountry().getCountryColor());
-        defenderPlayer.unAssignCountryToPlayer(getAttack_defendercountry());
-        assignedListOfCountries.add(getAttack_defendercountry());
-        attack_playerCountry.get(this).add(getAttack_defendercountry());
-        attack_playerCountry.get(defenderPlayer).remove(getAttack_defendercountry());
+		getAttackDefenderCountry().setPlayerId(playerId);
+		getAttackDefenderCountry().setCountryColor(getAttackAttackerCountry().getCountryColor());
+        defenderPlayer.unAssignCountryToPlayer(getAttackDefenderCountry());
+        assignedListOfCountries.add(getAttackDefenderCountry());
+        attackPlayerCountry.get(this).add(getAttackDefenderCountry());
+        attackPlayerCountry.get(defenderPlayer).remove(getAttackDefenderCountry());
         isConquered =true;
-        attack_gamePhaseDetails.add(getAttack_defendercountry().getCountryName()+" is Conquered");
+        attackGamePhaseDetails.add(getAttackDefenderCountry().getCountryName()+" is Conquered");
         // attacker has to put minimum one army defending country (By Game rules)
-        getAttack_attackercountry().decreaseArmyCount(1);
-        getAttack_defendercountry().increaseArmyCount(1);
+        getAttackAttackerCountry().decreaseArmyCount(1);
+        getAttackDefenderCountry().increaseArmyCount(1);
 
         if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
             ArrayList<Card> defendersCards = defenderPlayer.getCards();

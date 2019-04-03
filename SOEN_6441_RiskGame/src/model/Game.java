@@ -842,15 +842,15 @@ public class Game extends Observable implements Serializable {
 
 		Player player = getCurrentPlayer();
 
-		player.setAttack_defenderplayer(defenderPlayer);
-		player.setAttack_attackercountry(attCountry);
-		player.setAttack_defendercountry(defCountry);
-		player.setAttack_attackerdicecount(attackerDiceCount);
-		player.setAttack_defenderdicecount(defendergDiceCount);
+		player.setAttackDefenderPlayer(defenderPlayer);
+		player.setAttackAttackerCountry(attCountry);
+		player.setAttackDefenderCountry(defCountry);
+		player.setAttackAttackerDiceCount(attackerDiceCount);
+		player.setAttackAttackerDiceCount(defendergDiceCount);
 		
 		
-		player.setAttack_playerCountry(playerCountry);
-		player.setAttack_gamePhaseDetails(gamePhaseDetails);
+		player.setAttackPlayerCountry(playerCountry);
+		player.setAttackGamePhaseDetails(gamePhaseDetails);
 
 
         boolean success = player.attackPhase();

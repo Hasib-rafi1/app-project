@@ -41,7 +41,8 @@ public class Cheater implements PlayerStrategy, Serializable  {
 	public boolean attack(Player player) {
 		for(Country country : player.getAssignedListOfCountries()) {
 			ArrayList<String> getNeighbouringCountries = game.getOthersNeighbouringCountriesOnly(country.getCountryName());
-			//Player.conquerCountry();
+			//for(String temp:getNeighbouringCountries)
+			//	Player.conquerCountry(temp);
 		}
 		return true;
 		
