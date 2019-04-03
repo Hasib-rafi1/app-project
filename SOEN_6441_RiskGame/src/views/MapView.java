@@ -15,7 +15,7 @@ import helper.PrintConsoleAndUserInput;
  * @author Gargi Sharma
  * @version 1.0.0
  */
-public class MapView  {
+public class MapView implements Serializable {
 
 	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
@@ -50,7 +50,7 @@ public class MapView  {
 		print.consoleOut("3. Edit The Map");
 		print.consoleOut("4. Back to The Main Menu");
 		print.consoleOut("*********************************\n");
-		return print.userIntInput();
+		return PrintConsoleAndUserInput.userIntInput();
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class MapView  {
 		print.consoleOut("5. Back to map menu?");
 		print.consoleOut("*********************************");
 		print.consoleOut("Select number from above editing menu:");
-		return print.userIntInput();
+		return PrintConsoleAndUserInput.userIntInput();
 	}
 
 	/**

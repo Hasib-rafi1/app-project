@@ -109,7 +109,7 @@ public class GameController {
 
 		print.consoleOut("Enter the Game mode you want to play.");
 		print.consoleOut("1 -> Single Game Mode. \n2 -> Tournament Mode.");
-		int gameMode = print.userIntInput();
+		int gameMode = PrintConsoleAndUserInput.userIntInput();
 
 		if(gameMode == 1){
 
@@ -169,7 +169,7 @@ public class GameController {
 			print.consoleOut("******* Welcome to Tournament Mode. *******");
 			while (true) {
 				print.consoleOut("Enter The Number of Maps You want to play on (1-5): ");
-				int numberOfMaps = print.userIntInput();
+				int numberOfMaps = PrintConsoleAndUserInput.userIntInput();
 				if (numberOfMaps >= 1 && numberOfMaps <= 5) {
 					M = numberOfMaps;
 					break;
@@ -186,7 +186,7 @@ public class GameController {
 
 			while (true) {
 				print.consoleOut("Enter The Number of player strategies you want to play with(2-4): ");
-				int numberOfStrategies = print.userIntInput();
+				int numberOfStrategies = PrintConsoleAndUserInput.userIntInput();
 				if (numberOfStrategies >= 2 && numberOfStrategies <= 4) {
 					P = numberOfStrategies;
 					break;
@@ -196,7 +196,7 @@ public class GameController {
 			print.consoleOut("2. Aggressive \n3. Benevolent \n4. Cheater \n5. Random");
 			for (int i = 0; i < P; i++) {
 				while (true) {
-					playerStrategyName = print.userIntInput();
+					playerStrategyName = PrintConsoleAndUserInput.userIntInput();
 					if(!(playerStrategyName < 2 || playerStrategyName > 5)){
 						playerStrategyActions();
 						break;

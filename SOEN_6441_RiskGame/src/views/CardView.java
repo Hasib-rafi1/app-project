@@ -42,7 +42,7 @@ import helper.PrintConsoleAndUserInput;
  * @version 1.0.0
  */
 
-public  class CardView implements Observer{
+public  class CardView implements Observer, Serializable{
 	
 	/** The frame card exchange. */
 	public static JFrame frameCardExchange = null;
