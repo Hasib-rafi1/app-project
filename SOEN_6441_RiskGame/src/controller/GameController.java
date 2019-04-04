@@ -367,7 +367,7 @@ public class GameController {
 					if (game.getGamePhase() == GamePhase.Attack) {
 						Integer attackerDiceCount = Integer.parseInt(boardView.getAttackerDiceNo());
 						Integer defenderDiceCount = Integer.parseInt(boardView.getDefenderDiceNo());
-						boolean state =game.attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
+						boolean state =game.attackPhaseActions(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
 						if(state) {
 							attCountry = mapModel.getCountryFromName(attackerCountry);
 							defCountry = mapModel.getCountryFromName(defenderCountry);
