@@ -6,6 +6,7 @@ import model.Player;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import helper.Card;
 import helper.RandomNumber;
 
 
@@ -38,9 +39,6 @@ public class Random implements PlayerStrategy, Serializable {
         else if (countryList.size() > 1)
             random = RandomNumber.getRandomNumberInRange(0, countryList.size() - 1);
         
-//        if(player.getCards().size()>2) {
-//        	
-//        }
         int armies = player.getNumberOfReinforcedArmies();
         Country country = countryList.get(random);
 
@@ -171,6 +169,20 @@ public class Random implements PlayerStrategy, Serializable {
 				int armies = RandomNumber.getRandomNumberInRange(0, sourceCountry.getnoOfArmies() - 1);
 				sourceCountry.decreaseArmyCount(armies);
 				destinationCountry.increaseArmyCount(armies);
+			}
+			
+			if(player.getIsConqured()){
+				System.out.println("Conquered");
+				Card riskCard = player.getRiskCards();
+
+				if(riskCard == null){
+					System.out.println("No Cards Available Right Now.");
+				} else {
+					player.addCard(riskCard);
+				}
+
+				player.setIsConqured(false);
+
 			}
 			System.out.println("Finished fortification with destination country " + destinationCountry.getCountryName()
 					+ " (" + destinationCountry.getnoOfArmies() + ")");

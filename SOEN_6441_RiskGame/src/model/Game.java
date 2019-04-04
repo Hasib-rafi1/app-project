@@ -209,9 +209,6 @@ public class Game extends Observable implements Serializable {
 			addingReinforcementCountryArmy(countryName);
 		}
 		updateGame();
-		if(this.gameMode == GameMode.SingleGameMode){
-			initializeAutoSequence();
-		}
 		notifyObserverslocal(this);
 	}
 
@@ -826,7 +823,7 @@ public class Game extends Observable implements Serializable {
 	 * @param defendergDiceCount the defenderg dice count
 	 * @return true, if attack done
 	 */
-	public Boolean attackPhase(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
+	public Boolean attackPhaseActions(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
 
 		Country attCountry = mapModel.getCountryFromName(attackerCountry);
 		Country defCountry = mapModel.getCountryFromName(defenderCountry);
@@ -852,7 +849,7 @@ public class Game extends Observable implements Serializable {
 		player.setAttackAttackerCountry(attCountry);
 		player.setAttackDefenderCountry(defCountry);
 		player.setAttackAttackerDiceCount(attackerDiceCount);
-		player.setAttackAttackerDiceCount(defendergDiceCount);
+		player.setAttackDefenderDiceCount(defendergDiceCount);
 
 
 		player.setAttackPlayerCountry(playerCountry);
@@ -952,7 +949,7 @@ public class Game extends Observable implements Serializable {
 			int attackerDiceCount = this.getMaximumDices(attackerCountry, "Attacker");
 			int defenderDiceCount = this.getMaximumDices(defenderCountry, "Defender");
 
-			attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
+			attackPhaseActions(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
 		}
 		notifyObserverslocal(this);
 		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
@@ -1145,6 +1142,7 @@ public class Game extends Observable implements Serializable {
 				random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
 			}
 			Country country = countryList.get(random);
+			System.out.println("Assigning the initial army to the player. \n");
 			boolean success = addingStartupCountryArmy(country.getCountryName());
 			if(success){
 				setupNextPlayerTurn();
@@ -1152,6 +1150,7 @@ public class Game extends Observable implements Serializable {
 		} else if (this.gamePhase == GamePhase.Reinforcement) {
 			//this.getCurrentPlayer().setReinforceContinent(mapModel.getContinentList());
 			//this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			System.out.println("Performing Reinforcement for the player. \n");
 			boolean success = this.getCurrentPlayer().reinforcementPhase();
 			if(success){
 			}
@@ -1160,6 +1159,7 @@ public class Game extends Observable implements Serializable {
 
 			getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			System.out.println("Performing Attacking for the player. \n");
 			boolean success = this.getCurrentPlayer().attackPhase();
 			if(isMapConcured()){
 				System.out.println("You Win");
@@ -1168,6 +1168,7 @@ public class Game extends Observable implements Serializable {
 			}
 		} else if (this.gamePhase == GamePhase.Fortification){
 
+			System.out.println("Performing Fortification for the player. \n");
 			boolean success = this.getCurrentPlayer().fortificationPhase();
 			if(success){
 				setupNextPlayerTurn();
@@ -1248,9 +1249,10 @@ public class Game extends Observable implements Serializable {
 	public void initializeAutoSequence(){
 		while (!getCurrentPlayer().getPlayerStrategy().isHuman() && !this.isMapConcured()){
 			automateCurrentPhase();
-			notifyObserverslocal(this);
-			try{Thread.sleep(1000);} catch(Exception e){}
 			updateGame();
+			notifyObserverslocal(this);
+			System.out.println(gamePhaseDetails.toString());
+			try{Thread.sleep(1000);} catch(Exception e){}
 		}
 	}
 }

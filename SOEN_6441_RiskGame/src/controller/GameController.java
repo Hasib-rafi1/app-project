@@ -72,8 +72,10 @@ public class GameController {
 	/** The def country. */
 	Country defCountry;
 	int playerStrategyName =0;
+	
 	/**
 	 * This function is going to initializing the map by taking user input.
+	 * @param mapPath path f the map directory
 	 */
 	public void initializeMap(String mapPath) {
 		//	public void initializeMap() {
@@ -251,20 +253,35 @@ public class GameController {
 	 * 
 	 */
 	private void callListenerOnView(){
+
 		numberOfArmiesClickListener();
+
 		addSourceCountriesListener();
+
 		addMoveArmyButtonListener();
+
 		addAttackerCountryListener();
+
 		addDefenderCountryListener();
+
 		addActionListenerForWorldDominationView();
+
 		addActionListenerForloadAndSaveGame();
+
 		addAttackButtonListener();
+
 		addAllOutButtonListener();
+
 		addEndAttackButtonListener();
+
 		addAttackMoveArmyButtonListener();
+
 		addSkipButtonListener();
+
 		skipExchangeListener();
+
 		exchangeButtonListener();
+
 		setBoardView();
 
 	}
@@ -350,7 +367,7 @@ public class GameController {
 					if (game.getGamePhase() == GamePhase.Attack) {
 						Integer attackerDiceCount = Integer.parseInt(boardView.getAttackerDiceNo());
 						Integer defenderDiceCount = Integer.parseInt(boardView.getDefenderDiceNo());
-						boolean state =game.attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
+						boolean state =game.attackPhaseActions(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
 						if(state) {
 							attCountry = mapModel.getCountryFromName(attackerCountry);
 							defCountry = mapModel.getCountryFromName(defenderCountry);
