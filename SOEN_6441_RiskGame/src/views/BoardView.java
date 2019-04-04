@@ -830,7 +830,7 @@ public class BoardView implements Observer,Serializable {
 	 * Static method to get selected attacker dice no.
 	 * @return selectedCountry
 	 */
-	public static String getAttackerDiceNo() {
+	public static String getAttackerDiceNumber() {
 		return (String) comboboxAttackerNoOfDice.getSelectedItem();
 
 	}
@@ -850,7 +850,7 @@ public class BoardView implements Observer,Serializable {
 	 * Static method to get selected defender dice no.
 	 * @return selectedCountry
 	 */
-	public static String getDefenderDiceNo() {
+	public static String getDefenderDiceNumber() {
 		return (String)comboboxDefenderNoOfDice.getSelectedItem();
 
 	}

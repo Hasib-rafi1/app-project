@@ -365,8 +365,8 @@ public class GameController {
 				boardView.setVisibalityOfMoveAfterMove();
 				if (attackerCountry != null && defenderCountry != null) {
 					if (game.getGamePhase() == GamePhase.Attack) {
-						Integer attackerDiceCount = Integer.parseInt(boardView.getAttackerDiceNo());
-						Integer defenderDiceCount = Integer.parseInt(boardView.getDefenderDiceNo());
+						Integer attackerDiceCount = Integer.parseInt(boardView.getAttackerDiceNumber());
+						Integer defenderDiceCount = Integer.parseInt(boardView.getDefenderDiceNumber());
 						boolean state =game.attackPhaseActions(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
 						if(state) {
 							attCountry = mapModel.getCountryFromName(attackerCountry);
@@ -577,8 +577,6 @@ public class GameController {
 						CardView.closeTheWindow();
 						boardView.getFrameGameWindow().setEnabled(true);
 						game.updateReinforcementValue();						
-					}else {
-						// Nothing implemented
 					}
 				}
 			}

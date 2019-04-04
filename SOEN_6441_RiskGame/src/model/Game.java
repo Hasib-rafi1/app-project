@@ -40,7 +40,7 @@ import java.util.Observable;
  */
 
 public class Game extends Observable implements Serializable {
-	//private static final long serialVersionUID = 6529685098267757690L;
+
 	private static final long serialVersionUID = 42L; 
 	/** The map model. */
 	private MapModel mapModel;
@@ -436,14 +436,14 @@ public class Game extends Observable implements Serializable {
 	 */
 	public int getArmiesAssignedToCountry(String sourceCountryName) {
 		Player currentPlayer = this.getCurrentPlayer();
-		int noOfArmies = 0;
+		int numberOfArmies = 0;
 
 		for (Country country : playerCountry.get(currentPlayer)) {
 			if (country.getCountryName().equals(sourceCountryName)) {
-				noOfArmies = country.getnoOfArmies();
+				numberOfArmies = country.getnoOfArmies();
 			}
 		}
-		return noOfArmies;
+		return numberOfArmies;
 	}
 
 	//Functions called by addMoveArmyButtonListener() from GameController.
