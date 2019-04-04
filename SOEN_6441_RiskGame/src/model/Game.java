@@ -1255,6 +1255,10 @@ public class Game extends Observable implements Serializable {
 	}
 	
 	public void automateExchange() {
+		gamePhaseDetails.add(
+				"Player: "+
+						getCurrentPlayer().getPlayerName()+"Card:"+
+				getCurrentPlayer().getCards().size());
 		if(getCurrentPlayer().getCards().size()>2) {
 			Card firstCard = getCurrentPlayer().getCards().get(0);
 			Card secondCard= getCurrentPlayer().getCards().get(1);
@@ -1272,7 +1276,7 @@ public class Game extends Observable implements Serializable {
 			if(diffCard.size()>2) {
 				firstCard = diffCard.get(0);
 		    	secondCard = diffCard.get(1);
-		    	thirdCard = diffCard.get(3);
+		    	thirdCard = diffCard.get(2);
 			}
 			else {
 				for(Map.Entry<Card, Integer> entry : counts.entrySet()) {
