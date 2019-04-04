@@ -207,7 +207,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 	/**
 	 * This method is used to get the strongest countries from thelist.
 	 * @param assignedListOfCountries  arraylist of assigned countries
-	 * @param armiesCount lower limit count of armies
+	 * @param armyCount lower limit count of armies
 	 * @return strongestCountry strongest country 
 	 */
 	public Country getStrongestCountries(ArrayList<Country> assignedListOfCountries, int armyCount) {
