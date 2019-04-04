@@ -823,7 +823,7 @@ public class Game extends Observable implements Serializable {
 	 * @param defendergDiceCount the defenderg dice count
 	 * @return true, if attack done
 	 */
-	public Boolean attackPhase(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
+	public Boolean attackPhaseActions(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
 
 		Country attCountry = mapModel.getCountryFromName(attackerCountry);
 		Country defCountry = mapModel.getCountryFromName(defenderCountry);
@@ -849,7 +849,7 @@ public class Game extends Observable implements Serializable {
 		player.setAttackAttackerCountry(attCountry);
 		player.setAttackDefenderCountry(defCountry);
 		player.setAttackAttackerDiceCount(attackerDiceCount);
-		player.setAttackAttackerDiceCount(defendergDiceCount);
+		player.setAttackDefenderDiceCount(defendergDiceCount);
 
 
 		player.setAttackPlayerCountry(playerCountry);
@@ -949,7 +949,7 @@ public class Game extends Observable implements Serializable {
 			int attackerDiceCount = this.getMaximumDices(attackerCountry, "Attacker");
 			int defenderDiceCount = this.getMaximumDices(defenderCountry, "Defender");
 
-			attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
+			attackPhaseActions(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
 		}
 		notifyObserverslocal(this);
 		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
