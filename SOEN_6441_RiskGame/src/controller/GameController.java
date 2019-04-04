@@ -253,20 +253,35 @@ public class GameController {
 	 * 
 	 */
 	private void callListenerOnView(){
+
 		numberOfArmiesClickListener();
+
 		addSourceCountriesListener();
+
 		addMoveArmyButtonListener();
+
 		addAttackerCountryListener();
+
 		addDefenderCountryListener();
+
 		addActionListenerForWorldDominationView();
+
 		addActionListenerForloadAndSaveGame();
+
 		addAttackButtonListener();
+
 		addAllOutButtonListener();
+
 		addEndAttackButtonListener();
+
 		addAttackMoveArmyButtonListener();
+
 		addSkipButtonListener();
+
 		skipExchangeListener();
+
 		exchangeButtonListener();
+
 		setBoardView();
 
 	}

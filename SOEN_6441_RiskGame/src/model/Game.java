@@ -13,7 +13,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
+
+
 
 import helper.*;
 
@@ -53,7 +54,7 @@ public class Game extends Observable implements Serializable {
 	/** The MINIMUM REINFORCEMEN plAYERS. */
 	private int MINIMUM_REINFORCEMENT_PlAYERS = 3;
 
-
+	
 
 	/** The initial source country. */
 	private String initialSourceCountry;
@@ -63,7 +64,7 @@ public class Game extends Observable implements Serializable {
 
 	/** The player list. */
 	private ArrayList<Player> playerList = new ArrayList<Player>();
-
+	
 	/** The connected own countries. */
 	private ArrayList<String> connectedOwnCountries = new ArrayList<String>();
 
@@ -89,7 +90,7 @@ public class Game extends Observable implements Serializable {
 
 	CardView cardview = new CardView(this);
 
-
+	
 	/**
 	 * Instantiates a new game.
 	 * @param map the map
@@ -830,19 +831,14 @@ public class Game extends Observable implements Serializable {
 		Country attCountry = mapModel.getCountryFromName(attackerCountry);
 		Country defCountry = mapModel.getCountryFromName(defenderCountry);
 		gamePhaseDetails.add(attackerCountry+" is attacking the "+ defenderCountry);
-		System.out.println(attCountry.getCountryName());
-		System.out.println(defCountry.getCountryName());
 		if (attCountry == null || defCountry == null) {
 			return false;
 		}
-		
+
 		if (defCountry.getnoOfArmies() < defendergDiceCount) {
 			gamePhaseDetails.add("Defender doesn't have sufficiant armies");
-			System.out.println(attCountry.getnoOfArmies());
-			System.out.println(defCountry.getnoOfArmies());
 			return false;
 		}
-		
 		Player defenderPlayer = playerList.stream().filter(p -> p.getPlayerId()==defCountry.getPlayerId())
 				.findAny().orElse(null);
 
@@ -1149,11 +1145,15 @@ public class Game extends Observable implements Serializable {
 				random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
 			}
 			Country country = countryList.get(random);
+			System.out.println("Assigning the initial army to the player. \n");
 			boolean success = addingStartupCountryArmy(country.getCountryName());
 			if(success){
 				setupNextPlayerTurn();
 			}
 		} else if (this.gamePhase == GamePhase.Reinforcement) {
+			//this.getCurrentPlayer().setReinforceContinent(mapModel.getContinentList());
+			//this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			System.out.println("Performing Reinforcement for the player. \n");
 			boolean success = this.getCurrentPlayer().reinforcementPhase();
 			if(success){
 			}
@@ -1162,6 +1162,7 @@ public class Game extends Observable implements Serializable {
 
 			getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			System.out.println("Performing Attacking for the player. \n");
 			boolean success = this.getCurrentPlayer().attackPhase();
 			if(isMapConcured()){
 				System.out.println("You Win");
@@ -1169,21 +1170,19 @@ public class Game extends Observable implements Serializable {
 			if(success){
 			}
 		} else if (this.gamePhase == GamePhase.Fortification){
-			this.getCurrentPlayer().setRiskCards(getRiskCardFromDeck());
+
+			System.out.println("Performing Fortification for the player. \n");
 			boolean success = this.getCurrentPlayer().fortificationPhase();
 			if(success){
 				setupNextPlayerTurn();
 			}
-			automateExchange();
-			int reinforcementCal = this.getCurrentPlayer().calculationForNumberOfArmiesInReinforcement(playerCountry, mapModel.getContinentList());
-			reinforcementCal = reinforcementCal < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : reinforcementCal;		
-			this.getCurrentPlayer().setNumberOfReinforcedArmies(reinforcementCal);
+			reinforcementPhaseSetup();
 		}
 	}
 
 
 
-	/*	public String saveGamePlay() {
+/*	public String saveGamePlay() {
 		// Saving the game file with the date time format
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
@@ -1203,8 +1202,8 @@ public class Game extends Observable implements Serializable {
 		}
 		return saveGameFileWithTime;
 	}*/
-
-
+	
+	
 	/**
 	 * This method is used to save game in a text file while playing
 	 * @return filename of saved Game
@@ -1228,11 +1227,8 @@ public class Game extends Observable implements Serializable {
 		}
 	}
 
-
-
 	/**
 	 * This method is used to load game with reading the object
-	 * @param gameNameEnteredByUser user game input to load game
 	 * @return filename of saved Game
 	 */
 	public static Game readSavedObjectToloadGame(String gameNameEnteredByUser) {	
@@ -1256,65 +1252,10 @@ public class Game extends Observable implements Serializable {
 	public void initializeAutoSequence(){
 		while (!getCurrentPlayer().getPlayerStrategy().isHuman() && !this.isMapConcured()){
 			automateCurrentPhase();
-			notifyObserverslocal(this);
-			try{Thread.sleep(1000);} catch(Exception e){}
 			updateGame();
-		}
-	}
-	
-	public void automateExchange() {
-		gamePhaseDetails.add(
-				"Player: "+
-						getCurrentPlayer().getPlayerName()+"Card:"+
-				getCurrentPlayer().getCards().size());
-		if(getCurrentPlayer().getCards().size()>2) {
-			Card firstCard = getCurrentPlayer().getCards().get(0);
-			Card secondCard= getCurrentPlayer().getCards().get(1);
-			Card thirdCard= getCurrentPlayer().getCards().get(2);
-			Map<Card, Integer> counts = new HashMap<Card, Integer>();
-
-			for (Card str : getCurrentPlayer().getCards()) {
-			    if (counts.containsKey(str)) {
-			        counts.put(str, counts.get(str) + 1);
-			    } else {
-			        counts.put(str, 1);
-			    }
-			}
-			ArrayList<Card> diffCard = getCurrentPlayer().getCards().stream().distinct().collect(Collectors.toCollection(ArrayList::new));
-			if(diffCard.size()>2) {
-				firstCard = diffCard.get(0);
-		    	secondCard = diffCard.get(1);
-		    	thirdCard = diffCard.get(2);
-			}
-			else {
-				for(Map.Entry<Card, Integer> entry : counts.entrySet()) {
-				    Card key = entry.getKey();
-				    int value = entry.getValue();
-				    if(value>2) {
-				    	firstCard = key;
-				    	secondCard = key;
-				    	thirdCard = key;
-				    	break;
-				    }
-				}
-			}
-			
-			
-			boolean sameRiskCards = (firstCard == secondCard) && (secondCard == thirdCard);
-			boolean differentRiskCards = (firstCard != secondCard) && (secondCard != thirdCard) && (firstCard != thirdCard);
-			if(sameRiskCards || differentRiskCards){
-
-				getCurrentPlayer().getCards().remove(firstCard);
-				getCurrentPlayer().getCards().remove(secondCard);
-				getCurrentPlayer().getCards().remove(thirdCard);
-				getCurrentPlayer().setInitialArmiesafterExchange(armiesAfterExchange);
-				armiesAfterExchange= armiesAfterExchange + 5;
-				addRiskCardToDeck(firstCard);
-				addRiskCardToDeck(secondCard);
-				addRiskCardToDeck(thirdCard);
-				notifyObserverslocal(this);
-				
-			}
+			notifyObserverslocal(this);
+			System.out.println(gamePhaseDetails.toString());
+			try{Thread.sleep(1000);} catch(Exception e){}
 		}
 	}
 }
