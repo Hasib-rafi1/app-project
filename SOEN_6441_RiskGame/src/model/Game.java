@@ -830,14 +830,19 @@ public class Game extends Observable implements Serializable {
 		Country attCountry = mapModel.getCountryFromName(attackerCountry);
 		Country defCountry = mapModel.getCountryFromName(defenderCountry);
 		gamePhaseDetails.add(attackerCountry+" is attacking the "+ defenderCountry);
+		System.out.println(attCountry.getCountryName());
+		System.out.println(defCountry.getCountryName());
 		if (attCountry == null || defCountry == null) {
 			return false;
 		}
-
+		
 		if (defCountry.getnoOfArmies() < defendergDiceCount) {
 			gamePhaseDetails.add("Defender doesn't have sufficiant armies");
+			System.out.println(attCountry.getnoOfArmies());
+			System.out.println(defCountry.getnoOfArmies());
 			return false;
 		}
+		
 		Player defenderPlayer = playerList.stream().filter(p -> p.getPlayerId()==defCountry.getPlayerId())
 				.findAny().orElse(null);
 
