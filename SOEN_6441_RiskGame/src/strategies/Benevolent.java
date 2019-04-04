@@ -41,6 +41,8 @@ public class Benevolent implements PlayerStrategy,Serializable{
 			}
 		}
 		return country;
+		
+		
 	}
 	
 	public int getMinimumArmies(Player player) {
@@ -79,6 +81,10 @@ public class Benevolent implements PlayerStrategy,Serializable{
 		}
 		
 		return true;
+		
+		
+		
+		
 	}
 	
 	
