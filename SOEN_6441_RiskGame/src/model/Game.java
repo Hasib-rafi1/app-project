@@ -209,9 +209,6 @@ public class Game extends Observable implements Serializable {
 			addingReinforcementCountryArmy(countryName);
 		}
 		updateGame();
-		if(this.gameMode == GameMode.SingleGameMode){
-			initializeAutoSequence();
-		}
 		notifyObserverslocal(this);
 	}
 
