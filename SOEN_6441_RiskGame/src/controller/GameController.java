@@ -135,9 +135,9 @@ public class GameController {
 
 			game.setGameMode(GameMode.SingleGameMode);
 			boardView=new BoardView();
+			game.addObserver(boardView);
 			worldDominationViewObserver = new WorldDominationView();
 			game.addObserver(worldDominationViewObserver);
-			game.addObserver(boardView);
 
 			print.consoleOut("\nEnter the number of Players between 3-5:");
 			int playerCount = Integer.parseInt(userinput.nextLine());
@@ -171,8 +171,8 @@ public class GameController {
 				game.startGame();
 				game.initializeRiskCards();
 				boardView.gameWindowLoad();
-				callListenerOnView();
 				game.initializeAutoSequence();
+				callListenerOnView();
 			}
 
 		} else if (gameMode == 2){
