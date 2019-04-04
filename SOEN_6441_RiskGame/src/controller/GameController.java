@@ -72,8 +72,10 @@ public class GameController {
 	/** The def country. */
 	Country defCountry;
 	int playerStrategyName =0;
+	
 	/**
 	 * This function is going to initializing the map by taking user input.
+	 * @param mapPath path f the map directory
 	 */
 	public void initializeMap(String mapPath) {
 		//	public void initializeMap() {

@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * This class is used for benevolent computer player strategy that focuses on protecting its weak countries 
  * (reinforces its weakest countries, never attacks, then fortifies in order to move armies to weaker countries).
- * @author 
+ * @author Jaiganesh
  * @version 1.0.0
  *
  */

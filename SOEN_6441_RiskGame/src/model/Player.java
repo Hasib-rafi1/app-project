@@ -292,7 +292,7 @@ public class Player implements Serializable{
 
 	/**
 	 * This is the setter function for the player's strategy.
-	 * @param playerStrategy
+	 * @param playerStrategy Player strategy
 	 */
 	public void setPlayerStrategy(PlayerStrategy playerStrategy) {
 		this.playerStrategy = playerStrategy;
@@ -522,12 +522,17 @@ public class Player implements Serializable{
 	}
 	
 
-	/**
-	 * This method checks whether the source and destination countries belongs to the player and moves the armies from source to destination.
-	 * @return true if armies count increases or decreases
-	 */
 
 
+
+    /**
+     * This method checks whether the source and destination countries 
+     * belongs to the player and moves the armies from source to destination.
+     * @param sourceCountry source country
+     * @param destinationCountry destination country
+     * @param armies armies count
+     * @return true
+     */
     public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
         if (sourceCountry == null || destinationCountry == null) {
             System.out.println("Source or destination country is invalid!");
@@ -651,11 +656,12 @@ public class Player implements Serializable{
 	}
 	
 	
+
 	/**
 	 * This method will perform operation required after conquering a country
-	 * 
-	 * @param defenderPlayer,
-	 *            Player object
+	 * @param defenderPlayer , defender player
+	 * @param defenderCountry, defender country
+	 * @param attackerCountry, attacker country
 	 */
 	public void conquerCountryAutomate(Player defenderPlayer,Country defenderCountry, Country attackerCountry) {
 		defenderCountry.setPlayerId(playerId);
@@ -695,8 +701,8 @@ public class Player implements Serializable{
 	
 	/**
 	 * Returns allowable dices for attacking country.
-	 * @param countryName the country name
-	 * @return Integer
+	 * @param selectedCountry the country name
+	 * @return Integer allowableAttackingArmies
 	 */
 	public ArrayList<Country> getOthersNeighbouringCountriesOnlyObject(Country selectedCountry) {
 		ArrayList<Country> allowableAttackingArmies = new ArrayList<Country>();
@@ -714,8 +720,10 @@ public class Player implements Serializable{
 		return allowableAttackingArmies;
 	}
 
+	
 	/**
-	 * add player list 
+	 * This method is used to get player list
+	 * @param playerListTemp Temporary Arraylist of players
 	 */
 	public void addPlayerList(ArrayList<Player> playerListTemp) {
 		playerList= playerListTemp;

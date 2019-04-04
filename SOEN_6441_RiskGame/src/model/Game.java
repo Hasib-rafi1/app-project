@@ -1228,8 +1228,11 @@ public class Game extends Observable implements Serializable {
 		}
 	}
 
+
+
 	/**
 	 * This method is used to load game with reading the object
+	 * @param gameNameEnteredByUser user game input to load game
 	 * @return filename of saved Game
 	 */
 	public static Game readSavedObjectToloadGame(String gameNameEnteredByUser) {	
