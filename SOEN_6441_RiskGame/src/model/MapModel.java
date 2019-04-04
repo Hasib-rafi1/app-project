@@ -30,7 +30,7 @@ import java.util.Scanner;
 public class MapModel implements Serializable{
 	
 	/** The scanner. */
-	transient Scanner scanner = new Scanner(System.in);
+	private transient Scanner scanner = new Scanner(System.in);
 
 
 	/** The print. */
@@ -45,7 +45,7 @@ public class MapModel implements Serializable{
 	ArrayList<Continent> continentsList = new ArrayList<>();
 	
 	/** The visited list. */
-	ArrayList<String> visitedList = new ArrayList<>();
+	private ArrayList<String> visitedList = new ArrayList<>();
 
 	/** The visited list for continent. */
 	//ContinentLevel disconnection Finding

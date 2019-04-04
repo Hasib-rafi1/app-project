@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class PrintConsoleAndUserInput implements Serializable{
 
 	/** The input. */
-	private static transient Scanner input = new Scanner(System.in);
+	private static Scanner input = new Scanner(System.in);
 	
 	/** The os. */
 	// Try with these directory path if code is not running
