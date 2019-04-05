@@ -89,9 +89,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 
 
-		for (Country country : playerToAttack.getAssignedListOfCountries()) {
-
-			ArrayList<Country> neighbourCountriesForAttack = playerToAttack.getOthersNeighbouringCountriesOnlyObject(country);
+			ArrayList<Country> neighbourCountriesForAttack = playerToAttack.getOthersNeighbouringCountriesOnlyObject(attackerCountry);
 			int sizeForneighbourCountriesForAttack = neighbourCountriesForAttack.size();
 
 
@@ -138,7 +136,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 				//ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(fromCountry,
 				//	(ArrayList<Country>) playerToAttack.getAssignedListOfCountries().clone(), new ArrayList<Country>());
 
-				ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(country);
+				ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(attackerCountry);
 
 
 				neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
@@ -157,9 +155,6 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 			}
 
-
-
-		}
 		print.consoleOut("Finishing attack...");
 		return true;	
 
