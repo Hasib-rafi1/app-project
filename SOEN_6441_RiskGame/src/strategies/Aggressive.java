@@ -202,6 +202,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		if (sourceCountry != null && destinationCountry != null) {
 			if(sourceCountry.getnoOfArmies()>1) {
 				int armies = sourceCountry.getnoOfArmies()-1;
+				sourceCountry.setnoOfArmies(sourceCountry.getnoOfArmies() - armies);
 				destinationCountry.setnoOfArmies(destinationCountry.getnoOfArmies()+armies);
 			}
 			

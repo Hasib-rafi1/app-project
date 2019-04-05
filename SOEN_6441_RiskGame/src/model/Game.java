@@ -13,8 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
-
-
+import java.util.stream.Collectors;
 
 import helper.*;
 
@@ -1179,7 +1178,10 @@ public class Game extends Observable implements Serializable {
 			if(success){
 				setupNextPlayerTurn();
 			}
-			reinforcementPhaseSetup();
+			automateExchange();
+			int reinforcementCal = this.getCurrentPlayer().calculationForNumberOfArmiesInReinforcement(playerCountry, mapModel.getContinentList());
+			reinforcementCal = reinforcementCal < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : reinforcementCal;		
+			this.getCurrentPlayer().setNumberOfReinforcedArmies(reinforcementCal);
 		}
 	}
 
@@ -1261,5 +1263,60 @@ public class Game extends Observable implements Serializable {
 			try{Thread.sleep(1000);} catch(Exception e){}
 		}
 
+	}
+	public void automateExchange() {
+		gamePhaseDetails.add(
+				"Player: "+
+						getCurrentPlayer().getPlayerName()+"Card:"+
+				getCurrentPlayer().getCards().size());
+		if(getCurrentPlayer().getCards().size()>2) {
+			Card firstCard = getCurrentPlayer().getCards().get(0);
+			Card secondCard= getCurrentPlayer().getCards().get(1);
+			Card thirdCard= getCurrentPlayer().getCards().get(2);
+			Map<Card, Integer> counts = new HashMap<Card, Integer>();
+
+			for (Card str : getCurrentPlayer().getCards()) {
+			    if (counts.containsKey(str)) {
+			        counts.put(str, counts.get(str) + 1);
+			    } else {
+			        counts.put(str, 1);
+			    }
+			}
+			ArrayList<Card> diffCard = getCurrentPlayer().getCards().stream().distinct().collect(Collectors.toCollection(ArrayList::new));
+			if(diffCard.size()>2) {
+				firstCard = diffCard.get(0);
+		    	secondCard = diffCard.get(1);
+		    	thirdCard = diffCard.get(2);
+			}
+			else {
+				for(Map.Entry<Card, Integer> entry : counts.entrySet()) {
+				    Card key = entry.getKey();
+				    int value = entry.getValue();
+				    if(value>2) {
+				    	firstCard = key;
+				    	secondCard = key;
+				    	thirdCard = key;
+				    	break;
+				    }
+				}
+			}
+			
+			
+			boolean sameRiskCards = (firstCard == secondCard) && (secondCard == thirdCard);
+			boolean differentRiskCards = (firstCard != secondCard) && (secondCard != thirdCard) && (firstCard != thirdCard);
+			if(sameRiskCards || differentRiskCards){
+
+				getCurrentPlayer().getCards().remove(firstCard);
+				getCurrentPlayer().getCards().remove(secondCard);
+				getCurrentPlayer().getCards().remove(thirdCard);
+				getCurrentPlayer().setInitialArmiesafterExchange(armiesAfterExchange);
+				armiesAfterExchange= armiesAfterExchange + 5;
+				addRiskCardToDeck(firstCard);
+				addRiskCardToDeck(secondCard);
+				addRiskCardToDeck(thirdCard);
+				notifyObserverslocal(this);
+				
+			}
+		}
 	}
 }
