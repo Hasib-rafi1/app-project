@@ -188,42 +188,27 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 		// Get assigned list of countries with its size
 		ArrayList<Country> assignedListOfCountries = playerToFortify.getAssignedListOfCountries();		
-		int sizeOfAssignedCountries = assignedListOfCountries.size();		
-
+		
 		Country destinationCountry = null;	
-		Country sourceCountry = getStrongestCountries(assignedListOfCountries, 1);
-
-
-		for (Country listOfCountries : assignedListOfCountries) {
-			ArrayList<Country> neighborCountries = playerToFortify.getNeighbouringCountries(listOfCountries);
-
-			//neighborCountries.removeIf(obj -> obj.getCountryName().equals(sourceCountry.getCountryName()));
-			neighborCountries.removeIf((Country object) -> object.getCountryName().equals(sourceCountry.getCountryName()));
-
-			int armiesCount = listOfCountries.getnoOfArmies();
-			if (armiesCount > 0 && sourceCountry != listOfCountries) {
-				armiesCount = listOfCountries.getnoOfArmies();
-				destinationCountry = listOfCountries;
-			}
+		Country sourceCountry = getStrongestCountries(assignedListOfCountries, 0);
+		if(sourceCountry!=null) {
+			return true;
 		}
-
+		
+		ArrayList<Country> neighborCountries = playerToFortify.getNeighbouringCountries(sourceCountry);
+		destinationCountry = getStrongestCountries(neighborCountries, 0);
+		System.out.println(sourceCountry.getCountryName());
+		System.out.println(destinationCountry.getCountryName());
 		if (sourceCountry != null && destinationCountry != null) {
-			int armiesCount = sourceCountry.getnoOfArmies() - 1;
-			/*	print.consoleOut(
-					"Aggressive player " + playerToFortify.getPlayerName() + " - fortification from " + sourceCountry.getCountryName()
-					+ "(" + sourceCountry.getnoOfArmies() + ") to " + destinationCountry.getCountryName() + "("
-					+ destinationCountry.getnoOfArmies() + ") with " + armies + " armies");*/
-
-
-			sourceCountry.decreaseArmyCount(armiesCount);
-			destinationCountry.increaseArmyCount(armiesCount);
-
-			/*print.consoleOut("Finished fortification with destination country " + destinationCountry.getCountryName()
-			+ " (" + destinationCountry.getnoOfArmies() + ")");*/
+			if(sourceCountry.getnoOfArmies()>1) {
+				int armies = sourceCountry.getnoOfArmies()-1;
+				destinationCountry.setnoOfArmies(destinationCountry.getnoOfArmies()+armies);
+			}
+			
 			return true;
 		} else {
 			print.consoleOut("Aggressive player " + playerName + " cannot find any country for fortification.");
-			return false;
+			return true;
 
 		}		
 	}
