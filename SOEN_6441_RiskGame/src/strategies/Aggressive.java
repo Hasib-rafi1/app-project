@@ -89,9 +89,13 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 
 
+
 		for (Country listOfAsssignedCountries : playerToAttack.getAssignedListOfCountries()) {
 
-			ArrayList<Country> neighbourCountriesForAttack = playerToAttack.getOthersNeighbouringCountriesOnlyObject(listOfAsssignedCountries);
+			//ArrayList<Country> neighbourCountriesForAttack = playerToAttack.getOthersNeighbouringCountriesOnlyObject(listOfAsssignedCountries);
+
+			ArrayList<Country> neighbourCountriesForAttack = playerToAttack.getOthersNeighbouringCountriesOnlyObject(attackerCountry);
+
 			int sizeForneighbourCountriesForAttack = neighbourCountriesForAttack.size();
 
 			// check if the list of neighbor countries to attack is null
@@ -138,7 +142,11 @@ public class Aggressive implements PlayerStrategy, Serializable {
 				//ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(fromCountry,
 				//	(ArrayList<Country>) playerToAttack.getAssignedListOfCountries().clone(), new ArrayList<Country>());
 
-				ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(listOfAsssignedCountries);
+
+				//ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(listOfAsssignedCountries);
+
+				ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(attackerCountry);
+
 
 
 				neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
@@ -157,13 +165,9 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 			}
 
-
-
-		}
 		print.consoleOut("Finishing attack...");
+	}
 		return true;	
-
-
 	}
 
 
