@@ -17,12 +17,9 @@ import helper.GameMode;
 import model.Country;
 import model.Game;
 import model.Player;
-import strategies.Aggressive;
-import strategies.Benevolent;
-import strategies.Cheater;
-import strategies.Human;
-import strategies.Random;
+import strategies.*;
 
+import strategies.Random;
 import views.BoardView;
 import views.CardView;
 import views.WorldDominationView;
@@ -52,7 +49,7 @@ public class GameController {
 	WorldDominationView worldDominationViewObserver;
 
 	/** The player. */
-	Player player;
+	Player playerForGameMode;
 
 	/** The map model. */
 	MapModel mapModel = new MapModel();
@@ -179,6 +176,7 @@ public class GameController {
 
 			int M = 0, P = 0, G = 0, D = 0;
 			ArrayList<MapModel> mapNamesForTournament = new ArrayList<>();
+			ArrayList<PlayerStrategy> strategiesForTournament = new ArrayList<>();
 
 
 			print.consoleOut("******* Welcome to Tournament Mode. *******");
@@ -190,6 +188,7 @@ public class GameController {
 					break;
 				}else{print.consoleErr("Please Enter the number of Maps between 3-5");}
 			}
+
 			print.consoleOut("Enter '" + M + "' Different Map Names from following list: ");
 			print.listofMapsinDirectory();
 			for (int i = 0; i < M; i++) {
@@ -207,46 +206,52 @@ public class GameController {
 					break;
 				}else{print.consoleErr("Please Enter the number of Strategies between 2-4. ");}
 			}
+
 			print.consoleOut("Enter '" + P + "' Different Strategies from following list:");
-			print.consoleOut("2. Aggressive \n3. Benevolent \n4. Cheater \n5. Random");
+			print.consoleOut("1. Aggressive \n2. Benevolent \n3. Cheater \n4. Random");
 			for (int i = 0; i < P; i++) {
 				while (true) {
-					playerStrategyName = PrintConsoleAndUserInput.userIntInput();
-					if(!(playerStrategyName < 2 || playerStrategyName > 5)){
-						playerStrategyActions();
-						break;
-					}else{
-						print.consoleErr("For Tournament Select the Strategies between 2-5");
+					int playerStrategyName = PrintConsoleAndUserInput.userIntInput();
+					if (!(playerStrategyName < 1 || playerStrategyName > 4)) {
+						if (playerStrategyName == 1) {
+							strategiesForTournament.add(new Aggressive());
+						} else if (playerStrategyName == 2) {
+							strategiesForTournament.add(new Benevolent());
+						} else if (playerStrategyName == 3) {
+							strategiesForTournament.add(new Random());
+						} else if (playerStrategyName == 4) {
+							strategiesForTournament.add(new Cheater());
+							break;
+						} else {
+							print.consoleErr("For Tournament Select the Strategies between 1-4");
+						}
 					}
 				}
-
 			}
 
+			while (true) {
+				print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
+				int numberOfGames = PrintConsoleAndUserInput.userIntInput();
+				if (numberOfGames >= 1 && numberOfGames <= 5) {
+					G = numberOfGames;
+					break;
+				}else{print.consoleErr("Please Enter the number of Games between 1-5. ");}
+			}
 
-			print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
-			print.consoleOut("Enter Maximum Number of Turns for Each Game (10 - 50): ");
+			while (true) {
+				print.consoleOut("Enter Maximum Number of Turns for Each Game (10 - 50): ");
+				int maximumNumberOfTurns = PrintConsoleAndUserInput.userIntInput();
+				if (maximumNumberOfTurns >= 10 && maximumNumberOfTurns <= 50) {
+					D = maximumNumberOfTurns;
+					break;
+				}else{print.consoleErr("Please Enter the number of Maximum Turns between 10-50. ");}
+			}
+
 		}else {
 			print.consoleErr("Please Enter a Valid Game Mode.");
 		}
 	}
 
-	public void playerStrategyActions(){
-		switch (playerStrategyName) {
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		default:
-			print.consoleErr("\n\t Error! Select the Strategies from the list (1 to 5):");
-			break;
-		}
-	}
 
 	/**
 	 * This function is used to call the listener functions. 

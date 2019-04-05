@@ -1133,7 +1133,6 @@ public class Game extends Observable implements Serializable {
 
 	public void automateCurrentPhase(){
 		if(this.gamePhase == GamePhase.Startup){
-
 			ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
 			int random = 0;
 			if(countryList.isEmpty()){
