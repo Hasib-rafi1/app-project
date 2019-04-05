@@ -44,11 +44,14 @@ public class Cheater implements PlayerStrategy, Serializable  {
 			for(int i = 0; i<playersCountries.size(); i++) {
 				Country country =playersCountries.get(i);
 			ArrayList<Country> getNeighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);
+			System.out.println(country.getCountryName());
 			System.out.println("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"neighbours now.");
 			for(Country temp:getNeighbouringCountries) {
 				Player defender=player.getPlayer(temp.getPlayerId());
 				player.conquerCountryAutomate(defender,temp,country);
 				temp.setnoOfArmies(1);
+				playersCountries.remove(temp);
+				System.out.println(temp.getCountryName());
 				if(country.getnoOfArmies()<1) {
 					country.setnoOfArmies(1);
 				}
