@@ -43,7 +43,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		if (sizeOfAssignedCountries == 0) {
 			return true;
 		}		
-		
+
 		// pass the assigned countries and army count to the  strongest countries method
 		int armyCount = 0;
 		attackerCountry = getStrongestCountries(assignedListOfCountries, armyCount);				
@@ -52,7 +52,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		if (attackerCountry == null) {
 			print.consoleErr("**** Sorry!!!! It cannot find any attacking country ****");			
 		} else {
-			
+
 			// get attacker country name and armies
 			String attackerCountryName = attackerCountry.getCountryName();
 			int attackerNumberOfArmies = attackerCountry.getnoOfArmies();			
@@ -89,71 +89,71 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 
 
-			ArrayList<Country> neighbourCountriesForAttack = playerToAttack.getOthersNeighbouringCountriesOnlyObject(attackerCountry);
-			int sizeForneighbourCountriesForAttack = neighbourCountriesForAttack.size();
+		ArrayList<Country> neighbourCountriesForAttack = playerToAttack.getOthersNeighbouringCountriesOnlyObject(attackerCountry);
+		int sizeForneighbourCountriesForAttack = neighbourCountriesForAttack.size();
 
 
-			//System.out.println("size of sizeForneighbourCountriesForAttack----------"+ sizeForneighbourCountriesForAttack);
-			if (neighbourCountriesForAttack == null || sizeForneighbourCountriesForAttack == 0) {
-				print.consoleOut("*** Sorry !! Not able to find any neighbouting country to attack from this Country ***");
-				return false;
-			}
+		//System.out.println("size of sizeForneighbourCountriesForAttack----------"+ sizeForneighbourCountriesForAttack);
+		if (neighbourCountriesForAttack == null || sizeForneighbourCountriesForAttack == 0) {
+			print.consoleOut("*** Sorry !! Not able to find any neighbouting country to attack from this Country ***");
+			return false;
+		}
 
-			while (sizeForneighbourCountriesForAttack > 0) {
+		while (sizeForneighbourCountriesForAttack > 0) {
 
-				Country sourceCountry = getCountriesToAttackneighbourCountries(playerToAttack, neighbourCountriesForAttack);
+			Country sourceCountry = getCountriesToAttackneighbourCountries(playerToAttack, neighbourCountriesForAttack);
 
-				if (sourceCountry == null) {
-					neighbourCountriesForAttack.remove(sourceCountry);
-					continue;
-				}
-
-				print.consoleOut(attackerCountry.getCountryName() + "(" + attackerCountry.getnoOfArmies()
-				+ ") is attacking to " + sourceCountry.getCountryName() + "(" + sourceCountry.getnoOfArmies() + ")");
-
-				// Perform attack until country is acquired or the attacking country is lost
-				int attackerPlayerId = playerToAttack.getPlayerId();
-				int sourceCountryArmies = sourceCountry.getnoOfArmies();
-				while (sourceCountry.getPlayer().getPlayerId() != attackerPlayerId && sourceCountryArmies > 0) {
-					if (attackerCountry.getnoOfArmies() == 1)
-						break;
-					attackDetails(attackerCountry, sourceCountry, playerToAttack);
-				}
-
-				if (attackerCountry.getnoOfArmies() == 1) {
-					// Cannot perform attack now
-					break;
-				}
+			if (sourceCountry == null) {
 				neighbourCountriesForAttack.remove(sourceCountry);
+				continue;
 			}
-			// Perform move operation if the attacking country cannot attack any more
-			if (attackerCountry != null && attackerCountry.getnoOfArmies() > 1 && neighbourCountriesForAttack.size() == 0) {
-				// if attacking country wins in attack phase then all neigbours are acquired
-				// so fortify strongest neighbour of attacking country
-				print.consoleOut(attackerCountry.getCountryName() + "(" + attackerCountry.getnoOfArmies()
-				+ ") cannot attack further so moving country to neigbours");
-				Country fromCountry = attackerCountry;
-				//ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(fromCountry,
-				//	(ArrayList<Country>) playerToAttack.getAssignedListOfCountries().clone(), new ArrayList<Country>());
 
-				ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(attackerCountry);
+			print.consoleOut(attackerCountry.getCountryName() + "(" + attackerCountry.getnoOfArmies()
+			+ ") is attacking to " + sourceCountry.getCountryName() + "(" + sourceCountry.getnoOfArmies() + ")");
+
+			// Perform attack until country is acquired or the attacking country is lost
+			int attackerPlayerId = playerToAttack.getPlayerId();
+			int sourceCountryArmies = sourceCountry.getnoOfArmies();
+			while (sourceCountry.getPlayer().getPlayerId() != attackerPlayerId && sourceCountryArmies > 0) {
+				if (attackerCountry.getnoOfArmies() == 1)
+					break;
+				attackDetails(attackerCountry, sourceCountry, playerToAttack);
+			}
+
+			if (attackerCountry.getnoOfArmies() == 1) {
+				// Cannot perform attack now
+				break;
+			}
+			neighbourCountriesForAttack.remove(sourceCountry);
+		}
+		// Perform move operation if the attacking country cannot attack any more
+		if (attackerCountry != null && attackerCountry.getnoOfArmies() > 1 && neighbourCountriesForAttack.size() == 0) {
+			// if attacking country wins in attack phase then all neigbours are acquired
+			// so fortify strongest neighbour of attacking country
+			print.consoleOut(attackerCountry.getCountryName() + "(" + attackerCountry.getnoOfArmies()
+			+ ") cannot attack further so moving country to neigbours");
+			Country fromCountry = attackerCountry;
+			//ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(fromCountry,
+			//	(ArrayList<Country>) playerToAttack.getAssignedListOfCountries().clone(), new ArrayList<Country>());
+
+			ArrayList<Country> neighborCountries = playerToAttack.getNeighbouringCountries(attackerCountry);
 
 
-				neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
-				Country destinationCountry = getStrongestCountries(neighborCountries, 0);
-				if (fromCountry != null && destinationCountry != null) {
-					int armies = fromCountry.getnoOfArmies() - 1;
-					/*print.consoleOut("Aggressive player " + playerToAttack.getPlayerName() + " - can not attack further with "
+			neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
+			Country destinationCountry = getStrongestCountries(neighborCountries, 0);
+			if (fromCountry != null && destinationCountry != null) {
+				int armies = fromCountry.getnoOfArmies() - 1;
+				/*print.consoleOut("Aggressive player " + playerToAttack.getPlayerName() + " - can not attack further with "
 							+ fromCountry.getCountryName() + "(" + fromCountry.getnoOfArmies() + ") so moving armies to "
 							+ destinationCountry.getCountryName() + "(" + destinationCountry.getnoOfArmies() + ") with "
 							+ armies + " armies");*/
-					fromCountry.decreaseArmyCount(armies);
-					destinationCountry.increaseArmyCount(armies);
-					/*print.consoleOut("Finished move armies after attack with destination country "
+				fromCountry.decreaseArmyCount(armies);
+				destinationCountry.increaseArmyCount(armies);
+				/*print.consoleOut("Finished move armies after attack with destination country "
 							+ destinationCountry.getCountryName() + " (" + destinationCountry.getnoOfArmies() + ")");*/
-				}
-
 			}
+
+		}
 
 		print.consoleOut("Finishing attack...");
 		return true;	
@@ -219,7 +219,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 	@Override
 	public boolean fortify(Player playerToFortify) {
-		
+
 		// Get the player, country and armies information
 		String playerName = playerToFortify.getPlayerName();
 		String attackerCountryName = attackerCountry.getCountryName();
@@ -228,17 +228,17 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		// Get assigned list of countries with its size
 		ArrayList<Country> assignedListOfCountries = playerToFortify.getAssignedListOfCountries();		
 		int sizeOfAssignedCountries = assignedListOfCountries.size();		
-	
+
 		Country destinationCountry = null;	
 		Country sourceCountry = getStrongestCountries(assignedListOfCountries, 1);
-		
-		
+
+
 		for (Country listOfCountries : assignedListOfCountries) {
 			ArrayList<Country> neighborCountries = playerToFortify.getNeighbouringCountries(listOfCountries);
 
 			//neighborCountries.removeIf(obj -> obj.getCountryName().equals(sourceCountry.getCountryName()));
 			neighborCountries.removeIf((Country object) -> object.getCountryName().equals(sourceCountry.getCountryName()));
-	
+
 			int armiesCount = listOfCountries.getnoOfArmies();
 			if (armiesCount > 0 && sourceCountry != listOfCountries) {
 				armiesCount = listOfCountries.getnoOfArmies();
@@ -248,15 +248,15 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 		if (sourceCountry != null && destinationCountry != null) {
 			int armiesCount = sourceCountry.getnoOfArmies() - 1;
-		/*	print.consoleOut(
+			/*	print.consoleOut(
 					"Aggressive player " + playerToFortify.getPlayerName() + " - fortification from " + sourceCountry.getCountryName()
 					+ "(" + sourceCountry.getnoOfArmies() + ") to " + destinationCountry.getCountryName() + "("
 					+ destinationCountry.getnoOfArmies() + ") with " + armies + " armies");*/
-			
-			
+
+
 			sourceCountry.decreaseArmyCount(armiesCount);
 			destinationCountry.increaseArmyCount(armiesCount);
-			
+
 			/*print.consoleOut("Finished fortification with destination country " + destinationCountry.getCountryName()
 			+ " (" + destinationCountry.getnoOfArmies() + ")");*/
 			return true;

@@ -16,15 +16,15 @@ import model.Player;
  *
  */
 public class Cheater implements PlayerStrategy, Serializable  {
-	
+
 	public String strategyName = "Cheater";
-    public String getStrategyName(){
-        return strategyName;
-    }
+	public String getStrategyName(){
+		return strategyName;
+	}
 	public boolean isHuman() {
 		return false;
 	}
-	
+
 	public boolean reinforce(Player player) {
 		for (Country country : player.getAssignedListOfCountries()) {
 			System.out.println(
@@ -36,13 +36,13 @@ public class Cheater implements PlayerStrategy, Serializable  {
 					"Added reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
 		}
 		return true;
-		
+
 	}
 	public boolean attack(Player player) {
 		ArrayList<Country> playersCountries = new ArrayList<Country>();
 		playersCountries = player.getAssignedListOfCountries();
-			for(int i = 0; i<playersCountries.size(); i++) {
-				Country country =playersCountries.get(i);
+		for(int i = 0; i<playersCountries.size(); i++) {
+			Country country =playersCountries.get(i);
 			ArrayList<Country> getNeighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);
 			System.out.println("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"neighbours now.");
 			for(Country temp:getNeighbouringCountries) {
@@ -53,12 +53,12 @@ public class Cheater implements PlayerStrategy, Serializable  {
 					country.setnoOfArmies(1);
 				}
 			}
-				
+
 		}
 		return true;
-		
+
 	}
-	
+
 	public boolean fortify(Player player) {
 		int armiesCount;
 		for (Country country : player.getAssignedListOfCountries()) {
