@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.*;
 import javax.swing.JLabel;
@@ -16,14 +15,10 @@ import helper.GameMode;
 import model.Country;
 import model.Game;
 import model.Player;
-import strategies.Aggressive;
-import strategies.Benevolent;
-import strategies.Cheater;
-import strategies.Human;
+import strategies.*;
+
 import strategies.Random;
-import views.BoardView;
-import views.CardView;
-import views.WorldDominationView;
+import views.*;
 import model.MapModel;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
@@ -50,10 +45,13 @@ public class GameController {
 	WorldDominationView worldDominationViewObserver;
 
 	/** The player. */
-	Player player;
+	Player playerForGameMode;
 
 	/** The map model. */
 	MapModel mapModel = new MapModel();
+
+	/** The card view. */
+	CardView cardView;
 
 	/** The print. */
 	PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();
@@ -67,8 +65,10 @@ public class GameController {
 	/** The def country. */
 	Country defCountry;
 	int playerStrategyName =0;
+	
 	/**
 	 * This function is going to initializing the map by taking user input.
+	 * @param mapPath path f the map directory
 	 */
 	public void initializeMap(String mapPath) {
 		//	public void initializeMap() {
@@ -128,9 +128,9 @@ public class GameController {
 
 			game.setGameMode(GameMode.SingleGameMode);
 			boardView=new BoardView();
+			game.addObserver(boardView);
 			worldDominationViewObserver = new WorldDominationView();
 			game.addObserver(worldDominationViewObserver);
-			game.addObserver(boardView);
 
 			print.consoleOut("\nEnter the number of Players between 3-5:");
 			int playerCount = Integer.parseInt(userinput.nextLine());
@@ -142,9 +142,9 @@ public class GameController {
 					print.consoleOut("\nEnter the name of Player " + j);
 					String name = userinput.nextLine();
 					Player player = new Player(i,name);
-                    print.consoleOut("\nEnter The Strategy of playing for Player: " +name);
-                    print.consoleOut("\n1. Human \n2. Aggressive \n3. Benevolent \n4. Cheater \n5. Random");
-                    int strategy = Integer.parseInt(userinput.nextLine());
+					print.consoleOut("\nEnter The Strategy of playing for Player: " +name);
+					print.consoleOut("\n1. Human \n2. Aggressive \n3. Benevolent \n4. Cheater \n5. Random");
+					int strategy = Integer.parseInt(userinput.nextLine());
 
 					if(strategy == 1){
 						player.setPlayerStrategy(new Human());
@@ -163,8 +163,8 @@ public class GameController {
 				}
 				game.startGame();
 				game.initializeRiskCards();
-				game.initializeAutoSequence();
 				boardView.gameWindowLoad();
+				game.initializeAutoSequence();
 				callListenerOnView();
 			}
 
@@ -172,6 +172,7 @@ public class GameController {
 
 			int M = 0, P = 0, G = 0, D = 0;
 			ArrayList<MapModel> mapNamesForTournament = new ArrayList<>();
+			ArrayList<PlayerStrategy> strategiesForTournament = new ArrayList<>();
 
 
 			print.consoleOut("******* Welcome to Tournament Mode. *******");
@@ -183,6 +184,7 @@ public class GameController {
 					break;
 				}else{print.consoleErr("Please Enter the number of Maps between 3-5");}
 			}
+
 			print.consoleOut("Enter '" + M + "' Different Map Names from following list: ");
 			print.listofMapsinDirectory();
 			for (int i = 0; i < M; i++) {
@@ -200,66 +202,118 @@ public class GameController {
 					break;
 				}else{print.consoleErr("Please Enter the number of Strategies between 2-4. ");}
 			}
+
 			print.consoleOut("Enter '" + P + "' Different Strategies from following list:");
-			print.consoleOut("2. Aggressive \n3. Benevolent \n4. Cheater \n5. Random");
+			print.consoleOut("1. Aggressive \n2. Benevolent \n3. Cheater \n4. Random");
 			for (int i = 0; i < P; i++) {
 				while (true) {
-					playerStrategyName = PrintConsoleAndUserInput.userIntInput();
-					if(!(playerStrategyName < 2 || playerStrategyName > 5)){
-						playerStrategyActions();
-						break;
-					}else{
-						print.consoleErr("For Tournament Select the Strategies between 2-5");
+					int playerStrategyName = PrintConsoleAndUserInput.userIntInput();
+					if (!(playerStrategyName < 1 || playerStrategyName > 4)) {
+						if (playerStrategyName == 1) {
+							strategiesForTournament.add(new Aggressive());
+						} else if (playerStrategyName == 2) {
+							strategiesForTournament.add(new Benevolent());
+						} else if (playerStrategyName == 3) {
+							strategiesForTournament.add(new Random());
+						} else if (playerStrategyName == 4) {
+							strategiesForTournament.add(new Cheater());
+							break;
+						} else {
+							print.consoleErr("For Tournament Select the Strategies between 1-4");
+						}
 					}
 				}
-
 			}
 
+			while (true) {
+				print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
+				int numberOfGames = PrintConsoleAndUserInput.userIntInput();
+				if (numberOfGames >= 1 && numberOfGames <= 5) {
+					G = numberOfGames;
+					break;
+				}else{print.consoleErr("Please Enter the number of Games between 1-5. ");}
+			}
 
-			print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
-			print.consoleOut("Enter Maximum Number of Turns for Each Game (10 - 50): ");
+			while (true) {
+				print.consoleOut("Enter Maximum Number of Turns for Each Game (10 - 50): ");
+				int maximumNumberOfTurns = PrintConsoleAndUserInput.userIntInput();
+				if (maximumNumberOfTurns >= 10 && maximumNumberOfTurns <= 50) {
+					D = maximumNumberOfTurns;
+					break;
+				}else{print.consoleErr("Please Enter the number of Maximum Turns between 10-50. ");}
+			}
+
+			HashMap<String, ArrayList<String>> tournamentResult = new HashMap<>();
+
+			for (int i = 0; i < M; i++) {
+				ArrayList<String> resultForOneMap = new ArrayList<>();
+				for (int j = 0; j < G; j++) {
+					game = new Game(mapNamesForTournament.get(i));
+					game.setGameMode(GameMode.TournamentMode);
+					game.setMaxTurnsForTournament(D);
+					for (int ps = 0; ps < strategiesForTournament.size(); ps++) {
+						Player player = new Player(ps, strategiesForTournament.get(ps).getStrategyName());
+						player.setPlayerStrategy(strategiesForTournament.get(ps));
+						game.addPlayer(player);
+					}
+
+					game.startGame();
+
+					game.tournamentMode();
+
+					// add result
+					if (game.getGamePhase() == GamePhase.Draw) {
+						resultForOneMap.add("DRAW");
+					} else {
+						resultForOneMap.add(game.getCurrentPlayer().getPlayerName());
+					}
+				}
+				tournamentResult.put(mapNamesForTournament.get(i).getMapName(), resultForOneMap);
+
+			}
+			TournamentModeResultView.callTournamentResult(M,G,D, tournamentResult,strategiesForTournament);
+
+
 		}else {
 			print.consoleErr("Please Enter a Valid Game Mode.");
 		}
 	}
 
-	public void playerStrategyActions(){
-		switch (playerStrategyName) {
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
-			default:
-				print.consoleErr("\n\t Error! Select the Strategies from the list (1 to 5):");
-				break;
-		}
-	}
 
 	/**
 	 * This function is used to call the listener functions. 
 	 * 
 	 */
 	private void callListenerOnView(){
+
 		numberOfArmiesClickListener();
+
 		addSourceCountriesListener();
+
 		addMoveArmyButtonListener();
+
 		addAttackerCountryListener();
+
 		addDefenderCountryListener();
+
 		addActionListenerForWorldDominationView();
+
 		addActionListenerForloadAndSaveGame();
+
 		addAttackButtonListener();
+
 		addAllOutButtonListener();
+
 		addEndAttackButtonListener();
+
 		addAttackMoveArmyButtonListener();
+
 		addSkipButtonListener();
+
 		skipExchangeListener();
+
 		exchangeButtonListener();
+
 		setBoardView();
 
 	}
@@ -343,9 +397,9 @@ public class GameController {
 				boardView.setVisibalityOfMoveAfterMove();
 				if (attackerCountry != null && defenderCountry != null) {
 					if (game.getGamePhase() == GamePhase.Attack) {
-						Integer attackerDiceCount = Integer.parseInt(boardView.getAttackerDiceNo());
-						Integer defenderDiceCount = Integer.parseInt(boardView.getDefenderDiceNo());
-						boolean state =game.attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
+						Integer attackerDiceCount = Integer.parseInt(boardView.getAttackerDiceNumber());
+						Integer defenderDiceCount = Integer.parseInt(boardView.getDefenderDiceNumber());
+						boolean state =game.attackPhaseActions(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
 						if(state) {
 							attCountry = mapModel.getCountryFromName(attackerCountry);
 							defCountry = mapModel.getCountryFromName(defenderCountry);
@@ -501,8 +555,9 @@ public class GameController {
 				for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
 					dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
 				}
+//				TournamentModeResultView.callTournamentResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
 
-				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
+//				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 			}
 		});
 	}
@@ -517,8 +572,10 @@ public class GameController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				game.saveMyGame();
+				game.writeObjectToSaveMyGame();
+				boardView.closeFrameWindow();
 			}
+			
 		});
 
 	}
@@ -553,8 +610,6 @@ public class GameController {
 						CardView.closeTheWindow();
 						boardView.getFrameGameWindow().setEnabled(true);
 						game.updateReinforcementValue();						
-					}else {
-						// Nothing implemented
 					}
 				}
 			}
@@ -586,48 +641,36 @@ public class GameController {
 		game.setBoardView(boardView);
 	}
 
+	/**
+	 * This method is used to load the saved game entered by user.
+	 * It shows all the parameters which has been saved by user during game play.
+	 * All objects are called by this method to get the saved results in the board view.
+	 */
 	public void loadSavedGame() {
 		// print the saved game files in the directory
 		print.listofSavedGamesinDirectory();
-		
-		print.consoleOut("Enter Game file name which you want to load:");		
+		print.consoleOut("Enter the name of Game which you want to load:");		
 		String selectFileToLoadGame = userinput.nextLine();
+		String gamesFilePath = ".\\src\\savedGames\\" + selectFileToLoadGame+ ".txt";
+		File tempFile = new File(gamesFilePath);
+		boolean exists = tempFile.exists();
+		if (exists) {
+			game = Game.readSavedObjectToloadGame(selectFileToLoadGame);
+			MapModel map = game.getMap();
+			cardView = new CardView(game);
+			boardView=new BoardView();		
+			game.addObserver(boardView);		
+			game.addObserver(cardView);
+			game.notifyObserverslocal(game);
+			boardView.mapPath = game.getMap().getMapDir()+game.getMap().getMapName()+ ".bmp";
+			boardView.gameWindowLoad();
+			callListenerOnView();
+			game.notifyObserverslocal(game);
 
-		game = Game.loadGame(selectFileToLoadGame);
-		
-		MapModel mapModel = game.getMap();
-		//game = new Game(mapModel);
-		boardView=new BoardView();		
-		worldDominationViewObserver = new WorldDominationView();
-		
-		game.addObserver(worldDominationViewObserver);
-		game.addObserver(boardView);
-		
-		callListenerOnView();
-		game.notifyObserverslocal(game);
-		/*int i = 1;
-		for (String GameTitle : savedGameList) {
-			IOHelper.print(i + ")" + GameTitle);
-			i++;
+		} else {
+			print.consoleErr("File not found!!!. Please enter the coreect name of map.");
+			MainController mainMenu = new MainController();
+			mainMenu.displaymainMenu();
 		}
-		IOHelper.print("\nEnter Game that you want to load:");
-		int gameNumber = IOHelper.getNextInteger();
-		String GameTitle = savedGameList.get(gameNumber - 1);
-		game = Game.loadGame(GameTitle);
-
-		Map map = game.getMap();
-		cardExchangeView = new CardExchangeView();
-		gameView = new GameView(); // boardview
-		game.addObserver(gameView);
-		game.addObserver(cardExchangeView);
-		game.notifyObserversLocal();
-		gameView.mapPath = map.getMapPath() + map.getMapName() + ".bmp";
-		gameView.gameInitializer();
-		activateListenersOnView();
-		game.notifyObserversLocal();
-
-		IOHelper.print("Game Successfully Loaded");*/
-		
 	}
-
 }

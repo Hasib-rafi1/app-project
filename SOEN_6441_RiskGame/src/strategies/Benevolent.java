@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * This class is used for benevolent computer player strategy that focuses on protecting its weak countries 
  * (reinforces its weakest countries, never attacks, then fortifies in order to move armies to weaker countries).
- * @author 
+ * @author Jaiganesh
  * @version 1.0.0
  *
  */
@@ -41,6 +41,8 @@ public class Benevolent implements PlayerStrategy,Serializable{
 			}
 		}
 		return country;
+		
+		
 	}
 	
 	public int getMinimumArmies(Player player) {
@@ -56,7 +58,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
 		int minArmies = getMinimumArmies(player);
-		List<Country> weakestCountries = player.getAssignedListOfCountries().stream()
+		List<Country> weakestCountries =  player.getattackPlayerCountry().get(player).stream()
 				.filter(x -> x.getnoOfArmies() == minArmies).collect(Collectors.toList());
 
 		System.out.println("Found " + weakestCountries.size() + " weakest countries. Now assigning "
@@ -79,6 +81,10 @@ public class Benevolent implements PlayerStrategy,Serializable{
 		}
 		
 		return true;
+		
+		
+		
+		
 	}
 	
 	
@@ -93,7 +99,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
-		ArrayList<Country> countryList = player.getAssignedListOfCountries();
+		ArrayList<Country> countryList = player.getattackPlayerCountry().get(player);
 		for (Country fromCountry : countryList) {
 
 			if (fromCountry == null)

@@ -1,7 +1,12 @@
 package model;
 
 import static org.junit.Assert.*;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import helper.GamePhase;
@@ -169,4 +174,55 @@ public class GameTest {
 		gameObject.setGamePhase(A);
 		
 	}
+	
+	/**
+	 * This test case is used to test if the game is saved or not with the currrent time.
+	 */
+	@Test
+	public void testGameIsSavedOrNot(){
+		try {
+			gameObject.writeObjectToSaveMyGame();			
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
+			String saveGameFileWithTime = dateFormat.format(cal.getTime());
+			
+			String filePath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
+			FileInputStream fileInput = new FileInputStream(filePath);
+			ObjectInputStream objectInput =new ObjectInputStream(fileInput);
+			Game testGameObject=(Game) objectInput.readObject();
+			objectInput.close();
+			fileInput.close();
+			
+			
+			ArrayList<Player> playerList1 = testGameObject.getAllPlayers(); // expected
+			int getSizeOfExpectedList = playerList1.size();
+			ArrayList<Player> playerList2 = gameObject.getAllPlayers(); // actual
+			int getSizeOfActualList = playerList2.size();
+			
+			assertEquals(getSizeOfExpectedList,getSizeOfActualList);
+			
+			
+			int armySize1[] = new int[getSizeOfExpectedList];
+			int armySize2[] = new int[getSizeOfActualList];
+			int i = 0;
+			for(Player expectedList : playerList1) {
+				armySize1[i] = expectedList.getNumberOfReinforcedArmies();
+				i++;
+			}
+			i = 0;
+			for(Player actualList : playerList2) {
+				armySize2[i] = actualList.getNumberOfReinforcedArmies();
+				i++;
+			}
+			
+			for (i = 0; i < armySize2.length; i++) {
+				assertEquals(armySize1[i], armySize2[i]);
+			}
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

@@ -66,11 +66,23 @@ public class Player implements Serializable{
 	private Country initialSourceCountry;
 	//Fortification-Strategy
 	private ArrayList<Country> assignedCountryList = new ArrayList<Country>();
+	private Card riskCards;
 
 	private Country fortifySourceCountry;
 	private Country fortifyDestinationCountry;
 	private int fortifyArmies;
 	private ArrayList<Player> playerList;
+
+
+
+	
+	public Card getRiskCards() {
+		return riskCards;
+	}
+
+	public void setRiskCards(Card riskCards) {
+		this.riskCards = riskCards;
+	}
 
 
 	public void setFortifySourceCountry(Country country){
@@ -104,6 +116,15 @@ public class Player implements Serializable{
     //Reinforcement-Strategy
 
     private Country reinforceCountry;
+    private ArrayList<Continent> reinforceContinent;
+
+	public ArrayList<Continent> getReinforceContinent() {
+		return reinforceContinent;
+	}
+
+	public void setReinforceContinent(ArrayList<Continent> reinforceContinent) {
+		this.reinforceContinent = reinforceContinent;
+	}
 
 	public void setReinforceCountry(Country country){
 	    this.reinforceCountry = country;
@@ -274,7 +295,7 @@ public class Player implements Serializable{
 
 	/**
 	 * This is the setter function for the player's strategy.
-	 * @param playerStrategy
+	 * @param playerStrategy Player strategy
 	 */
 	public void setPlayerStrategy(PlayerStrategy playerStrategy) {
 		this.playerStrategy = playerStrategy;
@@ -504,12 +525,17 @@ public class Player implements Serializable{
 	}
 	
 
-	/**
-	 * This method checks whether the source and destination countries belongs to the player and moves the armies from source to destination.
-	 * @return true if armies count increases or decreases
-	 */
 
 
+
+    /**
+     * This method checks whether the source and destination countries 
+     * belongs to the player and moves the armies from source to destination.
+     * @param sourceCountry source country
+     * @param destinationCountry destination country
+     * @param armies armies count
+     * @return true
+     */
     public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
         if (sourceCountry == null || destinationCountry == null) {
             System.out.println("Source or destination country is invalid!");
@@ -632,6 +658,36 @@ public class Player implements Serializable{
         }
 	}
 	
+	
+
+	/**
+	 * This method will perform operation required after conquering a country
+	 * @param defenderPlayer , defender player
+	 * @param defenderCountry, defender country
+	 * @param attackerCountry, attacker country
+	 */
+	public void conquerCountryAutomate(Player defenderPlayer,Country defenderCountry, Country attackerCountry) {
+		defenderCountry.setPlayerId(playerId);
+		defenderCountry.setCountryColor(attackerCountry.getCountryColor());
+        defenderPlayer.unAssignCountryToPlayer(defenderCountry);
+        assignedListOfCountries.add(defenderCountry);
+        attackPlayerCountry.get(this).add(defenderCountry);
+        attackPlayerCountry.get(defenderPlayer).remove(defenderCountry);
+        isConquered =true;
+        attackGamePhaseDetails.add(defenderCountry.getCountryName()+" is Conquered");
+        // attacker has to put minimum one army defending country (By Game rules)
+        attackerCountry.decreaseArmyCount(1);
+        defenderCountry.increaseArmyCount(1);
+
+        if (defenderPlayer.getAssignedListOfCountries().size() == 0) {
+            ArrayList<Card> defendersCards = defenderPlayer.getCards();
+            defenderPlayer.removeCards();
+            for(Card card: defendersCards) {
+                playerCards.add(card);
+            }
+        }
+	}
+	
 	/**
 	 * It is going to return the values of attack possible  countries who have more than one armies
 	 * @return ArrayList of Countries
@@ -648,8 +704,8 @@ public class Player implements Serializable{
 	
 	/**
 	 * Returns allowable dices for attacking country.
-	 * @param countryName the country name
-	 * @return Integer
+	 * @param selectedCountry the country name
+	 * @return Integer allowableAttackingArmies
 	 */
 	public ArrayList<Country> getOthersNeighbouringCountriesOnlyObject(Country selectedCountry) {
 		ArrayList<Country> allowableAttackingArmies = new ArrayList<Country>();
@@ -667,8 +723,10 @@ public class Player implements Serializable{
 		return allowableAttackingArmies;
 	}
 
+	
 	/**
-	 * add player list 
+	 * This method is used to get player list
+	 * @param playerListTemp Temporary Arraylist of players
 	 */
 	public void addPlayerList(ArrayList<Player> playerListTemp) {
 		playerList= playerListTemp;
@@ -700,7 +758,7 @@ public class Player implements Serializable{
 			ArrayList<Country> countriesAssignedToPlayer = new ArrayList<Country>();
 			ArrayList<Country> finalCOuntries = new ArrayList<Country>();
 
-			ArrayList<Country> countryList = this.getAssignedListOfCountries();
+			ArrayList<Country> countryList = this.getattackPlayerCountry().get(this);
 			ArrayList<Country> neighborCountriesName = new ArrayList<Country>();
 
 			for (Country country : countryList) {

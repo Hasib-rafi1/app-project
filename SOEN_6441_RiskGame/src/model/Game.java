@@ -13,9 +13,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
-
+import java.util.stream.Collectors;
 
 import helper.*;
+
 
 import java.util.Collections;
 import java.util.Date;
@@ -32,16 +33,14 @@ import java.util.Observable;
  * It is bounded with the Game Controller and the Board View.
  * 
  * @author Jaiganesh
- * @author Hasibul Huq
+ * @author Md Hasibul Huq
  * @author Gargi sharma
  * @version 1.0.0
  */
 
 public class Game extends Observable implements Serializable {
-	public Game()
-	{
-		System.out.println("constructor initialise");
-	}
+
+	private static final long serialVersionUID = 42L; 
 	/** The map model. */
 	private MapModel mapModel;
 
@@ -54,8 +53,7 @@ public class Game extends Observable implements Serializable {
 	/** The MINIMUM REINFORCEMEN plAYERS. */
 	private int MINIMUM_REINFORCEMENT_PlAYERS = 3;
 
-	/** The connected own countries. */
-	private ArrayList<String> connectedOwnCountries = new ArrayList<String>();
+	
 
 	/** The initial source country. */
 	private String initialSourceCountry;
@@ -65,6 +63,9 @@ public class Game extends Observable implements Serializable {
 
 	/** The player list. */
 	private ArrayList<Player> playerList = new ArrayList<Player>();
+	
+	/** The connected own countries. */
+	private ArrayList<String> connectedOwnCountries = new ArrayList<String>();
 
 	/** The player country. */
 	HashMap<Player, ArrayList<Country>> playerCountry = new HashMap<>();
@@ -85,10 +86,11 @@ public class Game extends Observable implements Serializable {
 	private Integer armiesAfterExchange= 5;
 
 	public boolean dominationViewOn = false;
+	private int maxTurnsForTournament;
 
 	CardView cardview = new CardView(this);
 
-
+	
 	/**
 	 * Instantiates a new game.
 	 * @param map the map
@@ -98,8 +100,8 @@ public class Game extends Observable implements Serializable {
 		super();
 		this.mapModel = map;
 		this.setGamePhase(GamePhase.Startup);
-		System.out.println("--" + this);
 	}
+
 
 
 	//Functions called by the initializeGame() from the GameController.
@@ -111,7 +113,7 @@ public class Game extends Observable implements Serializable {
 		this.playerList.add(player);
 	}
 
-	
+
 	/**
 	 * This method initializes the Game.
 	 * It assigns the initial armies to the player.
@@ -207,10 +209,10 @@ public class Game extends Observable implements Serializable {
 			addingReinforcementCountryArmy(countryName);
 		}
 		updateGame();
-		if(this.gameMode == GameMode.SingleGameMode){
+		notifyObserverslocal(this);
+		if(gameMode == GameMode.SingleGameMode){
 			initializeAutoSequence();
 		}
-		notifyObserverslocal(this);
 	}
 
 	/**
@@ -256,16 +258,16 @@ public class Game extends Observable implements Serializable {
 			print.consoleOut("Not a Valid Phase");
 			return false;
 		}
-        Player player = this.getCurrentPlayer();
-        Country country = playerCountry.get(player).stream()
-                .filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
+		Player player = this.getCurrentPlayer();
+		Country country = playerCountry.get(player).stream()
+				.filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
 
 		player.setReinforceCountry(country);
 		boolean success = player.reinforcementPhase();
 
 		if(success){
-		    gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
-        }
+			gamePhaseDetails.add(player.getPlayerName()+ " added army to the country "+ country.getCountryName());
+		}
 		notifyObserverslocal(this);
 		return true;
 	}
@@ -311,6 +313,7 @@ public class Game extends Observable implements Serializable {
 			if (getCurrentPlayer().getNumberOfReinforcedArmies() == 0) {
 				gamePhaseDetails.removeAll(gamePhaseDetails);
 				this.setGamePhase(gamePhase.Attack);
+				notifyObserverslocal(this);
 			}
 
 		}
@@ -391,7 +394,7 @@ public class Game extends Observable implements Serializable {
 	 *
 	 */
 	public void getConnectedCountries(String source, ArrayList<Country> countryList) {
-		System.out.println("source Country Name :" + source);
+		System.out.println("Source Country Name :" + source);
 
 		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
 		ArrayList<String> neighborCountriesName = new ArrayList<String>();
@@ -437,14 +440,14 @@ public class Game extends Observable implements Serializable {
 	 */
 	public int getArmiesAssignedToCountry(String sourceCountryName) {
 		Player currentPlayer = this.getCurrentPlayer();
-		int noOfArmies = 0;
+		int numberOfArmies = 0;
 
 		for (Country country : playerCountry.get(currentPlayer)) {
 			if (country.getCountryName().equals(sourceCountryName)) {
-				noOfArmies = country.getnoOfArmies();
+				numberOfArmies = country.getnoOfArmies();
 			}
 		}
-		return noOfArmies;
+		return numberOfArmies;
 	}
 
 	//Functions called by addMoveArmyButtonListener() from GameController.
@@ -466,15 +469,15 @@ public class Game extends Observable implements Serializable {
 
 		// player class function
 
-        player.setFortifySourceCountry(sourceCountry);
-        player.setFortifyDestinationCountry(destinationCountry);
-        player.setFortifyArmies(armies);
+		player.setFortifySourceCountry(sourceCountry);
+		player.setFortifyDestinationCountry(destinationCountry);
+		player.setFortifyArmies(armies);
 
 		boolean success = player.fortificationPhase();
 
 		if(success){
-		    gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
-        }
+			gamePhaseDetails.add("Moving "+armies+" armies from " +  source+" to "+ destination);
+		}
 		if(player.getIsConqured()){
 			System.out.println("Conquered");
 			Card riskCard = getRiskCardFromDeck();
@@ -522,6 +525,9 @@ public class Game extends Observable implements Serializable {
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
+		if(this.gameMode == GameMode.SingleGameMode){
+			initializeAutoSequence();
+		}
 	}
 
 	/**
@@ -813,7 +819,7 @@ public class Game extends Observable implements Serializable {
 		}
 		return allowableAttackingArmies;
 	}
-	
+
 
 
 	/**
@@ -824,7 +830,7 @@ public class Game extends Observable implements Serializable {
 	 * @param defendergDiceCount the defenderg dice count
 	 * @return true, if attack done
 	 */
-	public Boolean attackPhase(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
+	public Boolean attackPhaseActions(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
 
 		Country attCountry = mapModel.getCountryFromName(attackerCountry);
 		Country defCountry = mapModel.getCountryFromName(defenderCountry);
@@ -850,16 +856,16 @@ public class Game extends Observable implements Serializable {
 		player.setAttackAttackerCountry(attCountry);
 		player.setAttackDefenderCountry(defCountry);
 		player.setAttackAttackerDiceCount(attackerDiceCount);
-		player.setAttackAttackerDiceCount(defendergDiceCount);
-		
-		
+		player.setAttackDefenderDiceCount(defendergDiceCount);
+
+
 		player.setAttackPlayerCountry(playerCountry);
 		player.setAttackGamePhaseDetails(gamePhaseDetails);
 
-        boolean success = player.attackPhase();
+		boolean success = player.attackPhase();
 
-        if(success){
-        	System.out.println("Success");
+		if(success){
+			System.out.println("Success");
 		}
 
 		//playerCountry;
@@ -950,7 +956,7 @@ public class Game extends Observable implements Serializable {
 			int attackerDiceCount = this.getMaximumDices(attackerCountry, "Attacker");
 			int defenderDiceCount = this.getMaximumDices(defenderCountry, "Defender");
 
-			attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
+			attackPhaseActions(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
 		}
 		notifyObserverslocal(this);
 		if(defCountry.getPlayerId()==attCountry.getPlayerId()&& attCountry.getnoOfArmies()>1) {
@@ -1132,120 +1138,207 @@ public class Game extends Observable implements Serializable {
 		this.gameMode = gameMode;
 	}
 
-	/**
-	 * This method is used to save game in a text file while playing
-	 * @return filename of saved Game
-	 */
-	public String saveGamePlay() {
-		// TODO Auto-generated method stub
+	public void automateCurrentPhase(){
+		if(this.gamePhase == GamePhase.Startup){
+			ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
+			int random = 0;
+			if(countryList.isEmpty()){
+				return;
+			} else if (countryList.size() > 1){
+				random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
+			}
+			Country country = countryList.get(random);
+			System.out.println("\n\n ***************Assigning the initial army to the player*************** \n\n");
+			boolean success = addingStartupCountryArmy(country.getCountryName());
+			
+			notifyObserverslocal(this);
+			if(success){
+				setupNextPlayerTurn();
+			}
+		} else if (this.gamePhase == GamePhase.Reinforcement) {
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			//this.getCurrentPlayer().setReinforceContinent(mapModel.getContinentList());
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			System.out.println("\n\n ***************Performing Reinforcement for the player*************** \n\n");
+			boolean success = this.getCurrentPlayer().reinforcementPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
+			if(success){
+			}
+			notifyObserverslocal(this);
+		} else if (this.gamePhase == GamePhase.Attack){
+			getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			System.out.println("\n\n ***************Performing Attacking for the player*************** \n\n");
+			boolean success = this.getCurrentPlayer().attackPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
+			if(isMapConcured()){
+				System.out.println("You Win");
+			}
+			if(success){
+			}
+
+			notifyObserverslocal(this);
+		} else if (this.gamePhase == GamePhase.Fortification){
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			System.out.println("\n\n ***************Performing Fortification for the player*************** \n\n");
+			this.getCurrentPlayer().setRiskCards(getRiskCardFromDeck());
+			boolean success = this.getCurrentPlayer().fortificationPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
+
+			notifyObserverslocal(this);
+			if(success){
+				setupNextPlayerTurn();
+			}
+			automateExchange();
+			int reinforcementCal = this.getCurrentPlayer().calculationForNumberOfArmiesInReinforcement(playerCountry, mapModel.getContinentList());
+			reinforcementCal = reinforcementCal < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : reinforcementCal;		
+			this.getCurrentPlayer().setNumberOfReinforcedArmies(reinforcementCal);
+		}
+	}
+
+
+
+/*	public String saveGamePlay() {
+		// Saving the game file with the date time format
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
 		String saveGameFileWithTime = dateFormat.format(cal.getTime());
 
+		// save game object on this path 					
+		String filePath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
+
 		try {
-			FileOutputStream fileOut = new FileOutputStream(".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt");
+			FileOutputStream fileOut = new FileOutputStream(filePath);
 			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-			//System.out.println("printing correctly : " + this);
 			objectOut.writeObject(this);
 			objectOut.close();
 			System.out.println("******* The Game is succesfully saved to a file ********");
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return saveGameFileWithTime;
-
-	}
-
-
-	public void automateCurrentPhase(){
-	    if(this.gamePhase == GamePhase.Startup){
-
-	    	ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
-	    	int random = 0;
-	    	if(countryList.isEmpty()){
-	    		return;
-			} else if (countryList.size() > 1){
-	    		random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
-			}
-	    	Country country = countryList.get(random);
-	    	boolean success = addingStartupCountryArmy(country.getCountryName());
-	    	if(success){
-	    		setupNextPlayerTurn();
-			}
-		} else if (this.gamePhase == GamePhase.Reinforcement) {
-
-	    	boolean success = this.getCurrentPlayer().reinforcementPhase();
-	    	if(success){
-	    		setupNextPlayerTurn();
-			}
-
-		} else if (this.gamePhase == GamePhase.Attack){
-
-			boolean success = this.getCurrentPlayer().attackPhase();
-	    	if(isMapConcured()){
-	    		System.out.println("You Win");
-			}
-			if(success){
-				setupNextPlayerTurn();
-			}
-		} else if (this.gamePhase == GamePhase.Fortification){
-
-			boolean success = this.getCurrentPlayer().fortificationPhase();
-			if(success){
-				setupNextPlayerTurn();
-			}
-		}
-    }
-
-	public String saveMyGame()
-	{
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
-		String saveGameFileWithTime = dateFormat.format(cal.getTime());
-//		String filepath = "SOEN_6441_RiskGame/src/savedGames/" + saveGameFileWithTime+ ".txt";
-		String filepath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
-		try
-		{
-			FileOutputStream fo = new FileOutputStream(filepath);
-			ObjectOutputStream os = new ObjectOutputStream(fo);
-			os.writeObject(this);
-			os.close();
-			System.out.println("phew");
-			//os.flush();
-			fo.close();
-			//fo.flush();
-		}
-	 catch (Exception ex) {
-		ex.printStackTrace();
-	}
-	return saveGameFileWithTime;
-	}
+	}*/
+	
+	
 	/**
 	 * This method is used to save game in a text file while playing
 	 * @return filename of saved Game
 	 */
-	public static Game loadGame(String gameTitle) {
-		Game game = null;
+	public boolean writeObjectToSaveMyGame() {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
+		String saveGameFileWithTime = dateFormat.format(cal.getTime());
+		String filePath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
 		try {
-			System.out.println("gameTitle:" + gameTitle);
-			FileInputStream fileIn = new FileInputStream(".\\src\\savedGames\\" + gameTitle+ ".txt");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			game = (Game) in.readObject();
-			in.close();
-			fileIn.close();
-		} catch (IOException i) {
-			i.printStackTrace();
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
+			FileOutputStream fileOut = new FileOutputStream(filePath);			
+			ObjectOutputStream ObjectOut = new ObjectOutputStream(fileOut);
+			ObjectOut.writeObject(this);
+			ObjectOut.close();
+			fileOut.close();
+			System.out.println("Game has been saved at this location: " +filePath);
+			return true;
+		} catch (IOException ex) {
+			System.out.println("IOException: " + ex.getMessage());
+			return false;
 		}
-		return game;
+	}
+
+	/**
+	 * This method is used to load game with reading the object
+	 * @param gameNameEnteredByUser Get the games name from user to load the saved game
+	 * @return filename of saved Game
+	 */
+	public static Game readSavedObjectToloadGame(String gameNameEnteredByUser) {	
+		Game gameObj = null;
+		String filePath = ".\\src\\savedGames\\" + gameNameEnteredByUser+ ".txt";
+		try {			
+			FileInputStream fileIn = new FileInputStream(filePath);
+			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+			gameObj = (Game) objectIn.readObject();
+			objectIn.close();
+			System.out.println("Game has been loaded. ");
+			fileIn.close();
+		} catch (IOException ex) {
+			System.out.println("IOException: " + ex.getMessage());
+		} catch (ClassNotFoundException ex) {
+			System.out.println("ClassNotFoundException: " + ex.getMessage());
+		}
+		return gameObj;
 	}
 
 	public void initializeAutoSequence(){
-	    while (!getCurrentPlayer().getPlayerStrategy().isHuman() && !this.isMapConcured()){
-	        automateCurrentPhase();
-	        updateGame();
-        }
-    }
+		while (!getCurrentPlayer().getPlayerStrategy().isHuman() && !this.isMapConcured()){
+			automateCurrentPhase();
+			updateGame();
+			notifyObserverslocal(this);
+			try{Thread.sleep(1000);} catch(Exception e){}
+		}
+
+	}
+	public void automateExchange() {
+		gamePhaseDetails.add(
+				"Player: "+
+						getCurrentPlayer().getPlayerName()+"Card:"+
+				getCurrentPlayer().getCards().size());
+		if(getCurrentPlayer().getCards().size()>2) {
+			Card firstCard = getCurrentPlayer().getCards().get(0);
+			Card secondCard= getCurrentPlayer().getCards().get(1);
+			Card thirdCard= getCurrentPlayer().getCards().get(2);
+			Map<Card, Integer> counts = new HashMap<Card, Integer>();
+
+			for (Card str : getCurrentPlayer().getCards()) {
+			    if (counts.containsKey(str)) {
+			        counts.put(str, counts.get(str) + 1);
+			    } else {
+			        counts.put(str, 1);
+			    }
+			}
+			ArrayList<Card> diffCard = getCurrentPlayer().getCards().stream().distinct().collect(Collectors.toCollection(ArrayList::new));
+			if(diffCard.size()>2) {
+				firstCard = diffCard.get(0);
+		    	secondCard = diffCard.get(1);
+		    	thirdCard = diffCard.get(2);
+			}
+			else {
+				for(Map.Entry<Card, Integer> entry : counts.entrySet()) {
+				    Card key = entry.getKey();
+				    int value = entry.getValue();
+				    if(value>2) {
+				    	firstCard = key;
+				    	secondCard = key;
+				    	thirdCard = key;
+				    	break;
+				    }
+				}
+			}
+			
+			
+			boolean sameRiskCards = (firstCard == secondCard) && (secondCard == thirdCard);
+			boolean differentRiskCards = (firstCard != secondCard) && (secondCard != thirdCard) && (firstCard != thirdCard);
+			if(sameRiskCards || differentRiskCards){
+
+				getCurrentPlayer().getCards().remove(firstCard);
+				getCurrentPlayer().getCards().remove(secondCard);
+				getCurrentPlayer().getCards().remove(thirdCard);
+				getCurrentPlayer().setInitialArmiesafterExchange(armiesAfterExchange);
+				armiesAfterExchange= armiesAfterExchange + 5;
+				addRiskCardToDeck(firstCard);
+				addRiskCardToDeck(secondCard);
+				addRiskCardToDeck(thirdCard);
+				notifyObserverslocal(this);
+				
+			}
+		}
+	}
+
+	public void tournamentMode(){}
+
+	public int getMaxTurnsForTournament() {
+		return maxTurnsForTournament;
+	}
+
+	public void setMaxTurnsForTournament(int maxTurnsForTournament) {
+		this.maxTurnsForTournament = maxTurnsForTournament;
+	}
 }
