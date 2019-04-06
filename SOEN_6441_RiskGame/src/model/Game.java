@@ -86,6 +86,7 @@ public class Game extends Observable implements Serializable {
 	private Integer armiesAfterExchange= 5;
 
 	public boolean dominationViewOn = false;
+	private int maxTurnsForTournament;
 
 	CardView cardview = new CardView(this);
 
@@ -1329,5 +1330,15 @@ public class Game extends Observable implements Serializable {
 				
 			}
 		}
+	}
+
+	public void tournamentMode(){}
+
+	public int getMaxTurnsForTournament() {
+		return maxTurnsForTournament;
+	}
+
+	public void setMaxTurnsForTournament(int maxTurnsForTournament) {
+		this.maxTurnsForTournament = maxTurnsForTournament;
 	}
 }

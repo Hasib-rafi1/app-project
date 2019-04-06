@@ -35,26 +35,25 @@ public class TournamentModeResultView {
 //
 //    }
 
-    //    public static void callTournamentResult(int M, int G, int D, HashMap<String, ArrayList<String>> tournamentResult,
-//                                            ArrayList<PlayerStrategy> strategies) {
-    public static void callTournamentResult(int M, int G, int D, String[][] rowData, String[] playerNamesInTableColumns) {
+        public static void callTournamentResult(int M, int G, int D, HashMap<String, ArrayList<String>> tournamentResult,
+                                            ArrayList<PlayerStrategy> strategies) {
+//    public static void callTournamentResult(int M, int G, int D, String[][] rowData, String[] playerNamesInTableColumns) {
         frameTournamnetModeResultView = new JFrame("The Tournament Result");
         panelTournamnetModeResultView = new JPanel(new BorderLayout());
         panelTournamnetModeResultView.setLayout(new FlowLayout());
         panelTournamnetModeResultView.setPreferredSize(new Dimension(1000, 200));
 
 
-//        String[] getMapsUserUsed = tournamentResult.keySet().toArray(new String[tournamentResult.keySet().size()]);
+        String[] getMapsUserUsed = tournamentResult.keySet().toArray(new String[tournamentResult.keySet().size()]);
         String headers[] = {"Map1","Map2"};
         // Putting the data in a table
         ListModel lm = new AbstractListModel() {
-            public int getSize() { return headers.length; }
+            public int getSize() { return getMapsUserUsed.length; }
             public Object getElementAt(int index) {
-                return headers[index];
+                return getMapsUserUsed[index];
             }
         };
-//        tournamentModeParams();
-        table = new JTable(rowData, playerNamesInTableColumns );
+//        table = new JTable(rowData, playerNamesInTableColumns );
         table.setEnabled(false);
         table.getTableHeader().setBackground(Color.pink);
         rowHeader = new JList(lm);

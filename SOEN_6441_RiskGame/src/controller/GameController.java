@@ -247,8 +247,32 @@ public class GameController {
 
 			for (int i = 0; i < M; i++) {
 				ArrayList<String> resultForOneMap = new ArrayList<>();
+				for (int j = 0; j < G; j++) {
+					game = new Game(mapNamesForTournament.get(i));
+					game.setGameMode(GameMode.TournamentMode);
+					game.setMaxTurnsForTournament(D);
+					for (int ps = 0; ps < strategiesForTournament.size(); ps++) {
+						Player player = new Player(ps, strategiesForTournament.get(ps).getStrategyName());
+						player.setPlayerStrategy(strategiesForTournament.get(ps));
+						game.addPlayer(player);
+					}
+
+					game.startGame();
+
+					game.tournamentMode();
+
+					// add result
+					if (game.getGamePhase() == GamePhase.Draw) {
+						resultForOneMap.add("DRAW");
+					} else {
+						resultForOneMap.add(game.getCurrentPlayer().getPlayerName());
+					}
+				}
+				tournamentResult.put(mapNamesForTournament.get(i).getMapName(), resultForOneMap);
+
 			}
-//			TournamentModeResultView.callTournamentResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
+			TournamentModeResultView.callTournamentResult(M,G,D, tournamentResult,strategiesForTournament);
+
 
 		}else {
 			print.consoleErr("Please Enter a Valid Game Mode.");
@@ -531,7 +555,7 @@ public class GameController {
 				for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
 					dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
 				}
-				TournamentModeResultView.callTournamentResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
+//				TournamentModeResultView.callTournamentResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
 
 //				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 			}
