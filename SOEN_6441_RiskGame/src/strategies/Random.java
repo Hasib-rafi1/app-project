@@ -32,7 +32,7 @@ public class Random implements PlayerStrategy, Serializable {
 
     public boolean reinforce(Player player){
 
-       ArrayList<Country> countryList = player.getAssignedListOfCountries();
+       ArrayList<Country> countryList = player.getattackPlayerCountry().get(player);
         int random = 0;
         if (countryList.isEmpty())
             return true;
@@ -157,7 +157,7 @@ public class Random implements PlayerStrategy, Serializable {
 	}
 
     public boolean fortify(Player player){
-    	ArrayList<Country> countryList = player.getAssignedListOfCountries();
+    	ArrayList<Country> countryList = player.getattackPlayerCountry().get(player);
 		int randomIndex = 0;
 
 		if (countryList.isEmpty())

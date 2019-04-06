@@ -26,7 +26,7 @@ public class Cheater implements PlayerStrategy, Serializable  {
 	}
 
 	public boolean reinforce(Player player) {
-		for (Country country : player.getAssignedListOfCountries()) {
+		for (Country country :  player.getattackPlayerCountry().get(player)) {
 			System.out.println(
 					"Adding reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
 			player.setNumberOfReinforcedArmies(0);
@@ -64,7 +64,7 @@ public class Cheater implements PlayerStrategy, Serializable  {
 
 	public boolean fortify(Player player) {
 		int armiesCount;
-		for (Country country : player.getAssignedListOfCountries()) {
+		for (Country country : player.getattackPlayerCountry().get(player)) {
 			System.out.println("Cheater player " + player.getPlayerName() + " is trying to fortify " + country.getCountryName()
 			+ "(" + country.getnoOfArmies() + ")");
 			ArrayList<Country> neighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);

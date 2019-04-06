@@ -758,7 +758,7 @@ public class Player implements Serializable{
 			ArrayList<Country> countriesAssignedToPlayer = new ArrayList<Country>();
 			ArrayList<Country> finalCOuntries = new ArrayList<Country>();
 
-			ArrayList<Country> countryList = this.getAssignedListOfCountries();
+			ArrayList<Country> countryList = this.getattackPlayerCountry().get(this);
 			ArrayList<Country> neighborCountriesName = new ArrayList<Country>();
 
 			for (Country country : countryList) {

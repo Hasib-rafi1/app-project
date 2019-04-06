@@ -58,7 +58,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
 		int minArmies = getMinimumArmies(player);
-		List<Country> weakestCountries = player.getAssignedListOfCountries().stream()
+		List<Country> weakestCountries =  player.getattackPlayerCountry().get(player).stream()
 				.filter(x -> x.getnoOfArmies() == minArmies).collect(Collectors.toList());
 
 		System.out.println("Found " + weakestCountries.size() + " weakest countries. Now assigning "
@@ -99,7 +99,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
-		ArrayList<Country> countryList = player.getAssignedListOfCountries();
+		ArrayList<Country> countryList = player.getattackPlayerCountry().get(player);
 		for (Country fromCountry : countryList) {
 
 			if (fromCountry == null)

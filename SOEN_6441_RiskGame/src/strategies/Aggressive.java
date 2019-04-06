@@ -8,6 +8,7 @@ import java.util.Collections;
 
 
 import helper.PrintConsoleAndUserInput;
+import helper.RandomNumber;
 import model.Country;
 
 /**
@@ -38,7 +39,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 	public boolean reinforce(Player reInforcedPlayer) {	
 
 		// Get assigned list of countries with its size
-		ArrayList<Country> assignedListOfCountries = reInforcedPlayer.getAssignedListOfCountries();		
+		ArrayList<Country> assignedListOfCountries = reInforcedPlayer.getattackPlayerCountry().get(reInforcedPlayer);		
 		int sizeOfAssignedCountries = assignedListOfCountries.size();
 		if (sizeOfAssignedCountries == 0) {
 			return true;
@@ -106,7 +107,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 			// Perform attack until country is acquired or the attacking country is lost
 			int attackerPlayerId = playerToAttack.getPlayerId();
-			
+
 			while (sourceCountry.getPlayerId() != attackerPlayerId && sourceCountry.getnoOfArmies() > 0) {
 				if (attackerCountry.getnoOfArmies() == 1) {
 					break;
@@ -187,31 +188,40 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		String playerName = playerToFortify.getPlayerName();
 
 		// Get assigned list of countries with its size
-		ArrayList<Country> assignedListOfCountries = playerToFortify.getAssignedListOfCountries();		
-		
+		ArrayList<Country> assignedListOfCountries = playerToFortify.getattackPlayerCountry().get(playerToFortify);		
+
 		Country destinationCountry = null;	
 		Country sourceCountry = getStrongestCountries(assignedListOfCountries, 0);
-		if(sourceCountry!=null) {
+		System.out.println(sourceCountry.getCountryName());
+		if(sourceCountry==null) {
 			return true;
 		}
-		
-		ArrayList<Country> neighborCountries = playerToFortify.getNeighbouringCountries(sourceCountry);
-		destinationCountry = getStrongestCountries(neighborCountries, 0);
-		System.out.println(sourceCountry.getCountryName());
-		System.out.println(destinationCountry.getCountryName());
-		if (sourceCountry != null && destinationCountry != null) {
-			if(sourceCountry.getnoOfArmies()>1) {
-				int armies = sourceCountry.getnoOfArmies()-1;
-				sourceCountry.setnoOfArmies(sourceCountry.getnoOfArmies() - armies);
-				destinationCountry.setnoOfArmies(destinationCountry.getnoOfArmies()+armies);
-			}
-			
-			return true;
-		} else {
-			print.consoleOut("Aggressive player " + playerName + " cannot find any country for fortification.");
-			return true;
 
-		}		
+		ArrayList<Country> neighborCountries = playerToFortify.getNeighbouringCountries(sourceCountry);
+		System.out.println(neighborCountries.size());
+		if (neighborCountries != null && neighborCountries.size() > 0) {
+			int destinationRandomIndex = RandomNumber.getRandomNumberInRange(0, neighborCountries.size() - 1);
+			
+			destinationCountry = neighborCountries.get(destinationRandomIndex);
+			System.out.println(sourceCountry.getCountryName());
+			System.out.println(destinationCountry.getCountryName());
+			if (sourceCountry != null && destinationCountry != null) {
+				if(sourceCountry.getnoOfArmies()>1) {
+					System.out.println(sourceCountry.getCountryName());
+					System.out.println(destinationCountry.getCountryName());
+					int armies = sourceCountry.getnoOfArmies()-1;
+					sourceCountry.setnoOfArmies(sourceCountry.getnoOfArmies() - armies);
+					destinationCountry.setnoOfArmies(destinationCountry.getnoOfArmies()+armies);
+				}
+
+				return true;
+			} else {
+				print.consoleOut("Aggressive player " + playerName + " cannot find any country for fortification.");
+				return true;
+
+			}	
+		}	
+		return true;
 	}
 
 

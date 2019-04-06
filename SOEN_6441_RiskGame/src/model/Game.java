@@ -1157,7 +1157,7 @@ public class Game extends Observable implements Serializable {
 		} else if (this.gamePhase == GamePhase.Reinforcement) {
 			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
 			//this.getCurrentPlayer().setReinforceContinent(mapModel.getContinentList());
-			//this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			System.out.println("\n\n ***************Performing Reinforcement for the player*************** \n\n");
 			boolean success = this.getCurrentPlayer().reinforcementPhase();
 			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
@@ -1179,6 +1179,7 @@ public class Game extends Observable implements Serializable {
 			notifyObserverslocal(this);
 		} else if (this.gamePhase == GamePhase.Fortification){
 			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			System.out.println("\n\n ***************Performing Fortification for the player*************** \n\n");
 			this.getCurrentPlayer().setRiskCards(getRiskCardFromDeck());
 			boolean success = this.getCurrentPlayer().fortificationPhase();
@@ -1270,7 +1271,7 @@ public class Game extends Observable implements Serializable {
 			automateCurrentPhase();
 			updateGame();
 			notifyObserverslocal(this);
-			try{Thread.sleep(5000);} catch(Exception e){}
+			try{Thread.sleep(1000);} catch(Exception e){}
 		}
 
 	}
