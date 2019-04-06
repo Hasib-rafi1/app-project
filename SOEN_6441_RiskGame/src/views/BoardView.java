@@ -121,7 +121,7 @@ public class BoardView implements Observer,Serializable {
 	/** The button end attack. */
 	private static JButton buttonEndAttack = new JButton("End Attack");
 
-	
+	/** The game save button*/
 	private static JButton saveGameButton = new JButton("Save Game");
 	
 
@@ -302,17 +302,12 @@ public class BoardView implements Observer,Serializable {
 		fortification();
 		viewAttackPhase();
 		
-	
-		
-
 		frameGameWindow.setSize(mapScrollPane.getWidth()+550, 1200);
 		frameGameWindow.setVisible(true);
 		panelGameAction.setBackground(Color.white);
 		frameGameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-
-	
 
 	//------------------------ Map View initializing -----------------------------
 	/**
@@ -409,8 +404,6 @@ public class BoardView implements Observer,Serializable {
 		TitledBorder tb = BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 				TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.blue);
 		labelInitialisation.setBorder(tb);
-		String nm="#6600cc";
-	//	tb.setBorder(new LineBorder(Color.decode(nm)));
 		labelInitialisation.setBounds(labelGamePhase.getX(), gameScrollPanePhaseView.getY()+ gameScrollPanePhaseView.getHeight()+20, 490, 80);
 
 		
@@ -418,7 +411,6 @@ public class BoardView implements Observer,Serializable {
 		Font font = new Font("Courier", Font.BOLD, 24);
 		labelPlayersTurn.setFont(font);
 		labelPlayersTurn.setBorder(new TitledBorder("Active Player Name"));
-//		labelPlayersTurn.setBorder(new LineBorder(Color.decode(nm)));
 		labelPlayersTurn.setBounds(15, 25, 220, 50);
 		labelArmiesLeft = new JLabel("" + activePlayerUnassignedArmiesCount);
 		labelArmiesLeft.setBorder(new TitledBorder("Armies Left"));
@@ -442,9 +434,6 @@ public class BoardView implements Observer,Serializable {
 		TitledBorder tb = BorderFactory.createTitledBorder(null, "Reinforcement Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 				TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.blue);
 		labelReinforcement.setBorder(tb);
-		String nm="#6600cc";
-		//tb.setBorder(new LineBorder(Color.decode(nm)));
-		
 		labelReinforcement.setBounds(labelInitialisation.getX(),
 				labelInitialisation.getY() +20 + labelInitialisation.getHeight(), labelInitialisation.getWidth(),
 				80);
@@ -466,8 +455,7 @@ public class BoardView implements Observer,Serializable {
 	  TitledBorder tb = BorderFactory.createTitledBorder(null, "Attack Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 				TitledBorder.DEFAULT_POSITION, new Font("Serif", Font.PLAIN, 12), Color.blue);
 		labelAttack.setBorder(tb);
-		String nm="#6600cc";
-	//	tb.setBorder(new LineBorder(Color.decode(nm)));
+
 	  labelAttack.setBounds(labelReinforcement.getX(), labelReinforcement.getY() + 25
 	  + labelReinforcement.getHeight(), labelReinforcement.getWidth(), 250);
 	  

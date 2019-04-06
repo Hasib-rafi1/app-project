@@ -133,7 +133,6 @@ public  class CardView implements Observer, Serializable{
 
 	/**
 	 * Exchange action listener.
-	 *
 	 * @param listener the listener
 	 */
 	public static void exchangeActionListener(ActionListener listener) {
@@ -155,12 +154,19 @@ public  class CardView implements Observer, Serializable{
 		frameCardExchange.dispose();
 	}
 
+	/**
+	 * Game Object
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		Game game = ((Game)o);
 	}
 	
+	/**
+	 * Updates the CardView window
+	 * @param game
+	 */
 	public void updateCardView(Game game) {
 
 		if (game.getCurrentPlayer() != null && labelTotalNewArmies != null) {
