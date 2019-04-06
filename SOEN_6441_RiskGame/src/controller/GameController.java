@@ -20,9 +20,7 @@ import model.Player;
 import strategies.*;
 
 import strategies.Random;
-import views.BoardView;
-import views.CardView;
-import views.WorldDominationView;
+import views.*;
 import model.MapModel;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
@@ -245,6 +243,12 @@ public class GameController {
 					D = maximumNumberOfTurns;
 					break;
 				}else{print.consoleErr("Please Enter the number of Maximum Turns between 10-50. ");}
+			}
+
+			HashMap<String, ArrayList<String>> tournamentResult = new HashMap<>();
+
+			for (int i = 0; i < M; i++) {
+				ArrayList<String> resultForOneMap = new ArrayList<>();
 			}
 
 		}else {
@@ -528,6 +532,7 @@ public class GameController {
 				for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
 					dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
 				}
+//				TournamnetModeResultView.callTournamnetResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
 
 				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 			}
