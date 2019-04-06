@@ -318,12 +318,16 @@ public class Game extends Observable implements Serializable {
 
 		}
 		else if (this.getGamePhase() ==  gamePhase.Attack) {
-			gamePhaseDetails.removeAll(gamePhaseDetails);
+			if(getCurrentPlayer().getPlayerStrategy().isHuman()) {
+				gamePhaseDetails.removeAll(gamePhaseDetails);
+			}
 			this.setGamePhase(gamePhase.Fortification);
 			notifyObserverslocal(this);
 		}
 		else if (this.getGamePhase() == gamePhase.Fortification) {
-			gamePhaseDetails.removeAll(gamePhaseDetails);
+			if(getCurrentPlayer().getPlayerStrategy().isHuman()) {
+				gamePhaseDetails.removeAll(gamePhaseDetails);
+			}
 			this.setGamePhase(gamePhase.Reinforcement);
 			notifyObserverslocal(this);
 		}

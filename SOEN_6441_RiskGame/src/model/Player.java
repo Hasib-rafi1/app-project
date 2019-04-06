@@ -43,6 +43,7 @@ public class Player implements Serializable{
 	/** The dice results. */
 	private ArrayList<Integer> diceResults = new ArrayList<>();
 	
+	
 	/** The assigned list of countries. */
 	private ArrayList<Country> assignedListOfCountries = new ArrayList<Country>();
 
