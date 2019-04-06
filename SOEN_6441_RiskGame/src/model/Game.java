@@ -1159,20 +1159,24 @@ public class Game extends Observable implements Serializable {
 			if(success){
 				setupNextPlayerTurn();
 			}
+			System.out.println("\n\n *************** Finish Assigning the initial army to the player*************** \n\n");
+
 		} else if (this.gamePhase == GamePhase.Reinforcement) {
+			System.out.println("\n\n ***************Performing Reinforcement for the player*************** \n\n");
 			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
 			//this.getCurrentPlayer().setReinforceContinent(mapModel.getContinentList());
 			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
-			System.out.println("\n\n ***************Performing Reinforcement for the player*************** \n\n");
 			boolean success = this.getCurrentPlayer().reinforcementPhase();
 			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
 			if(success){
 			}
 			notifyObserverslocal(this);
+			System.out.println("\n\n ***************Finish Performing Reinforcement for the player*************** \n\n");
+
 		} else if (this.gamePhase == GamePhase.Attack){
+			System.out.println("\n\n ***************Performing Attacking for the player*************** \n\n");
 			getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
-			System.out.println("\n\n ***************Performing Attacking for the player*************** \n\n");
 			boolean success = this.getCurrentPlayer().attackPhase();
 			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
 			if(isMapConcured()){
@@ -1180,24 +1184,27 @@ public class Game extends Observable implements Serializable {
 			}
 			if(success){
 			}
-
 			notifyObserverslocal(this);
+			System.out.println("\n\n ***************Finish Performing Attacking for the player*************** \n\n");
+
 		} else if (this.gamePhase == GamePhase.Fortification){
+			System.out.println("\n\n ***************Performing Fortification for the player*************** \n\n");
 			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
 			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
-			System.out.println("\n\n ***************Performing Fortification for the player*************** \n\n");
 			this.getCurrentPlayer().setRiskCards(getRiskCardFromDeck());
 			boolean success = this.getCurrentPlayer().fortificationPhase();
 			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
-
 			notifyObserverslocal(this);
 			if(success){
 				setupNextPlayerTurn();
 			}
+			System.out.println("\n\n *************** Finish Performing Fortification for the player*************** \n\n");
+			System.out.println("\n\n *************** Starting Reinforcemant calculations Performing Fortification for the player*************** \n\n");
 			automateExchange();
 			int reinforcementCal = this.getCurrentPlayer().calculationForNumberOfArmiesInReinforcement(playerCountry, mapModel.getContinentList());
 			reinforcementCal = reinforcementCal < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : reinforcementCal;		
 			this.getCurrentPlayer().setNumberOfReinforcedArmies(reinforcementCal);
+			System.out.println("\n\n *************** Finishing Reinforcemant calculations Performing Fortification for the player*************** \n\n");
 		}
 	}
 
@@ -1276,7 +1283,7 @@ public class Game extends Observable implements Serializable {
 			automateCurrentPhase();
 			updateGame();
 			notifyObserverslocal(this);
-			try{Thread.sleep(1000);} catch(Exception e){}
+			try{Thread.sleep(500);} catch(Exception e){}
 		}
 
 	}

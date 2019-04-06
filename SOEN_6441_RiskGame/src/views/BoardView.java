@@ -266,7 +266,6 @@ public class BoardView implements Observer,Serializable {
 			ArrayList<String> gamePhaseDetailForPrint = game.getGamePhaseDetails();
 			for (String gamePhaseDetailString : gamePhaseDetailForPrint) {
 				JLabel textLabel = new JLabel();
-				System.out.println(gamePhaseDetailString);
 				textLabel.setText(gamePhaseDetailString);
 				Font font = new Font("Courier", Font.ITALIC, 16);
 				textLabel.setFont(font);

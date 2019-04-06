@@ -58,7 +58,7 @@ public class Random implements PlayerStrategy, Serializable {
 			randomIndex = RandomNumber.getRandomNumberInRange(0, countryList.size() - 1);
 
 		Country fromCountry = countryList.get(randomIndex);
-		System.out.print("Randomly selectd " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
+		System.out.println("Randomly selectd " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
 		+ ") for attack");
 		player.getAttackGamePhaseDetails().add("Randomly selectd " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
 		+ ") for attack");
@@ -74,7 +74,7 @@ public class Random implements PlayerStrategy, Serializable {
 			randomIndex = RandomNumber.getRandomNumberInRange(0, neighborCountries.size() - 1);
 
 		Country toCountry = neighborCountries.get(randomIndex);
-		System.out.print("Randomly selectd " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
+		System.out.println("Randomly selectd " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
 		+ ") as a defender");
 		player.getAttackGamePhaseDetails().add("Randomly selectd " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
 		+ ") as a defender");
