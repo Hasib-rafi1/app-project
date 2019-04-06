@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+import helper.Card;
 import helper.PrintConsoleAndUserInput;
 import helper.RandomNumber;
 import model.Country;
@@ -221,6 +221,22 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 			}	
 		}	
+		
+		if(playerToFortify.getIsConqured()){
+			System.out.println("Conquered");
+			Card riskCard = playerToFortify.getRiskCards();
+
+			if(riskCard == null){
+				System.out.println("No Cards Available Right Now.");
+			} else {
+				playerToFortify.addCard(riskCard);
+				playerToFortify.getAttackGamePhaseDetails().add("Card added"+ riskCard);
+
+			}
+
+			playerToFortify.setIsConqured(false);
+
+		}
 		return true;
 	}
 
