@@ -49,10 +49,9 @@ public class WorldDominationView implements Observer{
 		frameWindowForWorldDominationView = new JFrame("Players World Domination View");
 		panelWindowForWorldDominationView.setLayout(new FlowLayout());
 		panelWindowForWorldDominationView.setPreferredSize(new Dimension(1000, 200));
-
+		String headers[] = {"Percentage Country", "Continents Owned", "Armies Owned"};
 		// Putting the data in a table
 		ListModel lm = new AbstractListModel() {
-			String headers[] = {"Percentage Country", "Continents Owned", "Armies Owned"};
 			public int getSize() { return headers.length; }
 			public Object getElementAt(int index) {
 				return headers[index];
