@@ -1149,32 +1149,42 @@ public class Game extends Observable implements Serializable {
 			Country country = countryList.get(random);
 			System.out.println("\n\n ***************Assigning the initial army to the player*************** \n\n");
 			boolean success = addingStartupCountryArmy(country.getCountryName());
+			
+			notifyObserverslocal(this);
 			if(success){
 				setupNextPlayerTurn();
 			}
 		} else if (this.gamePhase == GamePhase.Reinforcement) {
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
 			//this.getCurrentPlayer().setReinforceContinent(mapModel.getContinentList());
 			//this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			System.out.println("\n\n ***************Performing Reinforcement for the player*************** \n\n");
 			boolean success = this.getCurrentPlayer().reinforcementPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
 			if(success){
 			}
-
+			notifyObserverslocal(this);
 		} else if (this.gamePhase == GamePhase.Attack){
-
 			getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
 			System.out.println("\n\n ***************Performing Attacking for the player*************** \n\n");
 			boolean success = this.getCurrentPlayer().attackPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
 			if(isMapConcured()){
 				System.out.println("You Win");
 			}
 			if(success){
 			}
-		} else if (this.gamePhase == GamePhase.Fortification){
 
+			notifyObserverslocal(this);
+		} else if (this.gamePhase == GamePhase.Fortification){
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
 			System.out.println("\n\n ***************Performing Fortification for the player*************** \n\n");
+			this.getCurrentPlayer().setRiskCards(getRiskCardFromDeck());
 			boolean success = this.getCurrentPlayer().fortificationPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
+
+			notifyObserverslocal(this);
 			if(success){
 				setupNextPlayerTurn();
 			}
@@ -1260,7 +1270,7 @@ public class Game extends Observable implements Serializable {
 			automateCurrentPhase();
 			updateGame();
 			notifyObserverslocal(this);
-			try{Thread.sleep(1000);} catch(Exception e){}
+			try{Thread.sleep(5000);} catch(Exception e){}
 		}
 
 	}

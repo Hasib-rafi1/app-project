@@ -73,6 +73,9 @@ public class Player implements Serializable{
 	private int fortifyArmies;
 	private ArrayList<Player> playerList;
 
+
+
+	
 	public Card getRiskCards() {
 		return riskCards;
 	}
