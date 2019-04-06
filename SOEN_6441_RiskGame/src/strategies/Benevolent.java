@@ -14,7 +14,8 @@ import java.io.Serializable;
 /**
  * This class is used for benevolent computer player strategy that focuses on protecting its weak countries 
  * (reinforces its weakest countries, never attacks, then fortifies in order to move armies to weaker countries).
- * @author Jaiganesh
+ * 
+ * @author naren
  * @version 1.0.0
  *
  */
@@ -22,15 +23,25 @@ public class Benevolent implements PlayerStrategy,Serializable{
 		
 	public String strategyName = "Benevolent";
 
+	/**
+	 * Returns the strategy name of the strategy
+	 */
     public String getStrategyName(){
         return strategyName;
     }
+    
+    /**
+	 * Return false for the non-human(Benevolent) strategy
+	 */
 	public boolean isHuman() {
 		return false;
 	}
 
-
-	
+	/**
+	 * Gets the weakest country of the benevolent
+	 * @param countries
+	 * @return
+	 */
 	private Country getWeakestCountry(ArrayList<Country> countries) {
 		Country country = null;
 		int armiesCount = Integer.MAX_VALUE;
@@ -45,6 +56,11 @@ public class Benevolent implements PlayerStrategy,Serializable{
 		
 	}
 	
+	/**
+	 * Gets the Minimum number of armies of the weakest country that belongs to benevolent
+	 * @param player
+	 * @return
+	 */
 	public int getMinimumArmies(Player player) {
 		int returnVal = Integer.MAX_VALUE;
 		ArrayList<Country> assignedCountryList = player.getAssignedListOfCountries();
@@ -54,6 +70,11 @@ public class Benevolent implements PlayerStrategy,Serializable{
 		}
 		return returnVal;
 	}
+	
+	/**
+	 * Method to execute reinforcement for the benevolent strategy
+	 * @param player
+	 */
 	@Override
 	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
@@ -80,14 +101,13 @@ public class Benevolent implements PlayerStrategy,Serializable{
 				System.out.println("Cannot find any weakest country");
 		}
 		
-		return true;
-		
-		
-		
-		
+		return true;	
 	}
 	
-	
+	/**
+	 * Method to execute attack for the benevolent strategy
+	 * @param player
+	 */
 	@Override
 	public boolean attack(Player player) {
 		// TODO Auto-generated method stub
@@ -95,7 +115,10 @@ public class Benevolent implements PlayerStrategy,Serializable{
 		return false;
 	}
 	
-	
+	/**
+	 * Method to execute fortification for the benevolent strategy
+	 * @param player
+	 */
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub

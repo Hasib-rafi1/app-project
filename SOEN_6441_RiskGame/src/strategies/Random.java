@@ -24,14 +24,14 @@ public class Random implements PlayerStrategy, Serializable {
 	private String strategyName = "Random";
 
 	/**
-	 * Returns the strategy name for strategy
+	 * Returns the strategy name of the strategy
 	 */
 	public String getStrategyName(){
 		return strategyName;
 	}
 
 	/**
-	 * Return false for the non human(Random) strategy
+	 * Return false for the non-human(Random) strategy
 	 */
 	public boolean isHuman(){
 		return false;

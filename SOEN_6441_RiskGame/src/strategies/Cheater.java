@@ -19,15 +19,24 @@ import model.Player;
 public class Cheater implements PlayerStrategy, Serializable  {
 
 	public String strategyName = "Cheater";
+	
+	/**
+	 * Returns the strategy name of the strategy
+	 */
 	public String getStrategyName(){
 		return strategyName;
 	}
+	
+    /**
+	 * Return false for the non-human(Cheater) strategy
+	 */
 	public boolean isHuman() {
 		return false;
 	}
 
 	/**
-	 * method to perform cheater reinforce
+	 * Method to execute reinforcement for the cheater strategy
+	 * @param player
 	 */
 	public boolean reinforce(Player player) {
 		for (Country country :  player.getattackPlayerCountry().get(player)) {
@@ -44,7 +53,8 @@ public class Cheater implements PlayerStrategy, Serializable  {
 	}
 	
 	/**
-	 * method to perform cheater attack
+	 * Method to execute attack for the cheater strategy
+	 * @param player
 	 */
 	public boolean attack(Player player) {
 		ArrayList<Country> playersCountries = new ArrayList<Country>();
@@ -71,7 +81,8 @@ public class Cheater implements PlayerStrategy, Serializable  {
 	}
 	
 	/**
-	 * method to perform cheater fortify
+	 * Method to execute fortification for the cheater strategy
+	 * @param player
 	 */
 	public boolean fortify(Player player) {
 		int armiesCount;

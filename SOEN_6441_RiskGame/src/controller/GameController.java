@@ -281,8 +281,7 @@ public class GameController {
 
 
 	/**
-	 * This function is used to call the listener functions. 
-	 * 
+	 * This function is used to call the listener functions.
 	 */
 	private void callListenerOnView(){
 
@@ -484,8 +483,7 @@ public class GameController {
 	}
 
 	/**
-	 * Add action listener for the world domination view.
-	 *
+	 * Add action listener for the world domination view
 	 */
 	public void addActionListenerForWorldDominationView() {
 		boardView.worldDominationViewListener(new ActionListener() {

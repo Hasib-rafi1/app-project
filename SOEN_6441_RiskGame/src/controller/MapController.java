@@ -250,7 +250,6 @@ public class MapController {
 
 	/**
 	 * This method is used to get The ContinentList form the map file.
-	 *
 	 * @return the list of all map file
 	 */
 	public ArrayList<Continent> getContinentList() {
