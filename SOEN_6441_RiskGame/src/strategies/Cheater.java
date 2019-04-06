@@ -11,7 +11,8 @@ import model.Player;
  * This class is used for cheater computer player strategy whose reinforce() method doubles the number of armies on all its countries,
  * whose attack() method automatically conquers all the neighbors of all its countries, and whose fortify() method 
  * doubles the number of armies on its countries that have neighbors that belong to other players.
- * @author 
+ * 
+ * @author naren
  * @version 1.0.0
  *
  */
@@ -25,6 +26,9 @@ public class Cheater implements PlayerStrategy, Serializable  {
 		return false;
 	}
 
+	/**
+	 * method to perform cheater reinforce
+	 */
 	public boolean reinforce(Player player) {
 		for (Country country :  player.getattackPlayerCountry().get(player)) {
 			System.out.println(
@@ -38,6 +42,10 @@ public class Cheater implements PlayerStrategy, Serializable  {
 		return true;
 
 	}
+	
+	/**
+	 * method to perform cheater attack
+	 */
 	public boolean attack(Player player) {
 		ArrayList<Country> playersCountries = new ArrayList<Country>();
 		playersCountries = player.getAssignedListOfCountries();
@@ -61,7 +69,10 @@ public class Cheater implements PlayerStrategy, Serializable  {
 		return true;
 
 	}
-
+	
+	/**
+	 * method to perform cheater fortify
+	 */
 	public boolean fortify(Player player) {
 		int armiesCount;
 		for (Country country : player.getattackPlayerCountry().get(player)) {
