@@ -42,7 +42,7 @@ public class Cheater implements PlayerStrategy, Serializable  {
 	public boolean attack(Player player) {
 		for(Country country : player.getAssignedListOfCountries()) {
 			ArrayList<Country> getNeighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);
-			System.out.println("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"neighbours now.");
+			System.out.println("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"\tneighbours now.");
 			for(Country temp:getNeighbouringCountries) {
 				Player defender=player.getPlayer(temp.getPlayerId());
 				temp.setnoOfArmies(1);
