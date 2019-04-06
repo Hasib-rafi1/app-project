@@ -4,9 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.*;
 import javax.swing.JLabel;
@@ -250,6 +248,7 @@ public class GameController {
 			for (int i = 0; i < M; i++) {
 				ArrayList<String> resultForOneMap = new ArrayList<>();
 			}
+//			TournamentModeResultView.callTournamentResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
 
 		}else {
 			print.consoleErr("Please Enter a Valid Game Mode.");
@@ -532,9 +531,9 @@ public class GameController {
 				for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
 					dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
 				}
-//				TournamnetModeResultView.callTournamnetResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
+				TournamentModeResultView.callTournamentResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
 
-				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
+//				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 			}
 		});
 	}

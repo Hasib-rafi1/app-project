@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TournamnetModeResultView {
+public class TournamentModeResultView {
     public static JPanel panelTournamnetModeResultView;
     public static JFrame frameTournamnetModeResultView;
     public static JTable table;
@@ -35,9 +35,9 @@ public class TournamnetModeResultView {
 //
 //    }
 
-//    public static void callTournamnetResult(int M, int G, int D, HashMap<String, ArrayList<String>> tournamentResult,
+    //    public static void callTournamentResult(int M, int G, int D, HashMap<String, ArrayList<String>> tournamentResult,
 //                                            ArrayList<PlayerStrategy> strategies) {
-    public static void callTournamnetResult(int M, int G, int D, String[][] rowData, String[] playerNamesInTableColumns) {
+    public static void callTournamentResult(int M, int G, int D, String[][] rowData, String[] playerNamesInTableColumns) {
         frameTournamnetModeResultView = new JFrame("The Tournament Result");
         panelTournamnetModeResultView = new JPanel(new BorderLayout());
         panelTournamnetModeResultView.setLayout(new FlowLayout());
@@ -45,7 +45,7 @@ public class TournamnetModeResultView {
 
 
 //        String[] getMapsUserUsed = tournamentResult.keySet().toArray(new String[tournamentResult.keySet().size()]);
-        String headers[] = {"Percentage Country", "Continents Owned", "Armies Owned"};
+        String headers[] = {"Map1","Map2"};
         // Putting the data in a table
         ListModel lm = new AbstractListModel() {
             public int getSize() { return headers.length; }
@@ -68,18 +68,18 @@ public class TournamnetModeResultView {
         frameTournamnetModeResultView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         label = new JLabel("<html>M: [Map1, Map2]<br><html>" +"P:[Aggressive, Cheater]<br>"
                 +"G:"+G+"<br>"+"D:"+D);
-
         label.setBounds(10, 10, 220, 40);
         panelTournamnetModeResultView.add(label);
         frameTournamnetModeResultView.add(panelTournamnetModeResultView);
         frameTournamnetModeResultView.setVisible(true);
+//        scroll = new JScrollPane( label );
         scroll = new JScrollPane( table );
         scroll.setRowHeaderView(label);
 //        scroll.setRowHeaderView(rowHeader);
 
         frameTournamnetModeResultView.getContentPane().add(scroll, BorderLayout.CENTER);
         frameTournamnetModeResultView.setSize(1000, 200);
-//        frameWindowForWorldDominationView.setLocationRelativeTo(null);
+//        frameTournamnetModeResultView.setLocationRelativeTo(null);
 //        frameWindowForWorldDominationView.setVisible(true);
 //        frameWindowForWorldDominationView.add(panelWindowForWorldDominationView);
 //        frameWindowForWorldDominationView.pack();
