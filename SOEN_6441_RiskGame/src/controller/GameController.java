@@ -175,7 +175,7 @@ public class GameController {
 			ArrayList<PlayerStrategy> strategiesForTournament = new ArrayList<>();
 
 
-			print.consoleOut("******* Welcome to Tournament Mode. *******");
+			print.consoleOut("******* Welcome to Tournament Mode. Please Enter the required Fields. *******");
 			while (true) {
 				print.consoleOut("Enter The Number of Maps You want to play on (1-5): ");
 				int numberOfMaps = PrintConsoleAndUserInput.userIntInput();
@@ -206,9 +206,10 @@ public class GameController {
 			print.consoleOut("Enter '" + P + "' Different Strategies from following list:");
 			print.consoleOut("1. Aggressive \n2. Benevolent \n3. Cheater \n4. Random");
 			for (int i = 0; i < P; i++) {
-				while (true) {
+//				while (true) {
 					int playerStrategyName = PrintConsoleAndUserInput.userIntInput();
-					if (!(playerStrategyName < 1 || playerStrategyName > 4)) {
+//					if (!(playerStrategyName < 1 || playerStrategyName > 4)) {
+					if ((playerStrategyName >= 1 && playerStrategyName <= 4)) {
 						if (playerStrategyName == 1) {
 							strategiesForTournament.add(new Aggressive());
 						} else if (playerStrategyName == 2) {
@@ -217,11 +218,11 @@ public class GameController {
 							strategiesForTournament.add(new Random());
 						} else if (playerStrategyName == 4) {
 							strategiesForTournament.add(new Cheater());
-							break;
+//							break;
 						} else {
 							print.consoleErr("For Tournament Select the Strategies between 1-4");
 						}
-					}
+//					}
 				}
 			}
 
@@ -251,9 +252,11 @@ public class GameController {
 					game = new Game(mapNamesForTournament.get(i));
 					game.setGameMode(GameMode.TournamentMode);
 					game.setMaxTurnsForTournament(D);
-					for (int ps = 0; ps < strategiesForTournament.size(); ps++) {
-						Player player = new Player(ps, strategiesForTournament.get(ps).getStrategyName());
-						player.setPlayerStrategy(strategiesForTournament.get(ps));
+					for (int playerStrategyAsPlayerName = 0; playerStrategyAsPlayerName < strategiesForTournament.size();
+						 playerStrategyAsPlayerName++) {
+						Player player = new Player(playerStrategyAsPlayerName,
+								strategiesForTournament.get(playerStrategyAsPlayerName).getStrategyName());
+						player.setPlayerStrategy(strategiesForTournament.get(playerStrategyAsPlayerName));
 						game.addPlayer(player);
 					}
 

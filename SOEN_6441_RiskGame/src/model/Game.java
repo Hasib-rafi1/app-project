@@ -233,7 +233,7 @@ public class Game extends Observable implements Serializable {
 			return false;
 		}
 		if(player.getNumberOfInitialArmies() == 0){
-			print.consoleOut("Player "+player.getPlayerName()+"Doesn't have any Armies.");
+			print.consoleOut("Player '"+player.getPlayerName()+"' Doesn't have any Armies.");
 			this.setupNextPlayerTurn();
 			return false;
 		}
@@ -1165,7 +1165,7 @@ public class Game extends Observable implements Serializable {
 			System.out.println("\n\n ***************Assigning the initial army to the player*************** \n\n");
 			boolean success = addingStartupCountryArmy(country.getCountryName());
 			
-			notifyObserverslocal(this);
+//			notifyObserverslocal(this);
 			if(success){
 				setupNextPlayerTurn();
 			}
@@ -1353,7 +1353,70 @@ public class Game extends Observable implements Serializable {
 		}
 	}
 
-	public void tournamentMode(){}
+	public void tournamentMode(){
+		Player currentPlayer;
+		int turnsCounts = 0;
+
+		print.consoleOut("******* The Tournament Mode Started To Play *******");
+
+		// step 1: assign player to countries and randomly increase countries for player
+
+		// Loop until all armies are assigned for all players
+		while (this.gamePhase == GamePhase.Startup) {
+			// Randomly increase army for the country of player
+			ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
+			int random = 0;
+			if(countryList.isEmpty()){
+				return;
+			} else if (countryList.size() > 1){
+				random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
+			}
+			Country country = countryList.get(random);
+			System.out.println("\n\n ***************Assigning the initial army to the player*************** \n\n");
+//			addingStartupCountryArmy(country.getCountryName());
+			addingCountryArmy(country.getCountryName());
+//			addingReinforcementCountryArmy(country.getCountryName());
+			System.out.println("\n\n *************** Finish Assigning the initial army to the player*************** \n\n");
+
+		}
+
+		// Print status of players
+//		this.printPlayerStatus();
+		while (true) {
+			currentPlayer = this.getCurrentPlayer();
+
+			// reinforce counties
+			currentPlayer.reinforcementPhase();
+			this.updateGame();
+
+			// attack phase
+			currentPlayer.attackPhase();
+
+			// step 3.1: generate logic to move armies after attack phase
+
+			if (isMapConcured()) {
+				print.consoleOut(this.getCurrentPlayer().getPlayerName() + " is a winner !!");
+				break;
+			}
+			this.updateGame();
+
+			//fortification phase
+			currentPlayer.fortificationPhase();
+			this.updateGame();
+
+			// Print status of players
+//			this.printPlayerStatus();
+
+			turnsCounts++;
+			if (turnsCounts >= getMaxTurnsForTournament()) {
+				this.setGamePhase(GamePhase.Draw);
+				print.consoleOut("Tournament draw after " + turnsCounts + " turns");
+				break;
+			}
+		}
+		print.consoleOut("************************************************************************************");
+		notifyObserverslocal(this);
+	}
 
 	public int getMaxTurnsForTournament() {
 		return maxTurnsForTournament;

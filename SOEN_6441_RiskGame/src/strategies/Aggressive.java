@@ -37,14 +37,14 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 
 	@Override
-	public boolean reinforce(Player reInforcedPlayer) {	
+	public boolean reinforce(Player reInforcedPlayer) {
 
 		// Get assigned list of countries with its size
-		ArrayList<Country> assignedListOfCountries = reInforcedPlayer.getattackPlayerCountry().get(reInforcedPlayer);		
+		ArrayList<Country> assignedListOfCountries = reInforcedPlayer.getattackPlayerCountry().get(reInforcedPlayer);
 		int sizeOfAssignedCountries = assignedListOfCountries.size();
 		if (sizeOfAssignedCountries == 0) {
 			return true;
-		}		
+		}
 
 		// pass the assigned countries and army count to the  strongest countries method
 		int armyCount = 0;
