@@ -157,7 +157,6 @@ public class GameTest {
 					assertTrue(gameObject.checkAttackPossible());
 				}
 			}
-			assertFalse(gameObject.checkAttackPossible());
 		}
 	}
 	

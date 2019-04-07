@@ -95,7 +95,7 @@ public class Cheater implements PlayerStrategy, Serializable  {
 			+ "(" + country.getnoOfArmies() + ")");
 			player.getAttackGamePhaseDetails().add("Cheater player " + player.getPlayerName() + " is trying to fortify " + country.getCountryName()
 			+ "(" + country.getnoOfArmies() + ")");
-			ArrayList<Country> neighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);
+			ArrayList<Country> neighbouringCountries = player.getNeighbouringCountries(country);
 			if (neighbouringCountries != null || neighbouringCountries.size() == 0) {
 				System.out.println("Cannot fortify as there is no neigbouring county found from other player");
 				player.getAttackGamePhaseDetails().add("Cannot fortify as there is no neigbouring county found from other player");
