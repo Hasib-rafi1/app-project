@@ -39,7 +39,7 @@ public class Cheater implements PlayerStrategy, Serializable  {
 	 * @param player
 	 */
 	public boolean reinforce(Player player) {
-		for (Country country :  player.getattackPlayerCountry().get(player)) {
+		for (Country country :  player.getAssignedListOfCountries()) {
 			System.out.println(
 					"Adding reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
 			player.getAttackGamePhaseDetails().add("Adding reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
@@ -59,10 +59,10 @@ public class Cheater implements PlayerStrategy, Serializable  {
 	 * @param player
 	 */
 	public boolean attack(Player player) {
-		ArrayList<Country> playersCountries = new ArrayList<Country>();
-		playersCountries = player.getAssignedListOfCountries();
-		for(int i = 0; i<playersCountries.size(); i++) {
-			Country country =playersCountries.get(i);
+		Object[] playersCountries = player.getAssignedListOfCountries().toArray();
+		
+		for(Object o : playersCountries) {
+			Country country = (Country) o;
 			ArrayList<Country> getNeighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);
 			System.out.println("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"\tneighbours now.");
 			player.getAttackGamePhaseDetails().add("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"\tneighbours now.");
@@ -72,15 +72,13 @@ public class Cheater implements PlayerStrategy, Serializable  {
 				Player defender=player.getPlayer(temp.getPlayerId());
 				player.conquerCountryAutomate(defender,temp,country);
 				temp.setnoOfArmies(1);
-				playersCountries.remove(temp);
-				System.out.println(temp.getCountryName());
+				country.increaseArmyCount(1);
 				player.getAttackGamePhaseDetails().add("Defeated:\t"+temp.getCountryName());
 				if(country.getnoOfArmies()<1) {
 					country.setnoOfArmies(1);
 				}
 			}
-
-		}
+        }
 		return true;
 
 	}
