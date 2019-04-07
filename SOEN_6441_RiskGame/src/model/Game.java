@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import javax.swing.JOptionPane;
+
 import helper.*;
 
 
@@ -233,7 +235,7 @@ public class Game extends Observable implements Serializable {
 			return false;
 		}
 		if(player.getNumberOfInitialArmies() == 0){
-			print.consoleOut("Player "+player.getPlayerName()+"Doesn't have any Armies.");
+			print.consoleOut("Player '"+player.getPlayerName()+"' Doesn't have any Armies.");
 			this.setupNextPlayerTurn();
 			return false;
 		}
@@ -312,7 +314,11 @@ public class Game extends Observable implements Serializable {
 		else if (this.getGamePhase() == gamePhase.Reinforcement) {
 			if (getCurrentPlayer().getNumberOfReinforcedArmies() == 0) {
 				gamePhaseDetails.removeAll(gamePhaseDetails);
-				this.setGamePhase(gamePhase.Attack);
+				if(checkAttackPossible()) {
+					this.setGamePhase(gamePhase.Attack);	
+				}else {
+					this.setGamePhase(gamePhase.Fortification);
+				}
 				notifyObserverslocal(this);
 			}
 
@@ -804,8 +810,6 @@ public class Game extends Observable implements Serializable {
 	 */
 	public ArrayList<String> getOthersNeighbouringCountriesOnly(String countryName) {
 		ArrayList<String> allowableAttackingArmies = new ArrayList<String>();
-		if (this.gamePhase ==GamePhase.Attack) {
-			// Will also add validation if the attacker is assigned to player or not
 
 			Country c = mapModel.getCountryFromName(countryName);
 			Player currentPlayer = this.getCurrentPlayer();
@@ -819,7 +823,6 @@ public class Game extends Observable implements Serializable {
 				}
 
 			}
-		}
 		return allowableAttackingArmies;
 	}
 
@@ -879,6 +882,7 @@ public class Game extends Observable implements Serializable {
 			gamePhaseDetails.add("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
 			gamePhaseDetails.add("Attack not possible.");
+			System.out.println("Attack");
 			updateGame();
 		}
 		getCurrentPlayer().setConcuredContinents(mapModel.getContinentList());
@@ -925,11 +929,12 @@ public class Game extends Observable implements Serializable {
 	 */
 	public boolean checkAttackPossible() {
 		ArrayList<String> attackerPossibleCountries = getAttackPossibleCountries();
-		if (attackerPossibleCountries.size() == 0) {
+		if (attackerPossibleCountries.size() < 1) {
 			return false;
 		}else {
 			for (String countryName : attackerPossibleCountries) {
 				ArrayList<String> neighborCountries = getOthersNeighbouringCountriesOnly(countryName);
+				System.out.println("aaa"+neighborCountries.size());
 				if (neighborCountries.size() > 0) {
 					return true;
 				}
@@ -1165,7 +1170,7 @@ public class Game extends Observable implements Serializable {
 			System.out.println("\n\n ***************Assigning the initial army to the player*************** \n\n");
 			boolean success = addingStartupCountryArmy(country.getCountryName());
 			
-			notifyObserverslocal(this);
+//			notifyObserverslocal(this);
 			if(success){
 				setupNextPlayerTurn();
 			}
@@ -1190,7 +1195,9 @@ public class Game extends Observable implements Serializable {
 			boolean success = this.getCurrentPlayer().attackPhase();
 			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
 			if(isMapConcured()){
+				notifyObserverslocal(this);
 				System.out.println("You Win");
+				JOptionPane.showMessageDialog(null, "You Win!");
 			}
 			if(success){
 			}
@@ -1353,7 +1360,56 @@ public class Game extends Observable implements Serializable {
 		}
 	}
 
-	public void tournamentMode(){}
+	public void tournamentMode(){
+		Player currentPlayer;
+		int turnsCounts = 0;
+
+		print.consoleOut("******* The Tournament Mode Started To Play *******");
+
+		// Loop until all armies are assigned for all players
+		while (this.gamePhase == GamePhase.Startup) {
+			// Randomly increase army for the country of player
+			ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
+			int random = 0;
+			if(countryList.isEmpty()){
+				return;
+			} else if (countryList.size() > 1){
+				random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
+			}
+			Country country = countryList.get(random);
+			addingCountryArmy(country.getCountryName());
+
+		}
+
+		// Print status of players
+//		this.printPlayerStatus();
+		while (true) {
+			this.getCurrentPlayer().reinforcementPhase();
+			this.updateGame();
+
+			this.getCurrentPlayer().attackPhase();
+			if (isMapConcured()) {
+				print.consoleOut(this.getCurrentPlayer().getPlayerName() + " is a winner !!");
+				break;
+			}
+			this.updateGame();
+
+			this.getCurrentPlayer().fortificationPhase();
+			this.updateGame();
+
+			// Print status of players
+//			this.printPlayerStatus();
+
+			turnsCounts++;
+			if (turnsCounts >= getMaxTurnsForTournament()) {
+				this.setGamePhase(GamePhase.Draw);
+				print.consoleOut("Tournament draw after " + turnsCounts + " turns");
+				break;
+			}
+		}
+		print.consoleOut("************************************************************************************");
+		notifyObserverslocal(this);
+	}
 
 	public int getMaxTurnsForTournament() {
 		return maxTurnsForTournament;

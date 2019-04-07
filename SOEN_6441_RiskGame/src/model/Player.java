@@ -388,6 +388,7 @@ public class Player implements Serializable{
 	 * @return integer value of assigned armies
 	 */
 	public int getNumberOfInitialArmies() {
+//		System.out.println(numberOfInitialArmies);
 		return numberOfInitialArmies;
 	}
 

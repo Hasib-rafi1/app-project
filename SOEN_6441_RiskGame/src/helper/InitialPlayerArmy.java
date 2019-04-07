@@ -22,7 +22,7 @@ public class InitialPlayerArmy{
 		case 5:
 			return 15;
 		default:
-			return 15;
+			return 20;
 		}
 	}
 }
