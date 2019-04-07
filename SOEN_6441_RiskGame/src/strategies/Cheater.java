@@ -42,11 +42,13 @@ public class Cheater implements PlayerStrategy, Serializable  {
 		for (Country country :  player.getattackPlayerCountry().get(player)) {
 			System.out.println(
 					"Adding reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
+			player.getAttackGamePhaseDetails().add("Adding reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
 			player.setNumberOfReinforcedArmies(0);
 			int armies = country.getnoOfArmies();
 			country.setnoOfArmies(armies * 2);
 			System.out.println(
 					"Added reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
+			player.getAttackGamePhaseDetails().add("Added reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
 		}
 		return true;
 
@@ -63,13 +65,16 @@ public class Cheater implements PlayerStrategy, Serializable  {
 			Country country =playersCountries.get(i);
 			ArrayList<Country> getNeighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);
 			System.out.println("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"\tneighbours now.");
+			player.getAttackGamePhaseDetails().add("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"\tneighbours now.");
 			System.out.println(country.getCountryName());
+			player.getAttackGamePhaseDetails().add("Attacking:\t"+country.getCountryName());
 			for(Country temp:getNeighbouringCountries) {
 				Player defender=player.getPlayer(temp.getPlayerId());
 				player.conquerCountryAutomate(defender,temp,country);
 				temp.setnoOfArmies(1);
 				playersCountries.remove(temp);
 				System.out.println(temp.getCountryName());
+				player.getAttackGamePhaseDetails().add("Defeated:\t"+temp.getCountryName());
 				if(country.getnoOfArmies()<1) {
 					country.setnoOfArmies(1);
 				}
@@ -89,13 +94,18 @@ public class Cheater implements PlayerStrategy, Serializable  {
 		for (Country country : player.getattackPlayerCountry().get(player)) {
 			System.out.println("Cheater player " + player.getPlayerName() + " is trying to fortify " + country.getCountryName()
 			+ "(" + country.getnoOfArmies() + ")");
+			player.getAttackGamePhaseDetails().add("Cheater player " + player.getPlayerName() + " is trying to fortify " + country.getCountryName()
+			+ "(" + country.getnoOfArmies() + ")");
 			ArrayList<Country> neighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);
 			if (neighbouringCountries != null || neighbouringCountries.size() == 0) {
 				System.out.println("Cannot fortify as there is no neigbouring county found from other player");
+				player.getAttackGamePhaseDetails().add("Cannot fortify as there is no neigbouring county found from other player");
 			} else {
 				armiesCount = country.getnoOfArmies() * 2;
 				country.setnoOfArmies(armiesCount);
 				System.out.println("Finished fortification with country " + country.getCountryName() + " ("
+						+ country.getnoOfArmies() + ")");
+				player.getAttackGamePhaseDetails().add("Finished fortification with country " + country.getCountryName() + " ("
 						+ country.getnoOfArmies() + ")");
 			}
 		}	

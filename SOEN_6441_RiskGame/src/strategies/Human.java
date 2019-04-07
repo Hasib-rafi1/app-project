@@ -44,21 +44,23 @@ public class Human implements PlayerStrategy, Serializable {
 
         if(player.getNumberOfReinforcedArmies() == 0){
             System.out.println("Player "+player.getPlayerName()+": Doesn't have any Armies.");
+            player.getAttackGamePhaseDetails().add("Player "+player.getPlayerName()+": Doesn't have any Armies.");
             return false;
         }
 
         if(player == null){
             System.out.println("Player ID"+player.getPlayerId()+"does not exist.");
+            player.getAttackGamePhaseDetails().add("Player ID"+player.getPlayerId()+"does not exist.");
             return false;
         }
 
         if (country == null) {
             System.out.println("Country Name: " + country.getCountryName() + " does not exist!");
+            player.getAttackGamePhaseDetails().add("Country Name: " + country.getCountryName() + " does not exist!");
             return false;
         }
 
         assignReinforcement(player,country);
-
         return true;
     }
 
