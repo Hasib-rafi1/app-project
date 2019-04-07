@@ -14,6 +14,7 @@ import helper.RandomNumber;
  * This class is used for A random computer player strategy that reinforces random a random country,
  * attacks a random number of times a random country, 
  * and fortifies a random country, all following the standard rules for each phase.
+ * 
  * @author Md Hasibul Huq
  * @version 1.0.0
  *
@@ -22,14 +23,24 @@ public class Random implements PlayerStrategy, Serializable {
 
 	private String strategyName = "Random";
 
+	/**
+	 * Returns the strategy name of the strategy
+	 */
 	public String getStrategyName(){
 		return strategyName;
 	}
 
+	/**
+	 * Return false for the non-human(Random) strategy
+	 */
 	public boolean isHuman(){
 		return false;
 	}
-
+	
+	/**
+	 * Method to execute reinforcement for the random strategy
+	 * @param player
+	 */
 	public boolean reinforce(Player player){
 
 		ArrayList<Country> countryList = player.getattackPlayerCountry().get(player);
@@ -47,6 +58,10 @@ public class Random implements PlayerStrategy, Serializable {
 		return true;
 	}
 
+	/**
+	 * Method to execute attack for the random strategy
+	 * @param player
+	 */
 	public boolean attack(Player player){
 		int totalAttack = RandomNumber.getRandomNumberInRange(1, 10);
 
@@ -91,7 +106,6 @@ public class Random implements PlayerStrategy, Serializable {
 
 	/**
 	 * This method will execute core operation of Attack Phase
-	 * 
 	 * @param fromCountry
 	 * @param toCountry
 	 * @param player
@@ -156,6 +170,10 @@ public class Random implements PlayerStrategy, Serializable {
 		return false;
 	}
 
+	/**
+	 * Method to execute fortification for the random strategy
+	 * @param player
+	 */
 	public boolean fortify(Player player){
 		ArrayList<Country> countryList = player.getattackPlayerCountry().get(player);
 		int randomIndex = 0;
@@ -201,8 +219,5 @@ public class Random implements PlayerStrategy, Serializable {
 		}
 		return true;  
 	}
-
-
-
 }
 

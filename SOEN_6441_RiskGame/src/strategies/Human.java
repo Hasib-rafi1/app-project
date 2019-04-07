@@ -11,6 +11,7 @@ import java.util.Random;
 
 /**
  * This class is used for human player that requires user interaction to make decisions.
+ * 
  * @author Jaiganesh
  * @version 1.0.0
  *
@@ -19,43 +20,64 @@ public class Human implements PlayerStrategy, Serializable {
 
     public String strategyName = "Human";
 
+	/**
+	 * Returns the strategy name of the strategy
+	 */
     public String getStrategyName(){
         return strategyName;
     }
 
+    /**
+	 * Returns true for human strategy
+	 */
     public boolean isHuman(){
         return true;
     }
 
+    /**
+	 * Method to execute reinforcement for the human strategy
+	 * @param player
+	 */
     public boolean reinforce(Player player){
 
         Country country = player.getReinforceCountry();
 
         if(player.getNumberOfReinforcedArmies() == 0){
             System.out.println("Player "+player.getPlayerName()+": Doesn't have any Armies.");
+            player.getAttackGamePhaseDetails().add("Player "+player.getPlayerName()+": Doesn't have any Armies.");
             return false;
         }
 
         if(player == null){
             System.out.println("Player ID"+player.getPlayerId()+"does not exist.");
+            player.getAttackGamePhaseDetails().add("Player ID"+player.getPlayerId()+"does not exist.");
             return false;
         }
 
         if (country == null) {
             System.out.println("Country Name: " + country.getCountryName() + " does not exist!");
+            player.getAttackGamePhaseDetails().add("Country Name: " + country.getCountryName() + " does not exist!");
             return false;
         }
 
         assignReinforcement(player,country);
-
         return true;
     }
 
+    /**
+     * Method that performs decreasing reinforcement and increasing army count for human reinforcement
+     * @param player
+     * @param country
+     */
     public void assignReinforcement(Player player, Country country){
         player.decreaseReinforcementArmy();
         country.increaseArmyCount();
     }
 
+    /**
+	 * Method to execute attack for the human strategy
+	 * @param player
+	 */
     public boolean attack(Player player){
 
         Player defenderPlayer = player.getAttackDefenderPlayer();
@@ -117,6 +139,10 @@ public class Human implements PlayerStrategy, Serializable {
         return true;
     }
 
+    /**
+	 * Method to execute fortification for the human strategy
+	 * @param thisPlayer
+	 */
     public boolean fortify(Player thisPlayer){
 
         Player player = thisPlayer;
@@ -133,6 +159,13 @@ public class Human implements PlayerStrategy, Serializable {
         return true;
     }
 
+    /**
+     * Method that checks the fortification condition
+     * @param sourceCountry
+     * @param destinationCountry
+     * @param armies
+     * @return
+     */
     public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
         if (sourceCountry == null || destinationCountry == null) {
             System.out.println("Source or destination country is invalid!");

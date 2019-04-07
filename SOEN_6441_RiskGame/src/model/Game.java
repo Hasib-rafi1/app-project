@@ -87,7 +87,7 @@ public class Game extends Observable implements Serializable {
 
 	public boolean dominationViewOn = false;
 	private int maxTurnsForTournament;
-
+	/** The CardView*/
 	CardView cardview = new CardView(this);
 
 	
@@ -779,7 +779,6 @@ public class Game extends Observable implements Serializable {
 
 	/**
 	 * Returns number of dices for attacking / defending country.
-	 *
 	 * @param countryName the country name
 	 * @param playerStatus the player status
 	 * @return Integer
@@ -831,7 +830,7 @@ public class Game extends Observable implements Serializable {
 	 * @param attackerCountry the attacker country
 	 * @param defenderCountry the defender country
 	 * @param attackerDiceCount the attacker dice count
-	 * @param defendergDiceCount the defenderg dice count
+	 * @param defendergDiceCount the defender dice count
 	 * @return true, if attack done
 	 */
 	public Boolean attackPhaseActions(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
@@ -1019,7 +1018,6 @@ public class Game extends Observable implements Serializable {
 
 	}
 
-
 	/**
 	 * Get the number of continents and their name by each player
 	 * @return hashMap for a player and continent
@@ -1054,8 +1052,6 @@ public class Game extends Observable implements Serializable {
 		}
 		return countriesListString;
 	}
-
-
 
 	/**
 	 * This method is used to get the number of armies for each player.
@@ -1120,6 +1116,13 @@ public class Game extends Observable implements Serializable {
 		notifyObserverslocal(this);
 	}
 
+	/**
+	 * Checks if the Attacker and Defender operation is valid 
+	 * @param attCountry
+	 * @param defCountry
+	 * @param defendergDiceCount
+	 * @return
+	 */
 	public boolean isAttackerDefenderValid(Country attCountry,Country  defCountry,int defendergDiceCount) {
 		if (attCountry == null || defCountry == null) {
 			return false;
@@ -1137,11 +1140,18 @@ public class Game extends Observable implements Serializable {
 		}
 		return true;
 	}
-
+	
+	/**
+	 * Sets the game mode
+	 * @param gameMode
+	 */
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
 	}
-
+	
+	/**
+	 * Automates the Current Phase
+	 */
 	public void automateCurrentPhase(){
 		if(this.gamePhase == GamePhase.Startup){
 			ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
