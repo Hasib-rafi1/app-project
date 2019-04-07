@@ -52,6 +52,7 @@ public class Random implements PlayerStrategy, Serializable {
 
 		int armies = player.getNumberOfReinforcedArmies();
 		Country country = countryList.get(random);
+		System.out.println(country.getCountryName()+" reinforced with armies:"+armies);
 		player.getAttackGamePhaseDetails().add(country.getCountryName()+" reinforced with armies:"+armies);
 		player.setNumberOfReinforcedArmies(0);
 		country.increaseArmyCount(armies);
@@ -73,9 +74,9 @@ public class Random implements PlayerStrategy, Serializable {
 			randomIndex = RandomNumber.getRandomNumberInRange(0, countryList.size() - 1);
 
 		Country fromCountry = countryList.get(randomIndex);
-		System.out.println("Randomly selectd " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
+		System.out.println("Randomly selected " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
 		+ ") for attack");
-		player.getAttackGamePhaseDetails().add("Randomly selectd " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
+		player.getAttackGamePhaseDetails().add("Randomly selected " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
 		+ ") for attack");
 		ArrayList<Country> neighborCountries = player
 				.getOthersNeighbouringCountriesOnlyObject(fromCountry);
@@ -89,14 +90,15 @@ public class Random implements PlayerStrategy, Serializable {
 			randomIndex = RandomNumber.getRandomNumberInRange(0, neighborCountries.size() - 1);
 
 		Country toCountry = neighborCountries.get(randomIndex);
-		System.out.println("Randomly selectd " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
+		System.out.println("Randomly selected " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
 		+ ") as a defender");
-		player.getAttackGamePhaseDetails().add("Randomly selectd " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
+		player.getAttackGamePhaseDetails().add("Randomly selected " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
 		+ ") as a defender");
 		for (int i = 0; i < totalAttack; i++) {
 
 			boolean captured =  attackDetails(fromCountry, toCountry, player);
 			if(captured) {
+				System.out.println(toCountry.getCountryName()+" is captured");
 				player.getAttackGamePhaseDetails().add(toCountry.getCountryName()+" is captured");
 				break;
 			}
@@ -150,13 +152,11 @@ public class Random implements PlayerStrategy, Serializable {
 
 			if (fromCountry.getnoOfArmies() == 1) {
 				System.out.println("Attacker not able to Attack ");
-
 				player.getAttackGamePhaseDetails().add("Attacker not able to Attack ");
 				break;
 			}
 			if (toCountry.getnoOfArmies() == 0) {
 				System.out.println("Defender lost all armies in " + (i + 1) + " dice roll");
-
 				player.getAttackGamePhaseDetails().add("Defender lost all armies in " + (i + 1) + " dice roll");
 				break;
 			}
@@ -184,33 +184,37 @@ public class Random implements PlayerStrategy, Serializable {
 			randomIndex = RandomNumber.getRandomNumberInRange(0, countryList.size() - 1);
 
 		Country sourceCountry = countryList.get(randomIndex);
-		System.out.println("Randomly select " + sourceCountry.getCountryName() + "(" + sourceCountry.getnoOfArmies()
+		System.out.println("Randomly selected " + sourceCountry.getCountryName() + "(" + sourceCountry.getnoOfArmies()
+		+ ") country for fortification");
+		player.getAttackGamePhaseDetails().add("Randomly selected " + sourceCountry.getCountryName() + "(" + sourceCountry.getnoOfArmies()
 		+ ") country for fortification");
 		ArrayList<Country> neigbouringCountries = player.getNeighbouringCountries(sourceCountry);
 
 		if (neigbouringCountries != null && neigbouringCountries.size() > 0) {
 			int destinationRandomIndex = RandomNumber.getRandomNumberInRange(0, neigbouringCountries.size() - 1);
 			Country destinationCountry = neigbouringCountries.get(destinationRandomIndex);
-			System.out.println("Randomly select " + destinationCountry.getCountryName() + "("
+			System.out.println("Randomly selected " + destinationCountry.getCountryName() + "("
 					+ destinationCountry.getnoOfArmies() + ") country for fortification");
-			player.getAttackGamePhaseDetails().add("Randomly select " + destinationCountry.getCountryName() + "("
+			player.getAttackGamePhaseDetails().add("Randomly selected " + destinationCountry.getCountryName() + "("
 					+ destinationCountry.getnoOfArmies() + ") country for fortification");
 			if (destinationCountry != null) {
 				int armies = RandomNumber.getRandomNumberInRange(0, sourceCountry.getnoOfArmies() - 1);
 				sourceCountry.decreaseArmyCount(armies);
 				destinationCountry.increaseArmyCount(armies);
 				System.out.println("Finished fortifying"+armies+" armies to the destination country " + destinationCountry.getCountryName());
+				player.getAttackGamePhaseDetails().add("Finished fortifying"+armies+" armies to the destination country " + destinationCountry.getCountryName());
 			}
 		}
 		if(player.getIsConqured()){
 			System.out.println("Conquered");
+			player.getAttackGamePhaseDetails().add("Conquered");
 			Card riskCard = player.getRiskCards();
 
 			if(riskCard == null){
 				System.out.println("No Cards Available Right Now.");
 			} else {
 				player.addCard(riskCard);
-				player.getAttackGamePhaseDetails().add("Card added"+ riskCard);
+				player.getAttackGamePhaseDetails().add("Card added:"+ riskCard);
 
 			}
 
