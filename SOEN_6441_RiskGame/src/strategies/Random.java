@@ -82,6 +82,7 @@ public class Random implements PlayerStrategy, Serializable {
 
 		if (neighborCountries.isEmpty()) {
 			System.out.print("No neighbour found");
+			player.getAttackGamePhaseDetails().add("No Neighbour found");
 			return false;
 		} else if (neighborCountries.size() == 1)
 			randomIndex = 0;
@@ -186,6 +187,8 @@ public class Random implements PlayerStrategy, Serializable {
 		Country sourceCountry = countryList.get(randomIndex);
 		System.out.println("Randomly select " + sourceCountry.getCountryName() + "(" + sourceCountry.getnoOfArmies()
 		+ ") country for fortification");
+		player.getAttackGamePhaseDetails().add("Randomly select " + sourceCountry.getCountryName() + "(" + sourceCountry.getnoOfArmies()
+		+ ") country for fortification");
 		ArrayList<Country> neigbouringCountries = player.getNeighbouringCountries(sourceCountry);
 
 		if (neigbouringCountries != null && neigbouringCountries.size() > 0) {
@@ -200,6 +203,7 @@ public class Random implements PlayerStrategy, Serializable {
 				sourceCountry.decreaseArmyCount(armies);
 				destinationCountry.increaseArmyCount(armies);
 				System.out.println("Finished fortifying"+armies+" armies to the destination country " + destinationCountry.getCountryName());
+				player.getAttackGamePhaseDetails().add("Finished fortifying"+armies+" armies to the destination country " + destinationCountry.getCountryName());
 			}
 		}
 		if(player.getIsConqured()){

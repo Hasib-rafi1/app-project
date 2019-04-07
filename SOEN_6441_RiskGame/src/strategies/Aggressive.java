@@ -50,7 +50,9 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 		// check if the attacker country is null( has no countries)
 		if (attackerCountry == null) {
-			System.out.println("**** Sorry!!!! It cannot find any attacking country ****");			
+			System.out.println("Cannot find any attacking country");
+			reInforcedPlayer.getAttackGamePhaseDetails().add("Cannot find any attacking country");
+			
 		} else {
 
 			// get attacker country name and armies
@@ -81,6 +83,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		// Check if there is no country to attack
 		if (attackerCountry == null) {
 			System.out.println("There is no country to attack" );
+			playerToAttack.getAttackGamePhaseDetails().add("There is no country to attack");
 			return false;
 		}		
 		System.out.println("Aggressive player name "+ playerName +" - attack - attacking from "
@@ -98,6 +101,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		//System.out.println("size of sizeForneighbourCountriesForAttack----------"+ sizeForneighbourCountriesForAttack);
 		if (neighbourCountriesForAttack == null || sizeForneighbourCountriesForAttack == 0) {
 			System.out.println("*** Sorry !! Not able to find any neighbouting country to attack from this Country ***");
+			playerToAttack.getAttackGamePhaseDetails().add("*** Sorry !! Not able to find any neighbouting country to attack from this Country ***");
 			return false;
 		}
 
@@ -171,6 +175,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 			if (fromCountry.getnoOfArmies() == 1) {
 				System.out.println("Attacker not able to Attack ");
+				player.getAttackGamePhaseDetails().add("Attacker not able to Attack");
 				break;
 			}
 			if (sourceCountry.getnoOfArmies() == 0) {
@@ -226,6 +231,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 				return true;
 			} else {
 				System.out.println("Aggressive player " + playerName + " cannot find any country for fortification.");
+				playerToFortify.getAttackGamePhaseDetails().add("Aggressive player " + playerName + " cannot find any country for fortification.");
 				return true;
 
 			}	
@@ -233,6 +239,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		
 		if(playerToFortify.getIsConqured()){
 			System.out.println("Conquered");
+			playerToFortify.getAttackGamePhaseDetails().add("Conquered");
 			Card riskCard = playerToFortify.getRiskCards();
 			
 			if(riskCard == null){
