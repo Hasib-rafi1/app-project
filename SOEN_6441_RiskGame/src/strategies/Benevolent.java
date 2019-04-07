@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+import helper.RandomNumber;
 import model.Country;
 import model.Player;
 
@@ -111,7 +112,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 				if (fromCountry != null && toCountry != null
 						&& toCountry.getnoOfArmies() < fromCountry.getnoOfArmies()) {
 					// fortify weakest country
-					int armies = (fromCountry.getnoOfArmies() - toCountry.getnoOfArmies()) / 2;
+					int armies = RandomNumber.getRandomNumberInRange(0, fromCountry.getnoOfArmies()  - 1);
 					System.out.println("Benevolent player " + player.getPlayerName() + " - fortification from "
 							+ fromCountry.getCountryName() + "(" + fromCountry.getnoOfArmies() + ") to "
 							+ toCountry.getCountryName() + "(" + toCountry.getnoOfArmies() + ") with " + armies
@@ -119,7 +120,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 					
 					fromCountry.decreaseArmyCount(armies);
 					toCountry.increaseArmyCount(armies);
-					System.out.println("Finished fortification with destination country " + toCountry.getCountryName()
+					System.out.println("Finished fortifying "+armies+" armies to the destination country " + toCountry.getCountryName()
 					+ " (" + toCountry.getnoOfArmies() + ")");
 					break;
 				}
