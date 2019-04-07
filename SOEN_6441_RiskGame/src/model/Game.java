@@ -1359,8 +1359,6 @@ public class Game extends Observable implements Serializable {
 
 		print.consoleOut("******* The Tournament Mode Started To Play *******");
 
-		// step 1: assign player to countries and randomly increase countries for player
-
 		// Loop until all armies are assigned for all players
 		while (this.gamePhase == GamePhase.Startup) {
 			// Randomly increase army for the country of player
@@ -1372,36 +1370,24 @@ public class Game extends Observable implements Serializable {
 				random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
 			}
 			Country country = countryList.get(random);
-			System.out.println("\n\n ***************Assigning the initial army to the player*************** \n\n");
-//			addingStartupCountryArmy(country.getCountryName());
 			addingCountryArmy(country.getCountryName());
-//			addingReinforcementCountryArmy(country.getCountryName());
-			System.out.println("\n\n *************** Finish Assigning the initial army to the player*************** \n\n");
 
 		}
 
 		// Print status of players
 //		this.printPlayerStatus();
 		while (true) {
-			currentPlayer = this.getCurrentPlayer();
-
-			// reinforce counties
-			currentPlayer.reinforcementPhase();
+			this.getCurrentPlayer().reinforcementPhase();
 			this.updateGame();
 
-			// attack phase
-			currentPlayer.attackPhase();
-
-			// step 3.1: generate logic to move armies after attack phase
-
+			this.getCurrentPlayer().attackPhase();
 			if (isMapConcured()) {
 				print.consoleOut(this.getCurrentPlayer().getPlayerName() + " is a winner !!");
 				break;
 			}
 			this.updateGame();
 
-			//fortification phase
-			currentPlayer.fortificationPhase();
+			this.getCurrentPlayer().fortificationPhase();
 			this.updateGame();
 
 			// Print status of players
