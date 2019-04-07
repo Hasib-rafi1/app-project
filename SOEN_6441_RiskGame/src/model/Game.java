@@ -1384,9 +1384,13 @@ public class Game extends Observable implements Serializable {
 		// Print status of players
 //		this.printPlayerStatus();
 		while (true) {
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			this.getCurrentPlayer().reinforcementPhase();
 			this.updateGame();
 
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			this.getCurrentPlayer().attackPhase();
 			if (isMapConcured()) {
 				print.consoleOut(this.getCurrentPlayer().getPlayerName() + " is a winner !!");
@@ -1394,6 +1398,8 @@ public class Game extends Observable implements Serializable {
 			}
 			this.updateGame();
 
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			this.getCurrentPlayer().fortificationPhase();
 			this.updateGame();
 
