@@ -84,6 +84,8 @@ public class Benevolent implements PlayerStrategy,Serializable{
 
 		System.out.println("Found " + weakestCountries.size() + " weakest countries. Now assigning "
 				+ player.getNumberOfReinforcedArmies() + " armies");
+		player.getAttackGamePhaseDetails().add("Found " + weakestCountries.size() + " weakest countries. Now assigning "
+				+ player.getNumberOfReinforcedArmies() + " armies");
 		if (weakestCountries != null && weakestCountries.size() > 0) {
 			
 			int index = 0;
@@ -93,12 +95,14 @@ public class Benevolent implements PlayerStrategy,Serializable{
 				player.decreaseReinforcementArmy();
 				c.increaseArmyCount(1);
 				System.out.println("Added reinforcement army in " + c.getCountryName() + "(" + c.getnoOfArmies() + ")");
+				player.getAttackGamePhaseDetails().add("Added reinforcement army in " + c.getCountryName() + "(" + c.getnoOfArmies() + ")");
 				index++;
 				if (index == weakestCountries.size())
 					index = 0;
 			}
 		} else {
 				System.out.println("Cannot find any weakest country");
+				player.getAttackGamePhaseDetails().add("Cannot find any weakest country");
 		}
 		
 		return true;	
@@ -112,6 +116,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	public boolean attack(Player player) {
 		// TODO Auto-generated method stub
 		System.out.println("No attack phase for Benevolent Strategy");
+		player.getAttackGamePhaseDetails().add("No attack phase for Benevolent Strategy");
 		return false;
 	}
 	
@@ -128,6 +133,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 			if (fromCountry == null)
 				break;
 			System.out.println("Found strongest country " + fromCountry.getCountryName() + ". Now finding weakest link...");
+			player.getAttackGamePhaseDetails().add("Found strongest country " + fromCountry.getCountryName() + ". Now finding weakest link...");
 			ArrayList<Country> neighborCountries = player.getNeighbouringCountries(fromCountry);
 			if (neighborCountries != null && neighborCountries.size() > 0) {
 				Country toCountry = getWeakestCountry(neighborCountries);
@@ -139,15 +145,22 @@ public class Benevolent implements PlayerStrategy,Serializable{
 							+ fromCountry.getCountryName() + "(" + fromCountry.getnoOfArmies() + ") to "
 							+ toCountry.getCountryName() + "(" + toCountry.getnoOfArmies() + ") with " + armies
 							+ " armies");
+					player.getAttackGamePhaseDetails().add("Benevolent player " + player.getPlayerName() + " - fortification from "
+							+ fromCountry.getCountryName() + "(" + fromCountry.getnoOfArmies() + ") to "
+							+ toCountry.getCountryName() + "(" + toCountry.getnoOfArmies() + ") with " + armies
+							+ " armies");
 					
 					fromCountry.decreaseArmyCount(armies);
 					toCountry.increaseArmyCount(armies);
 					System.out.println("Finished fortification with destination country " + toCountry.getCountryName()
 					+ " (" + toCountry.getnoOfArmies() + ")");
+					player.getAttackGamePhaseDetails().add("Finished fortification with destination country " + toCountry.getCountryName()
+					+ " (" + toCountry.getnoOfArmies() + ")");
 					break;
 				}
 			}
 			System.out.println("Cannot find any neighbouring weaker country");
+			player.getAttackGamePhaseDetails().add("Cannot find any neighbouring weaker country");
 			
 		}
 
