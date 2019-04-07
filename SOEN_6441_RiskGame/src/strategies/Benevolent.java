@@ -40,7 +40,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	/**
 	 * Gets the weakest country of the benevolent
 	 * @param countries
-	 * @return
+	 * @return country
 	 */
 	private Country getWeakestCountry(ArrayList<Country> countries) {
 		Country country = null;
@@ -59,7 +59,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	/**
 	 * Gets the Minimum number of armies of the weakest country that belongs to benevolent
 	 * @param player
-	 * @return
+	 * @return returnVal
 	 */
 	public int getMinimumArmies(Player player) {
 		int returnVal = Integer.MAX_VALUE;
@@ -82,9 +82,9 @@ public class Benevolent implements PlayerStrategy,Serializable{
 		List<Country> weakestCountries =  player.getattackPlayerCountry().get(player).stream()
 				.filter(x -> x.getnoOfArmies() == minArmies).collect(Collectors.toList());
 
-		System.out.println("Found " + weakestCountries.size() + " weakest countries. Now assigning "
+		System.out.println("Found " + weakestCountries.size() + " weakest countries. And now assigning "
 				+ player.getNumberOfReinforcedArmies() + " armies");
-		player.getAttackGamePhaseDetails().add("Found " + weakestCountries.size() + " weakest countries. Now assigning "
+		player.getAttackGamePhaseDetails().add("Found " + weakestCountries.size() + " weakest countries. And now assigning "
 				+ player.getNumberOfReinforcedArmies() + " armies");
 		if (weakestCountries != null && weakestCountries.size() > 0) {
 			
@@ -116,7 +116,6 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	public boolean attack(Player player) {
 		// TODO Auto-generated method stub
 		System.out.println("No attack phase for Benevolent Strategy");
-		player.getAttackGamePhaseDetails().add("No attack phase for Benevolent Strategy");
 		return false;
 	}
 	
@@ -132,8 +131,8 @@ public class Benevolent implements PlayerStrategy,Serializable{
 
 			if (fromCountry == null)
 				break;
-			System.out.println("Found strongest country " + fromCountry.getCountryName() + ". Now finding weakest link...");
-			player.getAttackGamePhaseDetails().add("Found strongest country " + fromCountry.getCountryName() + ". Now finding weakest link...");
+			System.out.println("Found strongest country " + fromCountry.getCountryName() + ". Now finding the weakest link...");
+			player.getAttackGamePhaseDetails().add("Found strongest country " + fromCountry.getCountryName() + ". Now finding the weakest link...");
 			ArrayList<Country> neighborCountries = player.getNeighbouringCountries(fromCountry);
 			if (neighborCountries != null && neighborCountries.size() > 0) {
 				Country toCountry = getWeakestCountry(neighborCountries);

@@ -64,15 +64,16 @@ public class Cheater implements PlayerStrategy, Serializable  {
 		for(Object o : playersCountries) {
 			Country country = (Country) o;
 			ArrayList<Country> getNeighbouringCountries = player.getOthersNeighbouringCountriesOnlyObject(country);
-			System.out.println("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"\tneighbours now.");
-			player.getAttackGamePhaseDetails().add("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"\tneighbours now.");
-			System.out.println(country.getCountryName());
-			player.getAttackGamePhaseDetails().add("Attacking:\t"+country.getCountryName());
+			System.out.println("Cheater:\t"+player.getPlayerName()+"\tattacking\t"+getNeighbouringCountries.size()+"\tneighbours.");
+			player.getAttackGamePhaseDetails().add("Cheater:\t"+player.getPlayerName()+"\t attacking\t"+getNeighbouringCountries.size()+"\tneighbours.");
+			System.out.println("Is now attacking:\t"+country.getCountryName());
+			player.getAttackGamePhaseDetails().add("Is now attacking:\t"+country.getCountryName());
 			for(Country temp:getNeighbouringCountries) {
 				Player defender=player.getPlayer(temp.getPlayerId());
 				player.conquerCountryAutomate(defender,temp,country);
 				temp.setnoOfArmies(1);
 				country.increaseArmyCount(1);
+				System.out.println("Defeated:\t"+temp.getCountryName());
 				player.getAttackGamePhaseDetails().add("Defeated:\t"+temp.getCountryName());
 				if(country.getnoOfArmies()<1) {
 					country.setnoOfArmies(1);

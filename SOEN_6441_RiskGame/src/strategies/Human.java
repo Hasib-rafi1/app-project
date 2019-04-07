@@ -50,13 +50,11 @@ public class Human implements PlayerStrategy, Serializable {
 
         if(player == null){
             System.out.println("Player ID"+player.getPlayerId()+"does not exist.");
-            player.getAttackGamePhaseDetails().add("Player ID"+player.getPlayerId()+"does not exist.");
             return false;
         }
 
         if (country == null) {
             System.out.println("Country Name: " + country.getCountryName() + " does not exist!");
-            player.getAttackGamePhaseDetails().add("Country Name: " + country.getCountryName() + " does not exist!");
             return false;
         }
 

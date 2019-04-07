@@ -51,7 +51,6 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		// check if the attacker country is null( has no countries)
 		if (attackerCountry == null) {
 			System.out.println("Cannot find any attacking country");
-			reInforcedPlayer.getAttackGamePhaseDetails().add("Cannot find any attacking country");
 			
 		} else {
 
@@ -83,30 +82,22 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		// Check if there is no country to attack
 		if (attackerCountry == null) {
 			System.out.println("There is no country to attack" );
-			playerToAttack.getAttackGamePhaseDetails().add("There is no country to attack");
 			return false;
 		}		
 		System.out.println("Aggressive player name "+ playerName +" - attack - attacking from "
 				+ attackerCountryName+ " with attacker armies count = "+ attackerNumberOfArmies);
 		playerToAttack.getAttackGamePhaseDetails().add("Aggressive player name "+ playerName +" - attack - attacking from "
 				+ attackerCountryName+ " with attacker armies count = "+ attackerNumberOfArmies);
-		//ArrayList<Country> CountriesToAttack = player.getOthersNeighbouringCountriesOnlyObject(attackerCountry.getCountryName());
-
-
-
+		
 		ArrayList<Country> neighbourCountriesForAttack = playerToAttack.getOthersNeighbouringCountriesOnlyObject(attackerCountry);
 		int sizeForneighbourCountriesForAttack = neighbourCountriesForAttack.size();
 
-
-		//System.out.println("size of sizeForneighbourCountriesForAttack----------"+ sizeForneighbourCountriesForAttack);
 		if (neighbourCountriesForAttack == null || sizeForneighbourCountriesForAttack == 0) {
 			System.out.println("*** Sorry !! Not able to find any neighbouting country to attack from this Country ***");
-			playerToAttack.getAttackGamePhaseDetails().add("*** Sorry !! Not able to find any neighbouting country to attack from this Country ***");
 			return false;
 		}
 
 		for (Country sourceCountry: neighbourCountriesForAttack) {
-
 			System.out.println(attackerCountry.getCountryName() + "(" + attackerCountry.getnoOfArmies()
 			+ ") is attacking to " + sourceCountry.getCountryName() + "(" + sourceCountry.getnoOfArmies() + ")");
 			
@@ -164,9 +155,9 @@ public class Aggressive implements PlayerStrategy, Serializable {
 			player.getAttackGamePhaseDetails().add("Attacker dice - " + attackerDice + "  to Defender dice - " + defenderDice);
 			if (attackerDice > defenderDice) {
 				System.out.println("Attacker wins for dice " + (i + 1));
-				sourceCountry.decreaseArmyCount(1);
 				player.getAttackGamePhaseDetails().add("Attacker wins for dice " + (i + 1));
-
+				sourceCountry.decreaseArmyCount(1);
+	
 			} else {
 				System.out.println("Defender wins for dice " + (i + 1));
 				player.getAttackGamePhaseDetails().add("Defender wins for dice " + (i + 1));
@@ -223,15 +214,19 @@ public class Aggressive implements PlayerStrategy, Serializable {
 				if(sourceCountry.getnoOfArmies()>1) {
 					System.out.println(sourceCountry.getCountryName());
 					System.out.println(destinationCountry.getCountryName());
+					playerToFortify.getAttackGamePhaseDetails().add("Destination Country:\t"+destinationCountry.getCountryName());
+					playerToFortify.getAttackGamePhaseDetails().add("Performing fortification from "+sourceCountry.getCountryName()+" with armies "
+							+sourceCountry.getnoOfArmies() +" to "+destinationCountry.getCountryName()+" with armies "+destinationCountry.getnoOfArmies());
 					int armies = sourceCountry.getnoOfArmies()-1;
 					sourceCountry.setnoOfArmies(sourceCountry.getnoOfArmies() - armies);
 					destinationCountry.setnoOfArmies(destinationCountry.getnoOfArmies()+armies);
+					playerToFortify.getAttackGamePhaseDetails().add("Finished fortification with destination country "
+					+destinationCountry.getCountryName()+" ("	+destinationCountry.getnoOfArmies()+")"	);
 				}
 
 				return true;
 			} else {
 				System.out.println("Aggressive player " + playerName + " cannot find any country for fortification.");
-				playerToFortify.getAttackGamePhaseDetails().add("Aggressive player " + playerName + " cannot find any country for fortification.");
 				return true;
 
 			}	
