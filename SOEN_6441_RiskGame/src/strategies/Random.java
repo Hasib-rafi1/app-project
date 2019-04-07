@@ -199,10 +199,8 @@ public class Random implements PlayerStrategy, Serializable {
 				int armies = RandomNumber.getRandomNumberInRange(0, sourceCountry.getnoOfArmies() - 1);
 				sourceCountry.decreaseArmyCount(armies);
 				destinationCountry.increaseArmyCount(armies);
+				System.out.println("Finished fortifying"+armies+" armies to the destination country " + destinationCountry.getCountryName());
 			}
-
-			System.out.println("Finished fortification with destination country " + destinationCountry.getCountryName()
-			+ " (" + destinationCountry.getnoOfArmies() + ")");
 		}
 		if(player.getIsConqured()){
 			System.out.println("Conquered");

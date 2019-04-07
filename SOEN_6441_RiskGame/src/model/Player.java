@@ -880,7 +880,7 @@ public class Player implements Serializable{
 		 */
 		public ArrayList<Country> getNeighbouringCountries(Country source) {
 
-			System.out.print(connectedOwnCountries.toString());
+			//System.out.print(connectedOwnCountries.toString());
 			
 			initialSourceCountry = source;
 
@@ -918,8 +918,8 @@ public class Player implements Serializable{
 				getConnectedCountries(country, countryList);
 			}
 
-			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+			//System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+			//System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 			finalCOuntries.addAll(connectedOwnCountries);
 			connectedOwnCountries.clear();
 			return finalCOuntries;
@@ -933,7 +933,7 @@ public class Player implements Serializable{
 		 *
 		 */
 		public void getConnectedCountries(Country source, ArrayList<Country> countryList) {
-			System.out.println("source Country Name :" + source);
+			//System.out.println("source Country Name :" + source);
 
 			ArrayList<Country> countriesAssignedToPlayer = new ArrayList<Country>();
 			ArrayList<Country> neighborCountriesName = new ArrayList<Country>();
@@ -967,8 +967,8 @@ public class Player implements Serializable{
 				getConnectedCountries(country, countryList);
 			}
 
-			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+			//System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+			//System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 
 		}
 

@@ -558,7 +558,7 @@ public class Game extends Observable implements Serializable {
 			}
 		}
 		Collections.shuffle(riskCards, new Random());
-		System.out.println(riskCards.toString());
+		//System.out.println(riskCards.toString());
 	}
 
 	/**
