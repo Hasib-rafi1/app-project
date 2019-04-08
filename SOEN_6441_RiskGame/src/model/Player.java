@@ -76,7 +76,7 @@ public class Player implements Serializable{
 	private int fortifyArmies;
 	/** Player List*/
 	private ArrayList<Player> playerList;
-	private int noOfCountries;
+	private int numberOfCountries;
 
 
 
@@ -1004,12 +1004,22 @@ public class Player implements Serializable{
 		}
 	}
 
-	public void setNoOfCountries(int size) {
-		noOfCountries = size;
+	/**
+	 * Sets the no of countries.
+	 *
+	 * @param size the new no of countries
+	 */
+	public void setNumberOfCountries(int size) {
+		numberOfCountries = size;
 		
 	}
 
-	public int getNoOfCountries() {
-		return noOfCountries;
+	/**
+	 * Gets the number of countries.
+	 *
+	 * @return the number of countries
+	 */
+	public int getNumberOfCountries() {
+		return numberOfCountries;
 	}
 }

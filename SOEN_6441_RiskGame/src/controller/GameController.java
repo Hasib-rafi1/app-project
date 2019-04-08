@@ -569,14 +569,12 @@ public class GameController {
 	private void addActionListenerForloadAndSaveGame() {
 		// TODO Auto-generated method stub
 		boardView.saveGameButtonListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				game.writeObjectToSaveMyGame();
 				boardView.closeFrameWindow();
-			}
-			
+			}			
 		});
 
 	}
@@ -653,6 +651,8 @@ public class GameController {
 		print.consoleOut("Enter the name of Game which you want to load:");		
 		String selectFileToLoadGame = userinput.nextLine();
 		String gamesFilePath = ".\\src\\savedGames\\" + selectFileToLoadGame+ ".txt";
+		
+		// check if the saved game file exists or not
 		File tempFile = new File(gamesFilePath);
 		boolean exists = tempFile.exists();
 		if (exists) {
@@ -669,7 +669,7 @@ public class GameController {
 			game.notifyObserverslocal(game);
 
 		} else {
-			print.consoleErr("File not found!!!. Please enter the coreect name of map.");
+			print.consoleErr("File not found!!!. Please enter the coreect name of game file.");
 			MainController mainMenu = new MainController();
 			mainMenu.displaymainMenu();
 		}

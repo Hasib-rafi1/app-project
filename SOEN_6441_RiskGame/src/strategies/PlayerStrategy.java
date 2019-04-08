@@ -1,5 +1,4 @@
 package strategies;
-
 import model.Player;
 
 /**
@@ -11,19 +10,42 @@ import model.Player;
  */
 public interface PlayerStrategy {
 
-	/** Gets the name of the strategy*/
-    public String getStrategyName();
 
-    /** Gets if the player is a human or non-human*/
-    public boolean isHuman();
+	/**
+	 * This string gets the name of the strategy.
+	 * @return name of the Strategy 
+	 */
+	public String getStrategyName();
 
-    /** Gets a boolean value for if to perform reinforcement operation of a particular strategy */
-    public boolean reinforce(Player player);
 
-    /** Gets a boolean value for if to perform attack operation of a particular strategy */
-    public boolean attack(Player player);
+	/**
+	 * This is used to get if the player is a human or non-human.
+	 * @return true if player is human otherwise false
+	 */
+	public boolean isHuman();
 
-    /** Gets a boolean value for if to perform fortification operation of a particular strategy */
-    public boolean fortify(Player player);
+
+	/**
+	 * This is used to get a boolean value for if to perform reinforcement operation of a particular strategy
+	 * @param player  Player Object information
+	 * @return true if yes otherwise false
+	 */
+	public boolean reinforce(Player player);
+
+
+	/**
+	 * This is used to get boolean value for if to perform attack operation of a particular strategy
+	 * @param player Player Object information
+	 * @return true if yes otherwise false
+	 */
+	public boolean attack(Player player);
+
+
+	/**
+	 * This is used to get a boolean value for if to perform fortification operation of a particular strategy
+	 * @param player  Player Object information
+	 * @return true if yes otherwise false
+	 */
+	public boolean fortify(Player player);
 
 }
