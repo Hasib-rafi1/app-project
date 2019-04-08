@@ -4,9 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.*;
 import javax.swing.JLabel;
@@ -17,15 +15,10 @@ import helper.GameMode;
 import model.Country;
 import model.Game;
 import model.Player;
-import strategies.Aggressive;
-import strategies.Benevolent;
-import strategies.Cheater;
-import strategies.Human;
-import strategies.Random;
+import strategies.*;
 
-import views.BoardView;
-import views.CardView;
-import views.WorldDominationView;
+import strategies.Random;
+import views.*;
 import model.MapModel;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
@@ -52,7 +45,7 @@ public class GameController {
 	WorldDominationView worldDominationViewObserver;
 
 	/** The player. */
-	Player player;
+	Player playerForGameMode;
 
 	/** The map model. */
 	MapModel mapModel = new MapModel();
@@ -135,9 +128,9 @@ public class GameController {
 
 			game.setGameMode(GameMode.SingleGameMode);
 			boardView=new BoardView();
+			game.addObserver(boardView);
 			worldDominationViewObserver = new WorldDominationView();
 			game.addObserver(worldDominationViewObserver);
-			game.addObserver(boardView);
 
 			print.consoleOut("\nEnter the number of Players between 3-5:");
 			int playerCount = Integer.parseInt(userinput.nextLine());
@@ -171,17 +164,18 @@ public class GameController {
 				game.startGame();
 				game.initializeRiskCards();
 				boardView.gameWindowLoad();
-				callListenerOnView();
 				game.initializeAutoSequence();
+				callListenerOnView();
 			}
 
 		} else if (gameMode == 2){
 
 			int M = 0, P = 0, G = 0, D = 0;
 			ArrayList<MapModel> mapNamesForTournament = new ArrayList<>();
+			ArrayList<PlayerStrategy> strategiesForTournament = new ArrayList<>();
 
 
-			print.consoleOut("******* Welcome to Tournament Mode. *******");
+			print.consoleOut("******* Welcome to Tournament Mode. Please Enter the required Fields. *******");
 			while (true) {
 				print.consoleOut("Enter The Number of Maps You want to play on (1-5): ");
 				int numberOfMaps = PrintConsoleAndUserInput.userIntInput();
@@ -190,6 +184,7 @@ public class GameController {
 					break;
 				}else{print.consoleErr("Please Enter the number of Maps between 3-5");}
 			}
+
 			print.consoleOut("Enter '" + M + "' Different Map Names from following list: ");
 			print.listofMapsinDirectory();
 			for (int i = 0; i < M; i++) {
@@ -207,50 +202,91 @@ public class GameController {
 					break;
 				}else{print.consoleErr("Please Enter the number of Strategies between 2-4. ");}
 			}
-			print.consoleOut("Enter '" + P + "' Different Strategies from following list:");
-			print.consoleOut("2. Aggressive \n3. Benevolent \n4. Cheater \n5. Random");
-			for (int i = 0; i < P; i++) {
-				while (true) {
-					playerStrategyName = PrintConsoleAndUserInput.userIntInput();
-					if(!(playerStrategyName < 2 || playerStrategyName > 5)){
-						playerStrategyActions();
-						break;
-					}else{
-						print.consoleErr("For Tournament Select the Strategies between 2-5");
-					}
-				}
 
+			print.consoleOut("Enter '" + P + "' Different Strategies from following list:");
+			print.consoleOut("1. Aggressive \n2. Benevolent \n3. Cheater \n4. Random");
+			for (int i = 0; i < P; i++) {
+//				while (true) {
+					int playerStrategyName = PrintConsoleAndUserInput.userIntInput();
+//					if (!(playerStrategyName < 1 || playerStrategyName > 4)) {
+					if ((playerStrategyName >= 1 && playerStrategyName <= 4)) {
+						if (playerStrategyName == 1) {
+							strategiesForTournament.add(new Aggressive());
+						} else if (playerStrategyName == 2) {
+							strategiesForTournament.add(new Benevolent());
+						} else if (playerStrategyName == 3) {
+							strategiesForTournament.add(new Cheater());
+						} else if (playerStrategyName == 4) {
+							strategiesForTournament.add(new Random());
+//							break;
+						} else {
+							print.consoleErr("For Tournament Select the Strategies between 1-4");
+						}
+//					}
+				}
 			}
 
+			while (true) {
+				print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
+				int numberOfGames = PrintConsoleAndUserInput.userIntInput();
+				if (numberOfGames >= 1 && numberOfGames <= 5) {
+					G = numberOfGames;
+					break;
+				}else{print.consoleErr("Please Enter the number of Games between 1-5. ");}
+			}
 
-			print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
-			print.consoleOut("Enter Maximum Number of Turns for Each Game (10 - 50): ");
+			while (true) {
+				print.consoleOut("Enter Maximum Number of Turns for Each Game (10 - 50): ");
+				int maximumNumberOfTurns = PrintConsoleAndUserInput.userIntInput();
+				if (maximumNumberOfTurns >= 10 && maximumNumberOfTurns <= 50) {
+					D = maximumNumberOfTurns;
+					break;
+				}else{print.consoleErr("Please Enter the number of Maximum Turns between 10-50. ");}
+			}
+
+			HashMap<String, ArrayList<String>> tournamentResult = new HashMap<>();
+
+			for (int i = 0; i < M; i++) {
+				ArrayList<String> resultForOneMap = new ArrayList<>();
+				for (int j = 0; j < G; j++) {
+					game = new Game(mapNamesForTournament.get(i));
+					game.setGameMode(GameMode.TournamentMode);
+					game.setMaxTurnsForTournament(D);
+					for (int playerStrategyAsPlayerName = 0; playerStrategyAsPlayerName < strategiesForTournament.size();
+						 playerStrategyAsPlayerName++) {
+						Player player = new Player(playerStrategyAsPlayerName,
+								strategiesForTournament.get(playerStrategyAsPlayerName).getStrategyName());
+						player.setPlayerStrategy(strategiesForTournament.get(playerStrategyAsPlayerName));
+						game.addPlayer(player);
+						System.out.println(player.getPlayerStrategy().getStrategyName());
+					}
+
+					game.startGame();
+					System.out.println(i +""+j);
+					game.tournamentMode();
+
+					// add result
+					if (game.getGamePhase() == GamePhase.Draw) {
+						resultForOneMap.add("DRAW");
+					} else {
+						resultForOneMap.add(game.getWinner().getPlayerStrategy().getStrategyName());
+					}
+				}
+				tournamentResult.put(mapNamesForTournament.get(i).getMapName(), resultForOneMap);
+				
+			}
+			System.out.println(tournamentResult.toString());
+			TournamentModeResultView.callTournamentResult(M,G,D, tournamentResult,strategiesForTournament);
+
+
 		}else {
 			print.consoleErr("Please Enter a Valid Game Mode.");
 		}
 	}
 
-	public void playerStrategyActions(){
-		switch (playerStrategyName) {
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		default:
-			print.consoleErr("\n\t Error! Select the Strategies from the list (1 to 5):");
-			break;
-		}
-	}
 
 	/**
-	 * This function is used to call the listener functions. 
-	 * 
+	 * This function is used to call the listener functions.
 	 */
 	private void callListenerOnView(){
 
@@ -452,8 +488,7 @@ public class GameController {
 	}
 
 	/**
-	 * Add action listener for the world domination view.
-	 *
+	 * Add action listener for the world domination view
 	 */
 	public void addActionListenerForWorldDominationView() {
 		boardView.worldDominationViewListener(new ActionListener() {
@@ -523,8 +558,9 @@ public class GameController {
 				for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
 					dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
 				}
+//				TournamentModeResultView.callTournamentResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
 
-				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
+//				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 			}
 		});
 	}

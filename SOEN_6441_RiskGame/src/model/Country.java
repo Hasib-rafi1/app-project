@@ -42,12 +42,21 @@ public class Country implements Serializable{
 	/** The country color. */
 	private Colors countryColor;
 	
+	/** The Player player. */
 	private Player player;
-
+	
+	/**
+	 * Gets the active player
+	 * @return
+	 */
 	public Player getPlayer() {
 		return player;
 	}
 
+	/**
+	 * Sets the active player to the object
+	 * @param player
+	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}

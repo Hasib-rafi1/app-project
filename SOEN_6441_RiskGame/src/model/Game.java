@@ -13,8 +13,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
-
+import javax.swing.JOptionPane;
 
 import helper.*;
 
@@ -87,9 +88,12 @@ public class Game extends Observable implements Serializable {
 	private Integer armiesAfterExchange= 5;
 
 	public boolean dominationViewOn = false;
-
+	private int maxTurnsForTournament;
+	/** The CardView*/
 	CardView cardview = new CardView(this);
-
+	
+	public Player winner = null; 
+	public boolean draw = false;
 	
 	/**
 	 * Instantiates a new game.
@@ -210,6 +214,9 @@ public class Game extends Observable implements Serializable {
 		}
 		updateGame();
 		notifyObserverslocal(this);
+		if(gameMode == GameMode.SingleGameMode){
+			initializeAutoSequence();
+		}
 	}
 
 	/**
@@ -230,7 +237,7 @@ public class Game extends Observable implements Serializable {
 			return false;
 		}
 		if(player.getNumberOfInitialArmies() == 0){
-			print.consoleOut("Player "+player.getPlayerName()+"Doesn't have any Armies.");
+			print.consoleOut("Player '"+player.getPlayerName()+"' Doesn't have any Armies.");
 			this.setupNextPlayerTurn();
 			return false;
 		}
@@ -309,17 +316,26 @@ public class Game extends Observable implements Serializable {
 		else if (this.getGamePhase() == gamePhase.Reinforcement) {
 			if (getCurrentPlayer().getNumberOfReinforcedArmies() == 0) {
 				gamePhaseDetails.removeAll(gamePhaseDetails);
-				this.setGamePhase(gamePhase.Attack);
+				if(checkAttackPossible()) {
+					this.setGamePhase(gamePhase.Attack);	
+				}else {
+					this.setGamePhase(gamePhase.Fortification);
+				}
+				notifyObserverslocal(this);
 			}
 
 		}
 		else if (this.getGamePhase() ==  gamePhase.Attack) {
-			gamePhaseDetails.removeAll(gamePhaseDetails);
+			if(getCurrentPlayer().getPlayerStrategy().isHuman()) {
+				gamePhaseDetails.removeAll(gamePhaseDetails);
+			}
 			this.setGamePhase(gamePhase.Fortification);
 			notifyObserverslocal(this);
 		}
 		else if (this.getGamePhase() == gamePhase.Fortification) {
-			gamePhaseDetails.removeAll(gamePhaseDetails);
+			if(getCurrentPlayer().getPlayerStrategy().isHuman()) {
+				gamePhaseDetails.removeAll(gamePhaseDetails);
+			}
 			this.setGamePhase(gamePhase.Reinforcement);
 			notifyObserverslocal(this);
 		}
@@ -521,6 +537,9 @@ public class Game extends Observable implements Serializable {
 		setGamePhase(gamePhase.Reinforcement);
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
+		if(this.gameMode == GameMode.SingleGameMode){
+			initializeAutoSequence();
+		}
 	}
 
 	/**
@@ -547,7 +566,7 @@ public class Game extends Observable implements Serializable {
 			}
 		}
 		Collections.shuffle(riskCards, new Random());
-		System.out.println(riskCards.toString());
+		//System.out.println(riskCards.toString());
 	}
 
 	/**
@@ -768,7 +787,6 @@ public class Game extends Observable implements Serializable {
 
 	/**
 	 * Returns number of dices for attacking / defending country.
-	 *
 	 * @param countryName the country name
 	 * @param playerStatus the player status
 	 * @return Integer
@@ -794,8 +812,6 @@ public class Game extends Observable implements Serializable {
 	 */
 	public ArrayList<String> getOthersNeighbouringCountriesOnly(String countryName) {
 		ArrayList<String> allowableAttackingArmies = new ArrayList<String>();
-		if (this.gamePhase ==GamePhase.Attack) {
-			// Will also add validation if the attacker is assigned to player or not
 
 			Country c = mapModel.getCountryFromName(countryName);
 			Player currentPlayer = this.getCurrentPlayer();
@@ -809,7 +825,6 @@ public class Game extends Observable implements Serializable {
 				}
 
 			}
-		}
 		return allowableAttackingArmies;
 	}
 
@@ -820,7 +835,7 @@ public class Game extends Observable implements Serializable {
 	 * @param attackerCountry the attacker country
 	 * @param defenderCountry the defender country
 	 * @param attackerDiceCount the attacker dice count
-	 * @param defendergDiceCount the defenderg dice count
+	 * @param defendergDiceCount the defender dice count
 	 * @return true, if attack done
 	 */
 	public Boolean attackPhaseActions(String attackerCountry, String defenderCountry, int attackerDiceCount, int defendergDiceCount) {
@@ -869,6 +884,7 @@ public class Game extends Observable implements Serializable {
 			gamePhaseDetails.add("Congratulation!"+this.getCurrentPlayer().getPlayerName() + ": You Win.");
 		} else if (!checkAttackPossible()) {
 			gamePhaseDetails.add("Attack not possible.");
+			System.out.println("Attack");
 			updateGame();
 		}
 		getCurrentPlayer().setConcuredContinents(mapModel.getContinentList());
@@ -915,11 +931,12 @@ public class Game extends Observable implements Serializable {
 	 */
 	public boolean checkAttackPossible() {
 		ArrayList<String> attackerPossibleCountries = getAttackPossibleCountries();
-		if (attackerPossibleCountries.size() == 0) {
+		if (attackerPossibleCountries.size() < 1) {
 			return false;
 		}else {
 			for (String countryName : attackerPossibleCountries) {
 				ArrayList<String> neighborCountries = getOthersNeighbouringCountriesOnly(countryName);
+				
 				if (neighborCountries.size() > 0) {
 					return true;
 				}
@@ -1008,7 +1025,6 @@ public class Game extends Observable implements Serializable {
 
 	}
 
-
 	/**
 	 * Get the number of continents and their name by each player
 	 * @return hashMap for a player and continent
@@ -1043,8 +1059,6 @@ public class Game extends Observable implements Serializable {
 		}
 		return countriesListString;
 	}
-
-
 
 	/**
 	 * This method is used to get the number of armies for each player.
@@ -1109,6 +1123,13 @@ public class Game extends Observable implements Serializable {
 		notifyObserverslocal(this);
 	}
 
+	/**
+	 * Checks if the Attacker and Defender operation is valid 
+	 * @param attCountry
+	 * @param defCountry
+	 * @param defendergDiceCount
+	 * @return
+	 */
 	public boolean isAttackerDefenderValid(Country attCountry,Country  defCountry,int defendergDiceCount) {
 		if (attCountry == null || defCountry == null) {
 			return false;
@@ -1126,14 +1147,20 @@ public class Game extends Observable implements Serializable {
 		}
 		return true;
 	}
-
+	
+	/**
+	 * Sets the game mode
+	 * @param gameMode
+	 */
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
 	}
-
+	
+	/**
+	 * Automates the Current Phase
+	 */
 	public void automateCurrentPhase(){
 		if(this.gamePhase == GamePhase.Startup){
-
 			ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
 			int random = 0;
 			if(countryList.isEmpty()){
@@ -1142,38 +1169,61 @@ public class Game extends Observable implements Serializable {
 				random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
 			}
 			Country country = countryList.get(random);
-			System.out.println("Assigning the initial army to the player. \n");
+			System.out.println("\n\n ***************Assigning the initial army to the player*************** \n\n");
 			boolean success = addingStartupCountryArmy(country.getCountryName());
+			
+//			notifyObserverslocal(this);
 			if(success){
 				setupNextPlayerTurn();
 			}
+			System.out.println("\n\n *************** Finish Assigning the initial army to the player*************** \n\n");
+
 		} else if (this.gamePhase == GamePhase.Reinforcement) {
+			System.out.println("\n\n ***************Performing Reinforcement for the player*************** \n\n");
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
 			//this.getCurrentPlayer().setReinforceContinent(mapModel.getContinentList());
-			//this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
-			System.out.println("Performing Reinforcement for the player. \n");
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			boolean success = this.getCurrentPlayer().reinforcementPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
 			if(success){
 			}
+			notifyObserverslocal(this);
+			System.out.println("\n\n ***************Finish Performing Reinforcement for the player*************** \n\n");
 
 		} else if (this.gamePhase == GamePhase.Attack){
-
+			System.out.println("\n\n ***************Performing Attacking for the player*************** \n\n");
 			getCurrentPlayer().setAttackPlayerCountry(playerCountry);
 			getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
-			System.out.println("Performing Attacking for the player. \n");
 			boolean success = this.getCurrentPlayer().attackPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
 			if(isMapConcured()){
+				notifyObserverslocal(this);
 				System.out.println("You Win");
+				JOptionPane.showMessageDialog(null, "You Win!");
 			}
 			if(success){
 			}
-		} else if (this.gamePhase == GamePhase.Fortification){
+			notifyObserverslocal(this);
+			System.out.println("\n\n ***************Finish Performing Attacking for the player*************** \n\n");
 
-			System.out.println("Performing Fortification for the player. \n");
+		} else if (this.gamePhase == GamePhase.Fortification){
+			System.out.println("\n\n ***************Performing Fortification for the player*************** \n\n");
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			this.getCurrentPlayer().setRiskCards(getRiskCardFromDeck());
 			boolean success = this.getCurrentPlayer().fortificationPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
+			notifyObserverslocal(this);
 			if(success){
 				setupNextPlayerTurn();
 			}
-			reinforcementPhaseSetup();
+			System.out.println("\n\n *************** Finish Performing Fortification for the player*************** \n\n");
+			System.out.println("\n\n *************** Starting Reinforcemant calculations Performing Fortification for the player*************** \n\n");
+			automateExchange();
+			int reinforcementCal = this.getCurrentPlayer().calculationForNumberOfArmiesInReinforcement(playerCountry, mapModel.getContinentList());
+			reinforcementCal = reinforcementCal < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : reinforcementCal;		
+			this.getCurrentPlayer().setNumberOfReinforcedArmies(reinforcementCal);
+			System.out.println("\n\n *************** Finishing Reinforcemant calculations Performing Fortification for the player*************** \n\n");
 		}
 	}
 
@@ -1252,8 +1302,176 @@ public class Game extends Observable implements Serializable {
 			automateCurrentPhase();
 			updateGame();
 			notifyObserverslocal(this);
-			System.out.println(gamePhaseDetails.toString());
-			try{Thread.sleep(1000);} catch(Exception e){}
+			try{Thread.sleep(500);} catch(Exception e){}
 		}
+
+	}
+	public void automateExchange() {
+		gamePhaseDetails.add(
+				"Player: "+
+						getCurrentPlayer().getPlayerName()+"Card:"+
+				getCurrentPlayer().getCards().size());
+		if(getCurrentPlayer().getCards().size()>2) {
+			Card firstCard = getCurrentPlayer().getCards().get(0);
+			Card secondCard= getCurrentPlayer().getCards().get(1);
+			Card thirdCard= getCurrentPlayer().getCards().get(2);
+			Map<Card, Integer> counts = new HashMap<Card, Integer>();
+
+			for (Card str : getCurrentPlayer().getCards()) {
+			    if (counts.containsKey(str)) {
+			        counts.put(str, counts.get(str) + 1);
+			    } else {
+			        counts.put(str, 1);
+			    }
+			}
+			ArrayList<Card> diffCard = getCurrentPlayer().getCards().stream().distinct().collect(Collectors.toCollection(ArrayList::new));
+			if(diffCard.size()>2) {
+				firstCard = diffCard.get(0);
+		    	secondCard = diffCard.get(1);
+		    	thirdCard = diffCard.get(2);
+			}
+			else {
+				for(Map.Entry<Card, Integer> entry : counts.entrySet()) {
+				    Card key = entry.getKey();
+				    int value = entry.getValue();
+				    if(value>2) {
+				    	firstCard = key;
+				    	secondCard = key;
+				    	thirdCard = key;
+				    	break;
+				    }
+				}
+			}
+			
+			
+			boolean sameRiskCards = (firstCard == secondCard) && (secondCard == thirdCard);
+			boolean differentRiskCards = (firstCard != secondCard) && (secondCard != thirdCard) && (firstCard != thirdCard);
+			if(sameRiskCards || differentRiskCards){
+
+				getCurrentPlayer().getCards().remove(firstCard);
+				getCurrentPlayer().getCards().remove(secondCard);
+				getCurrentPlayer().getCards().remove(thirdCard);
+				getCurrentPlayer().setInitialArmiesafterExchange(armiesAfterExchange);
+				armiesAfterExchange= armiesAfterExchange + 5;
+				addRiskCardToDeck(firstCard);
+				addRiskCardToDeck(secondCard);
+				addRiskCardToDeck(thirdCard);
+				notifyObserverslocal(this);
+				
+			}
+		}
+	}
+
+	public void tournamentMode(){
+		int turnsCounts = 0;
+
+		print.consoleOut("******* The Tournament Mode Started To Play *******");
+
+		// Loop until all armies are assigned for all players
+		while (this.gamePhase == GamePhase.Startup) {
+			// Randomly increase army for the country of player
+			ArrayList<Country> countryList = getCurrentPlayer().getAssignedListOfCountries();
+			int random = 0;
+			if(countryList.isEmpty()){
+				return;
+			} else if (countryList.size() > 1){
+				random = RandomNumber.getRandomNumberInRange(0, countryList.size()-1);
+			}
+			Country country = countryList.get(random);
+			addingCountryArmy(country.getCountryName());
+
+		}
+
+		// Print status of players
+//		this.printPlayerStatus();
+		while (true) {
+			System.out.println("\n\n ***************Performing Reinforcement for the player*************** \n\n");
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			//this.getCurrentPlayer().setReinforceContinent(mapModel.getContinentList());
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			boolean reinforcementSuccess = this.getCurrentPlayer().reinforcementPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
+			if(reinforcementSuccess){
+			}
+			notifyObserverslocal(this);
+			System.out.println("\n\n ***************Finish Performing Reinforcement for the player*************** \n\n");
+
+			this.updateGame();
+
+			System.out.println("\n\n ***************Performing Attacking for the player*************** \n\n");
+			getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			boolean attackSuccess = this.getCurrentPlayer().attackPhase();
+			gamePhaseDetails= this.getCurrentPlayer().getAttackGamePhaseDetails();
+			if(isMapConcured()){
+				winner = this.getCurrentPlayer();
+				notifyObserverslocal(this);
+				System.out.println("You Win");
+				break;
+			}
+			if(attackSuccess){
+			}
+			notifyObserverslocal(this);
+			System.out.println("\n\n ***************Finish Performing Attacking for the player*************** \n\n");
+
+			this.updateGame();
+
+			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
+			this.getCurrentPlayer().setAttackPlayerCountry(playerCountry);
+			boolean fortificationSuccess = this.getCurrentPlayer().fortificationPhase();
+			if(fortificationSuccess){
+				setupNextPlayerTurn();
+			}
+			System.out.println("\n\n *************** Finish Performing Fortification for the player*************** \n\n");
+			System.out.println("\n\n *************** Starting Reinforcemant calculations Performing Fortification for the player*************** \n\n");
+			automateExchange();
+			int reinforcementCal = this.getCurrentPlayer().calculationForNumberOfArmiesInReinforcement(playerCountry, mapModel.getContinentList());
+			reinforcementCal = reinforcementCal < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : reinforcementCal;		
+			this.getCurrentPlayer().setNumberOfReinforcedArmies(reinforcementCal);
+			this.updateGame();
+
+			// Print status of players
+//			this.printPlayerStatus();
+			
+
+			turnsCounts++;
+			if (turnsCounts >= getMaxTurnsForTournament()) {
+				for(Player selectPlayer:playerList) {
+					selectPlayer.setNoOfCountries(playerCountry.get(selectPlayer).size());					
+				}
+				winner = getCurrentPlayer();
+				for(Player selectPlayer:playerList) {
+					if(winner.getNoOfCountries()<selectPlayer.getNoOfCountries()) {
+						winner = selectPlayer;
+					} 					
+				}
+				for(Player selectPlayer:playerList) {
+					if(winner!=selectPlayer && winner.getNoOfCountries()==selectPlayer.getNoOfCountries()) {
+						draw = true;
+					}  					
+				}
+				if(draw) {
+					this.setGamePhase(GamePhase.Draw);
+					print.consoleOut("Tournament draw after " + turnsCounts + " turns");
+				}
+				break;
+			}
+		}
+		print.consoleOut("************************************************************************************");
+		notifyObserverslocal(this);
+	}
+
+	public Player getWinner() {
+		return winner;
+	}
+
+
+
+	public int getMaxTurnsForTournament() {
+		return maxTurnsForTournament;
+	}
+
+	public void setMaxTurnsForTournament(int maxTurnsForTournament) {
+		this.maxTurnsForTournament = maxTurnsForTournament;
 	}
 }

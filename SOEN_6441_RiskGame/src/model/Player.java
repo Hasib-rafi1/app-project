@@ -43,6 +43,7 @@ public class Player implements Serializable{
 	/** The dice results. */
 	private ArrayList<Integer> diceResults = new ArrayList<>();
 	
+	
 	/** The assigned list of countries. */
 	private ArrayList<Country> assignedListOfCountries = new ArrayList<Country>();
 
@@ -67,45 +68,86 @@ public class Player implements Serializable{
 	//Fortification-Strategy
 	private ArrayList<Country> assignedCountryList = new ArrayList<Country>();
 	private Card riskCards;
-
+	/** The fortify source country*/
 	private Country fortifySourceCountry;
+	/** The fortify destination country*/
 	private Country fortifyDestinationCountry;
+	/** fortify armies count*/
 	private int fortifyArmies;
+	/** Player List*/
 	private ArrayList<Player> playerList;
+	private int noOfCountries;
 
+
+
+	/**
+	 * Gets the RiskCards of the game
+	 * @return riskCards
+	 */
 	public Card getRiskCards() {
 		return riskCards;
 	}
-
+	
+	/**
+	 * Sets the RiskCards of the game
+	 * @param riskCards
+	 */
 	public void setRiskCards(Card riskCards) {
 		this.riskCards = riskCards;
 	}
 
-
+	/**
+	 * Sets the Source Country for fortification
+	 * @param country
+	 */
 	public void setFortifySourceCountry(Country country){
 		this.fortifySourceCountry = country;
 	}
 
+	/**
+	 * Gets the source country for fortification
+	 * @return fortifySourceCountry
+	 */
 	public Country getFortifySourceCountry(){
 		return fortifySourceCountry;
 	}
 
+	/**
+	 * Sets the destination country for fortification
+	 * @param country 
+	 */
 	public void setFortifyDestinationCountry(Country country){
 		this.fortifyDestinationCountry = country;
 	}
-
+	
+	/**
+	 * Gets the destination country for fortification
+	 * @return fortifyDestinationCountry
+	 */
 	public Country getFortifyDestinationCountry(){
 		return fortifyDestinationCountry;
 	}
 
+	/**
+	 * Sets the armies for fortification
+	 * @param armies
+	 */
 	public void setFortifyArmies(int armies){
 		this.fortifyArmies = armies;
 	}
 
+	/**
+	 * Gets the armies for fortification
+	 * @return fortifyArmies
+	 */
 	public int getFortifyArmies(){
 		return fortifyArmies;
 	}
 
+	/**
+	 * Gets the fortification phase value of player strategy
+	 * @return boolean
+	 */
     public boolean fortificationPhase(){
         return this.playerStrategy.fortify(this);
     }
@@ -114,23 +156,39 @@ public class Player implements Serializable{
 
     private Country reinforceCountry;
     private ArrayList<Continent> reinforceContinent;
-
+    /** Gets the reinforcement continent in the arraylist */
 	public ArrayList<Continent> getReinforceContinent() {
 		return reinforceContinent;
 	}
 
+	/** 
+	 * Sets the reinforcement continent
+	 * @param reinforceContinent
+	 */
 	public void setReinforceContinent(ArrayList<Continent> reinforceContinent) {
 		this.reinforceContinent = reinforceContinent;
 	}
 
+	/**
+	 * Sets the reinforcement country
+	 * @param country
+	 */
 	public void setReinforceCountry(Country country){
 	    this.reinforceCountry = country;
     }
 
+	/**
+	 * Gets the reinforcement country
+	 * @return reinforceCountry
+	 */
     public Country getReinforceCountry(){
         return reinforceCountry;
     }
 
+    /**
+     * Gets the reinforcement phase value of player strategy
+     * @return boolean
+     */
     public boolean reinforcementPhase(){
         return this.playerStrategy.reinforce(this);
     }
@@ -145,78 +203,154 @@ public class Player implements Serializable{
     private HashMap<Player, ArrayList<Country>> attackPlayerCountry;
     private ArrayList<String> attackGamePhaseDetails;
 
+    /**
+     * Gets the defender player for the attack
+     * @return attackDefenderPlayer
+     */
     public Player getAttackDefenderPlayer() {
         return attackDefenderPlayer;
     }
 
+    /**
+     * Sets the  defender player for the the attack
+     * @param attackDefenderPlayer
+     */
     public void setAttackDefenderPlayer(Player attackDefenderPlayer) {
         this.attackDefenderPlayer = attackDefenderPlayer;
     }
 
+    /**
+     * Gets the attacker country for the attack
+     * @return attackAttackerCountry
+     */
     public Country getAttackAttackerCountry() {
         return attackAttackerCountry;
     }
-
+    
+    /**
+     * Sets the attacker country for the attack
+     * @param attackAttackerCountry
+     */
     public void setAttackAttackerCountry(Country attackAttackerCountry) {
         this.attackAttackerCountry = attackAttackerCountry;
     }
 
+    /**
+     * Gets the defender country for the attack 
+     * @return attackDefenderCountry
+     */
     public Country getAttackDefenderCountry() {
         return attackDefenderCountry;
     }
 
+    /**
+     * Sets the defender country for the attack
+     * @param attackDefenderCountry
+     */
     public void setAttackDefenderCountry(Country attackDefenderCountry) {
         this.attackDefenderCountry = attackDefenderCountry;
     }
 
+    /**
+     * Gets the attacker dice count for the attack
+     * @return attackAttackerDiceCount
+     */
     public int getAttackAttackerDiceCount() {
         return attackAttackerDiceCount;
     }
 
+    /**
+     * Sets the attacker dice count for the attack
+     * @param attackAttackerDiceCount
+     */
     public void setAttackAttackerDiceCount(int attackAttackerDiceCount) {
         this.attackAttackerDiceCount = attackAttackerDiceCount;
     }
 
+    /**
+     * Gets the defender dice count for the attack
+     * @return attackDefenderDiceCount
+     */
     public int getAttackDefenderDiceCount() {
         return attackDefenderDiceCount;
     }
 
+    /**
+     * Sets the defender dice count for the attack
+     * @param attackDefenderDiceCount
+     */
     public void setAttackDefenderDiceCount(int attackDefenderDiceCount) {
         this.attackDefenderDiceCount = attackDefenderDiceCount;
     }
 
+    /**
+     * HashMap for the getting the player country to attack
+     * @return attackPlayerCountry
+     */
     public HashMap<Player, ArrayList<Country>> getattackPlayerCountry() {
         return attackPlayerCountry;
     }
-
+    
+    /**
+     * Sets the player country to attack
+     * @param attackPlayerCountry
+     */
     public void setAttackPlayerCountry(HashMap<Player, ArrayList<Country>> attackPlayerCountry) {
         this.attackPlayerCountry = attackPlayerCountry;
     }
 
+    /**
+     * Gets the Game Phase details
+     * @return attackGamePhaseDetails
+     */
     public ArrayList<String> getAttackGamePhaseDetails() {
         return attackGamePhaseDetails;
     }
 
+    /**
+     * Sets the game phase details for attack
+     * @param attackGamePhaseDetails
+     */
     public void setAttackGamePhaseDetails(ArrayList<String> attackGamePhaseDetails) {
         this.attackGamePhaseDetails = attackGamePhaseDetails;
     }
 
+    /**
+     * ArrayList that gets the dice results
+     * @return diceResults
+     */
     public ArrayList<Integer> getDiceResults() {
         return diceResults;
     }
 
+    /**
+     * Sets the dice results in the arraylist
+     * @param diceResults
+     */
     public void setDiceResults(ArrayList<Integer> diceResults) {
         this.diceResults = diceResults;
     }
 
+    /**
+     * ArrayList that gets the player cards
+     * @return playerCards
+     */
     public ArrayList<Card> getPlayerCards() {
         return playerCards;
     }
 
+    /**
+     * Sets the cards for the player
+     * @param playerCards
+     */
     public void setPlayerCards(ArrayList<Card> playerCards) {
         this.playerCards = playerCards;
     }
 
+    /**
+     * Gets the attack phase value of player strategy
+     * @return boolean
+     */
     public boolean attackPhase(){
         return this.playerStrategy.attack(this);
     }
@@ -255,6 +389,7 @@ public class Player implements Serializable{
 	 * @return integer value of assigned armies
 	 */
 	public int getNumberOfInitialArmies() {
+//		System.out.println(numberOfInitialArmies);
 		return numberOfInitialArmies;
 	}
 
@@ -629,9 +764,8 @@ public class Player implements Serializable{
 
 	/**
 	 * This method will perform operation required after conquering a country
-	 * 
 	 * @param defenderPlayer,
-	 *            Player object
+	 * Player object
 	 */
 	public void conquerCountry(Player defenderPlayer) {
 		getAttackDefenderCountry().setPlayerId(playerId);
@@ -748,14 +882,14 @@ public class Player implements Serializable{
 		 */
 		public ArrayList<Country> getNeighbouringCountries(Country source) {
 
-			System.out.print(connectedOwnCountries.toString());
+			//System.out.print(connectedOwnCountries.toString());
 			
 			initialSourceCountry = source;
 
 			ArrayList<Country> countriesAssignedToPlayer = new ArrayList<Country>();
 			ArrayList<Country> finalCOuntries = new ArrayList<Country>();
 
-			ArrayList<Country> countryList = this.getAssignedListOfCountries();
+			ArrayList<Country> countryList = this.getattackPlayerCountry().get(this);
 			ArrayList<Country> neighborCountriesName = new ArrayList<Country>();
 
 			for (Country country : countryList) {
@@ -786,8 +920,8 @@ public class Player implements Serializable{
 				getConnectedCountries(country, countryList);
 			}
 
-			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+			//System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+			//System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 			finalCOuntries.addAll(connectedOwnCountries);
 			connectedOwnCountries.clear();
 			return finalCOuntries;
@@ -801,7 +935,7 @@ public class Player implements Serializable{
 		 *
 		 */
 		public void getConnectedCountries(Country source, ArrayList<Country> countryList) {
-			System.out.println("source Country Name :" + source);
+			//System.out.println("source Country Name :" + source);
 
 			ArrayList<Country> countriesAssignedToPlayer = new ArrayList<Country>();
 			ArrayList<Country> neighborCountriesName = new ArrayList<Country>();
@@ -835,8 +969,8 @@ public class Player implements Serializable{
 				getConnectedCountries(country, countryList);
 			}
 
-			System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-			System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+			//System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
+			//System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 
 		}
 
@@ -864,5 +998,14 @@ public class Player implements Serializable{
 		default:
 			return Colors.BLACK;
 		}
+	}
+
+	public void setNoOfCountries(int size) {
+		noOfCountries = size;
+		
+	}
+
+	public int getNoOfCountries() {
+		return noOfCountries;
 	}
 }

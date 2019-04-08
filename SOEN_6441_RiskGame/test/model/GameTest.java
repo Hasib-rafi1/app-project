@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
+import strategies.Human;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -59,6 +60,11 @@ public class GameTest {
 		player3 = new Player(2,"Zakia");
 		player4 = new Player(3,"Narendra");
 		player5 = new Player(4,"Rafi");
+		player1.setPlayerStrategy(new Human());
+		player2.setPlayerStrategy(new Human());
+		player3.setPlayerStrategy(new Human());
+		player4.setPlayerStrategy(new Human());
+		player5.setPlayerStrategy(new Human());
 		gameObject.addPlayer(player1);
 		gameObject.addPlayer(player2);
 		gameObject.addPlayer(player3);
@@ -145,7 +151,12 @@ public class GameTest {
 		if (gameObject.getAttackPossibleCountries().size() == 0) {
 			assertFalse(gameObject.checkAttackPossible());
 		}else {
-			assertFalse(gameObject.checkAttackPossible());
+			for (String countryName : gameObject.getAttackPossibleCountries()) {
+				ArrayList<String> neighborCountries = gameObject.getOthersNeighbouringCountriesOnly(countryName);
+				if (neighborCountries.size() > 0) {
+					assertTrue(gameObject.checkAttackPossible());
+				}
+			}
 		}
 	}
 	
