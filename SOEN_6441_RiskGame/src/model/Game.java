@@ -1232,7 +1232,8 @@ public class Game extends Observable implements Serializable {
 	 * This method is used to save game in a text file while playing
 	 * @return filename of saved Game
 	 */
-	public boolean writeObjectToSaveMyGame() {
+	public String writeObjectToSaveMyGame() {
+		
 		// Get the current time and date
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
@@ -1247,11 +1248,10 @@ public class Game extends Observable implements Serializable {
 			ObjectOut.close();
 			fileOut.close();
 			System.out.println("Game has been saved at this location: " +filePath);
-			return true;
 		} catch (IOException ex) {
 			System.out.println("IOException: " + ex.getMessage());
-			return false;
 		}
+		return saveGameFileWithTime;
 	}
 
 	/**

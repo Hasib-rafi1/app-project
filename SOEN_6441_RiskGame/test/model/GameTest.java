@@ -10,6 +10,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
+
 import controller.GameController;
 import helper.GameMode;
 import helper.GamePhase;
@@ -23,7 +24,7 @@ import strategies.Random;
 
 // TODO: Auto-generated Javadoc
 /**
- * This test Class deals with the game model class. It will check the game play by executing the game automatically .
+ * This test Class deals with the game model class. It will tests the game play by executing the game automatically .
  *  
  * @author Hasibul Huq
  *
@@ -91,14 +92,10 @@ public class GameTest {
 		gameObject.addPlayer(player4);
 		gameObject.addPlayer(player5);
 		gameObject.startGame();
-		
-		
-		 
-		 
+				 
 		while (gameObject.getGamePhase() == GamePhase.Startup) {
 			// Randomly increase army for the country of player
 			ArrayList<Country> playerCountries = gameObject.getCurrentPlayerCountries();
-
 			gameObject.addingCountryArmy(playerCountries.get(id).getCountryName());
 
 			id++;
@@ -230,29 +227,31 @@ public class GameTest {
 			fileInput.close();
 			
 			
-			ArrayList<Player> playerList1 = testGameObject.getAllPlayers(); // expected
-			int getSizeOfExpectedList = playerList1.size();
-			ArrayList<Player> playerList2 = gameObject.getAllPlayers(); // actual
-			int getSizeOfActualList = playerList2.size();
+			ArrayList<Player> expectedPlayerList = testGameObject.getAllPlayers(); // expected
+			int getSizeOfExpectedList = expectedPlayerList.size();
+			
+			ArrayList<Player> actualPlayerList = gameObject.getAllPlayers(); // actual
+			int getSizeOfActualList = actualPlayerList.size();
 			
 			assertEquals(getSizeOfExpectedList,getSizeOfActualList);
 			
-			
-			int armySize1[] = new int[getSizeOfExpectedList];
-			int armySize2[] = new int[getSizeOfActualList];
+			// check for the army count from expected and actual list
+			int expectedArmyCountSize[] = new int[getSizeOfExpectedList];
+			int actualArmyCountSize[] = new int[getSizeOfActualList];
 			int i = 0;
-			for(Player expectedList : playerList1) {
-				armySize1[i] = expectedList.getNumberOfReinforcedArmies();
-				i++;
-			}
-			i = 0;
-			for(Player actualList : playerList2) {
-				armySize2[i] = actualList.getNumberOfReinforcedArmies();
+			for(Player expectedList : expectedPlayerList) {
+				expectedArmyCountSize[i] = expectedList.getNumberOfReinforcedArmies();
 				i++;
 			}
 			
-			for (i = 0; i < armySize2.length; i++) {
-				assertEquals(armySize1[i], armySize2[i]);
+			i = 0;
+			for(Player actualList : actualPlayerList) {
+				actualArmyCountSize[i] = actualList.getNumberOfReinforcedArmies();
+				i++;
+			}
+			
+			for (i = 0; i < actualArmyCountSize.length; i++) {
+				assertEquals(expectedArmyCountSize[i], actualArmyCountSize[i]);
 			}
 	
 		} catch (Exception e) {
@@ -260,6 +259,47 @@ public class GameTest {
 		}
 	}
 	
+	@Test
+	public void testGameIsLoadedOrNot(){
+		String gameNameEnteredByUser = gameObject.writeObjectToSaveMyGame();
+		
+		//String gameNameEnteredByUser = "04-Apr-2019_0439";
+		//String filePath = ".\\src\\savedGames\\" + gameNameEnteredByUser+ ".txt";
+		model.Game testGameLoadObject = gameObject.readSavedObjectToloadGame(gameNameEnteredByUser);	
+
+		ArrayList<Player> expectedPlayerList = testGameLoadObject.getAllPlayers(); // expected
+		int getSizeOfExpectedList = expectedPlayerList.size();
+		
+		ArrayList<Player> actualPlayerList = gameObject.getAllPlayers(); // actual
+		int getSizeOfActualList = actualPlayerList.size();
+		
+		assertEquals(getSizeOfExpectedList,getSizeOfActualList);
+		
+		
+		// check for the army size count
+		int expectedArmyCountSize[] = new int[getSizeOfExpectedList];
+		int actualArmyCountSize[] = new int[getSizeOfActualList];
+		
+		int i = 0;
+		for(Player expectedList : expectedPlayerList) {
+			expectedArmyCountSize[i] = expectedList.getNumberOfReinforcedArmies();
+			i++;
+		}
+		
+		i = 0;
+		for(Player actualList : actualPlayerList) {
+			actualArmyCountSize[i] = actualList.getNumberOfReinforcedArmies();
+			i++;
+		}
+		
+		for (i=0;i<actualArmyCountSize.length;i++) {
+			assertEquals(expectedArmyCountSize[i],actualArmyCountSize[i]);
+		}
+	}
+	
+	/**
+	 * Tournament test.
+	 */
 	@Test
 	public void tournamentTest() {
 
