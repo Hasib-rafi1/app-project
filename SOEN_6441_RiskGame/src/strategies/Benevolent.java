@@ -74,7 +74,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 
 	/**
 	 * Method to execute reinforcement for the benevolent strategy
-	 * @param player
+	 * @param player Player object information
 	 */
 	@Override
 	public boolean reinforce(Player player) {
@@ -122,7 +122,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	
 	/**
 	 * Method to execute fortification for the benevolent strategy
-	 * @param player
+	 * @param player Player object information
 	 */
 	@Override
 	public boolean fortify(Player player) {

@@ -55,7 +55,7 @@ public class Game extends Observable implements Serializable {
 	/** The MINIMUM REINFORCEMEN plAYERS. */
 	private int MINIMUM_REINFORCEMENT_PlAYERS = 3;
 
-	
+
 
 	/** The initial source country. */
 	private String initialSourceCountry;
@@ -65,7 +65,7 @@ public class Game extends Observable implements Serializable {
 
 	/** The player list. */
 	private ArrayList<Player> playerList = new ArrayList<Player>();
-	
+
 	/** The connected own countries. */
 	private ArrayList<String> connectedOwnCountries = new ArrayList<String>();
 
@@ -91,10 +91,10 @@ public class Game extends Observable implements Serializable {
 	private int maxTurnsForTournament;
 	/** The CardView*/
 	CardView cardview = new CardView(this);
-	
+
 	public Player winner = null; 
 	public boolean draw = false;
-	
+
 	/**
 	 * Instantiates a new game.
 	 * @param map the map
@@ -813,18 +813,18 @@ public class Game extends Observable implements Serializable {
 	public ArrayList<String> getOthersNeighbouringCountriesOnly(String countryName) {
 		ArrayList<String> allowableAttackingArmies = new ArrayList<String>();
 
-			Country c = mapModel.getCountryFromName(countryName);
-			Player currentPlayer = this.getCurrentPlayer();
-			ArrayList<Country> countryList = playerCountry.get(currentPlayer);
+		Country c = mapModel.getCountryFromName(countryName);
+		Player currentPlayer = this.getCurrentPlayer();
+		ArrayList<Country> countryList = playerCountry.get(currentPlayer);
 
-			if (c != null) {
-				allowableAttackingArmies = c.getStringsOfNeighbours();
-				for (Country country : countryList) {
-					String countryName1 = country.getCountryName();
-					allowableAttackingArmies.remove(countryName1);
-				}
-
+		if (c != null) {
+			allowableAttackingArmies = c.getStringsOfNeighbours();
+			for (Country country : countryList) {
+				String countryName1 = country.getCountryName();
+				allowableAttackingArmies.remove(countryName1);
 			}
+
+		}
 		return allowableAttackingArmies;
 	}
 
@@ -936,7 +936,7 @@ public class Game extends Observable implements Serializable {
 		}else {
 			for (String countryName : attackerPossibleCountries) {
 				ArrayList<String> neighborCountries = getOthersNeighbouringCountriesOnly(countryName);
-				
+
 				if (neighborCountries.size() > 0) {
 					return true;
 				}
@@ -1147,7 +1147,7 @@ public class Game extends Observable implements Serializable {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Sets the game mode
 	 * @param gameMode game mode
@@ -1155,7 +1155,7 @@ public class Game extends Observable implements Serializable {
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
 	}
-	
+
 	/**
 	 * Automates the Current Phase
 	 */
@@ -1171,8 +1171,8 @@ public class Game extends Observable implements Serializable {
 			Country country = countryList.get(random);
 			System.out.println("\n\n ***************Assigning the initial army to the player*************** \n\n");
 			boolean success = addingStartupCountryArmy(country.getCountryName());
-			
-//			notifyObserverslocal(this);
+
+			//			notifyObserverslocal(this);
 			if(success){
 				setupNextPlayerTurn();
 			}
@@ -1228,37 +1228,17 @@ public class Game extends Observable implements Serializable {
 	}
 
 
-
-/*	public String saveGamePlay() {
-		// Saving the game file with the date time format
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
-		String saveGameFileWithTime = dateFormat.format(cal.getTime());
-
-		// save game object on this path 					
-		String filePath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
-
-		try {
-			FileOutputStream fileOut = new FileOutputStream(filePath);
-			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-			objectOut.writeObject(this);
-			objectOut.close();
-			System.out.println("******* The Game is succesfully saved to a file ********");
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return saveGameFileWithTime;
-	}*/
-	
-	
 	/**
 	 * This method is used to save game in a text file while playing
 	 * @return filename of saved Game
 	 */
 	public boolean writeObjectToSaveMyGame() {
+		// Get the current time and date
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
 		String saveGameFileWithTime = dateFormat.format(cal.getTime());
+		
+		// Folder path to save game
 		String filePath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
 		try {
 			FileOutputStream fileOut = new FileOutputStream(filePath);			
@@ -1297,6 +1277,9 @@ public class Game extends Observable implements Serializable {
 		return gameObj;
 	}
 
+	/**
+	 * This is used to initialize sequence
+	 */
 	public void initializeAutoSequence(){
 		while (!getCurrentPlayer().getPlayerStrategy().isHuman() && !this.isMapConcured()){
 			automateCurrentPhase();
@@ -1306,11 +1289,16 @@ public class Game extends Observable implements Serializable {
 		}
 
 	}
+	
+	
+	/**
+	 * This is used to exchange the cards automatically.
+	 */
 	public void automateExchange() {
 		gamePhaseDetails.add(
 				"Player: "+
 						getCurrentPlayer().getPlayerName()+"Card:"+
-				getCurrentPlayer().getCards().size());
+						getCurrentPlayer().getCards().size());
 		if(getCurrentPlayer().getCards().size()>2) {
 			Card firstCard = getCurrentPlayer().getCards().get(0);
 			Card secondCard= getCurrentPlayer().getCards().get(1);
@@ -1318,32 +1306,32 @@ public class Game extends Observable implements Serializable {
 			Map<Card, Integer> counts = new HashMap<Card, Integer>();
 
 			for (Card str : getCurrentPlayer().getCards()) {
-			    if (counts.containsKey(str)) {
-			        counts.put(str, counts.get(str) + 1);
-			    } else {
-			        counts.put(str, 1);
-			    }
+				if (counts.containsKey(str)) {
+					counts.put(str, counts.get(str) + 1);
+				} else {
+					counts.put(str, 1);
+				}
 			}
 			ArrayList<Card> diffCard = getCurrentPlayer().getCards().stream().distinct().collect(Collectors.toCollection(ArrayList::new));
 			if(diffCard.size()>2) {
 				firstCard = diffCard.get(0);
-		    	secondCard = diffCard.get(1);
-		    	thirdCard = diffCard.get(2);
+				secondCard = diffCard.get(1);
+				thirdCard = diffCard.get(2);
 			}
 			else {
 				for(Map.Entry<Card, Integer> entry : counts.entrySet()) {
-				    Card key = entry.getKey();
-				    int value = entry.getValue();
-				    if(value>2) {
-				    	firstCard = key;
-				    	secondCard = key;
-				    	thirdCard = key;
-				    	break;
-				    }
+					Card key = entry.getKey();
+					int value = entry.getValue();
+					if(value>2) {
+						firstCard = key;
+						secondCard = key;
+						thirdCard = key;
+						break;
+					}
 				}
 			}
-			
-			
+
+
 			boolean sameRiskCards = (firstCard == secondCard) && (secondCard == thirdCard);
 			boolean differentRiskCards = (firstCard != secondCard) && (secondCard != thirdCard) && (firstCard != thirdCard);
 			if(sameRiskCards || differentRiskCards){
@@ -1357,11 +1345,14 @@ public class Game extends Observable implements Serializable {
 				addRiskCardToDeck(secondCard);
 				addRiskCardToDeck(thirdCard);
 				notifyObserverslocal(this);
-				
+
 			}
 		}
 	}
 
+	/**
+	 *  Working of tournament mode displayed in console
+	 */
 	public void tournamentMode(){
 		int turnsCounts = 0;
 
@@ -1383,7 +1374,7 @@ public class Game extends Observable implements Serializable {
 		}
 
 		// Print status of players
-//		this.printPlayerStatus();
+		//		this.printPlayerStatus();
 		while (true) {
 			System.out.println("\n\n ***************Performing Reinforcement for the player*************** \n\n");
 			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
@@ -1431,22 +1422,22 @@ public class Game extends Observable implements Serializable {
 			this.updateGame();
 
 			// Print status of players
-//			this.printPlayerStatus();
-			
+			//			this.printPlayerStatus();
+
 
 			turnsCounts++;
 			if (turnsCounts >= getMaxTurnsForTournament()) {
 				for(Player selectPlayer:playerList) {
-					selectPlayer.setNoOfCountries(playerCountry.get(selectPlayer).size());					
+					selectPlayer.setNumberOfCountries(playerCountry.get(selectPlayer).size());					
 				}
 				winner = getCurrentPlayer();
 				for(Player selectPlayer:playerList) {
-					if(winner.getNoOfCountries()<selectPlayer.getNoOfCountries()) {
+					if(winner.getNumberOfCountries()<selectPlayer.getNumberOfCountries()) {
 						winner = selectPlayer;
 					} 					
 				}
 				for(Player selectPlayer:playerList) {
-					if(winner!=selectPlayer && winner.getNoOfCountries()==selectPlayer.getNoOfCountries()) {
+					if(winner!=selectPlayer && winner.getNumberOfCountries()==selectPlayer.getNumberOfCountries()) {
 						draw = true;
 					}  					
 				}
@@ -1461,16 +1452,29 @@ public class Game extends Observable implements Serializable {
 		notifyObserverslocal(this);
 	}
 
+	/**
+	 * Gets the winner.
+	 * @return the winner
+	 */
 	public Player getWinner() {
 		return winner;
 	}
 
 
-
+	/**
+	 * Gets the max turns for tournament.
+	 *
+	 * @return the max turns for tournament
+	 */
 	public int getMaxTurnsForTournament() {
 		return maxTurnsForTournament;
 	}
 
+	/**
+	 * Sets the max turns for tournament.
+	 *
+	 * @param maxTurnsForTournament the new max turns for tournament
+	 */
 	public void setMaxTurnsForTournament(int maxTurnsForTournament) {
 		this.maxTurnsForTournament = maxTurnsForTournament;
 	}
