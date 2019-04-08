@@ -59,8 +59,8 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	
 	/**
 	 * Gets the Minimum number of armies of the weakest country that belongs to benevolent
-	 * @param player
-	 * @return returnVal
+	 * @param player Player Information
+	 * @return returnVal value of minimum armies
 	 */
 	public int getMinimumArmies(Player player) {
 		int returnVal = Integer.MAX_VALUE;
@@ -111,7 +111,7 @@ public class Benevolent implements PlayerStrategy,Serializable{
 	
 	/**
 	 * Method to execute attack for the benevolent strategy
-	 * @param player
+	 * @param player Player Information
 	 */
 	@Override
 	public boolean attack(Player player) {

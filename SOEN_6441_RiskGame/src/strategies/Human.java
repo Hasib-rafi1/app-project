@@ -36,7 +36,7 @@ public class Human implements PlayerStrategy, Serializable {
 
     /**
 	 * Method to execute reinforcement for the human strategy
-	 * @param player
+	 * @param player Player Information
 	 */
     public boolean reinforce(Player player){
 
@@ -64,8 +64,8 @@ public class Human implements PlayerStrategy, Serializable {
 
     /**
      * Method that performs decreasing reinforcement and increasing army count for human reinforcement
-     * @param player
-     * @param country
+     * @param player player information
+     * @param country country information
      */
     public void assignReinforcement(Player player, Country country){
         player.decreaseReinforcementArmy();
@@ -74,7 +74,7 @@ public class Human implements PlayerStrategy, Serializable {
 
     /**
 	 * Method to execute attack for the human strategy
-	 * @param player
+	 * @param player Player Information
 	 */
     public boolean attack(Player player){
 
@@ -139,7 +139,7 @@ public class Human implements PlayerStrategy, Serializable {
 
     /**
 	 * Method to execute fortification for the human strategy
-	 * @param thisPlayer
+	 * @param thisPlayer player information
 	 */
     public boolean fortify(Player thisPlayer){
 
@@ -159,10 +159,10 @@ public class Human implements PlayerStrategy, Serializable {
 
     /**
      * Method that checks the fortification condition
-     * @param sourceCountry
-     * @param destinationCountry
-     * @param armies
-     * @return
+     * @param sourceCountry Source countries
+     * @param destinationCountry destination countries
+     * @param armies number of armies
+     * @return TRUE if there are are armies otherwiese false
      */
     public boolean checkFortificationCondition(Country sourceCountry, Country destinationCountry, int armies) {
         if (sourceCountry == null || destinationCountry == null) {

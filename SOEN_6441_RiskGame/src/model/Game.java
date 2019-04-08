@@ -1125,10 +1125,10 @@ public class Game extends Observable implements Serializable {
 
 	/**
 	 * Checks if the Attacker and Defender operation is valid 
-	 * @param attCountry
-	 * @param defCountry
-	 * @param defendergDiceCount
-	 * @return
+	 * @param attCountry attacker country
+	 * @param defCountry defender country
+	 * @param defendergDiceCount  dice count for defender country
+	 * @return true otherwise false
 	 */
 	public boolean isAttackerDefenderValid(Country attCountry,Country  defCountry,int defendergDiceCount) {
 		if (attCountry == null || defCountry == null) {
@@ -1150,7 +1150,7 @@ public class Game extends Observable implements Serializable {
 	
 	/**
 	 * Sets the game mode
-	 * @param gameMode
+	 * @param gameMode game mode
 	 */
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;

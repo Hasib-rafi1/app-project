@@ -11,9 +11,9 @@ public class RandomNumber {
 
 	/**
 	 * Method to generate a random number 
-	 * @param min
-	 * @param max
-	 * @return
+	 * @param min minimum numbers
+	 * @param max maximum numbers
+	 * @return random value
 	 */
     public static int getRandomNumberInRange(int min, int max) {
         if(min == max)

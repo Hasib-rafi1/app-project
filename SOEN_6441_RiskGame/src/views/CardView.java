@@ -165,7 +165,7 @@ public  class CardView implements Observer, Serializable{
 	
 	/**
 	 * Updates the CardView window
-	 * @param game
+	 * @param game Game object
 	 */
 	public void updateCardView(Game game) {
 

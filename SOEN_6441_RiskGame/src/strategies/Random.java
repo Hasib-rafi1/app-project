@@ -39,7 +39,7 @@ public class Random implements PlayerStrategy, Serializable {
 	
 	/**
 	 * Method to execute reinforcement for the random strategy
-	 * @param player
+	 * @param player Player Information
 	 */
 	public boolean reinforce(Player player){
 
@@ -61,7 +61,7 @@ public class Random implements PlayerStrategy, Serializable {
 
 	/**
 	 * Method to execute attack for the random strategy
-	 * @param player
+	 * @param player Player Information
 	 */
 	public boolean attack(Player player){
 		int totalAttack = RandomNumber.getRandomNumberInRange(1, 10);
@@ -172,7 +172,7 @@ public class Random implements PlayerStrategy, Serializable {
 
 	/**
 	 * Method to execute fortification for the random strategy
-	 * @param player
+	 * @param player Player information
 	 */
 	public boolean fortify(Player player){
 		ArrayList<Country> countryList = player.getattackPlayerCountry().get(player);

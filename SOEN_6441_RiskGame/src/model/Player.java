@@ -90,7 +90,7 @@ public class Player implements Serializable{
 	
 	/**
 	 * Sets the RiskCards of the game
-	 * @param riskCards
+	 * @param riskCards Risk cards
 	 */
 	public void setRiskCards(Card riskCards) {
 		this.riskCards = riskCards;
@@ -98,7 +98,7 @@ public class Player implements Serializable{
 
 	/**
 	 * Sets the Source Country for fortification
-	 * @param country
+	 * @param country country list
 	 */
 	public void setFortifySourceCountry(Country country){
 		this.fortifySourceCountry = country;
@@ -114,7 +114,7 @@ public class Player implements Serializable{
 
 	/**
 	 * Sets the destination country for fortification
-	 * @param country 
+	 * @param country  Country list
 	 */
 	public void setFortifyDestinationCountry(Country country){
 		this.fortifyDestinationCountry = country;
@@ -130,7 +130,7 @@ public class Player implements Serializable{
 
 	/**
 	 * Sets the armies for fortification
-	 * @param armies
+	 * @param armies number of armies
 	 */
 	public void setFortifyArmies(int armies){
 		this.fortifyArmies = armies;
@@ -156,14 +156,18 @@ public class Player implements Serializable{
 
     private Country reinforceCountry;
     private ArrayList<Continent> reinforceContinent;
-    /** Gets the reinforcement continent in the arraylist */
+
+	/**
+	 * Gets the reinforcement continent in the arraylist 
+	 * @return the reinforce Continent
+	 */
 	public ArrayList<Continent> getReinforceContinent() {
 		return reinforceContinent;
 	}
 
 	/** 
 	 * Sets the reinforcement continent
-	 * @param reinforceContinent
+	 * @param reinforceContinent Reinforced continent
 	 */
 	public void setReinforceContinent(ArrayList<Continent> reinforceContinent) {
 		this.reinforceContinent = reinforceContinent;
@@ -171,7 +175,7 @@ public class Player implements Serializable{
 
 	/**
 	 * Sets the reinforcement country
-	 * @param country
+	 * @param country country list
 	 */
 	public void setReinforceCountry(Country country){
 	    this.reinforceCountry = country;
@@ -213,7 +217,7 @@ public class Player implements Serializable{
 
     /**
      * Sets the  defender player for the the attack
-     * @param attackDefenderPlayer
+     * @param attackDefenderPlayer Player information whether it is attacker or defender
      */
     public void setAttackDefenderPlayer(Player attackDefenderPlayer) {
         this.attackDefenderPlayer = attackDefenderPlayer;
@@ -229,7 +233,7 @@ public class Player implements Serializable{
     
     /**
      * Sets the attacker country for the attack
-     * @param attackAttackerCountry
+     * @param attackAttackerCountry attacker country list
      */
     public void setAttackAttackerCountry(Country attackAttackerCountry) {
         this.attackAttackerCountry = attackAttackerCountry;
@@ -245,7 +249,7 @@ public class Player implements Serializable{
 
     /**
      * Sets the defender country for the attack
-     * @param attackDefenderCountry
+     * @param attackDefenderCountry defender country list
      */
     public void setAttackDefenderCountry(Country attackDefenderCountry) {
         this.attackDefenderCountry = attackDefenderCountry;
@@ -261,7 +265,7 @@ public class Player implements Serializable{
 
     /**
      * Sets the attacker dice count for the attack
-     * @param attackAttackerDiceCount
+     * @param attackAttackerDiceCount count of attacker dice
      */
     public void setAttackAttackerDiceCount(int attackAttackerDiceCount) {
         this.attackAttackerDiceCount = attackAttackerDiceCount;
@@ -277,7 +281,7 @@ public class Player implements Serializable{
 
     /**
      * Sets the defender dice count for the attack
-     * @param attackDefenderDiceCount
+     * @param attackDefenderDiceCount count of defender dice
      */
     public void setAttackDefenderDiceCount(int attackDefenderDiceCount) {
         this.attackDefenderDiceCount = attackDefenderDiceCount;
@@ -293,7 +297,7 @@ public class Player implements Serializable{
     
     /**
      * Sets the player country to attack
-     * @param attackPlayerCountry
+     * @param attackPlayerCountry country list
      */
     public void setAttackPlayerCountry(HashMap<Player, ArrayList<Country>> attackPlayerCountry) {
         this.attackPlayerCountry = attackPlayerCountry;
@@ -309,7 +313,7 @@ public class Player implements Serializable{
 
     /**
      * Sets the game phase details for attack
-     * @param attackGamePhaseDetails
+     * @param attackGamePhaseDetails details of phase in list
      */
     public void setAttackGamePhaseDetails(ArrayList<String> attackGamePhaseDetails) {
         this.attackGamePhaseDetails = attackGamePhaseDetails;
@@ -325,7 +329,7 @@ public class Player implements Serializable{
 
     /**
      * Sets the dice results in the arraylist
-     * @param diceResults
+     * @param diceResults Get the dice results
      */
     public void setDiceResults(ArrayList<Integer> diceResults) {
         this.diceResults = diceResults;
@@ -341,7 +345,7 @@ public class Player implements Serializable{
 
     /**
      * Sets the cards for the player
-     * @param playerCards
+     * @param playerCards Player cards
      */
     public void setPlayerCards(ArrayList<Card> playerCards) {
         this.playerCards = playerCards;

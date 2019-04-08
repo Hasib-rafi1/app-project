@@ -37,7 +37,7 @@ public class Cheater implements PlayerStrategy, Serializable  {
 
 	/**
 	 * Method to execute reinforcement for the cheater strategy
-	 * @param player
+	 * @param player palyer information
 	 */
 	public boolean reinforce(Player player) {
 		for (Country country :  player.getAssignedListOfCountries()) {
@@ -57,7 +57,7 @@ public class Cheater implements PlayerStrategy, Serializable  {
 
 	/**
 	 * Method to execute attack for the cheater strategy
-	 * @param player
+	 * @param player Player Information
 	 */
 	public boolean attack(Player player) {
 		Object[] playersCountries = player.getAssignedListOfCountries().toArray();
@@ -89,7 +89,7 @@ public class Cheater implements PlayerStrategy, Serializable  {
 
 	/**
 	 * Method to execute fortification for the cheater strategy
-	 * @param player
+	 * @param player player information
 	 */
 	public boolean fortify(Player player) {
 		int armiesCount;

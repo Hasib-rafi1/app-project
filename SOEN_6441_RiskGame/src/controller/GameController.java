@@ -10,7 +10,6 @@ import java.util.*;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-
 import helper.GameMode;
 import model.Country;
 import model.Game;
@@ -114,11 +113,11 @@ public class GameController {
 		print.consoleOut("1 -> Single Game Mode. \n2 -> Tournament Mode.");
 		int gameMode = PrintConsoleAndUserInput.userIntInput();
 
+		// Check the game mode
 		if(gameMode == 1){
-
 			int j=1;
-
 			print.listofMapsinDirectory();
+			
 			print.consoleOut("\nEnter Map Name to load Map file:\n");
 			mapModel = new MapModel(); //------Refresh------
 			String mapPath = mapModel.getMapNameByUserInput();
@@ -169,7 +168,6 @@ public class GameController {
 			}
 
 		} else if (gameMode == 2){
-
 			int M = 0, P = 0, G = 0, D = 0;
 			ArrayList<MapModel> mapNamesForTournament = new ArrayList<>();
 			ArrayList<PlayerStrategy> strategiesForTournament = new ArrayList<>();
@@ -227,7 +225,7 @@ public class GameController {
 			}
 
 			while (true) {
-				print.consoleOut("Enter Number of Games you want to play on Each Map (1-5): ");
+				print.consoleOut("**** Enter Number of Games you want to play on Each Map (1-5)****** ");
 				int numberOfGames = PrintConsoleAndUserInput.userIntInput();
 				if (numberOfGames >= 1 && numberOfGames <= 5) {
 					G = numberOfGames;

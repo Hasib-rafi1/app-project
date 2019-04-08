@@ -47,7 +47,7 @@ public class Country implements Serializable{
 	
 	/**
 	 * Gets the active player
-	 * @return
+	 * @return Player Information
 	 */
 	public Player getPlayer() {
 		return player;
@@ -55,7 +55,7 @@ public class Country implements Serializable{
 
 	/**
 	 * Sets the active player to the object
-	 * @param player
+	 * @param player Player Information
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
