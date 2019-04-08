@@ -9,9 +9,17 @@ import java.util.Calendar;
 import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
+
+import controller.GameController;
+import helper.GameMode;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
+import strategies.Aggressive;
+import strategies.Benevolent;
+import strategies.Cheater;
 import strategies.Human;
+import strategies.PlayerStrategy;
+import strategies.Random;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -24,9 +32,12 @@ public class GameTest {
 	
 	/** The map model. */
 	MapModel mapModel;
+	MapModel tournamentMapModel;
 	
 	/** The game object. */
 	Game gameObject;
+	
+	Game tournamentGame;
 	
 	/** The player 1. */
 	Player player1;
@@ -43,9 +54,18 @@ public class GameTest {
 	/** The player 5. */
 	Player player5;
 	
+	/** The Tournament player 1. */
+	Player tourPlayer1;
+	
+	/** The Tournament player 2. */
+	Player tourPlayer2;
+	
+	/** The Tournament player 3. */
+	Player tourPlayer3;
+	/** The Tournament player 4. */
+	Player tourPlayer4;
 	/** The id. */
 	int id =0;
-
 	/**
 	 * Initializing the values and object to start a game .
 	 */
@@ -71,7 +91,10 @@ public class GameTest {
 		gameObject.addPlayer(player4);
 		gameObject.addPlayer(player5);
 		gameObject.startGame();
-
+		
+		
+		 
+		 
 		while (gameObject.getGamePhase() == GamePhase.Startup) {
 			// Randomly increase army for the country of player
 			ArrayList<Country> playerCountries = gameObject.getCurrentPlayerCountries();
@@ -85,6 +108,8 @@ public class GameTest {
 		}
 	}
 
+	
+	
 	/**
 	 * Test method for checking current phase.
 	 */
@@ -233,6 +258,37 @@ public class GameTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void tournamentTest() {
+
+		  tournamentMapModel =new MapModel();
+		  tournamentMapModel.readMapFile(PrintConsoleAndUserInput.getMapDir()+"Africa.map"); 
+		  tournamentGame = new Game(tournamentMapModel);
+		  tournamentGame.setGameMode(GameMode.TournamentMode);
+		  tourPlayer1 = new Player(0,"Benevolent");
+		  tourPlayer2 = new Player(1,"Aggressive");
+		  tourPlayer3 = new Player(2,"Cheater");
+		  tourPlayer4 = new Player(3,"Random");
+		  tourPlayer1.setPlayerStrategy(new Benevolent());
+		  tourPlayer2.setPlayerStrategy(new Aggressive());
+		  tourPlayer3.setPlayerStrategy(new Cheater());
+		  tourPlayer4.setPlayerStrategy(new Random());
+		  tournamentGame.addPlayer(tourPlayer1); 
+		  tournamentGame.addPlayer(tourPlayer2);
+		  tournamentGame.addPlayer(tourPlayer3);
+		  tournamentGame.addPlayer(tourPlayer4);
+		  tournamentGame.setMaxTurnsForTournament(30);
+		  tournamentGame.startGame();
+		  tournamentGame.tournamentMode();
+		  if(tournamentGame.isMapConcured()) {
+			  System.out.println(tournamentGame.getCurrentPlayer());
+			  System.out.println(tournamentGame.getWinner());
+			  assertEquals(tournamentGame.getCurrentPlayer(), tournamentGame.getWinner());
+		  }else {
+			  assertEquals(GamePhase.Draw, tournamentGame.getGamePhase());
+		  }
 	}
 	
 	
