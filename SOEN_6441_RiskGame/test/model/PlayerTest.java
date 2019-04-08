@@ -45,6 +45,7 @@ public class PlayerTest {
 	/** The player 5. */
 	Player player5;
 
+	/** The country 2. */
 	/* The Country Object*/
 	Country country1, country2;
 
@@ -180,6 +181,10 @@ public class PlayerTest {
 		objPlayertest.decreaseReinforcementArmy();
 		System.out.println("Decrease Reinforced Army:"+objPlayertest.getNumberOfReinforcedArmies());
 	}
+	
+	/**
+	 * Test check fortification condition.
+	 */
 	@Test
 	public void testCheckFortificationCondition(){
 		assertTrue(objPlayertest.checkFortificationCondition(country1,country2,country2.getnoOfArmies()));
@@ -187,7 +192,7 @@ public class PlayerTest {
 	}
 
 	/**
-	 * This is used to test Move armies after attack
+	 * This is used to test Move armies after attack.
 	 */
 	@Test
 	public void moveArmiesAfterAttackTest()
