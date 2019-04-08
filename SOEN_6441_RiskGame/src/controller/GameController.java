@@ -558,7 +558,7 @@ public class GameController {
 				}
 //				TournamentModeResultView.callTournamentResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
 
-//				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
+				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 			}
 		});
 	}

@@ -1436,24 +1436,10 @@ public class Game extends Observable implements Serializable {
 
 			turnsCounts++;
 			if (turnsCounts >= getMaxTurnsForTournament()) {
-				for(Player selectPlayer:playerList) {
-					selectPlayer.setNoOfCountries(playerCountry.get(selectPlayer).size());					
-				}
-				winner = getCurrentPlayer();
-				for(Player selectPlayer:playerList) {
-					if(winner.getNoOfCountries()<selectPlayer.getNoOfCountries()) {
-						winner = selectPlayer;
-					} 					
-				}
-				for(Player selectPlayer:playerList) {
-					if(winner!=selectPlayer && winner.getNoOfCountries()==selectPlayer.getNoOfCountries()) {
-						draw = true;
-					}  					
-				}
-				if(draw) {
-					this.setGamePhase(GamePhase.Draw);
-					print.consoleOut("Tournament draw after " + turnsCounts + " turns");
-				}
+
+				this.setGamePhase(GamePhase.Draw);
+				print.consoleOut("Tournament draw after " + turnsCounts + " turns");
+
 				break;
 			}
 		}
