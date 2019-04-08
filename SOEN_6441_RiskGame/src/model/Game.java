@@ -1237,7 +1237,7 @@ public class Game extends Observable implements Serializable {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy_hhmm");
 		String saveGameFileWithTime = dateFormat.format(cal.getTime());
-		
+
 		// Folder path to save game
 		String filePath = ".\\src\\savedGames\\" + saveGameFileWithTime+ ".txt";
 		try {
@@ -1289,8 +1289,8 @@ public class Game extends Observable implements Serializable {
 		}
 
 	}
-	
-	
+
+
 	/**
 	 * This is used to exchange the cards automatically.
 	 */
@@ -1427,24 +1427,10 @@ public class Game extends Observable implements Serializable {
 
 			turnsCounts++;
 			if (turnsCounts >= getMaxTurnsForTournament()) {
-				for(Player selectPlayer:playerList) {
-					selectPlayer.setNumberOfCountries(playerCountry.get(selectPlayer).size());					
-				}
-				winner = getCurrentPlayer();
-				for(Player selectPlayer:playerList) {
-					if(winner.getNumberOfCountries()<selectPlayer.getNumberOfCountries()) {
-						winner = selectPlayer;
-					} 					
-				}
-				for(Player selectPlayer:playerList) {
-					if(winner!=selectPlayer && winner.getNumberOfCountries()==selectPlayer.getNumberOfCountries()) {
-						draw = true;
-					}  					
-				}
-				if(draw) {
-					this.setGamePhase(GamePhase.Draw);
-					print.consoleOut("Tournament draw after " + turnsCounts + " turns");
-				}
+
+				this.setGamePhase(GamePhase.Draw);
+				print.consoleOut("Tournament draw after " + turnsCounts + " turns");
+
 				break;
 			}
 		}
