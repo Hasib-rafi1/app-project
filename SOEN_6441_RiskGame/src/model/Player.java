@@ -76,6 +76,7 @@ public class Player implements Serializable{
 	private int fortifyArmies;
 	/** Player List*/
 	private ArrayList<Player> playerList;
+	private int noOfCountries;
 
 
 
@@ -997,5 +998,14 @@ public class Player implements Serializable{
 		default:
 			return Colors.BLACK;
 		}
+	}
+
+	public void setNoOfCountries(int size) {
+		noOfCountries = size;
+		
+	}
+
+	public int getNoOfCountries() {
+		return noOfCountries;
 	}
 }

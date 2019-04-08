@@ -215,9 +215,9 @@ public class GameController {
 						} else if (playerStrategyName == 2) {
 							strategiesForTournament.add(new Benevolent());
 						} else if (playerStrategyName == 3) {
-							strategiesForTournament.add(new Random());
-						} else if (playerStrategyName == 4) {
 							strategiesForTournament.add(new Cheater());
+						} else if (playerStrategyName == 4) {
+							strategiesForTournament.add(new Random());
 //							break;
 						} else {
 							print.consoleErr("For Tournament Select the Strategies between 1-4");
@@ -258,22 +258,24 @@ public class GameController {
 								strategiesForTournament.get(playerStrategyAsPlayerName).getStrategyName());
 						player.setPlayerStrategy(strategiesForTournament.get(playerStrategyAsPlayerName));
 						game.addPlayer(player);
+						System.out.println(player.getPlayerStrategy().getStrategyName());
 					}
 
 					game.startGame();
-
+					System.out.println(i +""+j);
 					game.tournamentMode();
 
 					// add result
 					if (game.getGamePhase() == GamePhase.Draw) {
 						resultForOneMap.add("DRAW");
 					} else {
-						resultForOneMap.add(game.getCurrentPlayer().getPlayerName());
+						resultForOneMap.add(game.getWinner().getPlayerStrategy().getStrategyName());
 					}
 				}
 				tournamentResult.put(mapNamesForTournament.get(i).getMapName(), resultForOneMap);
-
+				
 			}
+			System.out.println(tournamentResult.toString());
 			TournamentModeResultView.callTournamentResult(M,G,D, tournamentResult,strategiesForTournament);
 
 

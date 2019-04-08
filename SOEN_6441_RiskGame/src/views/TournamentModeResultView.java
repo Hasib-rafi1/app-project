@@ -5,11 +5,15 @@ import model.Game;
 import strategies.PlayerStrategy;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class TournamentModeResultView {
     public static JPanel panelTournamnetModeResultView;
@@ -45,7 +49,7 @@ public class TournamentModeResultView {
 
 
         String[] getMapsUserUsed = tournamentResult.keySet().toArray(new String[tournamentResult.keySet().size()]);
-        String headers[] = {"Map1","Map2"};
+        // String headers[] = {"Map1","Map2"};
         // Putting the data in a table
         ListModel lm = new AbstractListModel() {
             public int getSize() { return getMapsUserUsed.length; }
@@ -53,21 +57,21 @@ public class TournamentModeResultView {
                 return getMapsUserUsed[index];
             }
         };
-//        table = new JTable(rowData, playerNamesInTableColumns );
+        table = new JTable(toTableModel(tournamentResult));
         table.setEnabled(false);
-        table.getTableHeader().setBackground(Color.pink);
-        rowHeader = new JList(lm);
-        rowHeader.setFixedCellWidth(150);
-        rowHeader.setFixedCellHeight(table.getRowHeight() + table.getRowMargin());
-        rowHeader.setCellRenderer(new JTableRowNameDominationView(table));
+//        table.getTableHeader().setBackground(Color.pink);
+//        rowHeader = new JList(lm);
+//        rowHeader.setFixedCellWidth(150);
+//        rowHeader.setFixedCellHeight(table.getRowHeight() + table.getRowMargin());
+//        rowHeader.setCellRenderer(new JTableRowNameDominationView(table));
 
         //*****
         frameTournamnetModeResultView = new JFrame("Congratulations");
         panelTournamnetModeResultView = new JPanel();
         frameTournamnetModeResultView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        label = new JLabel("<html>M: [Map1, Map2]<br><html>" +"P:[Aggressive, Cheater]<br>"
-                +"G:"+G+"<br>"+"D:"+D);
-        label.setBounds(10, 10, 220, 40);
+//        label = new JLabel("<html>M: [Map1, Map2]<br><html>" +"P:[Aggressive, Cheater]<br>"
+//                +"G:"+G+"<br>"+"D:"+D);
+//        label.setBounds(10, 10, 220, 40);
         panelTournamnetModeResultView.add(label);
         frameTournamnetModeResultView.add(panelTournamnetModeResultView);
         frameTournamnetModeResultView.setVisible(true);
@@ -85,4 +89,13 @@ public class TournamentModeResultView {
         frameTournamnetModeResultView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+        public static TableModel toTableModel(Map<?,?> map) {
+            DefaultTableModel model = new DefaultTableModel(
+                new Object[] { "Key", "Value" }, 0
+            );
+            for (Map.Entry<?,?> entry : map.entrySet()) {
+                model.addRow(new Object[] { entry.getKey(), entry.getValue() });
+            }
+            return model;
+        }
 }
