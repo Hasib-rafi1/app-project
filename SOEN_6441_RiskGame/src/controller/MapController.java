@@ -85,7 +85,7 @@ public class MapController {
 	 *
 	 */
 	public void createAndSaveUserMap() {
-		mapModel = new MapModel();//----refresh----
+		mapModel = new MapModel();
 		mapView.createJframe();
 		mapView.saveButton.addActionListener(new ActionListener() {
 			@Override
@@ -110,7 +110,7 @@ public class MapController {
 	 * This method is used to check if the entered map file name is exists in directory or not.
 	 */
 	public void checkMapFileExistsOrNot() {
-		mapModel = new MapModel(); //----refresh----
+		mapModel = new MapModel();
 		String mapPath = mapModel.getMapNameByUserInput();
 		File tempFile = new File(mapPath);
 		boolean exists = tempFile.exists();

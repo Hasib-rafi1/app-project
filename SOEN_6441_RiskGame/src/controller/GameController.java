@@ -70,11 +70,6 @@ public class GameController {
 	 * @param mapPath path f the map directory
 	 */
 	public void initializeMap(String mapPath) {
-		//	public void initializeMap() {
-		//		print.listofMapsinDirectory();
-		//		print.consoleOut("\nEnter Map Name to load Map file:\n");
-		//		mapModel = new MapModel(); //------Refresh------
-		//		String mapPath = mapModel.getMapNameByUserInput();
 		File tempFile = new File(mapPath);
 		boolean exists = tempFile.exists();
 		if (exists) {			
@@ -89,14 +84,8 @@ public class GameController {
 	}
 
 	public MapModel getInitializedMapModel() {
-		mapModel = new MapModel(); //------Refresh------
-		//        ArrayList<String> mapNamesListForTournament= new ArrayList<>();
+		mapModel = new MapModel();
 		String mapPath = mapModel.getMapNameByUserInput();
-		//        if(!mapNamesListForTournament.contains(mapPath)){
-		//            mapNamesListForTournament.add(mapPath);
-		//        }else {
-		//            print.consoleOut("Please Different Names For the Maps You want to play On");
-		//        }
 		System.out.println(mapPath);
 		initializeMap(mapPath);
 		return mapModel;
@@ -119,7 +108,7 @@ public class GameController {
 			print.listofMapsinDirectory();
 			
 			print.consoleOut("\nEnter Map Name to load Map file:\n");
-			mapModel = new MapModel(); //------Refresh------
+			mapModel = new MapModel();
 			String mapPath = mapModel.getMapNameByUserInput();
 			initializeMap(mapPath);
 
@@ -186,7 +175,7 @@ public class GameController {
 			print.consoleOut("Enter '" + M + "' Different Map Names from following list: ");
 			print.listofMapsinDirectory();
 			for (int i = 0; i < M; i++) {
-				mapModel = new MapModel(); //------Refresh------
+				mapModel = new MapModel();
 				mapNamesForTournament.add(getInitializedMapModel());
 			}
 			System.out.println(mapNamesForTournament.size());
@@ -204,9 +193,7 @@ public class GameController {
 			print.consoleOut("Enter '" + P + "' Different Strategies from following list:");
 			print.consoleOut("1. Aggressive \n2. Benevolent \n3. Cheater \n4. Random");
 			for (int i = 0; i < P; i++) {
-//				while (true) {
 					int playerStrategyName = PrintConsoleAndUserInput.userIntInput();
-//					if (!(playerStrategyName < 1 || playerStrategyName > 4)) {
 					if ((playerStrategyName >= 1 && playerStrategyName <= 4)) {
 						if (playerStrategyName == 1) {
 							strategiesForTournament.add(new Aggressive());
@@ -216,12 +203,10 @@ public class GameController {
 							strategiesForTournament.add(new Cheater());
 						} else if (playerStrategyName == 4) {
 							strategiesForTournament.add(new Random());
-//							break;
 						} else {
 							print.consoleErr("For Tournament Select the Strategies between 1-4");
 						}
-//					}
-				}
+					}
 			}
 
 			while (true) {
@@ -259,7 +244,12 @@ public class GameController {
 						System.out.println(player.getPlayerStrategy().getStrategyName());
 					}
 
+					boardView=new BoardView();
+					game.addObserver(boardView);
+
 					game.startGame();
+					game.initializeRiskCards();
+					boardView.gameWindowLoad();
 					System.out.println(i +""+j);
 					game.tournamentMode();
 
@@ -289,33 +279,19 @@ public class GameController {
 	private void callListenerOnView(){
 
 		numberOfArmiesClickListener();
-
 		addSourceCountriesListener();
-
 		addMoveArmyButtonListener();
-
 		addAttackerCountryListener();
-
 		addDefenderCountryListener();
-
 		addActionListenerForWorldDominationView();
-
 		addActionListenerForloadAndSaveGame();
-
 		addAttackButtonListener();
-
 		addAllOutButtonListener();
-
 		addEndAttackButtonListener();
-
 		addAttackMoveArmyButtonListener();
-
 		addSkipButtonListener();
-
 		skipExchangeListener();
-
 		exchangeButtonListener();
-
 		setBoardView();
 
 	}
@@ -556,7 +532,6 @@ public class GameController {
 				for (int armyColumn = 0; armyColumn < dataInTableRows[0].length ; armyColumn++) {
 					dataInTableRows[2][armyColumn] = Integer.toString(numberOfArmies[armyColumn]);
 				}
-//				TournamentModeResultView.callTournamentResult(4,5,10, dataInTableRows,playerNamesInTableColumns);
 
 				worldDominationViewObserver.createJframeForWorldDominationView(dataInTableRows,playerNamesInTableColumns);
 			}

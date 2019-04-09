@@ -7,7 +7,6 @@ import model.Game;
 import views.CardView;
 import views.CardView;
 import views.CardView;
-// TODO: Auto-generated Javadoc
 /**
  * This is a main class to run the game.
  *
