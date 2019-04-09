@@ -33,11 +33,14 @@ public class GameTest {
 	
 	/** The map model. */
 	MapModel mapModel;
+	
+	/** The tournament map model. */
 	MapModel tournamentMapModel;
 	
 	/** The game object. */
 	Game gameObject;
 	
+	/** The tournament game. */
 	Game tournamentGame;
 	
 	/** The player 1. */
@@ -63,10 +66,13 @@ public class GameTest {
 	
 	/** The Tournament player 3. */
 	Player tourPlayer3;
+	
 	/** The Tournament player 4. */
 	Player tourPlayer4;
+	
 	/** The id. */
 	int id =0;
+	
 	/**
 	 * Initializing the values and object to start a game .
 	 */
@@ -103,9 +109,7 @@ public class GameTest {
 				id = 0;
 			}
 		}
-	}
-
-	
+	}	
 	
 	/**
 	 * Test method for checking current phase.
@@ -144,7 +148,7 @@ public class GameTest {
 	}
 	
 	/**
-	 * Test the map is concured or not.
+	 * Test the map is concurred or not.
 	 */
 	@Test
 	public void isMapConcured() {
@@ -155,6 +159,9 @@ public class GameTest {
 		}
 	}
 	
+	/**
+	 * Check attacker defender.
+	 */
 	@Test
 	public void checkAttackerDefender() {
 		Country attCountry = gameObject.playerCountry.get(player1).get(0);
@@ -208,8 +215,9 @@ public class GameTest {
 		
 	}
 	
+
 	/**
-	 * This test case is used to test if the game is saved or not with the currrent time.
+	 * Test game is saved or not.
 	 */
 	@Test
 	public void testGameIsSavedOrNot(){
@@ -259,6 +267,9 @@ public class GameTest {
 		}
 	}
 	
+	/**
+	 * Test game is loaded or not.
+	 */
 	@Test
 	public void testGameIsLoadedOrNot(){
 		String gameNameEnteredByUser = gameObject.writeObjectToSaveMyGame();

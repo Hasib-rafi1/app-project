@@ -38,68 +38,73 @@ public class CountryViewModelTest {
 
 	}
 
+
 	/**
-	 * test method to check if it returns correct country id.
+	 * Test get country id.
 	 */
 	@Test
 	public void testGetCountryId() {
 		assertEquals(1,objCVM.getCountryId());
 	}
 
+
 	/**
-	 * test method to check if it returns correct country name.
+	 * Test get country name.
 	 */
 	@Test
 	public void testGetCountryName() {
 		assertEquals("Canada",objCVM.getCountryName());
 	}
 
-	/**
-	 * test method to check if it returns correct xCoordinate value.
-	 */
 
+	/**
+	 * Test getx coordinate.
+	 */
 	@Test
 	public void testGetxCoordinate() {
 		assertEquals(120,objCVM.getxCoordinate());
 	}
 
-	/**
-	 * test method to check if it returns correct yCoordinate value.
-	 */
 
+
+	/**
+	 * Test gety coordinate.
+	 */
 	@Test
 	public void testGetyCoordinate() {
 		assertEquals(100,objCVM.getyCoordinate());
 	}
 
-	/**
-	 * test method to check if it returns correct number of armies.
-	 */
 
+
+	/**
+	 * Test getnumber of armies.
+	 */
 	@Test
 	public void testGetnumberOfArmies() {
 		assertEquals(4,objCVM.getNumberOfArmies());
 	}
 
 	/**
-	 * method that tests if it returns the correct value for the color of the country.
+	 * Test get color of country.
 	 */
 	@Test
 	public void testGetColorOfCountry() {
 		assertEquals(Colors.GREEN,objCVM.getColorOfCountry());
 	}
 
-	/**
-	 * method that tests if it returns the correct value for the player id.
-	 */
 
+	/**
+	 * Test get player id.
+	 */
 	@Test
 	public void testGetPlayerId() {
 		assertEquals(1,objCVM.getPlayerID());
 	}
 
+
 	/**
-	 * method that tests if it fetches the neighbours from the list.
+	 * Test get neighbours.
 	 */
 	@Test
 	public void testGetNeighbours() {
