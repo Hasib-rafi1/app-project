@@ -20,36 +20,37 @@ import org.junit.Test;
  * @version 1.0.0
  */
 public class PlayerTest {
-	
+
 	/** Declaring objects. */
 
 	Player objPlayertest;
-	
+
 	/** The map model. */
 	MapModel mapModel;
-	
+
 	/** The game object. */
 	Game gameObject;
-	
+
 	/** The player 1. */
 	Player player1;
-	
+
 	/** The player 2. */
 	Player player2;
-	
+
 	/** The player 3. */
 	Player player3;
-	
+
 	/** The player 4. */
 	Player player4;
-	
+
 	/** The player 5. */
 	Player player5;
 
+	/** The country 2. */
 	/* The Country Object*/
 	Country country1, country2;
 
-	
+
 	/** The id. */
 	int id =0;
 
@@ -69,7 +70,7 @@ public class PlayerTest {
 		country1.setnoOfArmies(3);
 		country2.setnoOfArmies(2);
 		mapModel = new MapModel();
-//		mapModel.readMapFile("src/mapFiles/World.map");
+		//		mapModel.readMapFile("src/mapFiles/World.map");
 		mapModel.readMapFile(PrintConsoleAndUserInput.getMapDir()+"World.map");
 		gameObject = new Game(mapModel);
 		player1 = new Player(0,"Jai");
@@ -181,6 +182,10 @@ public class PlayerTest {
 		objPlayertest.decreaseReinforcementArmy();
 		System.out.println("Decrease Reinforced Army:"+objPlayertest.getNumberOfReinforcedArmies());
 	}
+
+	/**
+	 * Test check fortification condition.
+	 */
 	@Test
 	public void testCheckFortificationCondition(){
 		assertTrue(objPlayertest.checkFortificationCondition(country1,country2,country2.getnoOfArmies()));
@@ -188,38 +193,39 @@ public class PlayerTest {
 	}
 
 	/**
-	 * This is used to test Move armies after attack
+	 * This is used to test Move armies after attack.
 	 */
 	@Test
-	public void moveArmiesAfterAttackTest()
-	{ Player currentPlayer = gameObject.getCurrentPlayer(); 
-	   ArrayList<String> attackingCountryList = gameObject.getAttackPossibleCountries();
-	    ArrayList<String> attackedCountryList;
-	    Country attackingCountry,defendingCountry;
-	    int attackingCountryArmyCount, defendingCountryArmyCount;
-	    Player defenderPlayer; 
-	    currentPlayer.setIsConqured(true);	    
-  	   for(String attackingCountryName:attackingCountryList)
-	    { attackedCountryList = gameObject.getOthersNeighbouringCountriesOnly(attackingCountryName);
-	      attackingCountry = mapModel.getCountryFromName(attackingCountryName);
-	      attackingCountry.setnoOfArmies(5);
-	      attackingCountryArmyCount = attackingCountry.getnoOfArmies();
+	public void moveArmiesAfterAttackTest(){
+		Player currentPlayer = gameObject.getCurrentPlayer(); 
+		ArrayList<String> attackingCountryList = gameObject.getAttackPossibleCountries();
+		ArrayList<String> attackedCountryList;
+		Country attackingCountry,defendingCountry;
+		int attackingCountryArmyCount, defendingCountryArmyCount;
 
-	      for(String attackedCountryName : attackedCountryList)
-	      { defenderPlayer = gameObject.getAllPlayers().stream().filter(p -> p.getAssignedListOfCountries().contains(attackedCountryName))
-			.findAny().orElse(null);				    	  
-	    	defendingCountry = mapModel.getCountryFromName(attackedCountryName);
-	    	defendingCountry.setnoOfArmies(1);
-	    	defendingCountryArmyCount = defendingCountry.getnoOfArmies();
-		    defendingCountry.increaseArmyCount(3);
-		    attackingCountry.decreaseArmyCount(3);
-	 	    assertEquals(defendingCountryArmyCount+3, defendingCountry.getnoOfArmies());
-		    assertEquals(attackingCountryArmyCount-3, attackingCountry.getnoOfArmies());	
-	    	break;	    	
-	      }
-	      break;
-	      }	    
-		
+		Player defenderPlayer; 
+		currentPlayer.setIsConqured(true);	    
+		for(String attackingCountryName:attackingCountryList){
+			attackedCountryList = gameObject.getOthersNeighbouringCountriesOnly(attackingCountryName);
+			attackingCountry = mapModel.getCountryFromName(attackingCountryName);
+			attackingCountry.setnoOfArmies(5);
+			attackingCountryArmyCount = attackingCountry.getnoOfArmies();
+
+			for(String attackedCountryName : attackedCountryList){
+				defenderPlayer = gameObject.getAllPlayers().stream().filter(p -> p.getAssignedListOfCountries().contains(attackedCountryName))
+						.findAny().orElse(null);				    	  
+				defendingCountry = mapModel.getCountryFromName(attackedCountryName);
+				defendingCountry.setnoOfArmies(1);
+				defendingCountryArmyCount = defendingCountry.getnoOfArmies();
+				defendingCountry.increaseArmyCount(3);
+				attackingCountry.decreaseArmyCount(3);
+				assertEquals(defendingCountryArmyCount+3, defendingCountry.getnoOfArmies());
+				assertEquals(attackingCountryArmyCount-3, attackingCountry.getnoOfArmies());	
+				break;	    	
+			}
+			break;
+		}	    
+
 	}
 
 }
