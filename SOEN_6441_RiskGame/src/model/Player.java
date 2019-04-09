@@ -705,7 +705,7 @@ public class Player implements Serializable{
 	 * Sets the checks if is conqured.
 	 * @param isConqueredTemp the new checks if is conqured
 	 */
-	public void setIsConqured(boolean isConqueredTemp) {
+	public void setIsConquered(boolean isConqueredTemp) {
 		isConquered = isConqueredTemp;
 	}
 	

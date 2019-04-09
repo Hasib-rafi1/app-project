@@ -204,7 +204,7 @@ public class PlayerTest {
 		int attackingCountryArmyCount, defendingCountryArmyCount;
 
 		Player defenderPlayer; 
-		currentPlayer.setIsConqured(true);	    
+		currentPlayer.setIsConquered(true);	    
 		for(String attackingCountryName:attackingCountryList){
 			attackedCountryList = gameObject.getOthersNeighbouringCountriesOnly(attackingCountryName);
 			attackingCountry = mapModel.getCountryFromName(attackingCountryName);

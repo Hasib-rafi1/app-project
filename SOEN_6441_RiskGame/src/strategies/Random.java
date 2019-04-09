@@ -218,7 +218,7 @@ public class Random implements PlayerStrategy, Serializable {
 
 			}
 
-			player.setIsConqured(false);
+			player.setIsConquered(false);
 
 		}
 		return true;  

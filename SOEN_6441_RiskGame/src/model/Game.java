@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package model;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -55,8 +58,6 @@ public class Game extends Observable implements Serializable {
 	/** The MINIMUM REINFORCEMEN plAYERS. */
 	private int MINIMUM_REINFORCEMENT_PlAYERS = 3;
 
-
-
 	/** The initial source country. */
 	private String initialSourceCountry;
 
@@ -89,6 +90,7 @@ public class Game extends Observable implements Serializable {
 
 	public boolean dominationViewOn = false;
 	private int maxTurnsForTournament;
+	
 	/** The CardView*/
 	CardView cardview = new CardView(this);
 
@@ -96,19 +98,16 @@ public class Game extends Observable implements Serializable {
 	public boolean draw = false;
 
 	/**
-	 * Instantiates a new game.
+	 * Instantiates a new game.(Initializes the map and the game phase of the game.)
 	 * @param map the map
 	 */
-	//Initializes the map and the game phase of the game.
 	public Game(MapModel map) {
 		super();
 		this.mapModel = map;
 		this.setGamePhase(GamePhase.Startup);
 	}
 
-
-
-	//Functions called by the initializeGame() from the GameController.
+	// ---------------------- Functions called by the initializeGame() from the GameController.
 	/**
 	 * This method adds the player to the game's player list.
 	 * @param player get the player
@@ -117,7 +116,6 @@ public class Game extends Observable implements Serializable {
 		this.playerList.add(player);
 	}
 
-
 	/**
 	 * This method initializes the Game.
 	 * It assigns the initial armies to the player.
@@ -125,25 +123,24 @@ public class Game extends Observable implements Serializable {
 	 */
 	public void startGame() {
 		this.addObserver(cardview);
+		
 		//Assigning the Initial armies.
 		for(int i=0; i<playerList.size(); i++){
 			playerList.get(i).setNumberOfInitialArmies(InitialPlayerArmy.getInitialArmyCount(playerList.size()));
 			System.out.println("Player ID: "+playerList.get(i).getPlayerId()+" Player Name: "+playerList.get(i).getPlayerName()+" Player's Army: "+playerList.get(i).getNumberOfInitialArmies()+" Player's Color"+playerList.get(i).getColor());
 			playerList.get(i).setConcuredContinents(mapModel.getContinentList());
 			playerList.get(i).addPlayerList(playerList);
-			gamePhaseDetails.add("Player ID: "+playerList.get(i).getPlayerId());
-			gamePhaseDetails.add("Player Name: "+playerList.get(i).getPlayerName());
-			gamePhaseDetails.add("Player's Army: "+playerList.get(i).getNumberOfInitialArmies());
-			gamePhaseDetails.add("Player's Color"+playerList.get(i).getColor());
-
+			gamePhaseDetails.add("Player ID = " +playerList.get(i).getPlayerId());
+			gamePhaseDetails.add("Player Name = " +playerList.get(i).getPlayerName());
+			gamePhaseDetails.add("Player's Army =  " +playerList.get(i).getNumberOfInitialArmies());
+			gamePhaseDetails.add("Player's Color = " +playerList.get(i).getColor());
 		}
 
 		int playersCount = playerList.size();
 		System.out.println("Player Count:"+playersCount);
 		int countriescount = mapModel.getCountryList().size();
+		
 		int playersid = 0;
-
-
 		ArrayList<Integer> randomNumbers = new ArrayList<>();
 		for(int i=0; i<countriescount; i++){
 			randomNumbers.add(i);
@@ -192,7 +189,7 @@ public class Game extends Observable implements Serializable {
 		country.setPlayerId(player.getPlayerId());
 	}
 
-	//Functions called by numberOfArmiesClickListener() from the GameController.
+	// ---------------- Functions called by numberOfArmiesClickListener() from the GameController.
 	/**
 	 * This method adds armies to the country based on the startup or reinforcement game phase.
 	 * @param countryName name of country
@@ -204,12 +201,10 @@ public class Game extends Observable implements Serializable {
 		}
 		if(gamePhase == gamePhase.Startup) {
 			Boolean added = addingStartupCountryArmy(countryName);
-			if(added)
-			{
+			if(added){
 				setupNextPlayerTurn();
 			}
-		}
-		else if (gamePhase == gamePhase.Reinforcement){
+		}else if (gamePhase == gamePhase.Reinforcement){
 			addingReinforcementCountryArmy(countryName);
 		}
 		updateGame();
@@ -226,18 +221,20 @@ public class Game extends Observable implements Serializable {
 	 */
 	public boolean addingStartupCountryArmy(String countryName){
 		if(this.gamePhase != gamePhase.Startup){
-			print.consoleOut("Not a Valid Phase");
+			print.consoleOut("This is not a valid Phase");
 			return false;
 		}
 
+		// Get player information
 		Player player = this.getCurrentPlayer();
 
 		if(player == null){
-			print.consoleOut("Player ID"+currentPlayerId+"does not exist.");
+			print.consoleOut("Player ID = " +currentPlayerId+"does not exist.");
 			return false;
 		}
+		
 		if(player.getNumberOfInitialArmies() == 0){
-			print.consoleOut("Player '"+player.getPlayerName()+"' Doesn't have any Armies.");
+			print.consoleOut("Player Name = '" +player.getPlayerName()+"' It doesn't have any Armies.");
 			this.setupNextPlayerTurn();
 			return false;
 		}
@@ -302,18 +299,15 @@ public class Game extends Observable implements Serializable {
 	 */
 	public void updateGame() {
 		if (this.getGamePhase() == gamePhase.Startup) {
-			//
-			//			gamePhaseDetails.removeAll(gamePhaseDetails);r
 			long pendingPlayersCount = playerList.stream().filter(p -> p.getNumberOfInitialArmies() > 0).count();
 			System.out.println(pendingPlayersCount);
-
+			
 			if (pendingPlayersCount == 0) {
 				this.setGamePhase(gamePhase.Reinforcement);
 				currentPlayerId = 0;
 				reinforcementPhaseSetup();
 			}
-		}
-		else if (this.getGamePhase() == gamePhase.Reinforcement) {
+		}else if (this.getGamePhase() == gamePhase.Reinforcement) {
 			if (getCurrentPlayer().getNumberOfReinforcedArmies() == 0) {
 				gamePhaseDetails.removeAll(gamePhaseDetails);
 				if(checkAttackPossible()) {
@@ -323,7 +317,6 @@ public class Game extends Observable implements Serializable {
 				}
 				notifyObserverslocal(this);
 			}
-
 		}
 		else if (this.getGamePhase() ==  gamePhase.Attack) {
 			if(getCurrentPlayer().getPlayerStrategy().isHuman()) {
@@ -331,8 +324,8 @@ public class Game extends Observable implements Serializable {
 			}
 			this.setGamePhase(gamePhase.Fortification);
 			notifyObserverslocal(this);
-		}
-		else if (this.getGamePhase() == gamePhase.Fortification) {
+			
+		}else if (this.getGamePhase() == gamePhase.Fortification) {
 			if(getCurrentPlayer().getPlayerStrategy().isHuman()) {
 				gamePhaseDetails.removeAll(gamePhaseDetails);
 			}
@@ -341,7 +334,7 @@ public class Game extends Observable implements Serializable {
 		}
 	}
 
-	//Functions called by addSourceCountriesListener() from the GameController.
+	//--------------- Functions called by addSourceCountriesListener() from the GameController.
 	/**
 	 * This method returns the neighboring connected countries of a specific country.
 	 * @param source source countries
@@ -349,8 +342,8 @@ public class Game extends Observable implements Serializable {
 	 */
 	public ArrayList<String> getNeighbouringCountries(String source) {
 
-		System.out.println("source Country Name :" + source);
-		gamePhaseDetails.add("source Country Name :" + source);
+		System.out.println("Source Country Name :" + source);
+		gamePhaseDetails.add("Source Country Name :" + source);
 		System.out.print(connectedOwnCountries.toString());
 		Player currentPlayer = this.getCurrentPlayer();
 		initialSourceCountry = source;
@@ -371,15 +364,16 @@ public class Game extends Observable implements Serializable {
 			}
 		}
 
-		Iterator<String> it = neighborCountriesName.iterator();
-		while (it.hasNext()) {
-			String country = it.next();
+		Iterator<String> myIterator = neighborCountriesName.iterator();
+		while (myIterator.hasNext()) {
+			String country = myIterator.next();
 			if (!countriesAssignedToPlayer.contains(country)){
-				it.remove();
+				myIterator.remove();
 			}
 		}
 
-		if(neighborCountriesName!=null) {
+		// check if there are neighbour countries
+		if(neighborCountriesName != null) {
 			neighborCountriesName.removeAll(connectedOwnCountries);
 			connectedOwnCountries.addAll(neighborCountriesName);
 		}
@@ -390,8 +384,8 @@ public class Game extends Observable implements Serializable {
 			getConnectedCountries(country, countryList);
 		}
 
-		System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-		System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+		System.out.println("1. Neighbouring Countries: "+neighborCountriesName.toString());
+		System.out.println("1. Player's Countries: "+countriesAssignedToPlayer.toString());
 		finalCOuntries.addAll(connectedOwnCountries);
 		connectedOwnCountries.clear();
 		gamePhaseDetails.add("Connected Countries: "+ finalCOuntries.toString());
@@ -421,15 +415,15 @@ public class Game extends Observable implements Serializable {
 			}
 		}
 
-		Iterator<String> it = neighborCountriesName.iterator();
-		while (it.hasNext()) {
-			String country = it.next();
+		Iterator<String> myIterator = neighborCountriesName.iterator();
+		while (myIterator.hasNext()) {
+			String country = myIterator.next();
 			if (!countriesAssignedToPlayer.contains(country)||country.equals(initialSourceCountry)){
-				it.remove();
+				myIterator.remove();
 			}
 		}
 
-		if(neighborCountriesName!=null) {
+		if(neighborCountriesName != null) {
 			neighborCountriesName.removeAll(connectedOwnCountries);
 			connectedOwnCountries.addAll(neighborCountriesName);
 		}
@@ -440,8 +434,8 @@ public class Game extends Observable implements Serializable {
 			getConnectedCountries(country, countryList);
 		}
 
-		System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-		System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
+		System.out.println("1. Neighbouring Countries: "+neighborCountriesName.toString());
+		System.out.println("1. Player's Countries: "+countriesAssignedToPlayer.toString());
 
 	}
 
@@ -462,7 +456,7 @@ public class Game extends Observable implements Serializable {
 		return numberOfArmies;
 	}
 
-	//Functions called by addMoveArmyButtonListener() from GameController.
+	// ----------------- Functions called by addMoveArmyButtonListener() from GameController.
 	/**
 	 * This method checks whether the source and destination countries belongs to the player and moves the armies from source to destination.
 	 * @param source  source as string
@@ -479,7 +473,6 @@ public class Game extends Observable implements Serializable {
 		Country destinationCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destination)).findAny().orElse(null);
 
-		// player class function
 
 		player.setFortifySourceCountry(sourceCountry);
 		player.setFortifyDestinationCountry(destinationCountry);
@@ -500,7 +493,7 @@ public class Game extends Observable implements Serializable {
 				player.addCard(riskCard);
 			}
 
-			player.setIsConqured(false);
+			player.setIsConquered(false);
 
 		}
 		notifyObserverslocal(this);
@@ -528,9 +521,7 @@ public class Game extends Observable implements Serializable {
 			} else {
 				player.addCard(riskCard);
 			}
-
-			player.setIsConqured(false);
-
+			player.setIsConquered(false);
 		}
 
 		this.setupNextPlayerTurn();
@@ -637,7 +628,7 @@ public class Game extends Observable implements Serializable {
 
 	//Functions called by other functions within the Game model.
 
-	//Getter and Setter functions of Map.
+	// ------------------------------- Getter and Setter functions of Map.
 
 	/**
 	 * This function is used to get map.
@@ -647,7 +638,6 @@ public class Game extends Observable implements Serializable {
 		return mapModel;
 	}
 
-
 	/**
 	 *  This is used to set map.
 	 * @param map map
@@ -655,8 +645,6 @@ public class Game extends Observable implements Serializable {
 	public void setMap(MapModel map) {
 		this.mapModel = map;
 	}
-
-
 
 	/**
 	 *This is used to get game phase.
@@ -796,10 +784,10 @@ public class Game extends Observable implements Serializable {
 		if (this.gamePhase ==GamePhase.Attack) {
 			// Will also add validation if the attacker is assigned to player or not
 
-			Country c = mapModel.getCountryFromName(countryName);
+			Country nameOfCountry = mapModel.getCountryFromName(countryName);
 
-			if (c != null) {
-				allowableAttackingArmies = getCurrentPlayer().getNumberDices(c, playerStatus);
+			if (nameOfCountry != null) {
+				allowableAttackingArmies = getCurrentPlayer().getNumberDices(nameOfCountry, playerStatus);
 			}
 		}
 		return allowableAttackingArmies;
@@ -813,12 +801,12 @@ public class Game extends Observable implements Serializable {
 	public ArrayList<String> getOthersNeighbouringCountriesOnly(String countryName) {
 		ArrayList<String> allowableAttackingArmies = new ArrayList<String>();
 
-		Country c = mapModel.getCountryFromName(countryName);
+		Country nameOfCountry = mapModel.getCountryFromName(countryName);
 		Player currentPlayer = this.getCurrentPlayer();
 		ArrayList<Country> countryList = playerCountry.get(currentPlayer);
 
-		if (c != null) {
-			allowableAttackingArmies = c.getStringsOfNeighbours();
+		if (nameOfCountry != null) {
+			allowableAttackingArmies = nameOfCountry.getStringsOfNeighbours();
 			for (Country country : countryList) {
 				String countryName1 = country.getCountryName();
 				allowableAttackingArmies.remove(countryName1);

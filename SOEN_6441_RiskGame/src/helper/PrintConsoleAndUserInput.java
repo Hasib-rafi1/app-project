@@ -23,9 +23,6 @@ public class PrintConsoleAndUserInput implements Serializable{
 	
 	/** The map dir. */
 	private static String  mapDir = "SOEN_6441_RiskGame/src/mapFiles/";
-	//private String mapDir = ".\\src\\mapFiles\\";
-	//private static String mapDir = "src/mapFiles/";
-
 
 	/**
 	 *  This method is used to print in console.

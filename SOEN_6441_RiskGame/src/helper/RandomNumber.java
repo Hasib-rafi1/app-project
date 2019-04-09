@@ -11,18 +11,18 @@ public class RandomNumber {
 
 	/**
 	 * Method to generate a random number 
-	 * @param min minimum numbers
-	 * @param max maximum numbers
+	 * @param minimumValue minimum numbers
+	 * @param maximumValue maximum numbers
 	 * @return random value
 	 */
-    public static int getRandomNumberInRange(int min, int max) {
-        if(min == max)
-            return min;
+    public static int getRandomNumberInRange(int minimumValue, int maximumValue) {
+        if(minimumValue == maximumValue)
+            return minimumValue;
 
-        if (min > max) {
-            throw new IllegalArgumentException("Max value must be greater than Min value!");
+        if (minimumValue > maximumValue) {
+            throw new IllegalArgumentException("Maximum value must be greater than Minimum value!");
         }
         java.util.Random r = new java.util.Random();
-        return r.nextInt((max - min) + 1) + min;
+        return r.nextInt((maximumValue - minimumValue) + 1) + minimumValue;
     }
 }
