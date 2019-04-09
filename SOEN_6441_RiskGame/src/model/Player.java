@@ -393,7 +393,6 @@ public class Player implements Serializable{
 	 * @return integer value of assigned armies
 	 */
 	public int getNumberOfInitialArmies() {
-//		System.out.println(numberOfInitialArmies);
 		return numberOfInitialArmies;
 	}
 
@@ -792,8 +791,7 @@ public class Player implements Serializable{
             }
         }
 	}
-	
-	
+
 
 	/**
 	 * This method will perform operation required after conquering a country
@@ -886,8 +884,6 @@ public class Player implements Serializable{
 		 */
 		public ArrayList<Country> getNeighbouringCountries(Country source) {
 
-			//System.out.print(connectedOwnCountries.toString());
-			
 			initialSourceCountry = source;
 
 			ArrayList<Country> countriesAssignedToPlayer = new ArrayList<Country>();
@@ -924,8 +920,6 @@ public class Player implements Serializable{
 				getConnectedCountries(country, countryList);
 			}
 
-			//System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-			//System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 			finalCOuntries.addAll(connectedOwnCountries);
 			connectedOwnCountries.clear();
 			return finalCOuntries;
@@ -972,9 +966,6 @@ public class Player implements Serializable{
 				Country country = rec.next();
 				getConnectedCountries(country, countryList);
 			}
-
-			//System.out.println("1. Neighbouring Countries:"+neighborCountriesName.toString());
-			//System.out.println("1. Player's Countries:"+countriesAssignedToPlayer.toString());
 
 		}
 
