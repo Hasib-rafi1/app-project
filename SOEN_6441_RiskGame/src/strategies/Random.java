@@ -33,7 +33,9 @@ public class Random implements PlayerStrategy, Serializable {
 	/**
 	 * Return false for the non-human(Random) strategy
 	 */
-	public boolean isHuman(){
+	@Override
+	public boolean isHuman() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -42,22 +44,46 @@ public class Random implements PlayerStrategy, Serializable {
 	 * @param player Player Information
 	 */
 	public boolean reinforce(Player player){
-
+		// Get all the countries according to the player
 		ArrayList<Country> countryList = player.getattackPlayerCountry().get(player);
-		int random = 0;
-		if (countryList.isEmpty())
+		int countryListSize = countryList.size();
+		int randomValue = 0;
+		if(countryList.isEmpty()) {
+			return true;
+		}else if (countryListSize > 1) {
+			randomValue = RandomNumber.getRandomNumberInRange(0, countryList.size() - 1);
+		}
+		
+		// Get armies count
+		int armies = player.getNumberOfReinforcedArmies();
+		Country country = countryList.get(randomValue);
+		
+		// Get country name
+		String countryName = country.getCountryName();
+		
+		System.out.println(countryName +" reinforced with armies = "+armies);
+		player.getAttackGamePhaseDetails().add(countryName+" reinforced with armies:"+armies);
+		player.setNumberOfReinforcedArmies(0);
+		country.increaseArmyCount(armies);
+		return true;
+		
+	/*	if (countryList.isEmpty())
 			return true;
 		else if (countryList.size() > 1)
 			random = RandomNumber.getRandomNumberInRange(0, countryList.size() - 1);
 
 		int armies = player.getNumberOfReinforcedArmies();
 		Country country = countryList.get(random);
+		
+		
 		System.out.println(country.getCountryName()+" reinforced with armies:"+armies);
 		player.getAttackGamePhaseDetails().add(country.getCountryName()+" reinforced with armies:"+armies);
 		player.setNumberOfReinforcedArmies(0);
 		country.increaseArmyCount(armies);
-		return true;
+		return true;*/
 	}
+	
+	
 
 	/**
 	 * Method to execute attack for the random strategy
@@ -117,8 +143,6 @@ public class Random implements PlayerStrategy, Serializable {
 		int attackerDiceCount = player.getNumberDices(fromCountry, "Attacker");
 
 		int defenderDiceCount = player.getNumberDices(toCountry, "Defender");
-
-
 
 		player.diceRoller(attackerDiceCount);
 		Player defenderPlayer = player.getPlayer(toCountry.getPlayerId());
@@ -223,5 +247,11 @@ public class Random implements PlayerStrategy, Serializable {
 		}
 		return true;  
 	}
+	
+	
+
+	
+
+	
 }
 
