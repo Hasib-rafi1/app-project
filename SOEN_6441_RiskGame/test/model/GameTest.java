@@ -24,8 +24,7 @@ import strategies.Random;
 
 // TODO: Auto-generated Javadoc
 /**
- * This test Class deals with the game model class. It will tests the game play by executing the game automatically .
- *  
+ * This test Class deals with the game model class. It will tests the game play by executing the game automatically . 
  * @author Hasibul Huq
  * @version 1.0.0
  *
@@ -221,11 +220,8 @@ public class GameTest {
 	
 
 	/**
-<<<<<<< HEAD
 	 * This test case is used to test if the game is saved or not with the current time.
-=======
 	 * Test game is saved or not.
->>>>>>> branch 'master' of https://naren_csp@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
 	 */
 	@Test
 	public void testGameIsSavedOrNot(){
@@ -276,9 +272,6 @@ public class GameTest {
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Test method for tournament mode
-=======
 	 * Test game is loaded or not.
 	 */
 	@Test
@@ -321,7 +314,6 @@ public class GameTest {
 	
 	/**
 	 * Tournament test.
->>>>>>> branch 'master' of https://naren_csp@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
 	 */
 	@Test
 	public void tournamentTest() {

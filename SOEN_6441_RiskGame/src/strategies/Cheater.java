@@ -31,9 +31,12 @@ public class Cheater implements PlayerStrategy, Serializable  {
 	/**
 	 * Return false for the non-human(Cheater) strategy
 	 */
+	@Override
 	public boolean isHuman() {
+		// TODO Auto-generated method stub
 		return false;
 	}
+
 
 	/**
 	 * Method to execute reinforcement for the cheater strategy
@@ -41,15 +44,16 @@ public class Cheater implements PlayerStrategy, Serializable  {
 	 */
 	public boolean reinforce(Player player) {
 		for (Country country :  player.getAssignedListOfCountries()) {
-			System.out.println(
-					"Adding reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
-			player.getAttackGamePhaseDetails().add("Adding reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
-			player.setNumberOfReinforcedArmies(0);
+			String countryName = country.getCountryName();
 			int armies = country.getnoOfArmies();
+			System.out.println(
+					"Adding reinforcement army in " + countryName + "(" + armies + ")");
+			player.getAttackGamePhaseDetails().add("Adding reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
+			player.setNumberOfReinforcedArmies(0);			
 			country.setnoOfArmies(armies * 2);
 			System.out.println(
-					"Added reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
-			player.getAttackGamePhaseDetails().add("Added reinforcement army in " + country.getCountryName() + "(" + country.getnoOfArmies() + ")");
+					"Added reinforcement army in " + countryName + "(" + armies + ")");
+			player.getAttackGamePhaseDetails().add("Added reinforcement army in " + countryName + "(" + armies + ")");
 		}
 		return true;
 
@@ -122,5 +126,7 @@ public class Cheater implements PlayerStrategy, Serializable  {
 		}
 		return true;
 	}
+
+	
 }
 

@@ -1204,11 +1204,15 @@ public class Game extends Observable implements Serializable {
 			}
 			System.out.println("\n\n *************** Finish Performing Fortification for the player*************** \n\n");
 			System.out.println("\n\n *************** Starting Reinforcemant calculations Performing Fortification for the player*************** \n\n");
-			automateExchange();
-			int reinforcementCal = this.getCurrentPlayer().calculationForNumberOfArmiesInReinforcement(playerCountry, mapModel.getContinentList());
-			reinforcementCal = reinforcementCal < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : reinforcementCal;		
-			this.getCurrentPlayer().setNumberOfReinforcedArmies(reinforcementCal);
-			System.out.println("\n\n *************** Finishing Reinforcemant calculations Performing Fortification for the player*************** \n\n");
+			if(!getCurrentPlayer().getPlayerStrategy().isHuman()) {
+				automateExchange();
+				int reinforcementCal = this.getCurrentPlayer().calculationForNumberOfArmiesInReinforcement(playerCountry, mapModel.getContinentList());
+				reinforcementCal = reinforcementCal < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS : reinforcementCal;		
+				this.getCurrentPlayer().setNumberOfReinforcedArmies(reinforcementCal);
+				System.out.println("\n\n *************** Finishing Reinforcemant calculations Performing Fortification for the player*************** \n\n");
+			}else {
+				reinforcementPhaseSetup();
+			}
 		}
 	}
 
