@@ -33,7 +33,7 @@ public class MapController {
 	/** The map model. */
 	MapModel mapModel ;
 
-	/** The maincontroller. */
+	/** The main controller. */
 	MainController maincontroller = new MainController();
 
 	/** The continents list. */
@@ -43,7 +43,7 @@ public class MapController {
 	/**
 	 *
 	 * This method is used to select the map options(like import, design a new map, save a map).	 *
-	 * @return userinput
+	 * @return user input
 	 */
 	public boolean generateMap() {
 		int selectMapMenuOption = 0;
@@ -82,7 +82,6 @@ public class MapController {
 
 	/**
 	 * This method is used to create the user map and save it in directory.
-	 *
 	 */
 	public void createAndSaveUserMap() {
 		mapModel = new MapModel();
@@ -125,8 +124,6 @@ public class MapController {
 
 	/**
 	 * This method is used to edit the map.
-	 *
-	 * @version 1.0.0
 	 */
 	public void editExistingMapFile() {
 		

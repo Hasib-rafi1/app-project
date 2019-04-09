@@ -1,11 +1,8 @@
 package model;
 import helper.Colors;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-
 
 // TODO: Auto-generated Javadoc
 /**
@@ -60,6 +57,7 @@ public class Country implements Serializable{
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+	
 	/**
 	 * This method is used to get played id.
 	 * @return playerId ID of the player
@@ -67,7 +65,6 @@ public class Country implements Serializable{
 	public int getPlayerId() {
 		return playerId;
 	}
-
 
 	/**
 	 * This method is used to set played id.
@@ -95,6 +92,7 @@ public class Country implements Serializable{
 
 	/** The neighbours string. */
 	private ArrayList<String> neighboursString = new ArrayList<>();
+	
 
 	/** The neighbours of country. */
 	private ArrayList<Country> neighboursOfCountry= new ArrayList<>();

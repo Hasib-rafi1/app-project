@@ -246,7 +246,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 			}
 
-			playerToFortify.setIsConqured(false);
+			playerToFortify.setIsConquered(false);
 
 		}
 		return true;
