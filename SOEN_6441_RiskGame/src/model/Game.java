@@ -557,7 +557,6 @@ public class Game extends Observable implements Serializable {
 			}
 		}
 		Collections.shuffle(riskCards, new Random());
-		//System.out.println(riskCards.toString());
 	}
 
 	/**
@@ -628,7 +627,7 @@ public class Game extends Observable implements Serializable {
 
 	//Functions called by other functions within the Game model.
 
-	// ------------------------------- Getter and Setter functions of Map.
+	//Getter and Setter functions of Map.
 
 	/**
 	 * This function is used to get map.
@@ -978,7 +977,6 @@ public class Game extends Observable implements Serializable {
 			gamePhaseDetails.add("Move Armies is not possible. No sufficient armies");
 		}
 		notifyObserverslocal(this);
-
 	}
 
 
@@ -1010,7 +1008,6 @@ public class Game extends Observable implements Serializable {
 			mapPercentageStoredInMap.put(playerId, percentage);
 		}
 		return mapPercentageStoredInMap;
-
 	}
 
 	/**
@@ -1362,7 +1359,6 @@ public class Game extends Observable implements Serializable {
 		}
 
 		// Print status of players
-		//		this.printPlayerStatus();
 		while (true) {
 			System.out.println("\n\n ***************Performing Reinforcement for the player*************** \n\n");
 			this.getCurrentPlayer().setAttackGamePhaseDetails(gamePhaseDetails);
@@ -1410,9 +1406,6 @@ public class Game extends Observable implements Serializable {
 			this.updateGame();
 
 			// Print status of players
-			//			this.printPlayerStatus();
-
-
 			turnsCounts++;
 			if (turnsCounts >= getMaxTurnsForTournament()) {
 

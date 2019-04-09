@@ -16,7 +16,7 @@ public enum GamePhase {
     Attack,
     /** The Fortification. */
     Fortification,
-
+    /** The Draw */
     Draw
 
 }
