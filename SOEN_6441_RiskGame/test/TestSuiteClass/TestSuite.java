@@ -15,10 +15,9 @@ import controller.MapControllerTest;
 	CountryTest.class,CountryViewModelTest.class,GameTest.class,PlayerTest.class, MapModelTest.class})
 
 /**
- * 
- * @author naren
- * 
  * This is the Test Suite class
+ * @author naren
+ * @version 1.0.0
  */
 public class TestSuite {
 

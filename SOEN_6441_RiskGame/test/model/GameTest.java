@@ -26,6 +26,7 @@ import strategies.Random;
  * This test Class deals with the game model class. It will check the game play by executing the game automatically .
  *  
  * @author Hasibul Huq
+ * @version 1.0.0
  *
  */
 public class GameTest {
@@ -72,7 +73,6 @@ public class GameTest {
 	@Before
 	public void setUp(){
 		mapModel = new MapModel();
-//		mapModel.readMapFile("src/mapFiles/World.map");
 		mapModel.readMapFile(PrintConsoleAndUserInput.getMapDir()+"World.map");
 		gameObject = new Game(mapModel);
 		player1 = new Player(0,"Jai");
@@ -94,9 +94,9 @@ public class GameTest {
 		
 		
 		 
-		 
+		// Randomly increase army for the country of player
 		while (gameObject.getGamePhase() == GamePhase.Startup) {
-			// Randomly increase army for the country of player
+			
 			ArrayList<Country> playerCountries = gameObject.getCurrentPlayerCountries();
 
 			gameObject.addingCountryArmy(playerCountries.get(id).getCountryName());
@@ -212,7 +212,7 @@ public class GameTest {
 	}
 	
 	/**
-	 * This test case is used to test if the game is saved or not with the currrent time.
+	 * This test case is used to test if the game is saved or not with the current time.
 	 */
 	@Test
 	public void testGameIsSavedOrNot(){
@@ -260,6 +260,9 @@ public class GameTest {
 		}
 	}
 	
+	/**
+	 * Test method for tournament mode
+	 */
 	@Test
 	public void tournamentTest() {
 

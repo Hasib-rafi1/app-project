@@ -87,7 +87,29 @@ public class GameController {
 			print.consoleErr("****File not found!!!. Please enter the correct name of map.****");
 		}
 	}
-
+	
+	/**
+	 * This function is going to initializing the map by taking user input.
+	 * @param mapPath path f the map directory
+	 */
+	public void initializeMap(MapModel maps,String mapPath) {
+		//	public void initializeMap() {
+		//		print.listofMapsinDirectory();
+		//		print.consoleOut("\nEnter Map Name to load Map file:\n");
+		//		mapModel = new MapModel(); //------Refresh------
+		//		String mapPath = mapModel.getMapNameByUserInput();
+		File tempFile = new File(mapPath);
+		boolean exists = tempFile.exists();
+		if (exists) {			
+			maps.readMapFile(mapPath);
+			maps.printMapValidOrNot();
+			if (!maps.checkMapIsValid()){
+				//print.consoleErr("****Error!! Invalid map name. Please try again with the valid name****");
+			}
+		}else {
+			print.consoleErr("****File not found!!!. Please enter the correct name of map.****");
+		}
+	}
 	public MapModel getInitializedMapModel() {
 		mapModel = new MapModel(); //------Refresh------
 		//        ArrayList<String> mapNamesListForTournament= new ArrayList<>();
@@ -169,7 +191,8 @@ public class GameController {
 
 		} else if (gameMode == 2){
 			int M = 0, P = 0, G = 0, D = 0;
-			ArrayList<MapModel> mapNamesForTournament = new ArrayList<>();
+			ArrayList<String> mapNamesForTournament = new ArrayList<>();
+			ArrayList<String> mapNamesForTournamentDisplay = new ArrayList<>();
 			ArrayList<PlayerStrategy> strategiesForTournament = new ArrayList<>();
 
 
@@ -187,7 +210,9 @@ public class GameController {
 			print.listofMapsinDirectory();
 			for (int i = 0; i < M; i++) {
 				mapModel = new MapModel(); //------Refresh------
-				mapNamesForTournament.add(getInitializedMapModel());
+				String mapPath = mapModel.getMapNameByUserInput();
+				mapNamesForTournamentDisplay.add(mapModel.getMapName());
+				mapNamesForTournament.add(mapPath);
 			}
 			System.out.println(mapNamesForTournament.size());
 
@@ -247,7 +272,9 @@ public class GameController {
 			for (int i = 0; i < M; i++) {
 				ArrayList<String> resultForOneMap = new ArrayList<>();
 				for (int j = 0; j < G; j++) {
-					game = new Game(mapNamesForTournament.get(i));
+					MapModel mapTournament = new MapModel();
+					initializeMap(mapTournament, mapNamesForTournament.get(i));
+					game = new Game(mapTournament);
 					game.setGameMode(GameMode.TournamentMode);
 					game.setMaxTurnsForTournament(D);
 					for (int playerStrategyAsPlayerName = 0; playerStrategyAsPlayerName < strategiesForTournament.size();
@@ -270,7 +297,7 @@ public class GameController {
 						resultForOneMap.add(game.getWinner().getPlayerStrategy().getStrategyName());
 					}
 				}
-				tournamentResult.put(mapNamesForTournament.get(i).getMapName(), resultForOneMap);
+				tournamentResult.put(mapNamesForTournamentDisplay.get(i), resultForOneMap);
 				
 			}
 			System.out.println(tournamentResult.toString());

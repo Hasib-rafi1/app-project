@@ -10,6 +10,7 @@ import org.junit.Test;
  * Test class for Continent class that checks the values for the continent.
  *
  * @author naren
+ * @version 1.0.0
  */
 
 public class ContinentTest {

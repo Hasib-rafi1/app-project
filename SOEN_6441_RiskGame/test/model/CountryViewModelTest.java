@@ -10,6 +10,7 @@ import helper.Colors;
  * Test class that tests the methods in CountryViewModel class in model package.
  * 
  * @author naren
+ * @version 1.0.0
  */
 public class CountryViewModelTest {
 	

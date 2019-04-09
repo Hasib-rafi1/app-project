@@ -17,6 +17,7 @@ import org.junit.Test;
  * Test class that tests the correctness in values in Player class that'll be used in further operations .
  *
  * @author naren
+ * @version 1.0.0
  */
 public class PlayerTest {
 	
