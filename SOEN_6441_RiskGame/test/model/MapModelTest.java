@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
  * 
  * @author Zakiya Zafrin
  * @author Gargi Sharma
+ * @version 1.0.0
  */
 public class MapModelTest {
    

@@ -17,6 +17,7 @@ import helper.PrintConsoleAndUserInput;
  * This is the test class for game controller. methods from game controller is going to tested from here
  * 
  * @author Hasibul Huq
+ * @version 1.0.0
  *
  */
 public class GameControllerTest {
@@ -32,7 +33,6 @@ public class GameControllerTest {
 
 	/**
 	 * THis function is getting the map files and listing in an array list when starting the class.
-	 *
 	 * @throws Exception if there is no files in the directory
 	 */
 	@Before

@@ -21,14 +21,15 @@ public class MainController {
 	 * This function is used to enter the user input and call the functions to create or edit the map, start, load the game
 	 * and user can exit if he wants to exit the game.
 	 * This function also displays the error message to select valid user input.
-	 *
 	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		startMenu();	
 	}
 
-
+	/**
+	 * Start menu 
+	 */
 	public static void startMenu1() {
 		MapController mapController = new MapController();
 		PrintConsoleAndUserInput print = new PrintConsoleAndUserInput();

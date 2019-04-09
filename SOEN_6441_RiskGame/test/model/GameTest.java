@@ -9,15 +9,25 @@ import java.util.Calendar;
 import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
+
+
+import controller.GameController;
+import helper.GameMode;
 import helper.GamePhase;
 import helper.PrintConsoleAndUserInput;
+import strategies.Aggressive;
+import strategies.Benevolent;
+import strategies.Cheater;
 import strategies.Human;
+import strategies.PlayerStrategy;
+import strategies.Random;
 
 // TODO: Auto-generated Javadoc
 /**
- * This test Class deals with the game model class. It will check the game play by executing the game automatically .
+ * This test Class deals with the game model class. It will tests the game play by executing the game automatically .
  *  
  * @author Hasibul Huq
+ * @version 1.0.0
  *
  */
 public class GameTest {
@@ -25,8 +35,14 @@ public class GameTest {
 	/** The map model. */
 	MapModel mapModel;
 	
+	/** The tournament map model. */
+	MapModel tournamentMapModel;
+	
 	/** The game object. */
 	Game gameObject;
+	
+	/** The tournament game. */
+	Game tournamentGame;
 	
 	/** The player 1. */
 	Player player1;
@@ -43,16 +59,27 @@ public class GameTest {
 	/** The player 5. */
 	Player player5;
 	
+	/** The Tournament player 1. */
+	Player tourPlayer1;
+	
+	/** The Tournament player 2. */
+	Player tourPlayer2;
+	
+	/** The Tournament player 3. */
+	Player tourPlayer3;
+	
+	/** The Tournament player 4. */
+	Player tourPlayer4;
+	
 	/** The id. */
 	int id =0;
-
+	
 	/**
 	 * Initializing the values and object to start a game .
 	 */
 	@Before
 	public void setUp(){
 		mapModel = new MapModel();
-//		mapModel.readMapFile("src/mapFiles/World.map");
 		mapModel.readMapFile(PrintConsoleAndUserInput.getMapDir()+"World.map");
 		gameObject = new Game(mapModel);
 		player1 = new Player(0,"Jai");
@@ -72,10 +99,13 @@ public class GameTest {
 		gameObject.addPlayer(player5);
 		gameObject.startGame();
 
-		while (gameObject.getGamePhase() == GamePhase.Startup) {
-			// Randomly increase army for the country of player
-			ArrayList<Country> playerCountries = gameObject.getCurrentPlayerCountries();
+		
+		 
+		// Randomly increase army for the country of player
 
+		while (gameObject.getGamePhase() == GamePhase.Startup) {
+			
+			ArrayList<Country> playerCountries = gameObject.getCurrentPlayerCountries();
 			gameObject.addingCountryArmy(playerCountries.get(id).getCountryName());
 
 			id++;
@@ -83,8 +113,8 @@ public class GameTest {
 				id = 0;
 			}
 		}
-	}
-
+	}	
+	
 	/**
 	 * Test method for checking current phase.
 	 */
@@ -122,7 +152,7 @@ public class GameTest {
 	}
 	
 	/**
-	 * Test the map is concured or not.
+	 * Test the map is concurred or not.
 	 */
 	@Test
 	public void isMapConcured() {
@@ -133,6 +163,9 @@ public class GameTest {
 		}
 	}
 	
+	/**
+	 * Check attacker defender.
+	 */
 	@Test
 	public void checkAttackerDefender() {
 		Country attCountry = gameObject.playerCountry.get(player1).get(0);
@@ -186,8 +219,13 @@ public class GameTest {
 		
 	}
 	
+
 	/**
-	 * This test case is used to test if the game is saved or not with the currrent time.
+<<<<<<< HEAD
+	 * This test case is used to test if the game is saved or not with the current time.
+=======
+	 * Test game is saved or not.
+>>>>>>> branch 'master' of https://naren_csp@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
 	 */
 	@Test
 	public void testGameIsSavedOrNot(){
@@ -205,34 +243,115 @@ public class GameTest {
 			fileInput.close();
 			
 			
-			ArrayList<Player> playerList1 = testGameObject.getAllPlayers(); // expected
-			int getSizeOfExpectedList = playerList1.size();
-			ArrayList<Player> playerList2 = gameObject.getAllPlayers(); // actual
-			int getSizeOfActualList = playerList2.size();
+			ArrayList<Player> expectedPlayerList = testGameObject.getAllPlayers(); // expected
+			int getSizeOfExpectedList = expectedPlayerList.size();
+			
+			ArrayList<Player> actualPlayerList = gameObject.getAllPlayers(); // actual
+			int getSizeOfActualList = actualPlayerList.size();
 			
 			assertEquals(getSizeOfExpectedList,getSizeOfActualList);
 			
-			
-			int armySize1[] = new int[getSizeOfExpectedList];
-			int armySize2[] = new int[getSizeOfActualList];
+			// check for the army count from expected and actual list
+			int expectedArmyCountSize[] = new int[getSizeOfExpectedList];
+			int actualArmyCountSize[] = new int[getSizeOfActualList];
 			int i = 0;
-			for(Player expectedList : playerList1) {
-				armySize1[i] = expectedList.getNumberOfReinforcedArmies();
-				i++;
-			}
-			i = 0;
-			for(Player actualList : playerList2) {
-				armySize2[i] = actualList.getNumberOfReinforcedArmies();
+			for(Player expectedList : expectedPlayerList) {
+				expectedArmyCountSize[i] = expectedList.getNumberOfReinforcedArmies();
 				i++;
 			}
 			
-			for (i = 0; i < armySize2.length; i++) {
-				assertEquals(armySize1[i], armySize2[i]);
+			i = 0;
+			for(Player actualList : actualPlayerList) {
+				actualArmyCountSize[i] = actualList.getNumberOfReinforcedArmies();
+				i++;
+			}
+			
+			for (i = 0; i < actualArmyCountSize.length; i++) {
+				assertEquals(expectedArmyCountSize[i], actualArmyCountSize[i]);
 			}
 	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+<<<<<<< HEAD
+	 * Test method for tournament mode
+=======
+	 * Test game is loaded or not.
+	 */
+	@Test
+	public void testGameIsLoadedOrNot(){
+		String gameNameEnteredByUser = gameObject.writeObjectToSaveMyGame();
+		
+		//String gameNameEnteredByUser = "04-Apr-2019_0439";
+		//String filePath = ".\\src\\savedGames\\" + gameNameEnteredByUser+ ".txt";
+		model.Game testGameLoadObject = gameObject.readSavedObjectToloadGame(gameNameEnteredByUser);	
+
+		ArrayList<Player> expectedPlayerList = testGameLoadObject.getAllPlayers(); // expected
+		int getSizeOfExpectedList = expectedPlayerList.size();
+		
+		ArrayList<Player> actualPlayerList = gameObject.getAllPlayers(); // actual
+		int getSizeOfActualList = actualPlayerList.size();
+		
+		assertEquals(getSizeOfExpectedList,getSizeOfActualList);
+		
+		
+		// check for the army size count
+		int expectedArmyCountSize[] = new int[getSizeOfExpectedList];
+		int actualArmyCountSize[] = new int[getSizeOfActualList];
+		
+		int i = 0;
+		for(Player expectedList : expectedPlayerList) {
+			expectedArmyCountSize[i] = expectedList.getNumberOfReinforcedArmies();
+			i++;
+		}
+		
+		i = 0;
+		for(Player actualList : actualPlayerList) {
+			actualArmyCountSize[i] = actualList.getNumberOfReinforcedArmies();
+			i++;
+		}
+		
+		for (i=0;i<actualArmyCountSize.length;i++) {
+			assertEquals(expectedArmyCountSize[i],actualArmyCountSize[i]);
+		}
+	}
+	
+	/**
+	 * Tournament test.
+>>>>>>> branch 'master' of https://naren_csp@bitbucket.org/gargisharma5292/soen_6441_riskgame.git
+	 */
+	@Test
+	public void tournamentTest() {
+
+		  tournamentMapModel =new MapModel();
+		  tournamentMapModel.readMapFile(PrintConsoleAndUserInput.getMapDir()+"Africa.map"); 
+		  tournamentGame = new Game(tournamentMapModel);
+		  tournamentGame.setGameMode(GameMode.TournamentMode);
+		  tourPlayer1 = new Player(0,"Benevolent");
+		  tourPlayer2 = new Player(1,"Aggressive");
+		  tourPlayer3 = new Player(2,"Cheater");
+		  tourPlayer4 = new Player(3,"Random");
+		  tourPlayer1.setPlayerStrategy(new Benevolent());
+		  tourPlayer2.setPlayerStrategy(new Aggressive());
+		  tourPlayer3.setPlayerStrategy(new Cheater());
+		  tourPlayer4.setPlayerStrategy(new Random());
+		  tournamentGame.addPlayer(tourPlayer1); 
+		  tournamentGame.addPlayer(tourPlayer2);
+		  tournamentGame.addPlayer(tourPlayer3);
+		  tournamentGame.addPlayer(tourPlayer4);
+		  tournamentGame.setMaxTurnsForTournament(30);
+		  tournamentGame.startGame();
+		  tournamentGame.tournamentMode();
+		  if(tournamentGame.isMapConcured()) {
+			  System.out.println(tournamentGame.getCurrentPlayer());
+			  System.out.println(tournamentGame.getWinner());
+			  assertEquals(tournamentGame.getCurrentPlayer(), tournamentGame.getWinner());
+		  }else {
+			  assertEquals(GamePhase.Draw, tournamentGame.getGamePhase());
+		  }
 	}
 	
 	
